@@ -1660,12 +1660,6 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-Object.defineProperty(exports, 'ThemeProvider', {
-  enumerable: true,
-  get: function () {
-    return core.ThemeProvider;
-  }
-});
 exports.Accordion = Accordion;
 exports.Account = Account;
 exports.AppBar = AppBar;
