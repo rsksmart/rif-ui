@@ -1,10 +1,22 @@
-import * as React from 'react'
-import styles from './styles.module.css'
+import { shortenAddress } from './utils';
 
-interface Props {
-  text: string
-}
+// CSS files
+import './assets/css/fonts/rubik.css';
 
-export const ExampleComponent = ({ text }: Props) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+// Components
+export * from './components/index';
+
+// Images
+export * from './assets/images';
+
+// Providers
+export * from './providers/index';
+
+// Services
+export * from './services/index';
+
+// Theme
+export * from './theme/index';
+
+// Utils
+export { shortenAddress };
