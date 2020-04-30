@@ -147,7 +147,29 @@ var LoginOption = function LoginOption(_ref) {
   }, rest), text);
 };
 
-var logo_white_full = require("./logo_white_full~lLumzPXG.svg");
+var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
+
+var headerTail = require("./headerTail~boZpqayA.svg");
+
+var tickWide = require("./tickWide~bmvsBAER.svg");
+
+var rifCom = require("./rifCom~udwpaCym.png");
+
+var rifDir = require("./rifDir~bottaDNJ.png");
+
+var rifGat = require("./rifGat~balFpEzC.png");
+
+var rifMar = require("./rifMar~IDqKMWpK.png");
+
+var rifPay = require("./rifPay~bdtOAceT.png");
+
+var rifSto = require("./rifSto~fMRetflo.png");
+
+var logoFooter = require("./logoFooter~GLlQXibo.png");
+
+var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
+
+var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
 var Logo = React__default.forwardRef(function LogoFooter(props, ref) {
   var _props$alt = props.alt,
@@ -155,7 +177,7 @@ var Logo = React__default.forwardRef(function LogoFooter(props, ref) {
       other = _objectWithoutPropertiesLoose(props, ["alt"]);
 
   return React__default.createElement("img", Object.assign({
-    src: logo_white_full,
+    src: logoFullWhite,
     alt: alt,
     ref: ref
   }, other));
@@ -169,7 +191,7 @@ var LogoNavbar = React__default.forwardRef(function LogoFooter(props, ref) {
       other = _objectWithoutPropertiesLoose(props, ["alt", "height"]);
 
   return React__default.createElement("img", Object.assign({
-    src: logo_white_full,
+    src: logoFullWhite,
     alt: alt,
     height: height,
     ref: ref
@@ -1513,22 +1535,6 @@ var Header = function Header(_ref) {
   }))))));
 };
 
-var done_img = require("./done_img~MEdZiDXb.svg");
-
-var rifCom = require("./rifCom~udwpaCym.png");
-
-var rifDir = require("./rifDir~bottaDNJ.png");
-
-var rifGat = require("./rifGat~balFpEzC.png");
-
-var rifMar = require("./rifMar~IDqKMWpK.png");
-
-var rifPay = require("./rifPay~bdtOAceT.png");
-
-var rifSto = require("./rifSto~fMRetflo.png");
-
-var tickWide = require("./tickWide~bmvsBAER.svg");
-
 var defaultState = {
   provider: null,
   web3: null,
@@ -1707,15 +1713,19 @@ exports.UnitsInput = UnitsInput;
 exports.Web3Provider = Web3Provider$1;
 exports.Web3Store = Web3Store;
 exports.colors = colors;
-exports.doneImg = done_img;
+exports.doneThumbsUpImg = doneThumbsUp;
 exports.fonts = fonts;
 exports.getWeb3 = getWeb3;
+exports.headerTailImg = headerTail;
+exports.logoFooter = logoFooter;
+exports.logoFullWhite = logoFullWhite;
 exports.rifComImg = rifCom;
 exports.rifDirImg = rifDir;
 exports.rifGatImg = rifGat;
 exports.rifMarImg = rifMar;
 exports.rifPayImg = rifPay;
 exports.rifStoImg = rifSto;
+exports.rskLogo = rskLogo;
 exports.shortenAddress = shortenAddress;
 exports.theme = theme;
 exports.tickWideImg = tickWide;

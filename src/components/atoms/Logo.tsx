@@ -1,16 +1,16 @@
 import React from 'react';
-import logo_white_full from '../../assets/images/logo_white_full.svg';
+import { logoFullWhite } from '../../assets/images';
 
-interface ILogo extends React.Props<HTMLImageElement> {
+interface LogoProps extends React.Props<HTMLImageElement> {
   alt?: string;
   style?: React.CSSProperties;
 }
 
 export default React.forwardRef(function LogoFooter(
-  props: ILogo,
+  props: LogoProps,
   ref?: React.Ref<HTMLImageElement> | null,
 ) {
   const { alt = 'RIF OS', ...other } = props;
 
-  return <img src={logo_white_full} alt={alt} ref={ref} {...other} />;
+  return <img src={logoFullWhite} alt={alt} ref={ref} {...other} />;
 });

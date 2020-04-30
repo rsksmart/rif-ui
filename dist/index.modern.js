@@ -91,7 +91,29 @@ const LoginOption = ({
   }, rest), text);
 };
 
-var logo_white_full = require("./logo_white_full~lLumzPXG.svg");
+var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
+
+var headerTail = require("./headerTail~boZpqayA.svg");
+
+var tickWide = require("./tickWide~bmvsBAER.svg");
+
+var rifCom = require("./rifCom~udwpaCym.png");
+
+var rifDir = require("./rifDir~bottaDNJ.png");
+
+var rifGat = require("./rifGat~balFpEzC.png");
+
+var rifMar = require("./rifMar~IDqKMWpK.png");
+
+var rifPay = require("./rifPay~bdtOAceT.png");
+
+var rifSto = require("./rifSto~fMRetflo.png");
+
+var logoFooter = require("./logoFooter~GLlQXibo.png");
+
+var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
+
+var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
 var Logo = React.forwardRef(function LogoFooter(props, ref) {
   const {
@@ -99,7 +121,7 @@ var Logo = React.forwardRef(function LogoFooter(props, ref) {
     ...other
   } = props;
   return React.createElement("img", Object.assign({
-    src: logo_white_full,
+    src: logoFullWhite,
     alt: alt,
     ref: ref
   }, other));
@@ -112,7 +134,7 @@ var LogoNavbar = React.forwardRef(function LogoFooter(props, ref) {
     ...other
   } = props;
   return React.createElement("img", Object.assign({
-    src: logo_white_full,
+    src: logoFullWhite,
     alt: alt,
     height: height,
     ref: ref
@@ -1166,22 +1188,6 @@ const Header = ({
   })))))))));
 };
 
-var done_img = require("./done_img~MEdZiDXb.svg");
-
-var rifCom = require("./rifCom~udwpaCym.png");
-
-var rifDir = require("./rifDir~bottaDNJ.png");
-
-var rifGat = require("./rifGat~balFpEzC.png");
-
-var rifMar = require("./rifMar~IDqKMWpK.png");
-
-var rifPay = require("./rifPay~bdtOAceT.png");
-
-var rifSto = require("./rifSto~fMRetflo.png");
-
-var tickWide = require("./tickWide~bmvsBAER.svg");
-
 const defaultState = {
   provider: null,
   web3: null,
@@ -1290,5 +1296,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, FormControl, FormGroup, Grid, Header, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, done_img as doneImg, fonts, getWeb3, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, shortenAddress, theme, tickWide as tickWideImg };
+export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, FormControl, FormGroup, Grid, Header, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, getWeb3, headerTail as headerTailImg, logoFooter, logoFullWhite, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map
