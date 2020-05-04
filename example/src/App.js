@@ -11,6 +11,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import {
   Button,
   Header,
+  RangeSliderWithInputs,
   theme,
   Typography
 } from '@rsksmart/rif-ui';
@@ -46,11 +47,19 @@ const App = () => {
     }
   ];
   const Login = () => <div>Login</div>;
+  const rangeSliderValues = {
+    start: 0,
+    end: 100
+  };
+  const handleChange = ({ min, max }) => {
+    return console.log(`min: ${min}; max: ${max}`);
+  }
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Header hreflogo='/' items={headerItems} login={Login} />
+        <RangeSliderWithInputs handleChange={handleChange} minValue={-10} maxValue={110} values={rangeSliderValues} />
         <Typography weight='bold' color='primary' variant='h1'>Hello world</Typography>
         <Button variant='contained' color='primary' rounded shadow>First button :)</Button>
       </BrowserRouter>

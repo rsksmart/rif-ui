@@ -43,16 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const UnitsInput: FC<UnitsInputProps> = props => {
-  const {
-    handleOnBlur,
-    handleOnChange,
-    maxValue,
-    minValue,
-    units,
-    value,
-    step = 1
-  } = props;
+const UnitsInput: FC<UnitsInputProps> = ({ handleOnBlur, handleOnChange, maxValue, minValue, units, value, step = 1 }) => {
 
   const classes = useStyles();
   return (
@@ -65,10 +56,10 @@ const UnitsInput: FC<UnitsInputProps> = props => {
             value={value}
             onChange={handleOnChange}
             onBlur={handleOnBlur}
+            minValue={minValue}
+            maxValue={maxValue}
             inputProps={{
               step: step,
-              min: minValue,
-              max: maxValue,
               'aria-labelledby': 'input-slider',
             }}
           />

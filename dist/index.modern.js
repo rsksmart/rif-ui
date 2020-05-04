@@ -250,10 +250,17 @@ const FormGroup = ({
 };
 
 const Input = ({
+  maxValue,
+  minValue,
   children,
   ...rest
 }) => {
-  return React.createElement(Input$1, Object.assign({}, rest), children);
+  return React.createElement(Input$1, Object.assign({
+    inputProps: { ...rest.inputProps,
+      min: minValue,
+      max: maxValue
+    }
+  }, rest));
 };
 
 const InputAdornment = ({
@@ -785,16 +792,15 @@ const useStyles$f = makeStyles(theme => ({
   }
 }));
 
-const UnitsInput = props => {
-  const {
-    handleOnBlur,
-    handleOnChange,
-    maxValue,
-    minValue,
-    units,
-    value,
-    step = 1
-  } = props;
+const UnitsInput = ({
+  handleOnBlur,
+  handleOnChange,
+  maxValue,
+  minValue,
+  units,
+  value,
+  step: _step = 1
+}) => {
   const classes = useStyles$f();
   return React.createElement(React.Fragment, null, React.createElement(Grid, {
     className: classes.root,
@@ -812,10 +818,10 @@ const UnitsInput = props => {
     value: value,
     onChange: handleOnChange,
     onBlur: handleOnBlur,
+    minValue: minValue,
+    maxValue: maxValue,
     inputProps: {
-      step: step,
-      min: minValue,
-      max: maxValue,
+      step: _step,
       'aria-labelledby': 'input-slider'
     }
   })), React.createElement(Grid, {
@@ -846,6 +852,8 @@ const useStyles$g = makeStyles(() => ({
 }));
 
 const RangeSliderWithInputs = ({
+  maxValue,
+  minValue,
   values,
   unit,
   handleChange,
@@ -853,9 +861,6 @@ const RangeSliderWithInputs = ({
   ...rest
 }) => {
   const classes = useStyles$g();
-  const maxValue = rest.max || values.end;
-  const minValue = rest.min || values.start;
-  const step = rest.step || 1;
   const [startValue, setStartValue] = useState(values.start);
   const [endValue, setEndValue] = useState(values.end);
   const [sliderRangeValues, setSliderRangeValues] = useState([startValue, endValue]);
@@ -914,18 +919,17 @@ const RangeSliderWithInputs = ({
     }
   };
 
-  const getCommonInputValues = () => {
-    return {
-      maxValue: maxValue,
-      minValue: minValue,
-      step: step,
-      units: unit
-    };
-  };
+  const getCommonInputValues = () => ({
+    maxValue: maxValue,
+    minValue: minValue,
+    units: unit
+  });
 
   return React.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React.createElement(RangeSlider, Object.assign({
+    max: maxValue,
+    min: minValue,
     value: sliderRangeValues
   }, rest, {
     handleChange: handleSliderChange

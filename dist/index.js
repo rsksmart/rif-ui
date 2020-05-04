@@ -310,10 +310,16 @@ var FormGroup = function FormGroup(_ref) {
 };
 
 var Input = function Input(_ref) {
-  var children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+  var maxValue = _ref.maxValue,
+      minValue = _ref.minValue,
+      rest = _objectWithoutPropertiesLoose(_ref, ["maxValue", "minValue", "children"]);
 
-  return React__default.createElement(core.Input, Object.assign({}, rest), children);
+  return React__default.createElement(core.Input, Object.assign({
+    inputProps: _extends({}, rest.inputProps, {
+      min: minValue,
+      max: maxValue
+    })
+  }, rest));
 };
 
 var InputAdornment = function InputAdornment(_ref) {
@@ -1112,15 +1118,15 @@ var useStyles$f = styles.makeStyles(function (theme) {
   };
 });
 
-var UnitsInput = function UnitsInput(props) {
-  var handleOnBlur = props.handleOnBlur,
-      handleOnChange = props.handleOnChange,
-      maxValue = props.maxValue,
-      minValue = props.minValue,
-      units = props.units,
-      value = props.value,
-      _props$step = props.step,
-      step = _props$step === void 0 ? 1 : _props$step;
+var UnitsInput = function UnitsInput(_ref) {
+  var handleOnBlur = _ref.handleOnBlur,
+      handleOnChange = _ref.handleOnChange,
+      maxValue = _ref.maxValue,
+      minValue = _ref.minValue,
+      units = _ref.units,
+      value = _ref.value,
+      _ref$step = _ref.step,
+      step = _ref$step === void 0 ? 1 : _ref$step;
   var classes = useStyles$f();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
     className: classes.root,
@@ -1138,10 +1144,10 @@ var UnitsInput = function UnitsInput(props) {
     value: value,
     onChange: handleOnChange,
     onBlur: handleOnBlur,
+    minValue: minValue,
+    maxValue: maxValue,
     inputProps: {
       step: step,
-      min: minValue,
-      max: maxValue,
       'aria-labelledby': 'input-slider'
     }
   })), React__default.createElement(Grid, {
@@ -1174,16 +1180,15 @@ var useStyles$g = styles.makeStyles(function () {
 });
 
 var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
-  var values = _ref.values,
+  var maxValue = _ref.maxValue,
+      minValue = _ref.minValue,
+      values = _ref.values,
       unit = _ref.unit,
       handleChange = _ref.handleChange,
       className = _ref.className,
-      rest = _objectWithoutPropertiesLoose(_ref, ["values", "unit", "handleChange", "className"]);
+      rest = _objectWithoutPropertiesLoose(_ref, ["maxValue", "minValue", "values", "unit", "handleChange", "className"]);
 
   var classes = useStyles$g();
-  var maxValue = rest.max || values.end;
-  var minValue = rest.min || values.start;
-  var step = rest.step || 1;
 
   var _useState = React.useState(values.start),
       startValue = _useState[0],
@@ -1255,7 +1260,6 @@ var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
     return {
       maxValue: maxValue,
       minValue: minValue,
-      step: step,
       units: unit
     };
   };
@@ -1263,6 +1267,8 @@ var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, React__default.createElement(RangeSlider, Object.assign({
+    max: maxValue,
+    min: minValue,
     value: sliderRangeValues
   }, rest, {
     handleChange: handleSliderChange

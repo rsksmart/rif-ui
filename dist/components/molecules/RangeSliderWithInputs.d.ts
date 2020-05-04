@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { SliderProps as MUISliderProps } from '@material-ui/core/Slider';
 export interface RangeSliderWithInputsProps extends MUISliderProps {
+    maxValue: number;
+    minValue: number;
     values: {
         start: number;
         end: number;

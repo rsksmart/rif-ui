@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { SliderProps as MUISliderProps } from '@material-ui/core/Slider';
-import { RangeSlider, Typography  } from '../atoms';
+import { RangeSlider, Typography } from '../atoms';
 import UnitsInput from './UnitsInput';
 
 export interface RangeSliderWithInputsProps extends MUISliderProps {
+  maxValue: number;
+  minValue: number;
   values: {
     start: number,
     end: number
@@ -34,12 +36,8 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({ values, unit, handleChange, className, ...rest }) => {
+const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({ maxValue, minValue, values, unit, handleChange, className, ...rest }) => {
   const classes = useStyles();
-
-  const maxValue = rest.max || values.end;
-  const minValue = rest.min || values.start;
-  const step = rest.step || 1;
 
   const [startValue, setStartValue] = useState<number>(values.start);
   const [endValue, setEndValue] = useState<number>(values.end);
@@ -86,18 +84,15 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({ values, unit, h
     }
   };
 
-  const getCommonInputValues = () => {
-    return {
-      maxValue: maxValue,
-      minValue: minValue,
-      step: step,
-      units: unit,
-    }
-  }
+  const getCommonInputValues = () => ({
+    maxValue: maxValue,
+    minValue: minValue,
+    units: unit,
+  });
 
   return (
     <div className={`${classes.root} ${className}`.trim()}>
-      <RangeSlider value={sliderRangeValues} {...rest} handleChange={handleSliderChange} />
+      <RangeSlider max={maxValue} min={minValue} value={sliderRangeValues} {...rest} handleChange={handleSliderChange} />
       <div className={classes.inputsContainer}>
         <UnitsInput
           handleOnBlur={handleStartValueBlur}
