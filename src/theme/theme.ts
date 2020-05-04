@@ -21,7 +21,9 @@ export const fonts = {
         tiny: 10,
         small: 12,
         normal: 14,
-        medium: 16
+        medium: 16,
+        subtitleSmall: 18,
+        subtitleBig: 22
     },
     weight: {
         normal: 300,

@@ -1,5 +1,6 @@
 import CircularProgress from './CircularProgress';
 import Grid from './Grid';
+import HeaderTongue from './HeaderTongue';
 import Link from './Link';
 import LoginOption from './LoginOption';
 import Logo from './Logo';
@@ -14,6 +15,7 @@ export * from './typography';
 export {
     CircularProgress,
     Grid,
+    HeaderTongue,
     Link,
     LoginOption,
     Logo,

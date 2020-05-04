@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: drawerWidth,
     },
     mobileAppBar: {
+      boxShadow: 'none',
+      // this height need to be equal to the marginTop of the HeaderTongue component
+      height: theme.spacing(8),
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -120,7 +123,7 @@ const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => {
   };
 
   return (
-    <React.Fragment>
+    <header>
       <Hidden smDown>
         <RUIAppBar hreflogo={hreflogo} items={items} login={login} />
       </Hidden>
@@ -129,9 +132,9 @@ const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => {
           role="presentation"
           onKeyDown={toggleDrawer(false)}>
           <AppBar
-            position="static"
+            position="fixed"
             className={
-              `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`
+              `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
             }
           >
             <Toolbar>
@@ -184,7 +187,7 @@ const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => {
           </Drawer>
         </div>
       </Hidden>
-    </React.Fragment>
+    </header>
   );
 }
 

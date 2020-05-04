@@ -1,10 +1,12 @@
 import doneThumbsUpImg from './doneThumbsUp.svg';
-import headerTailImg from './headerTail.svg';
+import footerTongueImg from './footerTongue.svg';
+import headerTongueImg from './headerTongue.svg';
 import tickWideImg from './tickWide.svg';
 
 export {
   doneThumbsUpImg,
-  headerTailImg,
+  footerTongueImg,
+  headerTongueImg,
   tickWideImg
 }
 

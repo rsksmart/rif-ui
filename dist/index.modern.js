@@ -1,6 +1,6 @@
 import React, { useState, createContext, Component } from 'react';
-import { CircularProgress as CircularProgress$1, Grid as Grid$1, Link as Link$1, Button as Button$1, makeStyles as makeStyles$1, Card as Card$1, CardActions as CardActions$1, CardContent as CardContent$1, CardHeader as CardHeader$1, createStyles, Checkbox as Checkbox$1, FormControl as FormControl$1, FormGroup as FormGroup$1, Input as Input$1, InputAdornment as InputAdornment$1, InputLabel as InputLabel$1, Switch as Switch$1, TextField as TextField$1, MenuItem as MenuItem$1, Select as Select$1, Modal as Modal$1, Typography as Typography$1, Table as Table$1, TableBody as TableBody$1, TableCell as TableCell$1, TableHead as TableHead$1, TableRow as TableRow$1, AppBar as AppBar$1, FormControlLabel as FormControlLabel$1, List as List$1, Tabs, Tab } from '@material-ui/core';
-import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
+import { CircularProgress as CircularProgress$1, Grid as Grid$1, Typography as Typography$1, Link as Link$1, Button as Button$1, makeStyles as makeStyles$1, Card as Card$1, CardActions as CardActions$1, CardContent as CardContent$1, CardHeader as CardHeader$1, createStyles, Checkbox as Checkbox$1, FormControl as FormControl$1, FormGroup as FormGroup$1, Input as Input$1, InputAdornment as InputAdornment$1, InputLabel as InputLabel$1, Switch as Switch$1, TextField as TextField$1, MenuItem as MenuItem$1, Select as Select$1, Modal as Modal$1, Table as Table$1, TableBody as TableBody$1, TableCell as TableCell$1, TableHead as TableHead$1, TableRow as TableRow$1, AppBar as AppBar$1, FormControlLabel as FormControlLabel$1, List as List$1, Tabs, Tab } from '@material-ui/core';
+import { createMuiTheme, makeStyles, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -34,11 +34,185 @@ const Grid = ({
   return React.createElement(Grid$1, Object.assign({}, rest), children);
 };
 
+const colors = {
+  black: '#000000',
+  primary: '#008FF7',
+  darkBlue: '#197DC6',
+  gray1: '#F8F7F7',
+  gray2: '#E5E5E5',
+  gray3: '#C4C4C4',
+  gray4: '#919191',
+  gray5: '#4D4C4C',
+  gray6: '#15171B',
+  transparent: '#FFFFFF00',
+  white: '#FFFFFF'
+};
+const fonts = {
+  family: 'Rubik',
+  size: {
+    tiny: 10,
+    small: 12,
+    normal: 14,
+    medium: 16,
+    subtitleSmall: 18,
+    subtitleBig: 22
+  },
+  weight: {
+    normal: 300,
+    lightBold: 500,
+    bold: 700,
+    superBold: 900
+  }
+};
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: colors.primary
+    },
+    secondary: {
+      main: colors.gray4
+    }
+  },
+  typography: {
+    fontFamily: fonts.family,
+    button: {
+      textTransform: 'none'
+    },
+    fontWeightRegular: fonts.weight.normal
+  },
+  props: {},
+  overrides: {
+    MuiButton: {
+      root: {
+        fontWeight: fonts.weight.normal
+      }
+    }
+  }
+});
+
+const useStyles = makeStyles(theme => ({
+  normal: {
+    fontWeight: fonts.weight.normal
+  },
+  lightBold: {
+    fontWeight: fonts.weight.lightBold
+  },
+  bold: {
+    fontWeight: fonts.weight.bold
+  },
+  superBold: {
+    fontWeight: fonts.weight.superBold
+  }
+}));
+
+const Typography = ({
+  weight: _weight = 'normal',
+  className: _className = '',
+  children,
+  ...rest
+}) => {
+  const classes = useStyles();
+  return React.createElement(Typography$1, Object.assign({
+    className: `${classes[_weight]} ${_className}`.trim()
+  }, rest), children);
+};
+
+var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
+
+var footerTongueImg = require("./footerTongue~wXaQMqEM.svg");
+
+var headerTongueImg = require("./headerTongue~boZpqayA.svg");
+
+var tickWide = require("./tickWide~bmvsBAER.svg");
+
+var rifCom = require("./rifCom~udwpaCym.png");
+
+var rifDir = require("./rifDir~bottaDNJ.png");
+
+var rifGat = require("./rifGat~balFpEzC.png");
+
+var rifMar = require("./rifMar~IDqKMWpK.png");
+
+var rifPay = require("./rifPay~bdtOAceT.png");
+
+var rifSto = require("./rifSto~fMRetflo.png");
+
+var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
+
+var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
+
+var rskLogo = require("./rskLogo~bdMEZSPk.svg");
+
+const useStyles$1 = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(8)
+  },
+  textContainer: {
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(2, 0, 2, 0),
+    width: '100%'
+  },
+  textContent: {
+    color: colors.white,
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '90%'
+    },
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '70%'
+    }
+  },
+  tongueImgContainer: {
+    overflow: 'hidden'
+  },
+  tongueImg: {
+    marginLeft: theme.spacing(-1),
+    [theme.breakpoints.down('sm')]: {
+      width: '108%'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '102%'
+    },
+    [theme.breakpoints.up('lg')]: {
+      marginLeft: theme.spacing(-2)
+    }
+  }
+}));
+
+const HeaderTongue = ({
+  description,
+  title
+}) => {
+  const classes = useStyles$1();
+  return React.createElement("div", {
+    className: classes.root
+  }, React.createElement("div", {
+    className: classes.textContainer
+  }, React.createElement("div", {
+    className: classes.textContent
+  }, React.createElement(Typography, {
+    variant: 'h3'
+  }, title), React.createElement(Typography, {
+    variant: 'subtitle1'
+  }, description))), React.createElement("div", {
+    className: classes.tongueImgContainer
+  }, React.createElement("img", {
+    className: classes.tongueImg,
+    src: headerTongueImg,
+    alt: "headerTongueImg"
+  })));
+};
+
 const Link = props => {
   return React.createElement(Link$1, Object.assign({}, props));
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles$2 = makeStyles(theme => ({
   block: {
     width: '100%'
   },
@@ -58,7 +232,7 @@ const Button = ({
   children,
   ...rest
 }) => {
-  const classes = useStyles();
+  const classes = useStyles$2();
   return React.createElement(Button$1, Object.assign({
     className: `${rounded ? classes.rounded : ''}
         ${shadow ? '' : classes.noShadow}
@@ -66,7 +240,7 @@ const Button = ({
   }, rest), children);
 };
 
-const useStyles$1 = makeStyles$1(() => ({
+const useStyles$3 = makeStyles$1(() => ({
   root: {
     padding: 5,
     margin: 5,
@@ -80,7 +254,7 @@ const LoginOption = ({
   text,
   ...rest
 }) => {
-  const classes = useStyles$1();
+  const classes = useStyles$3();
   return React.createElement(Button, Object.assign({
     className: `${classes.root} ${_className}`,
     block: true,
@@ -90,30 +264,6 @@ const LoginOption = ({
     onClick: onClick
   }, rest), text);
 };
-
-var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
-
-var headerTail = require("./headerTail~boZpqayA.svg");
-
-var tickWide = require("./tickWide~bmvsBAER.svg");
-
-var rifCom = require("./rifCom~udwpaCym.png");
-
-var rifDir = require("./rifDir~bottaDNJ.png");
-
-var rifGat = require("./rifGat~balFpEzC.png");
-
-var rifMar = require("./rifMar~IDqKMWpK.png");
-
-var rifPay = require("./rifPay~bdtOAceT.png");
-
-var rifSto = require("./rifSto~fMRetflo.png");
-
-var logoFooter = require("./logoFooter~GLlQXibo.png");
-
-var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
-
-var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
 var Logo = React.forwardRef(function LogoFooter(props, ref) {
   const {
@@ -169,61 +319,7 @@ const CardHeader = ({
   return React.createElement(CardHeader$1, Object.assign({}, rest), children);
 };
 
-const colors = {
-  black: '#000000',
-  primary: '#008FF7',
-  darkBlue: '#197DC6',
-  gray1: '#F8F7F7',
-  gray2: '#E5E5E5',
-  gray3: '#C4C4C4',
-  gray4: '#919191',
-  gray5: '#4D4C4C',
-  gray6: '#15171B',
-  transparent: '#FFFFFF00',
-  white: '#FFFFFF'
-};
-const fonts = {
-  family: 'Rubik',
-  size: {
-    tiny: 10,
-    small: 12,
-    normal: 14,
-    medium: 16
-  },
-  weight: {
-    normal: 300,
-    lightBold: 500,
-    bold: 700,
-    superBold: 900
-  }
-};
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: colors.primary
-    },
-    secondary: {
-      main: colors.gray4
-    }
-  },
-  typography: {
-    fontFamily: fonts.family,
-    button: {
-      textTransform: 'none'
-    },
-    fontWeightRegular: fonts.weight.normal
-  },
-  props: {},
-  overrides: {
-    MuiButton: {
-      root: {
-        fontWeight: fonts.weight.normal
-      }
-    }
-  }
-});
-
-const useStyles$2 = makeStyles$1(() => createStyles({
+const useStyles$4 = makeStyles$1(() => createStyles({
   unCheckedIcon: {
     color: colors.gray4
   },
@@ -233,7 +329,7 @@ const useStyles$2 = makeStyles$1(() => createStyles({
 }));
 
 const Checkbox = props => {
-  const classes = useStyles$2();
+  const classes = useStyles$4();
   const [isChecked, setIsChecked] = useState(!!props.checked);
 
   const handleChange = (event, checked) => {
@@ -292,7 +388,7 @@ const InputLabel = ({
   return React.createElement(InputLabel$1, Object.assign({}, rest), children);
 };
 
-const useStyles$3 = makeStyles(() => createStyles$1({
+const useStyles$5 = makeStyles(() => createStyles$1({
   root: {
     width: "100%",
     color: colors.primary,
@@ -317,7 +413,7 @@ const RangeSlider = ({
   handleChange,
   ...rest
 }) => {
-  const classes = useStyles$3();
+  const classes = useStyles$5();
 
   const onChange = (event, newValue) => {
     handleChange(event, newValue);
@@ -334,7 +430,7 @@ const Switch = ({ ...rest
   return React.createElement(Switch$1, Object.assign({}, rest));
 };
 
-const useStyles$4 = makeStyles$1(() => ({
+const useStyles$6 = makeStyles$1(() => ({
   root: {
     color: colors.gray3,
     '&:hover': {
@@ -347,7 +443,7 @@ const TextField = ({
   className: _className = '',
   ...rest
 }) => {
-  const classes = useStyles$4();
+  const classes = useStyles$6();
   return React.createElement(TextField$1, Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, rest));
@@ -363,7 +459,7 @@ const Select = ({ ...rest
   return React.createElement(Select$1, Object.assign({}, rest));
 };
 
-const useStyles$5 = makeStyles(theme => ({
+const useStyles$7 = makeStyles(theme => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: `2px solid ${colors.primary}`,
@@ -381,13 +477,13 @@ const Modal = ({
   children,
   ...rest
 }) => {
-  const classes = useStyles$5();
+  const classes = useStyles$7();
   return React.createElement(Modal$1, Object.assign({}, rest), React.createElement("div", {
     className: classes.paper
   }, children));
 };
 
-const useStyles$6 = makeStyles(theme => ({
+const useStyles$8 = makeStyles(theme => ({
   root: {
     borderBottom: `1px solid ${colors.gray2}`,
     color: colors.primary,
@@ -402,37 +498,10 @@ const ModalHeader = ({
   className: _className = '',
   ...rest
 }) => {
-  const classes = useStyles$6();
+  const classes = useStyles$8();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, children);
-};
-
-const useStyles$7 = makeStyles(theme => ({
-  normal: {
-    fontWeight: fonts.weight.normal
-  },
-  lightBold: {
-    fontWeight: fonts.weight.lightBold
-  },
-  bold: {
-    fontWeight: fonts.weight.bold
-  },
-  superBold: {
-    fontWeight: fonts.weight.superBold
-  }
-}));
-
-const Typography = ({
-  weight: _weight = 'normal',
-  className: _className = '',
-  children,
-  ...rest
-}) => {
-  const classes = useStyles$7();
-  return React.createElement(Typography$1, Object.assign({
-    className: `${classes[_weight]} ${_className}`.trim()
-  }, rest), children);
 };
 
 const ModalTitle = ({
@@ -444,7 +513,7 @@ const ModalTitle = ({
   }, rest), children);
 };
 
-const useStyles$8 = makeStyles(theme => ({
+const useStyles$9 = makeStyles(theme => ({
   root: {
     borderTop: `1px solid ${colors.gray2}`,
     display: 'flex',
@@ -459,13 +528,13 @@ const ModalFooter = ({
   className: _className = '',
   ...rest
 }) => {
-  const classes = useStyles$8();
+  const classes = useStyles$9();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
-const useStyles$9 = makeStyles(theme => ({
+const useStyles$a = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 0),
     width: '100%'
@@ -477,7 +546,7 @@ const ModalBody = ({
   className: _className = '',
   ...rest
 }) => {
-  const classes = useStyles$9();
+  const classes = useStyles$a();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, children);
@@ -508,7 +577,7 @@ const TableRow = ({
   ...rest
 }) => React.createElement(TableRow$1, Object.assign({}, rest), children);
 
-const useStyles$a = makeStyles(theme => createStyles$1({
+const useStyles$b = makeStyles(theme => createStyles$1({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -532,7 +601,7 @@ const Accordion = ({
   title,
   ...rest
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$b();
   const [isExpanded, setIsExpanded] = useState(!!expanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -597,7 +666,7 @@ function getWeb3(provider = EProvider.METAMASK) {
   });
 }
 
-const useStyles$b = makeStyles(theme => ({
+const useStyles$c = makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -625,7 +694,7 @@ const Account = ({
   setProvider,
   providers
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$c();
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
@@ -657,7 +726,7 @@ const Account = ({
   }, "Close")))));
 };
 
-const useStyles$c = makeStyles(theme => ({
+const useStyles$d = makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.lightBold
@@ -684,18 +753,24 @@ const useStyles$c = makeStyles(theme => ({
   },
   navLinkContainer: {
     display: 'flex'
+  },
+  root: {
+    boxShadow: 'none',
+    height: theme.spacing(8)
   }
 }));
 
 const AppBar = ({
+  className: _className = '',
   items,
   login,
   ...rest
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$d();
   const Login = login;
   return React.createElement(AppBar$1, Object.assign({
-    position: 'static'
+    position: 'fixed',
+    className: `${classes.root} ${_className}`.trim()
   }, rest), React.createElement(Toolbar, null, React.createElement(Link, {
     href: rest.hreflogo
   }, React.createElement(LogoNavbar, null)), React.createElement("div", {
@@ -711,7 +786,7 @@ const AppBar = ({
   }, React.createElement(Login, null))));
 };
 
-const useStyles$d = makeStyles$1(() => createStyles({
+const useStyles$e = makeStyles$1(() => createStyles({
   root: {
     color: colors.gray3
   }
@@ -721,13 +796,13 @@ const FormControlLabel = ({
   className: _className = '',
   ...rest
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$e();
   return React.createElement(FormControlLabel$1, Object.assign({
     className: `${classes.root} ${_className} `.trim()
   }, rest));
 };
 
-const useStyles$e = makeStyles$1(theme => ({
+const useStyles$f = makeStyles$1(theme => ({
   root: {
     color: colors.gray4,
     width: "100%"
@@ -739,7 +814,7 @@ const LabeledCheckbox = ({
   labelClassName: _labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$e();
+  const classes = useStyles$f();
   return React.createElement(FormControlLabel, {
     className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
@@ -761,6 +836,44 @@ const FilterCheckboxCard = ({
   }, item))));
 };
 
+const useStyles$g = makeStyles(theme => ({
+  root: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  footerLink: {
+    color: colors.gray4,
+    fontWeight: fonts.weight.normal,
+    textDecoration: 'none',
+    '&:hover': {
+      fontWeight: fonts.weight.lightBold
+    }
+  }
+}));
+
+const FooterColumn = ({
+  title,
+  links,
+  className: _className = ''
+}) => {
+  const classes = useStyles$g();
+  return React.createElement("div", {
+    className: `${classes.root} ${_className}`.trim()
+  }, React.createElement(Typography, {
+    style: {
+      fontSize: fonts.size.subtitleBig
+    },
+    variant: 'subtitle1',
+    color: 'primary'
+  }, title), links.map((link, i) => React.createElement(NavLink, {
+    className: classes.footerLink,
+    color: 'secondary',
+    key: i,
+    to: link.to
+  }, link.title)));
+};
+
 const List = ({
   children,
   ...rest
@@ -777,7 +890,7 @@ const ModalDialogue = ({
   return React.createElement(Modal, Object.assign({}, props), React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, title)), React.createElement(ModalBody, null, children), React.createElement(ModalFooter, null, footer)));
 };
 
-const useStyles$f = makeStyles(theme => ({
+const useStyles$h = makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -817,7 +930,7 @@ const UnitsInput = props => {
     value,
     step = 1
   } = props;
-  const classes = useStyles$f();
+  const classes = useStyles$h();
   return React.createElement(React.Fragment, null, React.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -849,7 +962,7 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$g = makeStyles(() => ({
+const useStyles$i = makeStyles(() => ({
   root: {
     width: "100%"
   },
@@ -874,7 +987,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$i();
   const maxValue = rest.max || values.end;
   const minValue = rest.min || values.start;
   const step = rest.step || 1;
@@ -976,7 +1089,7 @@ const a11yProps = index => {
   };
 };
 
-const useStyles$h = makeStyles(theme => ({
+const useStyles$j = makeStyles(theme => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1024,7 +1137,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$j();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1056,8 +1169,82 @@ const SwitchTabs = ({
   }))));
 };
 
+const useStyles$k = makeStyles(theme => ({
+  copyright: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  copyrightContent: {
+    color: colors.gray4,
+    fontSize: fonts.size.tiny
+  },
+  footerContent: {
+    marginTop: theme.spacing(2),
+    maxWidth: '80%',
+    width: '100%'
+  },
+  linksColumn: {
+    marginBottom: theme.spacing(1)
+  },
+  logoColumn: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(5)
+  },
+  img: {
+    height: '75px',
+    width: '100%'
+  },
+  root: {
+    backgroundImage: `url(${footerTongueImg})`,
+    backgroundPositionX: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(12, 0, 8, 0),
+    width: '100%'
+  }
+}));
+
+const Footer = ({
+  copyrightText,
+  linksColumns
+}) => {
+  const classes = useStyles$k();
+  return React.createElement("footer", {
+    className: classes.root
+  }, React.createElement("div", {
+    className: classes.footerContent
+  }, React.createElement(Grid, {
+    container: true,
+    direction: 'row'
+  }, React.createElement(Grid, {
+    className: classes.logoColumn,
+    item: true,
+    xs: 12,
+    md: 12,
+    lg: 3
+  }, React.createElement("img", {
+    src: logoBlackAndBlue,
+    height: '75px',
+    alt: "logo"
+  })), linksColumns.map((linkColumn, i) => React.createElement(Grid, {
+    item: true,
+    xs: 12,
+    md: 12,
+    lg: 2
+  }, React.createElement(FooterColumn, Object.assign({
+    className: classes.linksColumn
+  }, linkColumn))))), React.createElement("div", {
+    className: classes.copyright
+  }, React.createElement(Typography, {
+    className: classes.copyrightContent
+  }, copyrightText))));
+};
+
 const drawerWidth = 240;
-const useStyles$i = makeStyles(theme => createStyles$1({
+const useStyles$l = makeStyles(theme => createStyles$1({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.bold
@@ -1096,6 +1283,8 @@ const useStyles$i = makeStyles(theme => createStyles$1({
     width: drawerWidth
   },
   mobileAppBar: {
+    boxShadow: 'none',
+    height: theme.spacing(8),
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -1130,7 +1319,7 @@ const Header = ({
   items,
   login
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$l();
   const [open, setOpen] = useState(false);
   const Login = login;
 
@@ -1142,7 +1331,7 @@ const Header = ({
     setOpen(isOpen);
   };
 
-  return React.createElement(React.Fragment, null, React.createElement(Hidden, {
+  return React.createElement("header", null, React.createElement(Hidden, {
     smDown: true
   }, React.createElement(AppBar, {
     hreflogo: hreflogo,
@@ -1154,8 +1343,8 @@ const Header = ({
     role: "presentation",
     onKeyDown: toggleDrawer(false)
   }, React.createElement(AppBar$2, {
-    position: "static",
-    className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`
+    position: "fixed",
+    className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
   }, React.createElement(Toolbar, null, !open && React.createElement(React.Fragment, null, React.createElement(IconButton, {
     color: "inherit",
     "aria-label": "open drawer",
@@ -1296,5 +1485,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, FormControl, FormGroup, Grid, Header, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, getWeb3, headerTail as headerTailImg, logoFooter, logoFullWhite, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, theme, tickWide as tickWideImg };
+export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map
