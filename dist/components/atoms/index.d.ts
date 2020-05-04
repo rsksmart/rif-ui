@@ -1,5 +1,6 @@
 import CircularProgress from './CircularProgress';
 import Grid from './Grid';
+import HeaderTongue from './HeaderTongue';
 import Link from './Link';
 import LoginOption from './LoginOption';
 import Logo from './Logo';
@@ -10,4 +11,4 @@ export * from './forms';
 export * from './modal';
 export * from './table';
 export * from './typography';
-export { CircularProgress, Grid, Link, LoginOption, Logo, LogoNavbar, };
+export { CircularProgress, Grid, HeaderTongue, Link, LoginOption, Logo, LogoNavbar, };

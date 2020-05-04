@@ -40,15 +40,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   navLinkContainer: {
     display: 'flex'
   },
+  root: {
+    boxShadow: 'none',
+    // this height need to be equal to the marginTop of the HeaderTongue component
+    height: theme.spacing(8),
+  },
 }));
 
-const AppBar: FC<AppBarProps> = ({ items, login, ...rest }) => {
+const AppBar: FC<AppBarProps> = ({ className = '', items, login, ...rest }) => {
 
   const classes = useStyles();
   const Login = login;
 
   return (
-    <MUIAppBar position='static' {...rest}>
+    <MUIAppBar position='fixed' className={`${classes.root} ${className}`.trim()} {...rest}>
       <Toolbar>
         <Link href={rest.hreflogo}>
           <LogoNavbar />

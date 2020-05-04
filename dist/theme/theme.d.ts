@@ -19,6 +19,8 @@ export declare const fonts: {
         small: number;
         normal: number;
         medium: number;
+        subtitleSmall: number;
+        subtitleBig: number;
     };
     weight: {
         normal: number;
