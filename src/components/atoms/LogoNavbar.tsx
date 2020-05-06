@@ -11,7 +11,7 @@ export default React.forwardRef(function LogoFooter(
   props: ILogo,
   ref?: React.Ref<HTMLImageElement> | null,
 ) {
-  const { alt = 'RIF OS', height = '40px', ...other } = props;
+  const { alt = 'RIF OS', height = '44px', ...other } = props;
 
   return <img src={logoFullWhite} alt={alt} height={height} ref={ref} {...other} />;
 });

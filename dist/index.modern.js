@@ -119,11 +119,13 @@ const Typography = ({
 
 var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
 
-var footerTongueImg = require("./footerTongue~wXaQMqEM.svg");
+var footerTongueImg = require("./footerTongue~bbJNSCWG.svg");
 
-var headerTongueImg = require("./headerTongue~boZpqayA.svg");
+var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
 
 var tickWide = require("./tickWide~bmvsBAER.svg");
+
+var nameService = require("./nameService~UWbtQqmT.svg");
 
 var rifCom = require("./rifCom~udwpaCym.png");
 
@@ -137,6 +139,8 @@ var rifPay = require("./rifPay~bdtOAceT.png");
 
 var rifSto = require("./rifSto~fMRetflo.png");
 
+var storage = require("./storage~fCGkZtHN.svg");
+
 var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
 
 var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
@@ -144,9 +148,6 @@ var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
 const useStyles$1 = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(8)
-  },
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -164,48 +165,41 @@ const useStyles$1 = makeStyles(theme => ({
       maxWidth: '90%'
     },
     [theme.breakpoints.up('md')]: {
-      maxWidth: '70%'
+      maxWidth: '65%'
+    },
+    [theme.breakpoints.up('xl')]: {
+      maxWidth: '55%'
     }
   },
-  tongueImgContainer: {
-    overflow: 'hidden'
+  titleContent: {
+    marginBottom: theme.spacing(2)
   },
   tongueImg: {
-    marginLeft: theme.spacing(-1),
-    [theme.breakpoints.down('sm')]: {
-      width: '108%'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '102%'
-    },
-    [theme.breakpoints.up('lg')]: {
-      marginLeft: theme.spacing(-2)
-    }
+    width: '100%'
   }
 }));
 
 const HeaderTongue = ({
   description,
-  title
+  titleLine1,
+  titleLine2
 }) => {
   const classes = useStyles$1();
-  return React.createElement("div", {
-    className: classes.root
-  }, React.createElement("div", {
+  return React.createElement(React.Fragment, null, React.createElement("div", {
     className: classes.textContainer
   }, React.createElement("div", {
     className: classes.textContent
   }, React.createElement(Typography, {
-    variant: 'h3'
-  }, title), React.createElement(Typography, {
+    className: classes.titleContent,
+    variant: 'h3',
+    weight: 'lightBold'
+  }, titleLine1, React.createElement("br", null), " ", titleLine2), React.createElement(Typography, {
     variant: 'subtitle1'
-  }, description))), React.createElement("div", {
-    className: classes.tongueImgContainer
-  }, React.createElement("img", {
+  }, description))), React.createElement("img", {
     className: classes.tongueImg,
     src: headerTongueImg,
     alt: "headerTongueImg"
-  })));
+  }));
 };
 
 const Link = props => {
@@ -280,7 +274,7 @@ var Logo = React.forwardRef(function LogoFooter(props, ref) {
 var LogoNavbar = React.forwardRef(function LogoFooter(props, ref) {
   const {
     alt = 'RIF OS',
-    height = '40px',
+    height = '44px',
     ...other
   } = props;
   return React.createElement("img", Object.assign({
@@ -1178,6 +1172,13 @@ const useStyles$k = makeStyles(theme => ({
     color: colors.gray4,
     fontSize: fonts.size.tiny
   },
+  footerContainer: {
+    backgroundColor: colors.gray2,
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2),
+    width: '100%'
+  },
   footerContent: {
     marginTop: theme.spacing(2),
     maxWidth: '80%',
@@ -1196,13 +1197,10 @@ const useStyles$k = makeStyles(theme => ({
     width: '100%'
   },
   root: {
-    backgroundImage: `url(${footerTongueImg})`,
-    backgroundPositionX: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    alignItems: 'center',
     display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(12, 0, 8, 0),
+    flexDirection: 'column',
+    paddingTop: theme.spacing(4),
     width: '100%'
   }
 }));
@@ -1214,6 +1212,14 @@ const Footer = ({
   const classes = useStyles$k();
   return React.createElement("footer", {
     className: classes.root
+  }, React.createElement("img", {
+    style: {
+      width: '100%'
+    },
+    src: footerTongueImg,
+    alt: "footer tongue image"
+  }), React.createElement("div", {
+    className: classes.footerContainer
   }, React.createElement("div", {
     className: classes.footerContent
   }, React.createElement(Grid, {
@@ -1230,6 +1236,7 @@ const Footer = ({
     height: '75px',
     alt: "logo"
   })), linksColumns.map((linkColumn, i) => React.createElement(Grid, {
+    key: `fc-${i}`,
     item: true,
     xs: 12,
     md: 12,
@@ -1240,7 +1247,7 @@ const Footer = ({
     className: classes.copyright
   }, React.createElement(Typography, {
     className: classes.copyrightContent
-  }, copyrightText))));
+  }, copyrightText)))));
 };
 
 const drawerWidth = 240;
@@ -1485,5 +1492,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, theme, tickWide as tickWideImg };
+export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map

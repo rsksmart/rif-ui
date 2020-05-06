@@ -103,6 +103,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+// TODO: 
+// - extract the mobile part into a new component, 
+// - rename AppBar to HeaderDesktop 
+// - create AppBar component that just wraps MUI AppBar
+
 const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
