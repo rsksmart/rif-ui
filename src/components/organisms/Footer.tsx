@@ -19,6 +19,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: colors.gray4,
     fontSize: fonts.size.tiny,
   },
+  footerContainer: {
+    backgroundColor: colors.gray2,
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2),
+    width: '100%',
+  },
   footerContent: {
     marginTop: theme.spacing(2),
     maxWidth: '80%',
@@ -37,13 +44,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
   },
   root: {
-    backgroundImage: `url(${footerTongueImg})`,
-    backgroundPositionX: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    alignItems: 'center',
     display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(12, 0, 8, 0),
+    flexDirection: 'column',
+    paddingTop: theme.spacing(4),
     width: '100%',
   },
 }));
@@ -54,21 +58,24 @@ const Footer: FC<FooterProps> = ({ copyrightText, linksColumns }) => {
 
   return (
     <footer className={classes.root}>
-      <div className={classes.footerContent}>
-        <Grid container direction='row'>
-          <Grid className={classes.logoColumn} item xs={12} md={12} lg={3}>
-            <img src={logoBlackAndBlue} height='75px' alt="logo" />
+      <img style={{ width: '100%' }} src={footerTongueImg} alt="footer tongue image" />
+      <div className={classes.footerContainer}>
+        <div className={classes.footerContent}>
+          <Grid container direction='row'>
+            <Grid className={classes.logoColumn} item xs={12} md={12} lg={3}>
+              <img src={logoBlackAndBlue} height='75px' alt="logo" />
+            </Grid>
+            {
+              linksColumns.map((linkColumn: FooterColumnProps, i) => (
+                <Grid key={`fc-${i}`} item xs={12} md={12} lg={2}>
+                  <FooterColumn className={classes.linksColumn} {...linkColumn} />
+                </Grid>
+              ))
+            }
           </Grid>
-          {
-            linksColumns.map((linkColumn: FooterColumnProps, i) => (
-              <Grid item xs={12} md={12} lg={2}>
-                <FooterColumn className={classes.linksColumn} {...linkColumn} />
-              </Grid>
-            ))
-          }
-        </Grid>
-        <div className={classes.copyright}>
-          <Typography className={classes.copyrightContent}>{copyrightText}</Typography>
+          <div className={classes.copyright}>
+            <Typography className={classes.copyrightContent}>{copyrightText}</Typography>
+          </div>
         </div>
       </div>
     </footer>

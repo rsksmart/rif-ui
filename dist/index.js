@@ -175,11 +175,13 @@ var Typography = function Typography(_ref) {
 
 var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
 
-var footerTongueImg = require("./footerTongue~wXaQMqEM.svg");
+var footerTongueImg = require("./footerTongue~bbJNSCWG.svg");
 
-var headerTongueImg = require("./headerTongue~boZpqayA.svg");
+var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
 
 var tickWide = require("./tickWide~bmvsBAER.svg");
+
+var nameService = require("./nameService~UWbtQqmT.svg");
 
 var rifCom = require("./rifCom~udwpaCym.png");
 
@@ -193,6 +195,8 @@ var rifPay = require("./rifPay~bdtOAceT.png");
 
 var rifSto = require("./rifSto~fMRetflo.png");
 
+var storage = require("./storage~fCGkZtHN.svg");
+
 var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
 
 var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
@@ -200,12 +204,9 @@ var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
 var useStyles$1 = styles.makeStyles(function (theme) {
-  var _textContent, _tongueImg;
+  var _textContent;
 
   return {
-    root: {
-      marginTop: theme.spacing(8)
-    },
     textContainer: {
       alignItems: 'center',
       backgroundColor: colors.primary,
@@ -222,44 +223,39 @@ var useStyles$1 = styles.makeStyles(function (theme) {
     }, _textContent[theme.breakpoints.down('sm')] = {
       maxWidth: '90%'
     }, _textContent[theme.breakpoints.up('md')] = {
-      maxWidth: '70%'
+      maxWidth: '65%'
+    }, _textContent[theme.breakpoints.up('xl')] = {
+      maxWidth: '55%'
     }, _textContent),
-    tongueImgContainer: {
-      overflow: 'hidden'
+    titleContent: {
+      marginBottom: theme.spacing(2)
     },
-    tongueImg: (_tongueImg = {
-      marginLeft: theme.spacing(-1)
-    }, _tongueImg[theme.breakpoints.down('sm')] = {
-      width: '108%'
-    }, _tongueImg[theme.breakpoints.up('md')] = {
-      width: '102%'
-    }, _tongueImg[theme.breakpoints.up('lg')] = {
-      marginLeft: theme.spacing(-2)
-    }, _tongueImg)
+    tongueImg: {
+      width: '100%'
+    }
   };
 });
 
 var HeaderTongue = function HeaderTongue(_ref) {
   var description = _ref.description,
-      title = _ref.title;
+      titleLine1 = _ref.titleLine1,
+      titleLine2 = _ref.titleLine2;
   var classes = useStyles$1();
-  return React__default.createElement("div", {
-    className: classes.root
-  }, React__default.createElement("div", {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
     className: classes.textContent
   }, React__default.createElement(Typography, {
-    variant: 'h3'
-  }, title), React__default.createElement(Typography, {
+    className: classes.titleContent,
+    variant: 'h3',
+    weight: 'lightBold'
+  }, titleLine1, React__default.createElement("br", null), " ", titleLine2), React__default.createElement(Typography, {
     variant: 'subtitle1'
-  }, description))), React__default.createElement("div", {
-    className: classes.tongueImgContainer
-  }, React__default.createElement("img", {
+  }, description))), React__default.createElement("img", {
     className: classes.tongueImg,
     src: headerTongueImg,
     alt: "headerTongueImg"
-  })));
+  }));
 };
 
 var Link = function Link(props) {
@@ -339,7 +335,7 @@ var LogoNavbar = React__default.forwardRef(function LogoFooter(props, ref) {
   var _props$alt = props.alt,
       alt = _props$alt === void 0 ? 'RIF OS' : _props$alt,
       _props$height = props.height,
-      height = _props$height === void 0 ? '40px' : _props$height,
+      height = _props$height === void 0 ? '44px' : _props$height,
       other = _objectWithoutPropertiesLoose(props, ["alt", "height"]);
 
   return React__default.createElement("img", Object.assign({
@@ -1520,6 +1516,13 @@ var useStyles$k = styles.makeStyles(function (theme) {
       color: colors.gray4,
       fontSize: fonts.size.tiny
     },
+    footerContainer: {
+      backgroundColor: colors.gray2,
+      display: 'flex',
+      justifyContent: 'center',
+      paddingBottom: theme.spacing(2),
+      width: '100%'
+    },
     footerContent: {
       marginTop: theme.spacing(2),
       maxWidth: '80%',
@@ -1538,13 +1541,10 @@ var useStyles$k = styles.makeStyles(function (theme) {
       width: '100%'
     },
     root: {
-      backgroundImage: "url(" + footerTongueImg + ")",
-      backgroundPositionX: 'center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
+      alignItems: 'center',
       display: 'flex',
-      justifyContent: 'center',
-      padding: theme.spacing(12, 0, 8, 0),
+      flexDirection: 'column',
+      paddingTop: theme.spacing(4),
       width: '100%'
     }
   };
@@ -1556,6 +1556,14 @@ var Footer = function Footer(_ref) {
   var classes = useStyles$k();
   return React__default.createElement("footer", {
     className: classes.root
+  }, React__default.createElement("img", {
+    style: {
+      width: '100%'
+    },
+    src: footerTongueImg,
+    alt: "footer tongue image"
+  }), React__default.createElement("div", {
+    className: classes.footerContainer
   }, React__default.createElement("div", {
     className: classes.footerContent
   }, React__default.createElement(Grid, {
@@ -1573,6 +1581,7 @@ var Footer = function Footer(_ref) {
     alt: "logo"
   })), linksColumns.map(function (linkColumn, i) {
     return React__default.createElement(Grid, {
+      key: "fc-" + i,
       item: true,
       xs: 12,
       md: 12,
@@ -1584,7 +1593,7 @@ var Footer = function Footer(_ref) {
     className: classes.copyright
   }, React__default.createElement(Typography, {
     className: classes.copyrightContent
-  }, copyrightText))));
+  }, copyrightText)))));
 };
 
 var drawerWidth = 240;
@@ -1918,6 +1927,7 @@ exports.getWeb3 = getWeb3;
 exports.headerTongueImg = headerTongueImg;
 exports.logoBlackAndBlue = logoBlackAndBlue;
 exports.logoFullWhite = logoFullWhite;
+exports.nameServiceImg = nameService;
 exports.rifComImg = rifCom;
 exports.rifDirImg = rifDir;
 exports.rifGatImg = rifGat;
@@ -1926,6 +1936,7 @@ exports.rifPayImg = rifPay;
 exports.rifStoImg = rifSto;
 exports.rskLogo = rskLogo;
 exports.shortenAddress = shortenAddress;
+exports.storageImg = storage;
 exports.theme = theme;
 exports.tickWideImg = tickWide;
 //# sourceMappingURL=index.js.map

@@ -6,13 +6,11 @@ import { headerTongueImg } from '../../assets/images';
 
 export interface HeaderTongueProps {
   description: string;
-  title: string;
+  titleLine1: string;
+  titleLine2: string;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    marginTop: theme.spacing(8),
-  },
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -30,42 +28,33 @@ const useStyles = makeStyles((theme: Theme) => ({
       maxWidth: '90%',
     },
     [theme.breakpoints.up('md')]: {
-      maxWidth: '70%',
+      maxWidth: '65%',
+    },
+    [theme.breakpoints.up('xl')]: {
+      maxWidth: '55%',
     },
   },
-  tongueImgContainer: {
-    overflow: 'hidden',
+  titleContent: {
+    marginBottom: theme.spacing(2)
   },
   tongueImg: {
-    // in order to not show the intersection between the image and the div we make it bigger and then hide the overflow
-    marginLeft: theme.spacing(-1),
-    [theme.breakpoints.down('sm')]: {
-      width: '108%',
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '102%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      marginLeft: theme.spacing(-2),
-    }
+    width: '100%',
   }
 }))
 
-const HeaderTongue: FC<HeaderTongueProps> = ({ description, title }) => {
+const HeaderTongue: FC<HeaderTongueProps> = ({ description, titleLine1, titleLine2 }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <div className={classes.textContainer}>
         <div className={classes.textContent}>
-          <Typography variant='h3'>{title}</Typography>
+          <Typography className={classes.titleContent} variant='h3' weight='lightBold'>{titleLine1}<br /> {titleLine2}</Typography>
           <Typography variant='subtitle1'>{description}</Typography>
         </div>
       </div>
-      <div className={classes.tongueImgContainer}>
-        <img className={classes.tongueImg} src={headerTongueImg} alt="headerTongueImg" />
-      </div>
-    </div>
+      <img className={classes.tongueImg} src={headerTongueImg} alt="headerTongueImg" />
+    </React.Fragment>
   );
 };
 
