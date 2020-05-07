@@ -128,7 +128,7 @@ const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => {
   };
 
   return (
-    <header>
+    <React.Fragment>
       <Hidden smDown>
         <RUIAppBar hreflogo={hreflogo} items={items} login={login} />
       </Hidden>
@@ -192,7 +192,7 @@ const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => {
           </Drawer>
         </div>
       </Hidden>
-    </header>
+    </React.Fragment>
   );
 }
 
