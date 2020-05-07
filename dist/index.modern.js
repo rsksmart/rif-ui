@@ -1138,7 +1138,6 @@ const useStyles$j = makeStyles(theme => ({
     padding: theme.spacing(5)
   },
   img: {
-    height: '75px',
     width: '100%'
   },
   root: {
@@ -1151,16 +1150,16 @@ const useStyles$j = makeStyles(theme => ({
 }));
 
 const Footer = ({
+  className: _className = '',
   copyrightText,
-  linksColumns
+  linksColumns,
+  ...rest
 }) => {
   const classes = useStyles$j();
-  return React.createElement("footer", {
-    className: classes.root
-  }, React.createElement("img", {
-    style: {
-      width: '100%'
-    },
+  return React.createElement("footer", Object.assign({
+    className: `${classes.root} ${_className}`.trim()
+  }, rest), React.createElement("img", {
+    className: classes.img,
     src: footerTongueImg,
     alt: "footer tongue image"
   }), React.createElement("div", {
