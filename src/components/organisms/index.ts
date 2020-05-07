@@ -1,7 +1,7 @@
 import Footer from './Footer';
-import Header from './Header';
+
+export * from './Header/index';
 
 export {
-  Footer,
-  Header,
+  Footer
 };

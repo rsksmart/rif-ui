@@ -12,9 +12,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Toolbar from '@material-ui/core/Toolbar';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link, LogoNavbar } from '../../components/atoms';
-import { List, AppBar as RUIAppBar } from '../../components/molecules';
-import { colors, fonts } from '../../theme';
+import { Link, LogoNavbar } from '../../../components/atoms';
+import { List, AppBar as RUIAppBar } from '../../../components/molecules';
+import { colors, fonts } from '../../../theme';
 
 export interface HeaderProps {
   hreflogo: string;

@@ -1,2 +1,3 @@
 import Header from './Header';
-export { Header };
+import HeaderTongue from './HeaderTongue';
+export { Header, HeaderTongue };
