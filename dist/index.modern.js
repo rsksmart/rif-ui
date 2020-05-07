@@ -1282,7 +1282,7 @@ const Header = ({
     setOpen(isOpen);
   };
 
-  return React.createElement("header", null, React.createElement(Hidden, {
+  return React.createElement(React.Fragment, null, React.createElement(Hidden, {
     smDown: true
   }, React.createElement(AppBar, {
     hreflogo: hreflogo,

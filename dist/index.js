@@ -1637,7 +1637,7 @@ var Header = function Header(_ref) {
     };
   };
 
-  return React__default.createElement("header", null, React__default.createElement(Hidden, {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Hidden, {
     smDown: true
   }, React__default.createElement(AppBar, {
     hreflogo: hreflogo,
