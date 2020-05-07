@@ -29,6 +29,9 @@ class Example extends Component {
 }
 ```
 
+### PageTemplate and Header components
+Those components were created to work together. As the Header has a fixed position, we leave the same top space on PageTemplate as the Header's height.
+
 ## Example folder
 If you want to try this library without creating a new project you can clone this repo and follow the next steps:
 
