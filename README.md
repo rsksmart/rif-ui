@@ -39,13 +39,12 @@ If you want to try this library without creating a new project you can clone thi
   ```
   npm start
   ```
-2. At `rif-ui/example`:
+2. In another terminal:
   ```
-  npm install
-  npm start
+  cd example/ && npm start
   ```
 
-3. Import the components, assets or services that you want in the `App.js` file following the [Usage](#usage) section to see them in action.
+3. (Optional) Import the components, assets or services that you want in the `App.js` file following the [Usage](#usage) section to see them in action.
 
 ## License
 
