@@ -1739,6 +1739,27 @@ var Header = function Header(_ref) {
   }))))));
 };
 
+var useStyles$m = styles.makeStyles(function (theme) {
+  return {
+    root: {
+      marginTop: theme.spacing(8),
+      width: '100%'
+    }
+  };
+});
+
+var PageTemplate = function PageTemplate(_ref) {
+  var children = _ref.children,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      props = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
+
+  var classes = useStyles$m();
+  return React__default.createElement("div", Object.assign({
+    className: (classes.root + " " + className).trim()
+  }, props), children);
+};
+
 var defaultState = {
   provider: null,
   web3: null,
@@ -1904,6 +1925,7 @@ exports.ModalDialogue = ModalDialogue;
 exports.ModalFooter = ModalFooter;
 exports.ModalHeader = ModalHeader;
 exports.ModalTitle = ModalTitle;
+exports.PageTemplate = PageTemplate;
 exports.RangeSlider = RangeSlider;
 exports.RangeSliderWithInputs = RangeSliderWithInputs;
 exports.Select = Select;
