@@ -1,11 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Typography } from '../atoms';
 import FooterColumn, { FooterColumnProps } from '../molecules/FooterColumn';
 import { colors, fonts } from '../../theme';
 import { footerTongueImg, logoBlackAndBlue } from '../../assets/images';
 
-export interface FooterProps {
+export interface FooterProps extends HTMLAttributes<HTMLElement> {
+  className?: string;
   copyrightText: string;
   linksColumns: FooterColumnProps[];
 };
@@ -40,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(5),
   },
   img: {
-    height: '75px',
     width: '100%',
   },
   root: {
@@ -53,12 +53,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-const Footer: FC<FooterProps> = ({ copyrightText, linksColumns }) => {
+const Footer: FC<FooterProps> = ({ className = '', copyrightText, linksColumns, ...rest }) => {
+
   const classes = useStyles();
 
   return (
-    <footer className={classes.root}>
-      <img style={{ width: '100%' }} src={footerTongueImg} alt="footer tongue image" />
+    <footer className={`${classes.root} ${className}`.trim()} {...rest}>
+      <img className={classes.img} src={footerTongueImg} alt="footer tongue image" />
       <div className={classes.footerContainer}>
         <div className={classes.footerContent}>
           <Grid container direction='row'>

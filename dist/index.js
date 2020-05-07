@@ -1482,7 +1482,6 @@ var useStyles$j = styles.makeStyles(function (theme) {
       padding: theme.spacing(5)
     },
     img: {
-      height: '75px',
       width: '100%'
     },
     root: {
@@ -1496,15 +1495,17 @@ var useStyles$j = styles.makeStyles(function (theme) {
 });
 
 var Footer = function Footer(_ref) {
-  var copyrightText = _ref.copyrightText,
-      linksColumns = _ref.linksColumns;
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      copyrightText = _ref.copyrightText,
+      linksColumns = _ref.linksColumns,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className", "copyrightText", "linksColumns"]);
+
   var classes = useStyles$j();
-  return React__default.createElement("footer", {
-    className: classes.root
-  }, React__default.createElement("img", {
-    style: {
-      width: '100%'
-    },
+  return React__default.createElement("footer", Object.assign({
+    className: (classes.root + " " + className).trim()
+  }, rest), React__default.createElement("img", {
+    className: classes.img,
     src: footerTongueImg,
     alt: "footer tongue image"
   }), React__default.createElement("div", {

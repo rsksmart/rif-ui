@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, HTMLAttributes } from 'react';
 import { FooterColumnProps } from '../molecules/FooterColumn';
-export interface FooterProps {
+export interface FooterProps extends HTMLAttributes<HTMLElement> {
+    className?: string;
     copyrightText: string;
     linksColumns: FooterColumnProps[];
 }
