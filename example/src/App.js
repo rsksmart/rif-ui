@@ -14,6 +14,7 @@ import {
   Grid,
   Header,
   HeaderTongue,
+  PageTemplate,
   theme,
   Typography,
   nameServiceImg,
@@ -167,22 +168,24 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Header {...headerProps} />
-        <HeaderTongue {...headerTongueProps} />
-        <div className={classes.root}>
-          <div className={classes.titleContainer}>
-            <Typography color='primary' variant='h4'>RIF Marketplace services</Typography>
+        <PageTemplate>
+          <HeaderTongue {...headerTongueProps} />
+          <div className={classes.root}>
+            <div className={classes.titleContainer}>
+              <Typography color='primary' variant='h4'>RIF Marketplace services</Typography>
+            </div>
+            <Grid container className={classes.servicesContainer}>
+              <Grid className={classes.serviceContent} item xs={12} lg={6}>
+                <img className={classes.iconImage} src={nameServiceImg} />
+                <Typography className={classes.iconTitle} variant='h6' color='primary'>Name Services</Typography>
+              </Grid>
+              <Grid className={classes.serviceContent} item xs={12} lg={6}>
+                <img className={classes.iconImage} src={storageImg} />
+                <Typography className={classes.iconTitle} variant='h6' color='primary'>Storage</Typography>
+              </Grid>
+            </Grid>
           </div>
-          <Grid container className={classes.servicesContainer}>
-            <Grid className={classes.serviceContent} item xs={12} lg={6}>
-              <img className={classes.iconImage} src={nameServiceImg} />
-              <Typography className={classes.iconTitle} variant='h6' color='primary'>Name Services</Typography>
-            </Grid>
-            <Grid className={classes.serviceContent} item xs={12} lg={6}>
-              <img className={classes.iconImage} src={storageImg} />
-              <Typography className={classes.iconTitle} variant='h6' color='primary'>Storage</Typography>
-            </Grid>
-          </Grid>
-        </div>
+        </PageTemplate>
         <Footer {...footerProps} />
       </BrowserRouter>
     </ThemeProvider>

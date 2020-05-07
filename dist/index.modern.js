@@ -1384,6 +1384,24 @@ const Header = ({
   })))))))));
 };
 
+const useStyles$m = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(8),
+    width: '100%'
+  }
+}));
+
+const PageTemplate = ({
+  children,
+  className: _className = '',
+  ...props
+}) => {
+  const classes = useStyles$m();
+  return React.createElement("div", Object.assign({
+    className: `${classes.root} ${_className}`.trim()
+  }, props), children);
+};
+
 const defaultState = {
   provider: null,
   web3: null,
@@ -1492,5 +1510,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
+export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map
