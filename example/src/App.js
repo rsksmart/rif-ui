@@ -6,10 +6,9 @@ import DataUsageIcon from '@material-ui/icons/DataUsage';
 import ForumIcon from '@material-ui/icons/Forum';
 import PeopleIcon from '@material-ui/icons/People';
 import StorageIcon from '@material-ui/icons/Storage';
-import { makeStyles, Theme, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 import {
-  Button,
   Footer,
   Grid,
   Header,

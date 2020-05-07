@@ -86,91 +86,65 @@ var Grid = function Grid(_ref) {
   return React__default.createElement(core.Grid, Object.assign({}, rest), children);
 };
 
-var colors = {
-  black: '#000000',
-  primary: '#008FF7',
-  darkBlue: '#197DC6',
-  gray1: '#F8F7F7',
-  gray2: '#E5E5E5',
-  gray3: '#C4C4C4',
-  gray4: '#919191',
-  gray5: '#4D4C4C',
-  gray6: '#15171B',
-  transparent: '#FFFFFF00',
-  white: '#FFFFFF'
+var Link = function Link(props) {
+  return React__default.createElement(core.Link, Object.assign({}, props));
 };
-var fonts = {
-  family: 'Rubik',
-  size: {
-    tiny: 10,
-    small: 12,
-    normal: 14,
-    medium: 16,
-    subtitleSmall: 18,
-    subtitleBig: 22
-  },
-  weight: {
-    normal: 300,
-    lightBold: 500,
-    bold: 700,
-    superBold: 900
-  }
-};
-var theme = styles.createMuiTheme({
-  palette: {
-    primary: {
-      main: colors.primary
-    },
-    secondary: {
-      main: colors.gray4
-    }
-  },
-  typography: {
-    fontFamily: fonts.family,
-    button: {
-      textTransform: 'none'
-    },
-    fontWeightRegular: fonts.weight.normal
-  },
-  props: {},
-  overrides: {
-    MuiButton: {
-      root: {
-        fontWeight: fonts.weight.normal
-      }
-    }
-  }
-});
 
 var useStyles = styles.makeStyles(function (theme) {
   return {
-    normal: {
-      fontWeight: fonts.weight.normal
+    block: {
+      width: '100%'
     },
-    lightBold: {
-      fontWeight: fonts.weight.lightBold
+    noShadow: {
+      boxShadow: 'none'
     },
-    bold: {
-      fontWeight: fonts.weight.bold
-    },
-    superBold: {
-      fontWeight: fonts.weight.superBold
+    rounded: {
+      borderRadius: 50
     }
   };
 });
 
-var Typography = function Typography(_ref) {
-  var _ref$weight = _ref.weight,
-      weight = _ref$weight === void 0 ? 'normal' : _ref$weight,
-      _ref$className = _ref.className,
+var Button = function Button(_ref) {
+  var _ref$className = _ref.className,
       className = _ref$className === void 0 ? '' : _ref$className,
+      block = _ref.block,
+      shadow = _ref.shadow,
+      rounded = _ref.rounded,
       children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, ["weight", "className", "children"]);
+      rest = _objectWithoutPropertiesLoose(_ref, ["className", "block", "shadow", "rounded", "children"]);
 
   var classes = useStyles();
-  return React__default.createElement(core.Typography, Object.assign({
-    className: (classes[weight] + " " + className).trim()
+  return React__default.createElement(core.Button, Object.assign({
+    className: ((rounded ? classes.rounded : '') + "\n        " + (shadow ? '' : classes.noShadow) + "\n        " + (block ? classes.block : '') + " " + className).trim()
   }, rest), children);
+};
+
+var useStyles$1 = core.makeStyles(function () {
+  return {
+    root: {
+      padding: 5,
+      margin: 5,
+      width: '100%'
+    }
+  };
+});
+
+var LoginOption = function LoginOption(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      onClick = _ref.onClick,
+      text = _ref.text,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className", "onClick", "text"]);
+
+  var classes = useStyles$1();
+  return React__default.createElement(Button, Object.assign({
+    className: classes.root + " " + className,
+    block: true,
+    rounded: true,
+    variant: 'outlined',
+    color: 'primary',
+    onClick: onClick
+  }, rest), text);
 };
 
 var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
@@ -202,122 +176,6 @@ var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
 var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
 
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
-
-var useStyles$1 = styles.makeStyles(function (theme) {
-  var _textContent;
-
-  return {
-    textContainer: {
-      alignItems: 'center',
-      backgroundColor: colors.primary,
-      display: 'flex',
-      justifyContent: 'center',
-      padding: theme.spacing(2, 0, 2, 0),
-      width: '100%'
-    },
-    textContent: (_textContent = {
-      color: colors.white,
-      display: 'flex',
-      flexDirection: 'column',
-      textAlign: 'center'
-    }, _textContent[theme.breakpoints.down('sm')] = {
-      maxWidth: '90%'
-    }, _textContent[theme.breakpoints.up('md')] = {
-      maxWidth: '65%'
-    }, _textContent[theme.breakpoints.up('xl')] = {
-      maxWidth: '55%'
-    }, _textContent),
-    titleContent: {
-      marginBottom: theme.spacing(2)
-    },
-    tongueImg: {
-      width: '100%'
-    }
-  };
-});
-
-var HeaderTongue = function HeaderTongue(_ref) {
-  var description = _ref.description,
-      titleLine1 = _ref.titleLine1,
-      titleLine2 = _ref.titleLine2;
-  var classes = useStyles$1();
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
-    className: classes.textContainer
-  }, React__default.createElement("div", {
-    className: classes.textContent
-  }, React__default.createElement(Typography, {
-    className: classes.titleContent,
-    variant: 'h3',
-    weight: 'lightBold'
-  }, titleLine1, React__default.createElement("br", null), " ", titleLine2), React__default.createElement(Typography, {
-    variant: 'subtitle1'
-  }, description))), React__default.createElement("img", {
-    className: classes.tongueImg,
-    src: headerTongueImg,
-    alt: "headerTongueImg"
-  }));
-};
-
-var Link = function Link(props) {
-  return React__default.createElement(core.Link, Object.assign({}, props));
-};
-
-var useStyles$2 = styles.makeStyles(function (theme) {
-  return {
-    block: {
-      width: '100%'
-    },
-    noShadow: {
-      boxShadow: 'none'
-    },
-    rounded: {
-      borderRadius: 50
-    }
-  };
-});
-
-var Button = function Button(_ref) {
-  var _ref$className = _ref.className,
-      className = _ref$className === void 0 ? '' : _ref$className,
-      block = _ref.block,
-      shadow = _ref.shadow,
-      rounded = _ref.rounded,
-      children = _ref.children,
-      rest = _objectWithoutPropertiesLoose(_ref, ["className", "block", "shadow", "rounded", "children"]);
-
-  var classes = useStyles$2();
-  return React__default.createElement(core.Button, Object.assign({
-    className: ((rounded ? classes.rounded : '') + "\n        " + (shadow ? '' : classes.noShadow) + "\n        " + (block ? classes.block : '') + " " + className).trim()
-  }, rest), children);
-};
-
-var useStyles$3 = core.makeStyles(function () {
-  return {
-    root: {
-      padding: 5,
-      margin: 5,
-      width: '100%'
-    }
-  };
-});
-
-var LoginOption = function LoginOption(_ref) {
-  var _ref$className = _ref.className,
-      className = _ref$className === void 0 ? '' : _ref$className,
-      onClick = _ref.onClick,
-      text = _ref.text,
-      rest = _objectWithoutPropertiesLoose(_ref, ["className", "onClick", "text"]);
-
-  var classes = useStyles$3();
-  return React__default.createElement(Button, Object.assign({
-    className: classes.root + " " + className,
-    block: true,
-    rounded: true,
-    variant: 'outlined',
-    color: 'primary',
-    onClick: onClick
-  }, rest), text);
-};
 
 var Logo = React__default.forwardRef(function LogoFooter(props, ref) {
   var _props$alt = props.alt,
@@ -374,7 +232,63 @@ var CardHeader = function CardHeader(_ref) {
   return React__default.createElement(core.CardHeader, Object.assign({}, rest), children);
 };
 
-var useStyles$4 = core.makeStyles(function () {
+var colors = {
+  black: '#000000',
+  primary: '#008FF7',
+  darkBlue: '#197DC6',
+  gray1: '#F8F7F7',
+  gray2: '#E5E5E5',
+  gray3: '#C4C4C4',
+  gray4: '#919191',
+  gray5: '#4D4C4C',
+  gray6: '#15171B',
+  transparent: '#FFFFFF00',
+  white: '#FFFFFF'
+};
+var fonts = {
+  family: 'Rubik',
+  size: {
+    tiny: 10,
+    small: 12,
+    normal: 14,
+    medium: 16,
+    subtitleSmall: 18,
+    subtitleBig: 22
+  },
+  weight: {
+    normal: 300,
+    lightBold: 500,
+    bold: 700,
+    superBold: 900
+  }
+};
+var theme = styles.createMuiTheme({
+  palette: {
+    primary: {
+      main: colors.primary
+    },
+    secondary: {
+      main: colors.gray4
+    }
+  },
+  typography: {
+    fontFamily: fonts.family,
+    button: {
+      textTransform: 'none'
+    },
+    fontWeightRegular: fonts.weight.normal
+  },
+  props: {},
+  overrides: {
+    MuiButton: {
+      root: {
+        fontWeight: fonts.weight.normal
+      }
+    }
+  }
+});
+
+var useStyles$2 = core.makeStyles(function () {
   return core.createStyles({
     unCheckedIcon: {
       color: colors.gray4
@@ -386,7 +300,7 @@ var useStyles$4 = core.makeStyles(function () {
 });
 
 var Checkbox = function Checkbox(props) {
-  var classes = useStyles$4();
+  var classes = useStyles$2();
 
   var _useState = React.useState(!!props.checked),
       isChecked = _useState[0],
@@ -446,7 +360,7 @@ var InputLabel = function InputLabel(_ref) {
   return React__default.createElement(core.InputLabel, Object.assign({}, rest), children);
 };
 
-var useStyles$5 = styles.makeStyles(function () {
+var useStyles$3 = styles.makeStyles(function () {
   return styles.createStyles({
     root: {
       width: "100%",
@@ -473,7 +387,7 @@ var RangeSlider = function RangeSlider(_ref) {
   var handleChange = _ref.handleChange,
       rest = _objectWithoutPropertiesLoose(_ref, ["handleChange"]);
 
-  var classes = useStyles$5();
+  var classes = useStyles$3();
 
   var onChange = function onChange(event, newValue) {
     handleChange(event, newValue);
@@ -491,7 +405,7 @@ var Switch = function Switch(_ref) {
   return React__default.createElement(core.Switch, Object.assign({}, rest));
 };
 
-var useStyles$6 = core.makeStyles(function () {
+var useStyles$4 = core.makeStyles(function () {
   return {
     root: {
       color: colors.gray3,
@@ -507,7 +421,7 @@ var TextField = function TextField(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className,
       rest = _objectWithoutPropertiesLoose(_ref, ["className"]);
 
-  var classes = useStyles$6();
+  var classes = useStyles$4();
   return React__default.createElement(core.TextField, Object.assign({
     className: (classes.root + " " + className).trim()
   }, rest));
@@ -525,7 +439,7 @@ var Select = function Select(_ref) {
   return React__default.createElement(core.Select, Object.assign({}, rest));
 };
 
-var useStyles$7 = styles.makeStyles(function (theme) {
+var useStyles$5 = styles.makeStyles(function (theme) {
   return {
     paper: {
       backgroundColor: theme.palette.background.paper,
@@ -545,13 +459,13 @@ var Modal = function Modal(_ref) {
   var children = _ref.children,
       rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
 
-  var classes = useStyles$7();
+  var classes = useStyles$5();
   return React__default.createElement(core.Modal, Object.assign({}, rest), React__default.createElement("div", {
     className: classes.paper
   }, children));
 };
 
-var useStyles$8 = styles.makeStyles(function (theme) {
+var useStyles$6 = styles.makeStyles(function (theme) {
   return {
     root: {
       borderBottom: "1px solid " + colors.gray2,
@@ -569,10 +483,41 @@ var ModalHeader = function ModalHeader(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className,
       rest = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
 
-  var classes = useStyles$8();
+  var classes = useStyles$6();
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, children);
+};
+
+var useStyles$7 = styles.makeStyles(function (theme) {
+  return {
+    normal: {
+      fontWeight: fonts.weight.normal
+    },
+    lightBold: {
+      fontWeight: fonts.weight.lightBold
+    },
+    bold: {
+      fontWeight: fonts.weight.bold
+    },
+    superBold: {
+      fontWeight: fonts.weight.superBold
+    }
+  };
+});
+
+var Typography = function Typography(_ref) {
+  var _ref$weight = _ref.weight,
+      weight = _ref$weight === void 0 ? 'normal' : _ref$weight,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["weight", "className", "children"]);
+
+  var classes = useStyles$7();
+  return React__default.createElement(core.Typography, Object.assign({
+    className: (classes[weight] + " " + className).trim()
+  }, rest), children);
 };
 
 var ModalTitle = function ModalTitle(_ref) {
@@ -584,7 +529,7 @@ var ModalTitle = function ModalTitle(_ref) {
   }, rest), children);
 };
 
-var useStyles$9 = styles.makeStyles(function (theme) {
+var useStyles$8 = styles.makeStyles(function (theme) {
   return {
     root: {
       borderTop: "1px solid " + colors.gray2,
@@ -602,13 +547,13 @@ var ModalFooter = function ModalFooter(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className,
       rest = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
 
-  var classes = useStyles$9();
+  var classes = useStyles$8();
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, children);
 };
 
-var useStyles$a = styles.makeStyles(function (theme) {
+var useStyles$9 = styles.makeStyles(function (theme) {
   return {
     root: {
       padding: theme.spacing(3, 0),
@@ -623,7 +568,7 @@ var ModalBody = function ModalBody(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className,
       rest = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
 
-  var classes = useStyles$a();
+  var classes = useStyles$9();
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, children);
@@ -664,7 +609,7 @@ var TableRow = function TableRow(_ref) {
   return React__default.createElement(core.TableRow, Object.assign({}, rest), children);
 };
 
-var useStyles$b = styles.makeStyles(function (theme) {
+var useStyles$a = styles.makeStyles(function (theme) {
   return styles.createStyles({
     root: {
       boxShadow: 'none',
@@ -690,7 +635,7 @@ var Accordion = function Accordion(_ref) {
       title = _ref.title,
       rest = _objectWithoutPropertiesLoose(_ref, ["children", "expanded", "id", "title"]);
 
-  var classes = useStyles$b();
+  var classes = useStyles$a();
 
   var _useState = React.useState(!!expanded),
       isExpanded = _useState[0],
@@ -963,7 +908,7 @@ function getWeb3(provider) {
   });
 }
 
-var useStyles$c = styles.makeStyles(function (theme) {
+var useStyles$b = styles.makeStyles(function (theme) {
   return {
     accountText: {
       fontSize: fonts.size.tiny,
@@ -992,7 +937,7 @@ var Account = function Account(_ref) {
       account = _ref.account,
       setProvider = _ref.setProvider,
       providers = _ref.providers;
-  var classes = useStyles$c();
+  var classes = useStyles$b();
 
   var _useState = React.useState(false),
       open = _useState[0],
@@ -1033,7 +978,7 @@ var Account = function Account(_ref) {
   }, "Close")))));
 };
 
-var useStyles$d = styles.makeStyles(function (theme) {
+var useStyles$c = styles.makeStyles(function (theme) {
   return {
     activeNavlink: {
       color: colors.white + " !important",
@@ -1076,7 +1021,7 @@ var AppBar = function AppBar(_ref) {
       login = _ref.login,
       rest = _objectWithoutPropertiesLoose(_ref, ["className", "items", "login"]);
 
-  var classes = useStyles$d();
+  var classes = useStyles$c();
   var Login = login;
   return React__default.createElement(core.AppBar, Object.assign({
     position: 'fixed',
@@ -1098,7 +1043,7 @@ var AppBar = function AppBar(_ref) {
   }, React__default.createElement(Login, null))));
 };
 
-var useStyles$e = core.makeStyles(function () {
+var useStyles$d = core.makeStyles(function () {
   return core.createStyles({
     root: {
       color: colors.gray3
@@ -1111,13 +1056,13 @@ var FormControlLabel = function FormControlLabel(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className,
       rest = _objectWithoutPropertiesLoose(_ref, ["className"]);
 
-  var classes = useStyles$e();
+  var classes = useStyles$d();
   return React__default.createElement(core.FormControlLabel, Object.assign({
     className: (classes.root + " " + className + " ").trim()
   }, rest));
 };
 
-var useStyles$f = core.makeStyles(function (theme) {
+var useStyles$e = core.makeStyles(function (theme) {
   return {
     root: {
       color: colors.gray4,
@@ -1132,7 +1077,7 @@ var LabeledCheckbox = function LabeledCheckbox(_ref) {
       labelClassName = _ref$labelClassName === void 0 ? '' : _ref$labelClassName,
       rest = _objectWithoutPropertiesLoose(_ref, ["labelText", "labelClassName"]);
 
-  var classes = useStyles$f();
+  var classes = useStyles$e();
   return React__default.createElement(FormControlLabel, {
     className: classes.root + " " + labelClassName.trim(),
     label: labelText,
@@ -1156,7 +1101,7 @@ var FilterCheckboxCard = function FilterCheckboxCard(_ref) {
   }));
 };
 
-var useStyles$g = styles.makeStyles(function (theme) {
+var useStyles$f = styles.makeStyles(function (theme) {
   return {
     root: {
       alignItems: 'center',
@@ -1179,7 +1124,7 @@ var FooterColumn = function FooterColumn(_ref) {
       links = _ref.links,
       _ref$className = _ref.className,
       className = _ref$className === void 0 ? '' : _ref$className;
-  var classes = useStyles$g();
+  var classes = useStyles$f();
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, React__default.createElement(Typography, {
@@ -1214,7 +1159,7 @@ var ModalDialogue = function ModalDialogue(_ref) {
   return React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 };
 
-var useStyles$h = styles.makeStyles(function (theme) {
+var useStyles$g = styles.makeStyles(function (theme) {
   return {
     root: {
       color: colors.gray4,
@@ -1255,7 +1200,7 @@ var UnitsInput = function UnitsInput(props) {
       value = props.value,
       _props$step = props.step,
       step = _props$step === void 0 ? 1 : _props$step;
-  var classes = useStyles$h();
+  var classes = useStyles$g();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -1287,7 +1232,7 @@ var UnitsInput = function UnitsInput(props) {
   }, units))));
 };
 
-var useStyles$i = styles.makeStyles(function () {
+var useStyles$h = styles.makeStyles(function () {
   return {
     root: {
       width: "100%"
@@ -1314,7 +1259,7 @@ var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
       className = _ref.className,
       rest = _objectWithoutPropertiesLoose(_ref, ["values", "unit", "handleChange", "className"]);
 
-  var classes = useStyles$i();
+  var classes = useStyles$h();
   var maxValue = rest.max || values.end;
   var minValue = rest.min || values.start;
   var step = rest.step || 1;
@@ -1425,7 +1370,7 @@ var a11yProps = function a11yProps(index) {
   };
 };
 
-var useStyles$j = styles.makeStyles(function (theme) {
+var useStyles$i = styles.makeStyles(function (theme) {
   return {
     root: {
       backgroundColor: colors.white,
@@ -1474,7 +1419,7 @@ var SwitchTabs = function SwitchTabs(_ref) {
       label2 = _ref.label2,
       controlledValue = _ref.value,
       onChange = _ref.onChange;
-  var classes = useStyles$j();
+  var classes = useStyles$i();
 
   var handleChange = function handleChange(event, newValue) {
     onChange(event, newValue);
@@ -1506,7 +1451,7 @@ var SwitchTabs = function SwitchTabs(_ref) {
   }))));
 };
 
-var useStyles$k = styles.makeStyles(function (theme) {
+var useStyles$j = styles.makeStyles(function (theme) {
   return {
     copyright: {
       display: 'flex',
@@ -1553,7 +1498,7 @@ var useStyles$k = styles.makeStyles(function (theme) {
 var Footer = function Footer(_ref) {
   var copyrightText = _ref.copyrightText,
       linksColumns = _ref.linksColumns;
-  var classes = useStyles$k();
+  var classes = useStyles$j();
   return React__default.createElement("footer", {
     className: classes.root
   }, React__default.createElement("img", {
@@ -1597,7 +1542,7 @@ var Footer = function Footer(_ref) {
 };
 
 var drawerWidth = 240;
-var useStyles$l = styles.makeStyles(function (theme) {
+var useStyles$k = styles.makeStyles(function (theme) {
   return styles.createStyles({
     activeNavlink: {
       color: colors.white + " !important",
@@ -1673,7 +1618,7 @@ var Header = function Header(_ref) {
   var hreflogo = _ref.hreflogo,
       items = _ref.items,
       login = _ref.login;
-  var classes = useStyles$l();
+  var classes = useStyles$k();
 
   var _useState = React.useState(false),
       open = _useState[0],
@@ -1737,6 +1682,61 @@ var Header = function Header(_ref) {
       primary: headerItem.title
     })));
   }))))));
+};
+
+var useStyles$l = styles.makeStyles(function (theme) {
+  var _textContent;
+
+  return {
+    textContainer: {
+      alignItems: 'center',
+      backgroundColor: colors.primary,
+      display: 'flex',
+      justifyContent: 'center',
+      padding: theme.spacing(2, 0),
+      width: '100%'
+    },
+    textContent: (_textContent = {
+      color: colors.white,
+      display: 'flex',
+      flexDirection: 'column',
+      textAlign: 'center'
+    }, _textContent[theme.breakpoints.down('sm')] = {
+      maxWidth: '90%'
+    }, _textContent[theme.breakpoints.up('md')] = {
+      maxWidth: '65%'
+    }, _textContent[theme.breakpoints.up('xl')] = {
+      maxWidth: '55%'
+    }, _textContent),
+    titleContent: {
+      marginBottom: theme.spacing(2)
+    },
+    tongueImg: {
+      width: '100%'
+    }
+  };
+});
+
+var HeaderTongue = function HeaderTongue(_ref) {
+  var description = _ref.description,
+      titleLine1 = _ref.titleLine1,
+      titleLine2 = _ref.titleLine2;
+  var classes = useStyles$l();
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
+    className: classes.textContainer
+  }, React__default.createElement("div", {
+    className: classes.textContent
+  }, React__default.createElement(Typography, {
+    className: classes.titleContent,
+    variant: 'h3',
+    weight: 'lightBold'
+  }, titleLine1, React__default.createElement("br", null), " ", titleLine2), React__default.createElement(Typography, {
+    variant: 'subtitle1'
+  }, description))), React__default.createElement("img", {
+    className: classes.tongueImg,
+    src: headerTongueImg,
+    alt: "headerTongueImg"
+  }));
 };
 
 var useStyles$m = styles.makeStyles(function (theme) {

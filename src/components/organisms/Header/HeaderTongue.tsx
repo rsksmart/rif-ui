@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from './typography';
-import { colors } from '../../theme'
-import { headerTongueImg } from '../../assets/images';
+import { Typography } from '../../atoms';
+import { colors } from '../../../theme'
+import { headerTongueImg } from '../../../assets/images';
 
 export interface HeaderTongueProps {
   description: string;
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: colors.primary,
     display: 'flex',
     justifyContent: 'center',
-    padding: theme.spacing(2, 0, 2, 0),
+    padding: theme.spacing(2, 0),
     width: '100%',
   },
   textContent: {
