@@ -175,11 +175,11 @@ const App = () => {
             </div>
             <Grid container className={classes.servicesContainer}>
               <Grid className={classes.serviceContent} item xs={12} lg={6}>
-                <img className={classes.iconImage} src={nameServiceImg} />
+                <img className={classes.iconImage} src={nameServiceImg} alt='name services icon' />
                 <Typography className={classes.iconTitle} variant='h6' color='primary'>Name Services</Typography>
               </Grid>
               <Grid className={classes.serviceContent} item xs={12} lg={6}>
-                <img className={classes.iconImage} src={storageImg} />
+                <img className={classes.iconImage} src={storageImg} alt='storage icon' />
                 <Typography className={classes.iconTitle} variant='h6' color='primary'>Storage</Typography>
               </Grid>
             </Grid>
