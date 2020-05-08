@@ -1115,6 +1115,10 @@ var useStyles$f = styles.makeStyles(function (theme) {
       '&:hover': {
         fontWeight: fonts.weight.lightBold
       }
+    },
+    footerTitle: {
+      fontSize: fonts.size.subtitleBig,
+      textAlign: 'center'
     }
   };
 });
@@ -1128,9 +1132,7 @@ var FooterColumn = function FooterColumn(_ref) {
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, React__default.createElement(Typography, {
-    style: {
-      fontSize: fonts.size.subtitleBig
-    },
+    className: classes.footerTitle,
     variant: 'subtitle1',
     color: 'primary'
   }, title), links.map(function (link, i) {
@@ -1519,7 +1521,7 @@ var Footer = function Footer(_ref) {
     className: classes.logoColumn,
     item: true,
     xs: 12,
-    md: 12,
+    md: 3,
     lg: 3
   }, React__default.createElement("img", {
     src: logoBlackAndBlue,
@@ -1530,7 +1532,8 @@ var Footer = function Footer(_ref) {
       key: "fc-" + i,
       item: true,
       xs: 12,
-      md: 12,
+      sm: 12,
+      md: 2,
       lg: 2
     }, React__default.createElement(FooterColumn, Object.assign({
       className: classes.linksColumn
