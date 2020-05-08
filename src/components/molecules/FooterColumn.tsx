@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&:hover': {
       fontWeight: fonts.weight.lightBold
     }
+  },
+  footerTitle: {
+    fontSize: fonts.size.subtitleBig,
+    textAlign: 'center',
   }
 }));
 
@@ -32,7 +36,7 @@ const FooterColumn: FC<FooterColumnProps> = ({ title, links, className = '' }) =
 
   return (
     <div className={`${classes.root} ${className}`.trim()}>
-      <Typography style={{ fontSize: fonts.size.subtitleBig }} variant='subtitle1' color='primary'>{title}</Typography>
+      <Typography className={classes.footerTitle} variant='subtitle1' color='primary'>{title}</Typography>
       {
         links.map((link, i) =>
           <NavLink className={classes.footerLink} color='secondary' key={i} to={link.to}>{link.title}</NavLink>

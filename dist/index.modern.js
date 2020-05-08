@@ -788,6 +788,10 @@ const useStyles$f = makeStyles(theme => ({
     '&:hover': {
       fontWeight: fonts.weight.lightBold
     }
+  },
+  footerTitle: {
+    fontSize: fonts.size.subtitleBig,
+    textAlign: 'center'
   }
 }));
 
@@ -800,9 +804,7 @@ const FooterColumn = ({
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React.createElement(Typography, {
-    style: {
-      fontSize: fonts.size.subtitleBig
-    },
+    className: classes.footerTitle,
     variant: 'subtitle1',
     color: 'primary'
   }, title), links.map((link, i) => React.createElement(NavLink, {
@@ -1173,7 +1175,7 @@ const Footer = ({
     className: classes.logoColumn,
     item: true,
     xs: 12,
-    md: 12,
+    md: 3,
     lg: 3
   }, React.createElement("img", {
     src: logoBlackAndBlue,
@@ -1183,7 +1185,8 @@ const Footer = ({
     key: `fc-${i}`,
     item: true,
     xs: 12,
-    md: 12,
+    sm: 12,
+    md: 2,
     lg: 2
   }, React.createElement(FooterColumn, Object.assign({
     className: classes.linksColumn

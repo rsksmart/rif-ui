@@ -63,12 +63,12 @@ const Footer: FC<FooterProps> = ({ className = '', copyrightText, linksColumns, 
       <div className={classes.footerContainer}>
         <div className={classes.footerContent}>
           <Grid container direction='row'>
-            <Grid className={classes.logoColumn} item xs={12} md={12} lg={3}>
+            <Grid className={classes.logoColumn} item xs={12} md={3} lg={3}>
               <img src={logoBlackAndBlue} height='75px' alt="logo" />
             </Grid>
             {
               linksColumns.map((linkColumn: FooterColumnProps, i) => (
-                <Grid key={`fc-${i}`} item xs={12} md={12} lg={2}>
+                <Grid key={`fc-${i}`} item xs={12} sm={12} md={2} lg={2}>
                   <FooterColumn className={classes.linksColumn} {...linkColumn} />
                 </Grid>
               ))
