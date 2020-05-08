@@ -3,7 +3,6 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import React, { FC } from 'react';
 import { colors, fonts } from '../../theme';
 
-
 export interface SwitchTabsProps {
   label1: string;
   label2: string;
@@ -66,7 +65,6 @@ const SwitchTabs: FC<SwitchTabsProps> = ({ label1, label2, value: controlledValu
   const classes = useStyles();
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
-    // setValue(newValue);
     onChange(event, newValue);
   };
 

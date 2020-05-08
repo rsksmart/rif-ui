@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter } from 'react-router-dom';
 
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
@@ -9,6 +9,7 @@ import StorageIcon from '@material-ui/icons/Storage';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 
 import {
+  Account,
   Footer,
   Grid,
   Header,
@@ -17,7 +18,8 @@ import {
   theme,
   Typography,
   nameServiceImg,
-  storageImg
+  storageImg,
+  Button
 } from '@rsksmart/rif-ui';
 import '@rsksmart/rif-ui/dist/index.css';
 
@@ -86,7 +88,7 @@ const App = () => {
         icon: <ForumIcon />
       }
     ],
-    login: () => <div>Login</div>
+    login: () => (<Account />)
   };
 
   const footerProps = {
