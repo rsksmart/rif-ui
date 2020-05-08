@@ -666,9 +666,9 @@ var useStyles$b = styles.makeStyles(function (theme) {
       textAlign: 'center'
     },
     button: {
-      border: '1px solid white',
+      border: "1px solid " + colors.white,
       '&:hover': {
-        border: '1px solid #FFFFFF00'
+        border: "1px solid " + colors.transparent
       }
     }
   };
@@ -966,7 +966,7 @@ var AccountModal = function AccountModal(_ref) {
       providers = _ref.providers,
       open = _ref.open,
       handleClose = _ref.handleClose;
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Modal, {
+  return React__default.createElement(Modal, {
     open: open,
     onClose: handleClose,
     "aria-labelledby": "account-modal-title",
@@ -975,9 +975,14 @@ var AccountModal = function AccountModal(_ref) {
     return React__default.createElement(LoginOption, {
       key: provider,
       text: provider,
-      onClick: function onClick() {
-        setProvider(provider);
-        handleClose();
+      onClick: function () {
+        try {
+          return Promise.resolve(setProvider(provider)).then(function () {
+            handleClose();
+          });
+        } catch (e) {
+          return Promise.reject(e);
+        }
       }
     });
   })), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
@@ -985,7 +990,7 @@ var AccountModal = function AccountModal(_ref) {
     color: 'secondary',
     block: true,
     onClick: handleClose
-  }, "Close")))));
+  }, "Close"))));
 };
 
 var useStyles$c = styles.makeStyles(function (theme) {

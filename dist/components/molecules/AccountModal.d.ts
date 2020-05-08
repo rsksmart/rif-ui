@@ -4,7 +4,7 @@ import Web3 from 'web3';
 export interface AccountModalProps {
     web3: Web3 | null;
     networkName: string | null;
-    setProvider: (provider: EProvider) => void;
+    setProvider: (provider: EProvider) => Promise<void>;
     providers?: EProvider[];
     handleClose: () => void;
     open: boolean;
