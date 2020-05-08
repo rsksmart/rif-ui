@@ -559,6 +559,51 @@ const Accordion = ({
   }, title)), React.createElement(ExpansionPanelDetails, null, children));
 };
 
+const useStyles$b = makeStyles(theme => ({
+  accountText: {
+    fontSize: fonts.size.tiny,
+    textAlign: 'center'
+  },
+  button: {
+    border: '1px solid white',
+    '&:hover': {
+      border: '1px solid #FFFFFF00'
+    }
+  }
+}));
+
+const Account = ({
+  web3,
+  networkName,
+  account,
+  setProvider,
+  providers
+}) => {
+  const classes = useStyles$b();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
+
+  const handleOpen = () => setOpen(true);
+
+  return React.createElement(React.Fragment, null, React.createElement(Button, {
+    onClick: handleOpen,
+    className: classes.button,
+    variant: 'contained',
+    color: 'primary',
+    rounded: true
+  }, React.createElement(Typography, {
+    className: classes.accountText
+  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React.createElement(AccountModal, {
+    open: open,
+    handleClose: handleClose,
+    networkName: networkName,
+    web3: web3,
+    setProvider: setProvider,
+    providers: providers
+  }));
+};
+
 var EProvider;
 
 (function (EProvider) {
@@ -605,47 +650,13 @@ function getWeb3(provider = EProvider.METAMASK) {
   });
 }
 
-const useStyles$b = makeStyles(theme => ({
-  accountText: {
-    fontSize: fonts.size.tiny,
-    textAlign: 'center'
-  },
-  root: {
-    alignItems: 'center',
-    border: '1px solid white',
-    borderRadius: 50,
-    color: colors.gray1,
-    cursor: 'pointer',
-    display: 'flex',
-    flexWrap: 'nowrap',
-    fontSize: fonts.size.small,
-    height: '100%',
-    justifyContent: 'center',
-    padding: theme.spacing(1),
-    width: '100%'
-  }
-}));
-
-const Account = ({
-  web3,
-  networkName,
-  account,
+const AccountModal = ({
   setProvider,
-  providers
+  providers,
+  open,
+  handleClose
 }) => {
-  const classes = useStyles$b();
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => setOpen(false);
-
-  const handleOpen = () => setOpen(true);
-
-  return React.createElement(React.Fragment, null, React.createElement("div", {
-    onClick: handleOpen,
-    className: classes.root
-  }, React.createElement(Typography, {
-    className: classes.accountText
-  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React.createElement(Modal, {
+  return React.createElement(React.Fragment, null, React.createElement(Modal, {
     open: open,
     onClose: handleClose,
     "aria-labelledby": "account-modal-title",
@@ -1512,5 +1523,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
+export { Accordion, Account, AccountModal, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map

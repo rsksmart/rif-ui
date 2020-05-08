@@ -1,5 +1,6 @@
 import Accordion from './Accordion';
 import Account from './Account';
+import AccountModal from './AccountModal';
 import AppBar from './Appbar';
 import FilterCheckboxCard from './FilterCheckboxCard';
 import FooterColumn from './FooterColumn';
@@ -13,6 +14,7 @@ import UnitsInput from './UnitsInput';
 export {
   Accordion,
   Account,
+  AccountModal,
   AppBar,
   FilterCheckboxCard,
   FooterColumn,

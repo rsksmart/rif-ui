@@ -5,6 +5,7 @@ import Web3 from 'web3';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, LoginOption, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle, Typography } from '../../components/atoms';
 import { colors, fonts } from '../../theme';
+import { AccountModal } from './';
 
 export interface AccountProps {
   web3: Web3 | null;
@@ -19,20 +20,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: fonts.size.tiny,
     textAlign: 'center',
   },
-  root: {
-    alignItems: 'center',
+  button: {
     border: '1px solid white',
-    borderRadius: 50,
-    color: colors.gray1,
-    cursor: 'pointer',
-    display: 'flex',
-    flexWrap: 'nowrap',
-    fontSize: fonts.size.small,
-    height: '100%',
-    justifyContent: 'center',
-    padding: theme.spacing(1),
-    width: '100%',
-  },
+    '&:hover': {
+      border: '1px solid #FFFFFF00'
+    }
+  }
 }));
 
 const Account: FC<AccountProps> = ({
@@ -50,46 +43,20 @@ const Account: FC<AccountProps> = ({
 
   return (
     <React.Fragment>
-      <div
-        onClick={handleOpen}
-        className={classes.root}
-      >
+      <Button onClick={handleOpen} className={classes.button} variant='contained' color='primary' rounded>
         <Typography className={classes.accountText}>
           {!web3 && 'Connect wallet'}
           {web3 && networkName}
           {web3 && account && shortenAddress(account)}
         </Typography>
-      </div>
+      </Button>
 
-      <Modal
-        open={open} onClose={handleClose}
-        aria-labelledby="account-modal-title"
-        aria-describedby="account-modal-description">
-        <React.Fragment>
-          <ModalHeader>
-            <ModalTitle>
-              Connect a wallet to get started
-            </ModalTitle>
-          </ModalHeader>
-          <ModalBody>
-            {(providers || [EProvider.METAMASK, EProvider.LOCAL]).map(
-              provider => (
-                <LoginOption
-                  key={provider}
-                  text={provider}
-                  onClick={() => {
-                    setProvider(provider);
-                    handleClose();
-                  }}
-                />
-              ),
-            )}
-          </ModalBody>
-          <ModalFooter>
-            <Button variant='outlined' color='secondary' block onClick={handleClose}>Close</Button>
-          </ModalFooter>
-        </React.Fragment>
-      </Modal>
+      <AccountModal open={open} handleClose={handleClose}
+        networkName={networkName}
+        web3={web3}
+        setProvider={setProvider}
+        providers={providers}
+      />
     </React.Fragment>
   );
 };
