@@ -3,7 +3,7 @@ import { EProvider } from '../../services/Web3Service';
 import { shortenAddress } from '../../utils'
 import Web3 from 'web3';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Button, LoginOption, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle, Typography } from '../../components/atoms';
+import { Button, Typography } from '../../components/atoms';
 import { colors, fonts } from '../../theme';
 import { AccountModal } from './';
 
@@ -11,7 +11,7 @@ export interface AccountProps {
   web3: Web3 | null;
   networkName: string | null;
   account: string | null;
-  setProvider: (provider: EProvider) => void;
+  setProvider: (provider: EProvider) => Promise<void>;
   providers?: EProvider[];
 };
 
@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     textAlign: 'center',
   },
   button: {
-    border: '1px solid white',
+    border: `1px solid ${colors.white}`,
     '&:hover': {
-      border: '1px solid #FFFFFF00'
+      border: `1px solid ${colors.transparent}`
     }
   }
 }));

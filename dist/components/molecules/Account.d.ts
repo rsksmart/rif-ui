@@ -5,7 +5,7 @@ export interface AccountProps {
     web3: Web3 | null;
     networkName: string | null;
     account: string | null;
-    setProvider: (provider: EProvider) => void;
+    setProvider: (provider: EProvider) => Promise<void>;
     providers?: EProvider[];
 }
 declare const Account: FC<AccountProps>;

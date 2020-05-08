@@ -565,9 +565,9 @@ const useStyles$b = makeStyles(theme => ({
     textAlign: 'center'
   },
   button: {
-    border: '1px solid white',
+    border: `1px solid ${colors.white}`,
     '&:hover': {
-      border: '1px solid #FFFFFF00'
+      border: `1px solid ${colors.transparent}`
     }
   }
 }));
@@ -656,7 +656,7 @@ const AccountModal = ({
   open,
   handleClose
 }) => {
-  return React.createElement(React.Fragment, null, React.createElement(Modal, {
+  return React.createElement(Modal, {
     open: open,
     onClose: handleClose,
     "aria-labelledby": "account-modal-title",
@@ -664,8 +664,8 @@ const AccountModal = ({
   }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
     key: provider,
     text: provider,
-    onClick: () => {
-      setProvider(provider);
+    onClick: async () => {
+      await setProvider(provider);
       handleClose();
     }
   }))), React.createElement(ModalFooter, null, React.createElement(Button, {
@@ -673,7 +673,7 @@ const AccountModal = ({
     color: 'secondary',
     block: true,
     onClick: handleClose
-  }, "Close")))));
+  }, "Close"))));
 };
 
 const useStyles$c = makeStyles(theme => ({
