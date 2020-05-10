@@ -1424,7 +1424,7 @@ const defaultState = {
 const Web3Store = createContext({
   state: defaultState,
   actions: {
-    setProvider: () => {}
+    setProvider: async () => {}
   }
 });
 

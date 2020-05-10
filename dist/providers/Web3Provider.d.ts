@@ -9,7 +9,7 @@ export interface IWeb3Provider {
         networkName: string | null;
     };
     actions: {
-        setProvider: (provider: EProvider) => void;
+        setProvider: (provider: EProvider) => Promise<void>;
     };
 }
 export declare const Web3Store: React.Context<IWeb3Provider>;
