@@ -1,6 +1,6 @@
 {
   "name": "@rsksmart/rif-ui",
-  "version": "1.0.0",
+  "version": "0.1.0-dev.0",
   "description": "Exposes common components to be re used in RIF projects",
   "author": "rsksmart",
   "license": "MIT",
