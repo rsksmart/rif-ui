@@ -10,7 +10,7 @@ export interface IWeb3Provider {
     networkName: string | null;
   };
   actions: {
-    setProvider: (provider: EProvider) => void;
+    setProvider: (provider: EProvider) => Promise<void>;
   };
 }
 
@@ -24,7 +24,7 @@ const defaultState = {
 export const Web3Store = createContext<IWeb3Provider>({
   state: defaultState,
   actions: {
-    setProvider: () => { },
+    setProvider: async () => { },
   },
 });
 

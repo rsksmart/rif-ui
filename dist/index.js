@@ -1788,7 +1788,9 @@ var defaultState = {
 var Web3Store = React.createContext({
   state: defaultState,
   actions: {
-    setProvider: function setProvider() {}
+    setProvider: function () {
+      return Promise.resolve();
+    }
   }
 });
 
