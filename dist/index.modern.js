@@ -21,68 +21,121 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4 - 1, 4)}`;
+var shortenAddress = function shortenAddress(address) {
+  return address.substr(0, 6) + "..." + address.substr(address.length - 4 - 1, 4);
+};
 
-const CircularProgress = props => {
+var CircularProgress = function CircularProgress(props) {
   return React.createElement(CircularProgress$1, Object.assign({}, props));
 };
 
-const Grid = ({
-  children,
-  ...rest
-}) => {
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+var Grid = function Grid(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(Grid$1, Object.assign({}, rest), children);
 };
 
-const Link = props => {
+var Link = function Link(props) {
   return React.createElement(Link$1, Object.assign({}, props));
 };
 
-const useStyles = makeStyles(theme => ({
-  block: {
-    width: '100%'
-  },
-  noShadow: {
-    boxShadow: 'none'
-  },
-  rounded: {
-    borderRadius: 50
-  }
-}));
+var useStyles = makeStyles(function (theme) {
+  return {
+    block: {
+      width: '100%'
+    },
+    noShadow: {
+      boxShadow: 'none'
+    },
+    rounded: {
+      borderRadius: 50
+    }
+  };
+});
 
-const Button = ({
-  className: _className = '',
-  block,
-  shadow,
-  rounded,
-  children,
-  ...rest
-}) => {
-  const classes = useStyles();
+var Button = function Button(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      block = _ref.block,
+      shadow = _ref.shadow,
+      rounded = _ref.rounded,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className", "block", "shadow", "rounded", "children"]);
+
+  var classes = useStyles();
   return React.createElement(Button$1, Object.assign({
-    className: `${rounded ? classes.rounded : ''}
-        ${shadow ? '' : classes.noShadow}
-        ${block ? classes.block : ''} ${_className}`.trim()
+    className: ((rounded ? classes.rounded : '') + "\n        " + (shadow ? '' : classes.noShadow) + "\n        " + (block ? classes.block : '') + " " + className).trim()
   }, rest), children);
 };
 
-const useStyles$1 = makeStyles$1(() => ({
-  root: {
-    padding: 5,
-    margin: 5,
-    width: '100%'
-  }
-}));
+var useStyles$1 = makeStyles$1(function () {
+  return {
+    root: {
+      padding: 5,
+      margin: 5,
+      width: '100%'
+    }
+  };
+});
 
-const LoginOption = ({
-  className: _className = '',
-  onClick,
-  text,
-  ...rest
-}) => {
-  const classes = useStyles$1();
+var LoginOption = function LoginOption(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      onClick = _ref.onClick,
+      text = _ref.text,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className", "onClick", "text"]);
+
+  var classes = useStyles$1();
   return React.createElement(Button, Object.assign({
-    className: `${classes.root} ${_className}`,
+    className: classes.root + " " + className,
     block: true,
     rounded: true,
     variant: 'outlined',
@@ -122,10 +175,10 @@ var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
 var Logo = React.forwardRef(function LogoFooter(props, ref) {
-  const {
-    alt = 'RIF OS',
-    ...other
-  } = props;
+  var _props$alt = props.alt,
+      alt = _props$alt === void 0 ? 'RIF OS' : _props$alt,
+      other = _objectWithoutPropertiesLoose(props, ["alt"]);
+
   return React.createElement("img", Object.assign({
     src: logoFullWhite,
     alt: alt,
@@ -134,11 +187,12 @@ var Logo = React.forwardRef(function LogoFooter(props, ref) {
 });
 
 var LogoNavbar = React.forwardRef(function LogoFooter(props, ref) {
-  const {
-    alt = 'RIF OS',
-    height = '44px',
-    ...other
-  } = props;
+  var _props$alt = props.alt,
+      alt = _props$alt === void 0 ? 'RIF OS' : _props$alt,
+      _props$height = props.height,
+      height = _props$height === void 0 ? '44px' : _props$height,
+      other = _objectWithoutPropertiesLoose(props, ["alt", "height"]);
+
   return React.createElement("img", Object.assign({
     src: logoFullWhite,
     alt: alt,
@@ -147,35 +201,35 @@ var LogoNavbar = React.forwardRef(function LogoFooter(props, ref) {
   }, other));
 });
 
-const Card = ({
-  children,
-  ...rest
-}) => {
+var Card = function Card(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(Card$1, Object.assign({}, rest), children);
 };
 
-const CardActions = ({
-  children,
-  ...rest
-}) => {
+var CardActions = function CardActions(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(CardActions$1, Object.assign({}, rest), children);
 };
 
-const CardContent = ({
-  children,
-  ...rest
-}) => {
+var CardContent = function CardContent(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(CardContent$1, Object.assign({}, rest), children);
 };
 
-const CardHeader = ({
-  children,
-  ...rest
-}) => {
+var CardHeader = function CardHeader(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(CardHeader$1, Object.assign({}, rest), children);
 };
 
-const colors = {
+var colors = {
   black: '#000000',
   primary: '#008FF7',
   darkBlue: '#197DC6',
@@ -188,7 +242,7 @@ const colors = {
   transparent: '#FFFFFF00',
   white: '#FFFFFF'
 };
-const fonts = {
+var fonts = {
   family: 'Rubik',
   size: {
     tiny: 10,
@@ -205,7 +259,7 @@ const fonts = {
     superBold: 900
   }
 };
-const theme = createMuiTheme({
+var theme = createMuiTheme({
   palette: {
     primary: {
       main: colors.primary
@@ -231,24 +285,27 @@ const theme = createMuiTheme({
   }
 });
 
-const useStyles$2 = makeStyles$1(() => createStyles({
-  unCheckedIcon: {
-    color: colors.gray4
-  },
-  checkedIcon: {
-    color: colors.primary
-  }
-}));
+var useStyles$2 = makeStyles$1(function () {
+  return createStyles({
+    unCheckedIcon: {
+      color: colors.gray4
+    },
+    checkedIcon: {
+      color: colors.primary
+    }
+  });
+});
 
-const Checkbox = props => {
-  const classes = useStyles$2();
-  const [isChecked, setIsChecked] = useState(!!props.checked);
+var Checkbox = function Checkbox(props) {
+  var classes = useStyles$2();
 
-  const handleChange = (event, checked) => {
+  var _useState = useState(!!props.checked),
+      isChecked = _useState[0],
+      setIsChecked = _useState[1];
+
+  var handleChange = function handleChange(event, checked) {
     setIsChecked(checked);
-    const {
-      onChange
-    } = props;
+    var onChange = props.onChange;
     !!onChange && onChange(event, checked);
   };
 
@@ -265,69 +322,71 @@ const Checkbox = props => {
   }));
 };
 
-const FormControl = ({
-  children,
-  ...rest
-}) => {
+var FormControl = function FormControl(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(FormControl$1, Object.assign({}, rest), children);
 };
 
-const FormGroup = ({
-  children,
-  ...rest
-}) => {
+var FormGroup = function FormGroup(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(FormGroup$1, Object.assign({}, rest), children);
 };
 
-const Input = ({
-  children,
-  ...rest
-}) => {
+var Input = function Input(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(Input$1, Object.assign({}, rest), children);
 };
 
-const InputAdornment = ({
-  children,
-  ...rest
-}) => {
+var InputAdornment = function InputAdornment(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(InputAdornment$1, Object.assign({}, rest), children);
 };
 
-const InputLabel = ({
-  children,
-  ...rest
-}) => {
+var InputLabel = function InputLabel(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(InputLabel$1, Object.assign({}, rest), children);
 };
 
-const useStyles$3 = makeStyles(() => createStyles$1({
-  root: {
-    width: "100%",
-    color: colors.primary,
-    height: 4
-  },
-  rail: {
-    color: colors.gray3,
-    height: 4,
-    opacity: 1
-  },
-  track: {
-    height: 4
-  },
-  thumb: {
-    marginLeft: -4,
-    height: 14,
-    width: 14
-  }
-}));
+var useStyles$3 = makeStyles(function () {
+  return createStyles$1({
+    root: {
+      width: "100%",
+      color: colors.primary,
+      height: 4
+    },
+    rail: {
+      color: colors.gray3,
+      height: 4,
+      opacity: 1
+    },
+    track: {
+      height: 4
+    },
+    thumb: {
+      marginLeft: -4,
+      height: 14,
+      width: 14
+    }
+  });
+});
 
-const RangeSlider = ({
-  handleChange,
-  ...rest
-}) => {
-  const classes = useStyles$3();
+var RangeSlider = function RangeSlider(_ref) {
+  var handleChange = _ref.handleChange,
+      rest = _objectWithoutPropertiesLoose(_ref, ["handleChange"]);
 
-  const onChange = (event, newValue) => {
+  var classes = useStyles$3();
+
+  var onChange = function onChange(event, newValue) {
     handleChange(event, newValue);
   };
 
@@ -337,213 +396,251 @@ const RangeSlider = ({
   }, rest));
 };
 
-const Switch = ({ ...rest
-}) => {
+var Switch = function Switch(_ref) {
+  var rest = _extends({}, _ref);
+
   return React.createElement(Switch$1, Object.assign({}, rest));
 };
 
-const useStyles$4 = makeStyles$1(() => ({
-  root: {
-    color: colors.gray3,
-    '&:hover': {
-      color: colors.gray2
+var useStyles$4 = makeStyles$1(function () {
+  return {
+    root: {
+      color: colors.gray3,
+      '&:hover': {
+        color: colors.gray2
+      }
     }
-  }
-}));
+  };
+});
 
-const TextField = ({
-  className: _className = '',
-  ...rest
-}) => {
-  const classes = useStyles$4();
+var TextField = function TextField(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className"]);
+
+  var classes = useStyles$4();
   return React.createElement(TextField$1, Object.assign({
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, rest));
 };
 
-const MenuItem = ({ ...rest
-}) => {
+var MenuItem = function MenuItem(_ref) {
+  var rest = _extends({}, _ref);
+
   return React.createElement(MenuItem$1, Object.assign({}, rest));
 };
 
-const Select = ({ ...rest
-}) => {
+var Select = function Select(_ref) {
+  var rest = _extends({}, _ref);
+
   return React.createElement(Select$1, Object.assign({}, rest));
 };
 
-const useStyles$5 = makeStyles(theme => ({
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: `2px solid ${colors.primary}`,
-    boxShadow: theme.shadows[5],
-    left: '50%',
-    minWidth: 400,
-    padding: theme.spacing(2, 4, 3),
-    position: 'absolute',
-    top: '50%',
-    transform: `translate(-50%, -50%)`
-  }
-}));
+var useStyles$5 = makeStyles(function (theme) {
+  return {
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+      border: "2px solid " + colors.primary,
+      boxShadow: theme.shadows[5],
+      left: '50%',
+      minWidth: 400,
+      padding: theme.spacing(2, 4, 3),
+      position: 'absolute',
+      top: '50%',
+      transform: "translate(-50%, -50%)"
+    }
+  };
+});
 
-const Modal = ({
-  children,
-  ...rest
-}) => {
-  const classes = useStyles$5();
+var Modal = function Modal(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
+  var classes = useStyles$5();
   return React.createElement(Modal$1, Object.assign({}, rest), React.createElement("div", {
     className: classes.paper
   }, children));
 };
 
-const useStyles$6 = makeStyles(theme => ({
-  root: {
-    borderBottom: `1px solid ${colors.gray2}`,
-    color: colors.primary,
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%'
-  }
-}));
+var useStyles$6 = makeStyles(function (theme) {
+  return {
+    root: {
+      borderBottom: "1px solid " + colors.gray2,
+      color: colors.primary,
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%'
+    }
+  };
+});
 
-const ModalHeader = ({
-  children,
-  className: _className = '',
-  ...rest
-}) => {
-  const classes = useStyles$6();
+var ModalHeader = function ModalHeader(_ref) {
+  var children = _ref.children,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
+
+  var classes = useStyles$6();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, children);
 };
 
-const useStyles$7 = makeStyles(theme => ({
-  normal: {
-    fontWeight: fonts.weight.normal
-  },
-  lightBold: {
-    fontWeight: fonts.weight.lightBold
-  },
-  bold: {
-    fontWeight: fonts.weight.bold
-  },
-  superBold: {
-    fontWeight: fonts.weight.superBold
-  }
-}));
+var useStyles$7 = makeStyles(function (theme) {
+  return {
+    normal: {
+      fontWeight: fonts.weight.normal
+    },
+    lightBold: {
+      fontWeight: fonts.weight.lightBold
+    },
+    bold: {
+      fontWeight: fonts.weight.bold
+    },
+    superBold: {
+      fontWeight: fonts.weight.superBold
+    }
+  };
+});
 
-const Typography = ({
-  weight: _weight = 'normal',
-  className: _className = '',
-  children,
-  ...rest
-}) => {
-  const classes = useStyles$7();
+var Typography = function Typography(_ref) {
+  var _ref$weight = _ref.weight,
+      weight = _ref$weight === void 0 ? 'normal' : _ref$weight,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["weight", "className", "children"]);
+
+  var classes = useStyles$7();
   return React.createElement(Typography$1, Object.assign({
-    className: `${classes[_weight]} ${_className}`.trim()
+    className: (classes[weight] + " " + className).trim()
   }, rest), children);
 };
 
-const ModalTitle = ({
-  children,
-  ...rest
-}) => {
+var ModalTitle = function ModalTitle(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(Typography, Object.assign({
     variant: 'h5'
   }, rest), children);
 };
 
-const useStyles$8 = makeStyles(theme => ({
-  root: {
-    borderTop: `1px solid ${colors.gray2}`,
-    display: 'flex',
-    justifyContent: 'center',
-    paddingTop: theme.spacing(1),
-    width: '100%'
-  }
-}));
+var useStyles$8 = makeStyles(function (theme) {
+  return {
+    root: {
+      borderTop: "1px solid " + colors.gray2,
+      display: 'flex',
+      justifyContent: 'center',
+      paddingTop: theme.spacing(1),
+      width: '100%'
+    }
+  };
+});
 
-const ModalFooter = ({
-  children,
-  className: _className = '',
-  ...rest
-}) => {
-  const classes = useStyles$8();
+var ModalFooter = function ModalFooter(_ref) {
+  var children = _ref.children,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
+
+  var classes = useStyles$8();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, children);
 };
 
-const useStyles$9 = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3, 0),
-    width: '100%'
-  }
-}));
+var useStyles$9 = makeStyles(function (theme) {
+  return {
+    root: {
+      padding: theme.spacing(3, 0),
+      width: '100%'
+    }
+  };
+});
 
-const ModalBody = ({
-  children,
-  className: _className = '',
-  ...rest
-}) => {
-  const classes = useStyles$9();
+var ModalBody = function ModalBody(_ref) {
+  var children = _ref.children,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
+
+  var classes = useStyles$9();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, children);
 };
 
-const Table = ({
-  children,
-  ...rest
-}) => React.createElement(Table$1, Object.assign({}, rest), children);
+var Table = function Table(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
 
-const TableBody = ({
-  children,
-  ...rest
-}) => React.createElement(TableBody$1, Object.assign({}, rest), children);
+  return React.createElement(Table$1, Object.assign({}, rest), children);
+};
 
-const TableCell = ({
-  children,
-  ...rest
-}) => React.createElement(TableCell$1, Object.assign({}, rest), children);
+var TableBody = function TableBody(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
 
-const TableHead = ({
-  children,
-  ...rest
-}) => React.createElement(TableHead$1, Object.assign({}, rest), children);
+  return React.createElement(TableBody$1, Object.assign({}, rest), children);
+};
 
-const TableRow = ({
-  children,
-  ...rest
-}) => React.createElement(TableRow$1, Object.assign({}, rest), children);
+var TableCell = function TableCell(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
 
-const useStyles$a = makeStyles(theme => createStyles$1({
-  root: {
-    boxShadow: 'none',
-    color: colors.gray4,
-    width: '100%'
-  },
-  heading: {
-    color: colors.gray4,
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightBold,
-    width: '100%'
-  },
-  expansionPanelSummary: {
-    borderBottom: `1px solid ${colors.gray2}`
-  }
-}));
+  return React.createElement(TableCell$1, Object.assign({}, rest), children);
+};
 
-const Accordion = ({
-  children,
-  expanded,
-  id,
-  title,
-  ...rest
-}) => {
-  const classes = useStyles$a();
-  const [isExpanded, setIsExpanded] = useState(!!expanded);
+var TableHead = function TableHead(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
 
-  const onChange = () => setIsExpanded(!isExpanded);
+  return React.createElement(TableHead$1, Object.assign({}, rest), children);
+};
+
+var TableRow = function TableRow(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
+  return React.createElement(TableRow$1, Object.assign({}, rest), children);
+};
+
+var useStyles$a = makeStyles(function (theme) {
+  return createStyles$1({
+    root: {
+      boxShadow: 'none',
+      color: colors.gray4,
+      width: '100%'
+    },
+    heading: {
+      color: colors.gray4,
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightBold,
+      width: '100%'
+    },
+    expansionPanelSummary: {
+      borderBottom: "1px solid " + colors.gray2
+    }
+  });
+});
+
+var Accordion = function Accordion(_ref) {
+  var children = _ref.children,
+      expanded = _ref.expanded,
+      id = _ref.id,
+      title = _ref.title,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children", "expanded", "id", "title"]);
+
+  var classes = useStyles$a();
+
+  var _useState = useState(!!expanded),
+      isExpanded = _useState[0],
+      setIsExpanded = _useState[1];
+
+  var onChange = function onChange() {
+    return setIsExpanded(!isExpanded);
+  };
 
   return React.createElement(ExpansionPanel, {
     className: classes.root,
@@ -552,12 +649,200 @@ const Accordion = ({
   }, React.createElement(ExpansionPanelSummary, {
     className: classes.expansionPanelSummary,
     expandIcon: React.createElement(ExpandMoreIcon, null),
-    "aria-controls": `panel-${id}-content`,
+    "aria-controls": "panel-" + id + "-content",
     id: id
   }, React.createElement(Typography, {
     className: classes.heading
   }, title)), React.createElement(ExpansionPanelDetails, null, children));
 };
+
+// A type of promise-like that resolves synchronously and supports only one observer
+const _Pact = /*#__PURE__*/(function() {
+	function _Pact() {}
+	_Pact.prototype.then = function(onFulfilled, onRejected) {
+		const result = new _Pact();
+		const state = this.s;
+		if (state) {
+			const callback = state & 1 ? onFulfilled : onRejected;
+			if (callback) {
+				try {
+					_settle(result, 1, callback(this.v));
+				} catch (e) {
+					_settle(result, 2, e);
+				}
+				return result;
+			} else {
+				return this;
+			}
+		}
+		this.o = function(_this) {
+			try {
+				const value = _this.v;
+				if (_this.s & 1) {
+					_settle(result, 1, onFulfilled ? onFulfilled(value) : value);
+				} else if (onRejected) {
+					_settle(result, 1, onRejected(value));
+				} else {
+					_settle(result, 2, value);
+				}
+			} catch (e) {
+				_settle(result, 2, e);
+			}
+		};
+		return result;
+	};
+	return _Pact;
+})();
+
+// Settles a pact synchronously
+function _settle(pact, state, value) {
+	if (!pact.s) {
+		if (value instanceof _Pact) {
+			if (value.s) {
+				if (state & 1) {
+					state = value.s;
+				}
+				value = value.v;
+			} else {
+				value.o = _settle.bind(null, pact, state);
+				return;
+			}
+		}
+		if (value && value.then) {
+			value.then(_settle.bind(null, pact, state), _settle.bind(null, pact, 2));
+			return;
+		}
+		pact.s = state;
+		pact.v = value;
+		const observer = pact.o;
+		if (observer) {
+			observer(pact);
+		}
+	}
+}
+
+const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
+
+const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
+
+// Asynchronously implement a switch statement
+function _switch(discriminant, cases) {
+	var dispatchIndex = -1;
+	var awaitBody;
+	outer: {
+		for (var i = 0; i < cases.length; i++) {
+			var test = cases[i][0];
+			if (test) {
+				var testValue = test();
+				if (testValue && testValue.then) {
+					break outer;
+				}
+				if (testValue === discriminant) {
+					dispatchIndex = i;
+					break;
+				}
+			} else {
+				// Found the default case, set it as the pending dispatch case
+				dispatchIndex = i;
+			}
+		}
+		if (dispatchIndex !== -1) {
+			do {
+				var body = cases[dispatchIndex][1];
+				while (!body) {
+					dispatchIndex++;
+					body = cases[dispatchIndex][1];
+				}
+				var result = body();
+				if (result && result.then) {
+					awaitBody = true;
+					break outer;
+				}
+				var fallthroughCheck = cases[dispatchIndex][2];
+				dispatchIndex++;
+			} while (fallthroughCheck && !fallthroughCheck());
+			return result;
+		}
+	}
+	const pact = new _Pact();
+	const reject = _settle.bind(null, pact, 2);
+	(awaitBody ? result.then(_resumeAfterBody) : testValue.then(_resumeAfterTest)).then(void 0, reject);
+	return pact;
+	function _resumeAfterTest(value) {
+		for (;;) {
+			if (value === discriminant) {
+				dispatchIndex = i;
+				break;
+			}
+			if (++i === cases.length) {
+				if (dispatchIndex !== -1) {
+					break;
+				} else {
+					_settle(pact, 1, result);
+					return;
+				}
+			}
+			test = cases[i][0];
+			if (test) {
+				value = test();
+				if (value && value.then) {
+					value.then(_resumeAfterTest).then(void 0, reject);
+					return;
+				}
+			} else {
+				dispatchIndex = i;
+			}
+		}
+		do {
+			var body = cases[dispatchIndex][1];
+			while (!body) {
+				dispatchIndex++;
+				body = cases[dispatchIndex][1];
+			}
+			var result = body();
+			if (result && result.then) {
+				result.then(_resumeAfterBody).then(void 0, reject);
+				return;
+			}
+			var fallthroughCheck = cases[dispatchIndex][2];
+			dispatchIndex++;
+		} while (fallthroughCheck && !fallthroughCheck());
+		_settle(pact, 1, result);
+	}
+	function _resumeAfterBody(result) {
+		for (;;) {
+			var fallthroughCheck = cases[dispatchIndex][2];
+			if (!fallthroughCheck || fallthroughCheck()) {
+				break;
+			}
+			dispatchIndex++;
+			var body = cases[dispatchIndex][1];
+			while (!body) {
+				dispatchIndex++;
+				body = cases[dispatchIndex][1];
+			}
+			result = body();
+			if (result && result.then) {
+				result.then(_resumeAfterBody).then(void 0, reject);
+				return;
+			}
+		}
+		_settle(pact, 1, result);
+	}
+}
+
+// Asynchronously call a function and send errors to recovery continuation
+function _catch(body, recover) {
+	try {
+		var result = body();
+	} catch(e) {
+		return recover(e);
+	}
+	if (result && result.then) {
+		return result.then(void 0, recover);
+	}
+	return result;
+}
 
 var EProvider;
 
@@ -568,62 +853,85 @@ var EProvider;
   EProvider["LOCAL"] = "Localhost";
 })(EProvider || (EProvider = {}));
 
-function getWeb3(provider = EProvider.METAMASK) {
-  return new Promise(async (resolve, reject) => {
-    switch (provider) {
-      case EProvider.METAMASK:
+function getWeb3(provider) {
+  if (provider === void 0) {
+    provider = EProvider.METAMASK;
+  }
+
+  return new Promise(function (resolve, reject) {
+    try {
+      var _temp4 = _switch(provider, [[function () {
+        return EProvider.METAMASK;
+      }, function () {
         {
-          if (window.ethereum) {
-            const web3 = new Web3(window.ethereum);
+          var _temp5 = function () {
+            if (window.ethereum) {
+              var web3 = new Web3(window.ethereum);
 
-            try {
-              await window.ethereum.enable();
-              resolve(web3);
-            } catch (error) {
-              reject(error);
-            }
-          } else if (window.web3) {
-              resolve(new Web3(window.web3.currentProvider));
-            } else reject(new Error('No injected web3 found'));
+              var _temp6 = _catch(function () {
+                return Promise.resolve(window.ethereum.enable()).then(function () {
+                  resolve(web3);
+                });
+              }, function (error) {
+                reject(error);
+              });
 
-          break;
+              if (_temp6 && _temp6.then) return _temp6.then(function () {});
+            } else if (window.web3) {
+                resolve(new Web3(window.web3.currentProvider));
+              } else reject(new Error('No injected web3 found'));
+          }();
+
+          return _temp5 && _temp5.then ? _temp5.then(function () {}) : void 0;
         }
-
-      case EProvider.LOCAL:
+      }], [function () {
+        return EProvider.LOCAL;
+      }, function () {
         {
-          const provider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
-          resolve(new Web3(provider));
-          break;
-        }
+          var _provider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
 
-      default:
-        {
-          reject(new Error(`Provider not implemented or unknown. Chosen provider ${provider}`));
-          break;
+          resolve(new Web3(_provider));
+          return;
         }
+      }], [void 0, function () {
+        {
+          reject(new Error("Provider not implemented or unknown. Chosen provider " + provider));
+          return;
+        }
+      }]]);
+
+      return Promise.resolve(_temp4 && _temp4.then ? _temp4.then(function () {}) : void 0);
+    } catch (e) {
+      return Promise.reject(e);
     }
   });
 }
 
-const AccountModal = ({
-  setProvider,
-  providers,
-  open,
-  handleClose
-}) => {
+var AccountModal = function AccountModal(_ref) {
+  var setProvider = _ref.setProvider,
+      providers = _ref.providers,
+      open = _ref.open,
+      handleClose = _ref.handleClose;
   return React.createElement(Modal, {
     open: open,
     onClose: handleClose,
     "aria-labelledby": "account-modal-title",
     "aria-describedby": "account-modal-description"
-  }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
-    key: provider,
-    text: provider,
-    onClick: async () => {
-      await setProvider(provider);
-      handleClose();
-    }
-  }))), React.createElement(ModalFooter, null, React.createElement(Button, {
+  }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(function (provider) {
+    return React.createElement(LoginOption, {
+      key: provider,
+      text: provider,
+      onClick: function () {
+        try {
+          return Promise.resolve(setProvider(provider)).then(function () {
+            handleClose();
+          });
+        } catch (e) {
+          return Promise.reject(e);
+        }
+      }
+    });
+  })), React.createElement(ModalFooter, null, React.createElement(Button, {
     variant: 'outlined',
     color: 'secondary',
     block: true,
@@ -631,32 +939,40 @@ const AccountModal = ({
   }, "Close"))));
 };
 
-const useStyles$b = makeStyles(theme => ({
-  accountText: {
-    fontSize: fonts.size.tiny,
-    textAlign: 'center'
-  },
-  button: {
-    border: `1px solid ${colors.white}`,
-    '&:hover': {
-      border: `1px solid ${colors.transparent}`
+var useStyles$b = makeStyles(function (theme) {
+  return {
+    accountText: {
+      fontSize: fonts.size.tiny,
+      textAlign: 'center'
+    },
+    button: {
+      border: "1px solid " + colors.white,
+      '&:hover': {
+        border: "1px solid " + colors.transparent
+      }
     }
-  }
-}));
+  };
+});
 
-const Account = ({
-  web3,
-  networkName,
-  account,
-  setProvider,
-  providers
-}) => {
-  const classes = useStyles$b();
-  const [open, setOpen] = useState(false);
+var Account = function Account(_ref) {
+  var web3 = _ref.web3,
+      networkName = _ref.networkName,
+      account = _ref.account,
+      setProvider = _ref.setProvider,
+      providers = _ref.providers;
+  var classes = useStyles$b();
 
-  const handleClose = () => setOpen(false);
+  var _useState = useState(false),
+      open = _useState[0],
+      setOpen = _useState[1];
 
-  const handleOpen = () => setOpen(true);
+  var handleClose = function handleClose() {
+    return setOpen(false);
+  };
+
+  var handleOpen = function handleOpen() {
+    return setOpen(true);
+  };
 
   return React.createElement(React.Fragment, null, React.createElement(Button, {
     onClick: handleOpen,
@@ -676,151 +992,166 @@ const Account = ({
   }));
 };
 
-const useStyles$c = makeStyles(theme => ({
-  activeNavlink: {
-    color: `${colors.white} !important`,
-    fontWeight: fonts.weight.lightBold
-  },
-  itemsContainer: {
-    display: 'flex'
-  },
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto'
-  },
-  navLink: {
-    alignItems: 'center',
-    color: colors.white,
-    display: 'flex',
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    textAlign: 'center',
-    textDecoration: 'none',
-    '&:hover': {
-      color: colors.gray5,
-      textDecoration: 'none'
+var useStyles$c = makeStyles(function (theme) {
+  return {
+    activeNavlink: {
+      color: colors.white + " !important",
+      fontWeight: fonts.weight.lightBold
+    },
+    itemsContainer: {
+      display: 'flex'
+    },
+    loginContainer: {
+      display: 'flex',
+      marginLeft: 'auto'
+    },
+    navLink: {
+      alignItems: 'center',
+      color: colors.white,
+      display: 'flex',
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+      textAlign: 'center',
+      textDecoration: 'none',
+      '&:hover': {
+        color: colors.gray5,
+        textDecoration: 'none'
+      }
+    },
+    navLinkContainer: {
+      display: 'flex'
+    },
+    root: {
+      boxShadow: 'none',
+      height: theme.spacing(8)
     }
-  },
-  navLinkContainer: {
-    display: 'flex'
-  },
-  root: {
-    boxShadow: 'none',
-    height: theme.spacing(8)
-  }
-}));
+  };
+});
 
-const AppBar = ({
-  className: _className = '',
-  items,
-  login,
-  ...rest
-}) => {
-  const classes = useStyles$c();
-  const Login = login;
+var AppBar = function AppBar(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      items = _ref.items,
+      login = _ref.login,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className", "items", "login"]);
+
+  var classes = useStyles$c();
+  var Login = login;
   return React.createElement(AppBar$1, Object.assign({
     position: 'fixed',
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, rest), React.createElement(Toolbar, null, React.createElement(Link, {
     href: rest.hreflogo
   }, React.createElement(LogoNavbar, null)), React.createElement("div", {
     className: classes.itemsContainer
-  }, !!items.length && items.map((navItem, i) => React.createElement(Typography, {
-    className: classes.navLinkContainer,
-    key: `${navItem.title}-${i}`
-  }, React.createElement(NavLink, Object.assign({
-    className: classes.navLink,
-    activeClassName: classes.activeNavlink
-  }, navItem), navItem.title)))), React.createElement("div", {
+  }, !!items.length && items.map(function (navItem, i) {
+    return React.createElement(Typography, {
+      className: classes.navLinkContainer,
+      key: navItem.title + "-" + i
+    }, React.createElement(NavLink, Object.assign({
+      className: classes.navLink,
+      activeClassName: classes.activeNavlink
+    }, navItem), navItem.title));
+  })), React.createElement("div", {
     className: classes.loginContainer
   }, React.createElement(Login, null))));
 };
 
-const useStyles$d = makeStyles$1(() => createStyles({
-  root: {
-    color: colors.gray3
-  }
-}));
+var useStyles$d = makeStyles$1(function () {
+  return createStyles({
+    root: {
+      color: colors.gray3
+    }
+  });
+});
 
-const FormControlLabel = ({
-  className: _className = '',
-  ...rest
-}) => {
-  const classes = useStyles$d();
+var FormControlLabel = function FormControlLabel(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className"]);
+
+  var classes = useStyles$d();
   return React.createElement(FormControlLabel$1, Object.assign({
-    className: `${classes.root} ${_className} `.trim()
+    className: (classes.root + " " + className + " ").trim()
   }, rest));
 };
 
-const useStyles$e = makeStyles$1(theme => ({
-  root: {
-    color: colors.gray4,
-    width: "100%"
-  }
-}));
+var useStyles$e = makeStyles$1(function (theme) {
+  return {
+    root: {
+      color: colors.gray4,
+      width: "100%"
+    }
+  };
+});
 
-const LabeledCheckbox = ({
-  labelText,
-  labelClassName: _labelClassName = '',
-  ...rest
-}) => {
-  const classes = useStyles$e();
+var LabeledCheckbox = function LabeledCheckbox(_ref) {
+  var labelText = _ref.labelText,
+      _ref$labelClassName = _ref.labelClassName,
+      labelClassName = _ref$labelClassName === void 0 ? '' : _ref$labelClassName,
+      rest = _objectWithoutPropertiesLoose(_ref, ["labelText", "labelClassName"]);
+
+  var classes = useStyles$e();
   return React.createElement(FormControlLabel, {
-    className: `${classes.root} ${_labelClassName.trim()}`,
+    className: classes.root + " " + labelClassName.trim(),
     label: labelText,
     control: React.createElement(Checkbox, Object.assign({}, rest))
   });
 };
 
-const FilterCheckboxCard = ({
-  className: _className = '',
-  onClick,
-  items
-}) => {
+var FilterCheckboxCard = function FilterCheckboxCard(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      onClick = _ref.onClick,
+      items = _ref.items;
   return React.createElement("div", {
-    className: _className
-  }, items.map((item, i) => React.createElement(LabeledCheckbox, Object.assign({
-    onClick: onClick,
-    key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${_className}`.trim(),
-    labelClassName: item.labelClassName
-  }, item))));
+    className: className
+  }, items.map(function (item, i) {
+    return React.createElement(LabeledCheckbox, Object.assign({
+      onClick: onClick,
+      key: "labeledCheckbox-" + item.id || ("labeledCheckbox-" + i + "-" + className).trim(),
+      labelClassName: item.labelClassName
+    }, item));
+  }));
 };
 
-const useStyles$f = makeStyles(theme => ({
-  root: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  footerLink: {
-    color: colors.gray4,
-    fontWeight: fonts.weight.normal,
-    textDecoration: 'none',
-    '&:hover': {
-      fontWeight: fonts.weight.lightBold
+var useStyles$f = makeStyles(function (theme) {
+  return {
+    root: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column'
+    },
+    footerLink: {
+      color: colors.gray4,
+      fontWeight: fonts.weight.normal,
+      textDecoration: 'none',
+      '&:hover': {
+        fontWeight: fonts.weight.lightBold
+      }
+    },
+    footerTitle: {
+      fontSize: fonts.size.subtitleBig,
+      textAlign: 'center'
     }
-  },
-  footerTitle: {
-    fontSize: fonts.size.subtitleBig,
-    textAlign: 'center'
-  }
-}));
+  };
+});
 
-const FooterColumn = ({
-  title,
-  links,
-  className: _className = ''
-}) => {
-  const classes = useStyles$f();
+var FooterColumn = function FooterColumn(_ref) {
+  var title = _ref.title,
+      links = _ref.links,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className;
+  var classes = useStyles$f();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, React.createElement(Typography, {
     className: classes.footerTitle,
     variant: 'subtitle1',
     color: 'primary'
-  }, title), links.map((link, i) => {
+  }, title), links.map(function (link, i) {
     if (link.isExternal) {
-      const href = (link.to || '#').toString();
+      var href = (link.to || '#').toString();
       return React.createElement("a", {
         className: classes.footerLink,
         target: link.target,
@@ -840,63 +1171,64 @@ const FooterColumn = ({
   }));
 };
 
-const List = ({
-  children,
-  ...rest
-}) => {
+var List = function List(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
   return React.createElement(List$1, Object.assign({}, rest), children);
 };
 
-const ModalDialogue = ({
-  title,
-  footer,
-  children,
-  ...props
-}) => {
+var ModalDialogue = function ModalDialogue(_ref) {
+  var title = _ref.title,
+      footer = _ref.footer,
+      children = _ref.children,
+      props = _objectWithoutPropertiesLoose(_ref, ["title", "footer", "children"]);
+
   return React.createElement(Modal, Object.assign({}, props), React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, title)), React.createElement(ModalBody, null, children), React.createElement(ModalFooter, null, footer)));
 };
 
-const useStyles$g = makeStyles(theme => ({
-  root: {
-    color: colors.gray4,
-    display: 'flex'
-  },
-  input: {
-    color: colors.gray4,
-    paddingLeft: theme.spacing(0.1),
-    textAlign: 'center',
-    '&::before': {
-      borderBottom: `1px solid ${colors.gray4}`
+var useStyles$g = makeStyles(function (theme) {
+  return {
+    root: {
+      color: colors.gray4,
+      display: 'flex'
+    },
+    input: {
+      color: colors.gray4,
+      paddingLeft: theme.spacing(0.1),
+      textAlign: 'center',
+      '&::before': {
+        borderBottom: "1px solid " + colors.gray4
+      }
+    },
+    inputContainer: {
+      paddingRight: '0 !important'
+    },
+    units: {
+      color: colors.gray4,
+      display: 'flex',
+      fontSize: fonts.size.tiny
+    },
+    unitsContainer: {
+      alignSelf: 'center',
+      color: colors.gray4,
+      display: 'flex',
+      fontSize: fonts.size.normal,
+      paddingLeft: '0 !important'
     }
-  },
-  inputContainer: {
-    paddingRight: '0 !important'
-  },
-  units: {
-    color: colors.gray4,
-    display: 'flex',
-    fontSize: fonts.size.tiny
-  },
-  unitsContainer: {
-    alignSelf: 'center',
-    color: colors.gray4,
-    display: 'flex',
-    fontSize: fonts.size.normal,
-    paddingLeft: '0 !important'
-  }
-}));
+  };
+});
 
-const UnitsInput = props => {
-  const {
-    handleOnBlur,
-    handleOnChange,
-    maxValue,
-    minValue,
-    units,
-    value,
-    step = 1
-  } = props;
-  const classes = useStyles$g();
+var UnitsInput = function UnitsInput(props) {
+  var handleOnBlur = props.handleOnBlur,
+      handleOnChange = props.handleOnChange,
+      maxValue = props.maxValue,
+      minValue = props.minValue,
+      units = props.units,
+      value = props.value,
+      _props$step = props.step,
+      step = _props$step === void 0 ? 1 : _props$step;
+  var classes = useStyles$g();
   return React.createElement(React.Fragment, null, React.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -928,94 +1260,92 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$h = makeStyles(() => ({
-  root: {
-    width: "100%"
-  },
-  inputsContainer: {
-    alignSelf: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%'
-  },
-  toContainer: {
-    alignSelf: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%'
-  }
-}));
-
-const RangeSliderWithInputs = ({
-  values,
-  unit,
-  handleChange,
-  className,
-  ...rest
-}) => {
-  const classes = useStyles$h();
-  const maxValue = rest.max || values.end;
-  const minValue = rest.min || values.start;
-  const step = rest.step || 1;
-  const [startValue, setStartValue] = useState(values.start);
-  const [endValue, setEndValue] = useState(values.end);
-  const [sliderRangeValues, setSliderRangeValues] = useState([startValue, endValue]);
-
-  const handleStartInputChange = event => {
-    const newStartValue = event.target.value === '' ? values.start : Number(event.target.value);
-
-    if (newStartValue <= endValue) {
-      setStartValue(newStartValue);
-      setSliderRangeValues([newStartValue, sliderRangeValues[1]]);
+var useStyles$h = makeStyles(function () {
+  return {
+    root: {
+      width: "100%"
+    },
+    inputsContainer: {
+      alignSelf: 'center',
+      display: 'flex',
+      justifyContent: 'space-between',
+      width: '100%'
+    },
+    toContainer: {
+      alignSelf: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%'
     }
+  };
+});
 
+var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
+  var _ref$values = _ref.values,
+      startValue = _ref$values.start,
+      endValue = _ref$values.end,
+      unit = _ref.unit,
+      handleChange = _ref.handleChange,
+      className = _ref.className,
+      rest = _objectWithoutPropertiesLoose(_ref, ["values", "unit", "handleChange", "className"]);
+
+  var classes = useStyles$h();
+  var maxValue = rest.max || endValue;
+  var minValue = rest.min || startValue;
+  var step = rest.step || 1;
+
+  var handleStartInputChange = function handleStartInputChange(event) {
+    var newStartValue = event.target.value === '' ? startValue : Number(event.target.value);
     handleChange({
-      min: startValue,
+      min: newStartValue,
       max: endValue
     });
   };
 
-  const handleEndInputChange = event => {
-    const newEndValue = event.target.value === '' ? values.end : Number(event.target.value);
-
-    if (newEndValue >= startValue) {
-      setSliderRangeValues([sliderRangeValues[0], newEndValue]);
-      setEndValue(newEndValue);
-    }
-
+  var handleEndInputChange = function handleEndInputChange(event) {
+    var newEndValue = event.target.value === '' ? endValue : Number(event.target.value);
     handleChange({
       min: startValue,
-      max: endValue
+      max: newEndValue
     });
   };
 
-  const handleSliderChange = (event, newSliderValue) => {
-    setEndValue(newSliderValue[1]);
-    setStartValue(newSliderValue[0]);
-    setSliderRangeValues(newSliderValue);
+  var handleSliderChange = function handleSliderChange(_, newSliderValue) {
     handleChange({
-      min: startValue,
-      max: endValue
+      min: newSliderValue[0],
+      max: newSliderValue[1]
     });
   };
 
-  const handleStartValueBlur = () => {
+  var handleStartValueBlur = function handleStartValueBlur() {
     if (startValue < minValue) {
-      setStartValue(minValue);
+      handleChange({
+        min: minValue,
+        max: endValue
+      });
     } else if (startValue > endValue) {
-      setStartValue(endValue);
+      handleChange({
+        min: endValue,
+        max: endValue
+      });
     }
   };
 
-  const handleEndValueBlur = () => {
+  var handleEndValueBlur = function handleEndValueBlur() {
     if (endValue < startValue) {
-      setEndValue(startValue);
+      handleChange({
+        min: minValue,
+        max: startValue
+      });
     } else if (endValue > maxValue) {
-      setEndValue(maxValue);
+      handleChange({
+        min: minValue,
+        max: maxValue
+      });
     }
   };
 
-  const getCommonInputValues = () => {
+  var getCommonInputValues = function getCommonInputValues() {
     return {
       maxValue: maxValue,
       minValue: minValue,
@@ -1025,9 +1355,9 @@ const RangeSliderWithInputs = ({
   };
 
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, React.createElement(RangeSlider, Object.assign({
-    value: sliderRangeValues
+    value: [startValue, endValue]
   }, rest, {
     handleChange: handleSliderChange
   })), React.createElement("div", {
@@ -1048,64 +1378,65 @@ const RangeSliderWithInputs = ({
   }))));
 };
 
-const a11yProps = index => {
+var a11yProps = function a11yProps(index) {
   return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`
+    id: "full-width-tab-" + index,
+    'aria-controls': "full-width-tabpanel-" + index
   };
 };
 
-const useStyles$i = makeStyles(theme => ({
-  root: {
-    backgroundColor: colors.white,
-    minHeight: 20,
-    width: '100%',
-    border: `${colors.primary} solid 1px`,
-    borderRadius: 50,
-    overflow: 'hidden'
-  },
-  tabContainer: {
-    minHeight: 20,
-    width: '100%'
-  },
-  tab: {
-    "&:hover": {
-      color: colors.primary
+var useStyles$i = makeStyles(function (theme) {
+  return {
+    root: {
+      backgroundColor: colors.white,
+      minHeight: 20,
+      width: '100%',
+      border: colors.primary + " solid 1px",
+      borderRadius: 50,
+      overflow: 'hidden'
     },
-    borderRadius: 50,
-    color: colors.gray3,
-    fontWeight: fonts.weight.normal,
-    maxWidth: '50%',
-    minHeight: '100%',
-    minWidth: '50%',
-    outlineStyle: 'none',
-    padding: 0,
-    textTransform: 'capitalize',
-    zIndex: 1,
-    '&:focus': {
-      outlineStyle: 'none'
+    tabContainer: {
+      minHeight: 20,
+      width: '100%'
+    },
+    tab: {
+      "&:hover": {
+        color: colors.primary
+      },
+      borderRadius: 50,
+      color: colors.gray3,
+      fontWeight: fonts.weight.normal,
+      maxWidth: '50%',
+      minHeight: '100%',
+      minWidth: '50%',
+      outlineStyle: 'none',
+      padding: 0,
+      textTransform: 'capitalize',
+      zIndex: 1,
+      '&:focus': {
+        outlineStyle: 'none'
+      }
+    },
+    tabIndicator: {
+      backgroundColor: colors.primary,
+      borderRadius: 50,
+      height: '100%'
+    },
+    tabSelected: {
+      backgroundColor: colors.primary + " !important",
+      color: colors.white + " !important"
     }
-  },
-  tabIndicator: {
-    backgroundColor: colors.primary,
-    borderRadius: 50,
-    height: '100%'
-  },
-  tabSelected: {
-    backgroundColor: `${colors.primary} !important`,
-    color: `${colors.white} !important`
-  }
-}));
+  };
+});
 
-const SwitchTabs = ({
-  label1,
-  label2,
-  value: controlledValue,
-  onChange
-}) => {
-  const classes = useStyles$i();
+var SwitchTabs = function SwitchTabs(_ref) {
+  var label1 = _ref.label1,
+      label2 = _ref.label2,
+      controlledValue = _ref.value,
+      onChange = _ref.onChange;
+  var classes = useStyles$i();
 
-  const handleChange = (event, newValue) => {
+  var handleChange = function handleChange(event, newValue) {
     onChange(event, newValue);
   };
 
@@ -1135,56 +1466,59 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$j = makeStyles(theme => ({
-  copyright: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  copyrightContent: {
-    color: colors.gray4,
-    fontSize: fonts.size.tiny
-  },
-  footerContainer: {
-    backgroundColor: colors.gray2,
-    display: 'flex',
-    justifyContent: 'center',
-    paddingBottom: theme.spacing(2),
-    width: '100%'
-  },
-  footerContent: {
-    marginTop: theme.spacing(2),
-    maxWidth: '80%',
-    width: '100%'
-  },
-  linksColumn: {
-    marginBottom: theme.spacing(1)
-  },
-  logoColumn: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(5)
-  },
-  img: {
-    width: '100%'
-  },
-  root: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    paddingTop: theme.spacing(4),
-    width: '100%'
-  }
-}));
+var useStyles$j = makeStyles(function (theme) {
+  return {
+    copyright: {
+      display: 'flex',
+      justifyContent: 'center'
+    },
+    copyrightContent: {
+      color: colors.gray4,
+      fontSize: fonts.size.tiny
+    },
+    footerContainer: {
+      backgroundColor: colors.gray2,
+      display: 'flex',
+      justifyContent: 'center',
+      paddingBottom: theme.spacing(2),
+      width: '100%'
+    },
+    footerContent: {
+      marginTop: theme.spacing(2),
+      maxWidth: '80%',
+      width: '100%'
+    },
+    linksColumn: {
+      marginBottom: theme.spacing(1)
+    },
+    logoColumn: {
+      display: 'flex',
+      justifyContent: 'center',
+      padding: theme.spacing(5)
+    },
+    img: {
+      width: '100%'
+    },
+    root: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      paddingTop: theme.spacing(4),
+      width: '100%'
+    }
+  };
+});
 
-const Footer = ({
-  className: _className = '',
-  copyrightText,
-  linksColumns,
-  ...rest
-}) => {
-  const classes = useStyles$j();
+var Footer = function Footer(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      copyrightText = _ref.copyrightText,
+      linksColumns = _ref.linksColumns,
+      rest = _objectWithoutPropertiesLoose(_ref, ["className", "copyrightText", "linksColumns"]);
+
+  var classes = useStyles$j();
   return React.createElement("footer", Object.assign({
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, rest), React.createElement("img", {
     className: classes.img,
     src: footerTongueImg,
@@ -1206,108 +1540,117 @@ const Footer = ({
     src: logoBlackAndBlue,
     height: '75px',
     alt: "logo"
-  })), linksColumns.map((linkColumn, i) => React.createElement(Grid, {
-    key: `fc-${i}`,
-    item: true,
-    xs: 12,
-    sm: 12,
-    md: 2,
-    lg: 2
-  }, React.createElement(FooterColumn, Object.assign({
-    className: classes.linksColumn
-  }, linkColumn))))), React.createElement("div", {
+  })), linksColumns.map(function (linkColumn, i) {
+    return React.createElement(Grid, {
+      key: "fc-" + i,
+      item: true,
+      xs: 12,
+      sm: 12,
+      md: 2,
+      lg: 2
+    }, React.createElement(FooterColumn, Object.assign({
+      className: classes.linksColumn
+    }, linkColumn)));
+  })), React.createElement("div", {
     className: classes.copyright
   }, React.createElement(Typography, {
     className: classes.copyrightContent
   }, copyrightText)))));
 };
 
-const drawerWidth = 240;
-const useStyles$k = makeStyles(theme => createStyles$1({
-  activeNavlink: {
-    color: `${colors.white} !important`,
-    fontWeight: fonts.weight.bold
-  },
-  itemsContainer: {
-    display: 'flex'
-  },
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto'
-  },
-  navLink: {
-    alignItems: 'center',
-    color: colors.white,
-    display: 'flex',
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    textAlign: 'center',
-    textDecoration: 'none',
-    '&:hover': {
-      color: colors.gray5,
-      textDecoration: 'none'
+var drawerWidth = 240;
+var useStyles$k = makeStyles(function (theme) {
+  return createStyles$1({
+    activeNavlink: {
+      color: colors.white + " !important",
+      fontWeight: fonts.weight.bold
+    },
+    itemsContainer: {
+      display: 'flex'
+    },
+    loginContainer: {
+      display: 'flex',
+      marginLeft: 'auto'
+    },
+    navLink: {
+      alignItems: 'center',
+      color: colors.white,
+      display: 'flex',
+      paddingLeft: theme.spacing(5),
+      paddingRight: theme.spacing(5),
+      textAlign: 'center',
+      textDecoration: 'none',
+      '&:hover': {
+        color: colors.gray5,
+        textDecoration: 'none'
+      }
+    },
+    navLinkContainer: {
+      display: 'flex'
+    },
+    drawerHeader: _extends({
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0, 1)
+    }, theme.mixins.toolbar, {
+      justifyContent: 'flex-end'
+    }),
+    drawerPaper: {
+      width: drawerWidth
+    },
+    mobileAppBar: {
+      boxShadow: 'none',
+      height: theme.spacing(8),
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      })
+    },
+    mobileAppBarShift: {
+      width: "calc(100% - " + drawerWidth + "px)",
+      marginLeft: drawerWidth,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen
+      })
+    },
+    mobileNavLink: {
+      alignItems: 'center',
+      color: colors.gray4,
+      display: 'flex',
+      textDecoration: 'none',
+      width: '100%',
+      '&:hover': {
+        color: colors.gray5,
+        textDecoration: 'none'
+      }
+    },
+    mobileNavLinkActive: {
+      color: colors.primary + " !important"
     }
-  },
-  navLinkContainer: {
-    display: 'flex'
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end'
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  mobileAppBar: {
-    boxShadow: 'none',
-    height: theme.spacing(8),
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  mobileAppBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  mobileNavLink: {
-    alignItems: 'center',
-    color: colors.gray4,
-    display: 'flex',
-    textDecoration: 'none',
-    width: '100%',
-    '&:hover': {
-      color: colors.gray5,
-      textDecoration: 'none'
-    }
-  },
-  mobileNavLinkActive: {
-    color: `${colors.primary} !important`
-  }
-}));
+  });
+});
 
-const Header = ({
-  hreflogo,
-  items,
-  login
-}) => {
-  const classes = useStyles$k();
-  const [open, setOpen] = useState(false);
-  const Login = login;
+var Header = function Header(_ref) {
+  var hreflogo = _ref.hreflogo,
+      items = _ref.items,
+      login = _ref.login;
+  var classes = useStyles$k();
 
-  const toggleDrawer = isOpen => event => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
+  var _useState = useState(false),
+      open = _useState[0],
+      setOpen = _useState[1];
 
-    setOpen(isOpen);
+  var Login = login;
+
+  var toggleDrawer = function toggleDrawer(isOpen) {
+    return function (event) {
+      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        return;
+      }
+
+      setOpen(isOpen);
+    };
   };
 
   return React.createElement(React.Fragment, null, React.createElement(Hidden, {
@@ -1323,7 +1666,7 @@ const Header = ({
     onKeyDown: toggleDrawer(false)
   }, React.createElement(AppBar$2, {
     position: "fixed",
-    className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
+    className: (classes.mobileAppBar + " " + (open ? classes.mobileAppBarShift : '')).trim()
   }, React.createElement(Toolbar, null, !open && React.createElement(React.Fragment, null, React.createElement(IconButton, {
     color: "inherit",
     "aria-label": "open drawer",
@@ -1344,56 +1687,58 @@ const Header = ({
     className: classes.drawerHeader
   }, React.createElement(IconButton, {
     onClick: toggleDrawer(false)
-  }, React.createElement(ChevronLeftIcon, null))), React.createElement(Divider, null), React.createElement(List, null, !!items.length && items.map((headerItem, i) => React.createElement(ListItem, {
-    button: true,
-    key: `${headerItem.title}-${i}`
-  }, React.createElement(NavLink, {
-    to: headerItem.to,
-    className: classes.mobileNavLink,
-    activeClassName: classes.mobileNavLinkActive
-  }, React.createElement(ListItemIcon, null, headerItem.icon), React.createElement(ListItemText, {
-    primary: headerItem.title
-  })))))))));
+  }, React.createElement(ChevronLeftIcon, null))), React.createElement(Divider, null), React.createElement(List, null, !!items.length && items.map(function (headerItem, i) {
+    return React.createElement(ListItem, {
+      button: true,
+      key: headerItem.title + "-" + i
+    }, React.createElement(NavLink, {
+      to: headerItem.to,
+      className: classes.mobileNavLink,
+      activeClassName: classes.mobileNavLinkActive
+    }, React.createElement(ListItemIcon, null, headerItem.icon), React.createElement(ListItemText, {
+      primary: headerItem.title
+    })));
+  }))))));
 };
 
-const useStyles$l = makeStyles(theme => ({
-  textContainer: {
-    alignItems: 'center',
-    backgroundColor: colors.primary,
-    display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(2, 0),
-    width: '100%'
-  },
-  textContent: {
-    color: colors.white,
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'center',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '90%'
-    },
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '65%'
-    },
-    [theme.breakpoints.up('xl')]: {
-      maxWidth: '55%'
-    }
-  },
-  titleContent: {
-    marginBottom: theme.spacing(2)
-  },
-  tongueImg: {
-    width: '100%'
-  }
-}));
+var useStyles$l = makeStyles(function (theme) {
+  var _textContent;
 
-const HeaderTongue = ({
-  description,
-  titleLine1,
-  titleLine2
-}) => {
-  const classes = useStyles$l();
+  return {
+    textContainer: {
+      alignItems: 'center',
+      backgroundColor: colors.primary,
+      display: 'flex',
+      justifyContent: 'center',
+      padding: theme.spacing(2, 0),
+      width: '100%'
+    },
+    textContent: (_textContent = {
+      color: colors.white,
+      display: 'flex',
+      flexDirection: 'column',
+      textAlign: 'center'
+    }, _textContent[theme.breakpoints.down('sm')] = {
+      maxWidth: '90%'
+    }, _textContent[theme.breakpoints.up('md')] = {
+      maxWidth: '65%'
+    }, _textContent[theme.breakpoints.up('xl')] = {
+      maxWidth: '55%'
+    }, _textContent),
+    titleContent: {
+      marginBottom: theme.spacing(2)
+    },
+    tongueImg: {
+      width: '100%'
+    }
+  };
+});
+
+var HeaderTongue = function HeaderTongue(_ref) {
+  var description = _ref.description,
+      titleLine1 = _ref.titleLine1,
+      titleLine2 = _ref.titleLine2;
+  var classes = useStyles$l();
   return React.createElement(React.Fragment, null, React.createElement("div", {
     className: classes.textContainer
   }, React.createElement("div", {
@@ -1411,38 +1756,43 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$m = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(8),
-    width: '100%'
-  }
-}));
+var useStyles$m = makeStyles(function (theme) {
+  return {
+    root: {
+      marginTop: theme.spacing(8),
+      width: '100%'
+    }
+  };
+});
 
-const PageTemplate = ({
-  children,
-  className: _className = '',
-  ...props
-}) => {
-  const classes = useStyles$m();
+var PageTemplate = function PageTemplate(_ref) {
+  var children = _ref.children,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      props = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
+
+  var classes = useStyles$m();
   return React.createElement("div", Object.assign({
-    className: `${classes.root} ${_className}`.trim()
+    className: (classes.root + " " + className).trim()
   }, props), children);
 };
 
-const defaultState = {
+var defaultState = {
   provider: null,
   web3: null,
   account: null,
   networkName: null
 };
-const Web3Store = createContext({
+var Web3Store = createContext({
   state: defaultState,
   actions: {
-    setProvider: async () => {}
+    setProvider: function () {
+      return Promise.resolve();
+    }
   }
 });
 
-const getNetworkName = networkId => {
+var getNetworkName = function getNetworkName(networkId) {
   switch (networkId) {
     case 1:
       return 'Ethereum';
@@ -1479,58 +1829,81 @@ const getNetworkName = networkId => {
   }
 };
 
-class Web3Provider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = defaultState;
-    this.setProvider = this.setProvider.bind(this);
+var Web3Provider = /*#__PURE__*/function (_Component) {
+  _inheritsLoose(Web3Provider, _Component);
+
+  function Web3Provider(props) {
+    var _this;
+
+    _this = _Component.call(this, props) || this;
+    _this.state = defaultState;
+    _this.setProvider = _this.setProvider.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
-  async setProvider(provider) {
+  var _proto = Web3Provider.prototype;
+
+  _proto.setProvider = function setProvider(provider) {
     try {
-      const web3 = await getWeb3(provider);
-      const accounts = await web3.eth.getAccounts();
-      let account;
-      if (Array.isArray(accounts)) account = accounts[0];else account = accounts;
-      let networkId = await web3.eth.net.getId();
-      if (networkId === 1) networkId = await web3.eth.getChainId();
-      this.setState({
-        web3,
-        provider,
-        account,
-        networkName: getNetworkName(networkId)
-      });
-    } catch (e) {
-      throw e;
-    }
-  }
+      var _this3 = this;
 
-  render() {
-    const {
-      provider,
-      web3,
-      account,
-      networkName
-    } = this.state;
-    const {
-      setProvider
-    } = this;
+      return Promise.resolve(_catch(function () {
+        return Promise.resolve(getWeb3(provider)).then(function (web3) {
+          return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
+            var account;
+            if (Array.isArray(accounts)) account = accounts[0];else account = accounts;
+            return Promise.resolve(web3.eth.net.getId()).then(function (networkId) {
+              function _temp2() {
+                _this3.setState({
+                  web3: web3,
+                  provider: provider,
+                  account: account,
+                  networkName: getNetworkName(networkId)
+                });
+              }
+
+              var _temp = function () {
+                if (networkId === 1) return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
+                  networkId = _web3$eth$getChainId;
+                });
+              }();
+
+              return _temp && _temp.then ? _temp.then(_temp2) : _temp2(_temp);
+            });
+          });
+        });
+      }, function (e) {
+        throw e;
+      }));
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$state = this.state,
+        provider = _this$state.provider,
+        web3 = _this$state.web3,
+        account = _this$state.account,
+        networkName = _this$state.networkName;
+    var setProvider = this.setProvider;
     return React.createElement(Web3Store.Provider, {
       value: {
         actions: {
-          setProvider
+          setProvider: setProvider
         },
         state: {
-          provider,
-          web3,
-          account,
-          networkName
+          provider: provider,
+          web3: web3,
+          account: account,
+          networkName: networkName
         }
       }
     }, this.props.children);
-  }
+  };
 
-}
+  return Web3Provider;
+}(Component);
 
 var Web3Provider$1 = {
   Consumer: Web3Store.Consumer,

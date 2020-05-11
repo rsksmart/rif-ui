@@ -1282,80 +1282,67 @@ var useStyles$h = styles.makeStyles(function () {
 });
 
 var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
-  var values = _ref.values,
+  var _ref$values = _ref.values,
+      startValue = _ref$values.start,
+      endValue = _ref$values.end,
       unit = _ref.unit,
       handleChange = _ref.handleChange,
       className = _ref.className,
       rest = _objectWithoutPropertiesLoose(_ref, ["values", "unit", "handleChange", "className"]);
 
   var classes = useStyles$h();
-  var maxValue = rest.max || values.end;
-  var minValue = rest.min || values.start;
+  var maxValue = rest.max || endValue;
+  var minValue = rest.min || startValue;
   var step = rest.step || 1;
 
-  var _useState = React.useState(values.start),
-      startValue = _useState[0],
-      setStartValue = _useState[1];
-
-  var _useState2 = React.useState(values.end),
-      endValue = _useState2[0],
-      setEndValue = _useState2[1];
-
-  var _useState3 = React.useState([startValue, endValue]),
-      sliderRangeValues = _useState3[0],
-      setSliderRangeValues = _useState3[1];
-
   var handleStartInputChange = function handleStartInputChange(event) {
-    var newStartValue = event.target.value === '' ? values.start : Number(event.target.value);
-
-    if (newStartValue <= endValue) {
-      setStartValue(newStartValue);
-      setSliderRangeValues([newStartValue, sliderRangeValues[1]]);
-    }
-
+    var newStartValue = event.target.value === '' ? startValue : Number(event.target.value);
     handleChange({
-      min: startValue,
+      min: newStartValue,
       max: endValue
     });
   };
 
   var handleEndInputChange = function handleEndInputChange(event) {
-    var newEndValue = event.target.value === '' ? values.end : Number(event.target.value);
-
-    if (newEndValue >= startValue) {
-      setSliderRangeValues([sliderRangeValues[0], newEndValue]);
-      setEndValue(newEndValue);
-    }
-
+    var newEndValue = event.target.value === '' ? endValue : Number(event.target.value);
     handleChange({
       min: startValue,
-      max: endValue
+      max: newEndValue
     });
   };
 
-  var handleSliderChange = function handleSliderChange(event, newSliderValue) {
-    setEndValue(newSliderValue[1]);
-    setStartValue(newSliderValue[0]);
-    setSliderRangeValues(newSliderValue);
+  var handleSliderChange = function handleSliderChange(_, newSliderValue) {
     handleChange({
-      min: startValue,
-      max: endValue
+      min: newSliderValue[0],
+      max: newSliderValue[1]
     });
   };
 
   var handleStartValueBlur = function handleStartValueBlur() {
     if (startValue < minValue) {
-      setStartValue(minValue);
+      handleChange({
+        min: minValue,
+        max: endValue
+      });
     } else if (startValue > endValue) {
-      setStartValue(endValue);
+      handleChange({
+        min: endValue,
+        max: endValue
+      });
     }
   };
 
   var handleEndValueBlur = function handleEndValueBlur() {
     if (endValue < startValue) {
-      setEndValue(startValue);
+      handleChange({
+        min: minValue,
+        max: startValue
+      });
     } else if (endValue > maxValue) {
-      setEndValue(maxValue);
+      handleChange({
+        min: minValue,
+        max: maxValue
+      });
     }
   };
 
@@ -1371,7 +1358,7 @@ var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, React__default.createElement(RangeSlider, Object.assign({
-    value: sliderRangeValues
+    value: [startValue, endValue]
   }, rest, {
     handleChange: handleSliderChange
   })), React__default.createElement("div", {
