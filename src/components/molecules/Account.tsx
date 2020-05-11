@@ -5,7 +5,7 @@ import Web3 from 'web3';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Button, Typography } from '../../components/atoms';
 import { colors, fonts } from '../../theme';
-import { AccountModal } from './';
+import AccountModal from './AccountModal';
 
 export interface AccountProps {
   web3: Web3 | null;

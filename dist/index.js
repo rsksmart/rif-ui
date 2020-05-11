@@ -659,59 +659,6 @@ var Accordion = function Accordion(_ref) {
   }, title)), React__default.createElement(ExpansionPanelDetails, null, children));
 };
 
-var useStyles$b = styles.makeStyles(function (theme) {
-  return {
-    accountText: {
-      fontSize: fonts.size.tiny,
-      textAlign: 'center'
-    },
-    button: {
-      border: "1px solid " + colors.white,
-      '&:hover': {
-        border: "1px solid " + colors.transparent
-      }
-    }
-  };
-});
-
-var Account = function Account(_ref) {
-  var web3 = _ref.web3,
-      networkName = _ref.networkName,
-      account = _ref.account,
-      setProvider = _ref.setProvider,
-      providers = _ref.providers;
-  var classes = useStyles$b();
-
-  var _useState = React.useState(false),
-      open = _useState[0],
-      setOpen = _useState[1];
-
-  var handleClose = function handleClose() {
-    return setOpen(false);
-  };
-
-  var handleOpen = function handleOpen() {
-    return setOpen(true);
-  };
-
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
-    onClick: handleOpen,
-    className: classes.button,
-    variant: 'contained',
-    color: 'primary',
-    rounded: true
-  }, React__default.createElement(Typography, {
-    className: classes.accountText
-  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {
-    open: open,
-    handleClose: handleClose,
-    networkName: networkName,
-    web3: web3,
-    setProvider: setProvider,
-    providers: providers
-  }));
-};
-
 // A type of promise-like that resolves synchronously and supports only one observer
 const _Pact = /*#__PURE__*/(function() {
 	function _Pact() {}
@@ -991,6 +938,59 @@ var AccountModal = function AccountModal(_ref) {
     block: true,
     onClick: handleClose
   }, "Close"))));
+};
+
+var useStyles$b = styles.makeStyles(function (theme) {
+  return {
+    accountText: {
+      fontSize: fonts.size.tiny,
+      textAlign: 'center'
+    },
+    button: {
+      border: "1px solid " + colors.white,
+      '&:hover': {
+        border: "1px solid " + colors.transparent
+      }
+    }
+  };
+});
+
+var Account = function Account(_ref) {
+  var web3 = _ref.web3,
+      networkName = _ref.networkName,
+      account = _ref.account,
+      setProvider = _ref.setProvider,
+      providers = _ref.providers;
+  var classes = useStyles$b();
+
+  var _useState = React.useState(false),
+      open = _useState[0],
+      setOpen = _useState[1];
+
+  var handleClose = function handleClose() {
+    return setOpen(false);
+  };
+
+  var handleOpen = function handleOpen() {
+    return setOpen(true);
+  };
+
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
+    onClick: handleOpen,
+    className: classes.button,
+    variant: 'contained',
+    color: 'primary',
+    rounded: true
+  }, React__default.createElement(Typography, {
+    className: classes.accountText
+  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {
+    open: open,
+    handleClose: handleClose,
+    networkName: networkName,
+    web3: web3,
+    setProvider: setProvider,
+    providers: providers
+  }));
 };
 
 var useStyles$c = styles.makeStyles(function (theme) {

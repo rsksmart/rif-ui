@@ -559,51 +559,6 @@ const Accordion = ({
   }, title)), React.createElement(ExpansionPanelDetails, null, children));
 };
 
-const useStyles$b = makeStyles(theme => ({
-  accountText: {
-    fontSize: fonts.size.tiny,
-    textAlign: 'center'
-  },
-  button: {
-    border: `1px solid ${colors.white}`,
-    '&:hover': {
-      border: `1px solid ${colors.transparent}`
-    }
-  }
-}));
-
-const Account = ({
-  web3,
-  networkName,
-  account,
-  setProvider,
-  providers
-}) => {
-  const classes = useStyles$b();
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => setOpen(false);
-
-  const handleOpen = () => setOpen(true);
-
-  return React.createElement(React.Fragment, null, React.createElement(Button, {
-    onClick: handleOpen,
-    className: classes.button,
-    variant: 'contained',
-    color: 'primary',
-    rounded: true
-  }, React.createElement(Typography, {
-    className: classes.accountText
-  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React.createElement(AccountModal, {
-    open: open,
-    handleClose: handleClose,
-    networkName: networkName,
-    web3: web3,
-    setProvider: setProvider,
-    providers: providers
-  }));
-};
-
 var EProvider;
 
 (function (EProvider) {
@@ -674,6 +629,51 @@ const AccountModal = ({
     block: true,
     onClick: handleClose
   }, "Close"))));
+};
+
+const useStyles$b = makeStyles(theme => ({
+  accountText: {
+    fontSize: fonts.size.tiny,
+    textAlign: 'center'
+  },
+  button: {
+    border: `1px solid ${colors.white}`,
+    '&:hover': {
+      border: `1px solid ${colors.transparent}`
+    }
+  }
+}));
+
+const Account = ({
+  web3,
+  networkName,
+  account,
+  setProvider,
+  providers
+}) => {
+  const classes = useStyles$b();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => setOpen(false);
+
+  const handleOpen = () => setOpen(true);
+
+  return React.createElement(React.Fragment, null, React.createElement(Button, {
+    onClick: handleOpen,
+    className: classes.button,
+    variant: 'contained',
+    color: 'primary',
+    rounded: true
+  }, React.createElement(Typography, {
+    className: classes.accountText
+  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React.createElement(AccountModal, {
+    open: open,
+    handleClose: handleClose,
+    networkName: networkName,
+    web3: web3,
+    setProvider: setProvider,
+    providers: providers
+  }));
 };
 
 const useStyles$c = makeStyles(theme => ({
