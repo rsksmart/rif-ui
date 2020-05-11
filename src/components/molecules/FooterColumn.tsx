@@ -6,9 +6,13 @@ import { colors, fonts } from '../../theme';
 
 export interface FooterColumnProps {
   className?: string;
-  links: NavLinkProps[];
+  links: FooterLinkProps[];
   title: string;
 };
+
+export interface FooterLinkProps extends NavLinkProps {
+  isExternal?: boolean;
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -38,8 +42,14 @@ const FooterColumn: FC<FooterColumnProps> = ({ title, links, className = '' }) =
     <div className={`${classes.root} ${className}`.trim()}>
       <Typography className={classes.footerTitle} variant='subtitle1' color='primary'>{title}</Typography>
       {
-        links.map((link, i) =>
-          <NavLink className={classes.footerLink} color='secondary' key={i} to={link.to}>{link.title}</NavLink>
+        links.map((link, i) => {
+          if (link.isExternal) {
+            const href = (link.to || '#').toString();
+            return <a className={classes.footerLink} target={link.target} color='secondary' key={i} href={href}>{link.title}</a>
+          }
+          return <NavLink className={classes.footerLink} target={link.target} color='secondary' key={i} to={link.to}>{link.title}</NavLink>
+        }
+
         )
       }
     </div>

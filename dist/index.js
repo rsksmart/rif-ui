@@ -1151,8 +1151,20 @@ var FooterColumn = function FooterColumn(_ref) {
     variant: 'subtitle1',
     color: 'primary'
   }, title), links.map(function (link, i) {
+    if (link.isExternal) {
+      var href = (link.to || '#').toString();
+      return React__default.createElement("a", {
+        className: classes.footerLink,
+        target: link.target,
+        color: 'secondary',
+        key: i,
+        href: href
+      }, link.title);
+    }
+
     return React__default.createElement(reactRouterDom.NavLink, {
       className: classes.footerLink,
+      target: link.target,
       color: 'secondary',
       key: i,
       to: link.to

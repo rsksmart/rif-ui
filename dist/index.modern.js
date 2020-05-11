@@ -818,12 +818,26 @@ const FooterColumn = ({
     className: classes.footerTitle,
     variant: 'subtitle1',
     color: 'primary'
-  }, title), links.map((link, i) => React.createElement(NavLink, {
-    className: classes.footerLink,
-    color: 'secondary',
-    key: i,
-    to: link.to
-  }, link.title)));
+  }, title), links.map((link, i) => {
+    if (link.isExternal) {
+      const href = (link.to || '#').toString();
+      return React.createElement("a", {
+        className: classes.footerLink,
+        target: link.target,
+        color: 'secondary',
+        key: i,
+        href: href
+      }, link.title);
+    }
+
+    return React.createElement(NavLink, {
+      className: classes.footerLink,
+      target: link.target,
+      color: 'secondary',
+      key: i,
+      to: link.to
+    }, link.title);
+  }));
 };
 
 const List = ({
