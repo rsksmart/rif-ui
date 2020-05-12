@@ -2,6 +2,8 @@
 
 > This repository is a [React](https://reactjs.org/) library written in [Typescript](https://www.typescriptlang.org/) and based on [Material-UI](https://material-ui.com/). It exposes common components, services and assets to be re used in RIF projects.
 
+**Warning: This project is in alpha state. There might (and most probably will) be changes in the future to its working. Also, no guarantees can be made about its stability, efficiency, and security at this stage.**
+
 ## Install
 
 For now you can add the dependency on the `package.json` file, pointing to this repo as below:
