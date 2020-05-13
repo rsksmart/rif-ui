@@ -55,9 +55,9 @@ const AppBar: FC<AppBarProps> = ({ className = '', items, login, ...rest }) => {
   return (
     <MUIAppBar position='fixed' className={`${classes.root} ${className}`.trim()} {...rest}>
       <Toolbar>
-        <Link href={rest.hreflogo}>
+        <NavLink to={rest.hreflogo}>
           <LogoNavbar />
-        </Link>
+        </NavLink>
         <div className={classes.itemsContainer}>
           {
             !!items.length &&
