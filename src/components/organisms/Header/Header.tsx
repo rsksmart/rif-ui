@@ -151,9 +151,9 @@ const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => {
                 >
                   <MenuIcon />
                 </IconButton>
-                <Link href={hreflogo}>
+                <NavLink to={hreflogo}>
                   <LogoNavbar />
-                </Link>
+                </NavLink>
                 <div className={classes.loginContainer}>
                   <Login />
                 </div>
