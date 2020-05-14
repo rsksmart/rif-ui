@@ -721,8 +721,8 @@ const AppBar = ({
   return React.createElement(AppBar$1, Object.assign({
     position: 'fixed',
     className: `${classes.root} ${_className}`.trim()
-  }, rest), React.createElement(Toolbar, null, React.createElement(Link, {
-    href: rest.hreflogo
+  }, rest), React.createElement(Toolbar, null, React.createElement(NavLink, {
+    to: rest.hreflogo
   }, React.createElement(LogoNavbar, null)), React.createElement("div", {
     className: classes.itemsContainer
   }, !!items.length && items.map((navItem, i) => React.createElement(Typography, {
@@ -1325,8 +1325,8 @@ const Header = ({
     color: "inherit",
     "aria-label": "open drawer",
     onClick: toggleDrawer(true)
-  }, React.createElement(MenuIcon, null)), React.createElement(Link, {
-    href: hreflogo
+  }, React.createElement(MenuIcon, null)), React.createElement(NavLink, {
+    to: hreflogo
   }, React.createElement(LogoNavbar, null)), React.createElement("div", {
     className: classes.loginContainer
   }, React.createElement(Login, null))))), React.createElement(Drawer, {

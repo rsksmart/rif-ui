@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter } from 'react-router-dom';
 
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
@@ -19,7 +19,6 @@ import {
   Typography,
   nameServiceImg,
   storageImg,
-  Button
 } from '@rsksmart/rif-ui';
 import '@rsksmart/rif-ui/dist/index.css';
 
