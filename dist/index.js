@@ -1041,8 +1041,8 @@ var AppBar = function AppBar(_ref) {
   return React__default.createElement(core.AppBar, Object.assign({
     position: 'fixed',
     className: (classes.root + " " + className).trim()
-  }, rest), React__default.createElement(Toolbar, null, React__default.createElement(Link, {
-    href: rest.hreflogo
+  }, rest), React__default.createElement(Toolbar, null, React__default.createElement(reactRouterDom.NavLink, {
+    to: rest.hreflogo
   }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
     className: classes.itemsContainer
   }, !!items.length && items.map(function (navItem, i) {
@@ -1672,8 +1672,8 @@ var Header = function Header(_ref) {
     color: "inherit",
     "aria-label": "open drawer",
     onClick: toggleDrawer(true)
-  }, React__default.createElement(MenuIcon, null)), React__default.createElement(Link, {
-    href: hreflogo
+  }, React__default.createElement(MenuIcon, null)), React__default.createElement(reactRouterDom.NavLink, {
+    to: hreflogo
   }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
     className: classes.loginContainer
   }, React__default.createElement(Login, null))))), React__default.createElement(Drawer, {
