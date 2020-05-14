@@ -93,7 +93,7 @@ const LoginOption = ({
 
 var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
 
-var footerTongueImg = require("./footerTongue~bbJNSCWG.svg");
+var footerTongue = require("./footerTongue~bbJNSCWG.svg");
 
 var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
 
@@ -1170,6 +1170,13 @@ const useStyles$j = makeStyles(theme => ({
     flexDirection: 'column',
     paddingTop: theme.spacing(4),
     width: '100%'
+  },
+  tongue: {
+    backgroundColor: colors.gray2,
+    borderTopLeftRadius: '50% 80%',
+    borderTopRightRadius: '50% 80%',
+    height: theme.spacing(10),
+    width: '100%'
   }
 }));
 
@@ -1182,10 +1189,8 @@ const Footer = ({
   const classes = useStyles$j();
   return React.createElement("footer", Object.assign({
     className: `${classes.root} ${_className}`.trim()
-  }, rest), React.createElement("img", {
-    className: classes.img,
-    src: footerTongueImg,
-    alt: "footer tongue image"
+  }, rest), React.createElement("div", {
+    className: classes.tongue
   }), React.createElement("div", {
     className: classes.footerContainer
   }, React.createElement("div", {
@@ -1534,5 +1539,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
+export { Accordion, Account, AccountModal, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map

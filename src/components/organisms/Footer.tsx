@@ -3,7 +3,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Typography } from '../atoms';
 import FooterColumn, { FooterColumnProps } from '../molecules/FooterColumn';
 import { colors, fonts } from '../../theme';
-import { footerTongueImg, logoBlackAndBlue } from '../../assets/images';
+import { logoBlackAndBlue } from '../../assets/images';
 
 export interface FooterProps extends HTMLAttributes<HTMLElement> {
   className?: string;
@@ -40,9 +40,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     padding: theme.spacing(5),
   },
-  img: {
-    width: '100%',
-  },
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -50,8 +47,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: theme.spacing(4),
     width: '100%',
   },
+  tongue: {
+    backgroundColor: colors.gray2,
+    borderTopLeftRadius: '50% 80%',
+    borderTopRightRadius: '50% 80%',
+    height: theme.spacing(10),
+    width: '100%'
+  }
 }));
-
 
 const Footer: FC<FooterProps> = ({ className = '', copyrightText, linksColumns, ...rest }) => {
 
@@ -59,7 +62,8 @@ const Footer: FC<FooterProps> = ({ className = '', copyrightText, linksColumns, 
 
   return (
     <footer className={`${classes.root} ${className}`.trim()} {...rest}>
-      <img className={classes.img} src={footerTongueImg} alt="footer tongue image" />
+      <div className={classes.tongue}>
+      </div>
       <div className={classes.footerContainer}>
         <div className={classes.footerContent}>
           <Grid container direction='row'>

@@ -149,7 +149,7 @@ var LoginOption = function LoginOption(_ref) {
 
 var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
 
-var footerTongueImg = require("./footerTongue~bbJNSCWG.svg");
+var footerTongue = require("./footerTongue~bbJNSCWG.svg");
 
 var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
 
@@ -1506,6 +1506,13 @@ var useStyles$j = styles.makeStyles(function (theme) {
       flexDirection: 'column',
       paddingTop: theme.spacing(4),
       width: '100%'
+    },
+    tongue: {
+      backgroundColor: colors.gray2,
+      borderTopLeftRadius: '50% 80%',
+      borderTopRightRadius: '50% 80%',
+      height: theme.spacing(10),
+      width: '100%'
     }
   };
 });
@@ -1520,10 +1527,8 @@ var Footer = function Footer(_ref) {
   var classes = useStyles$j();
   return React__default.createElement("footer", Object.assign({
     className: (classes.root + " " + className).trim()
-  }, rest), React__default.createElement("img", {
-    className: classes.img,
-    src: footerTongueImg,
-    alt: "footer tongue image"
+  }, rest), React__default.createElement("div", {
+    className: classes.tongue
   }), React__default.createElement("div", {
     className: classes.footerContainer
   }, React__default.createElement("div", {
@@ -1965,7 +1970,7 @@ exports.Web3Store = Web3Store;
 exports.colors = colors;
 exports.doneThumbsUpImg = doneThumbsUp;
 exports.fonts = fonts;
-exports.footerTongueImg = footerTongueImg;
+exports.footerTongueImg = footerTongue;
 exports.getWeb3 = getWeb3;
 exports.headerTongueImg = headerTongueImg;
 exports.logoBlackAndBlue = logoBlackAndBlue;
