@@ -1,5 +1,5 @@
 import React, { useState, createContext, Component } from 'react';
-import { CircularProgress as CircularProgress$1, Grid as Grid$1, Link as Link$1, Button as Button$1, makeStyles as makeStyles$1, Card as Card$1, CardActions as CardActions$1, CardContent as CardContent$1, CardHeader as CardHeader$1, createStyles, Checkbox as Checkbox$1, FormControl as FormControl$1, FormGroup as FormGroup$1, Input as Input$1, InputAdornment as InputAdornment$1, InputLabel as InputLabel$1, Switch as Switch$1, TextField as TextField$1, MenuItem as MenuItem$1, Select as Select$1, Modal as Modal$1, Typography as Typography$1, Table as Table$1, TableBody as TableBody$1, TableCell as TableCell$1, TableHead as TableHead$1, TableRow as TableRow$1, AppBar as AppBar$1, FormControlLabel as FormControlLabel$1, List as List$1, Tabs, Tab } from '@material-ui/core';
+import { CircularProgress as CircularProgress$1, Grid as Grid$1, Link as Link$1, Button as Button$1, makeStyles as makeStyles$1, IconButton as IconButton$1, Card as Card$1, CardActions as CardActions$1, CardContent as CardContent$1, CardHeader as CardHeader$1, createStyles, Checkbox as Checkbox$1, FormControl as FormControl$1, FormGroup as FormGroup$1, Input as Input$1, InputAdornment as InputAdornment$1, InputLabel as InputLabel$1, Switch as Switch$1, TextField as TextField$1, MenuItem as MenuItem$1, Select as Select$1, Modal as Modal$1, Typography as Typography$1, Table as Table$1, TableBody as TableBody$1, TableCell as TableCell$1, TableHead as TableHead$1, TableRow as TableRow$1, AppBar as AppBar$1, FormControlLabel as FormControlLabel$1, List as List$1, Tabs, Tab } from '@material-ui/core';
 import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
@@ -14,7 +14,7 @@ import AppBar$2 from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton$2 from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -146,6 +146,13 @@ var LogoNavbar = React.forwardRef(function LogoFooter(props, ref) {
     ref: ref
   }, other));
 });
+
+const IconButton = ({
+  children,
+  ...rest
+}) => {
+  return React.createElement(IconButton$1, Object.assign({}, rest), children);
+};
 
 const Card = ({
   children,
@@ -1161,9 +1168,6 @@ const useStyles$j = makeStyles(theme => ({
     justifyContent: 'center',
     padding: theme.spacing(5)
   },
-  img: {
-    width: '100%'
-  },
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -1326,7 +1330,7 @@ const Header = ({
   }, React.createElement(AppBar$2, {
     position: "fixed",
     className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
-  }, React.createElement(Toolbar, null, !open && React.createElement(React.Fragment, null, React.createElement(IconButton, {
+  }, React.createElement(Toolbar, null, !open && React.createElement(React.Fragment, null, React.createElement(IconButton$2, {
     color: "inherit",
     "aria-label": "open drawer",
     onClick: toggleDrawer(true)
@@ -1344,7 +1348,7 @@ const Header = ({
     onClick: toggleDrawer(false)
   }, React.createElement("div", {
     className: classes.drawerHeader
-  }, React.createElement(IconButton, {
+  }, React.createElement(IconButton$2, {
     onClick: toggleDrawer(false)
   }, React.createElement(ChevronLeftIcon, null))), React.createElement(Divider, null), React.createElement(List, null, !!items.length && items.map((headerItem, i) => React.createElement(ListItem, {
     button: true,
@@ -1539,5 +1543,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
+export { Accordion, Account, AccountModal, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, IconButton, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map

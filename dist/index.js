@@ -17,7 +17,7 @@ var AppBar$1 = _interopDefault(require('@material-ui/core/AppBar'));
 var Divider = _interopDefault(require('@material-ui/core/Divider'));
 var Drawer = _interopDefault(require('@material-ui/core/Drawer'));
 var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
-var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
+var IconButton$1 = _interopDefault(require('@material-ui/core/IconButton'));
 var ListItem = _interopDefault(require('@material-ui/core/ListItem'));
 var ListItemIcon = _interopDefault(require('@material-ui/core/ListItemIcon'));
 var ListItemText = _interopDefault(require('@material-ui/core/ListItemText'));
@@ -203,6 +203,13 @@ var LogoNavbar = React__default.forwardRef(function LogoFooter(props, ref) {
     ref: ref
   }, other));
 });
+
+var IconButton = function IconButton(_ref) {
+  var children = _ref.children,
+      rest = _objectWithoutPropertiesLoose(_ref, ["children"]);
+
+  return React__default.createElement(core.IconButton, Object.assign({}, rest), children);
+};
 
 var Card = function Card(_ref) {
   var children = _ref.children,
@@ -1497,9 +1504,6 @@ var useStyles$j = styles.makeStyles(function (theme) {
       justifyContent: 'center',
       padding: theme.spacing(5)
     },
-    img: {
-      width: '100%'
-    },
     root: {
       alignItems: 'center',
       display: 'flex',
@@ -1673,7 +1677,7 @@ var Header = function Header(_ref) {
   }, React__default.createElement(AppBar$1, {
     position: "fixed",
     className: (classes.mobileAppBar + " " + (open ? classes.mobileAppBarShift : '')).trim()
-  }, React__default.createElement(Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(IconButton, {
+  }, React__default.createElement(Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(IconButton$1, {
     color: "inherit",
     "aria-label": "open drawer",
     onClick: toggleDrawer(true)
@@ -1691,7 +1695,7 @@ var Header = function Header(_ref) {
     onClick: toggleDrawer(false)
   }, React__default.createElement("div", {
     className: classes.drawerHeader
-  }, React__default.createElement(IconButton, {
+  }, React__default.createElement(IconButton$1, {
     onClick: toggleDrawer(false)
   }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(Divider, null), React__default.createElement(List, null, !!items.length && items.map(function (headerItem, i) {
     return React__default.createElement(ListItem, {
@@ -1935,6 +1939,7 @@ exports.FormGroup = FormGroup;
 exports.Grid = Grid;
 exports.Header = Header;
 exports.HeaderTongue = HeaderTongue;
+exports.IconButton = IconButton;
 exports.Input = Input;
 exports.InputAdornment = InputAdornment;
 exports.InputLabel = InputLabel;

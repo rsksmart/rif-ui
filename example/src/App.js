@@ -7,6 +7,7 @@ import ForumIcon from '@material-ui/icons/Forum';
 import PeopleIcon from '@material-ui/icons/People';
 import StorageIcon from '@material-ui/icons/Storage';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import {
   Account,
@@ -14,6 +15,7 @@ import {
   Grid,
   Header,
   HeaderTongue,
+  IconButton,
   PageTemplate,
   theme,
   Typography,
@@ -194,6 +196,8 @@ const App = () => {
         <Header {...headerProps} />
         <PageTemplate>
           <HeaderTongue {...headerTongueProps} />
+          <IconButton><ClearIcon /></IconButton>
+
           <div className={classes.root}>
             <div className={classes.titleContainer}>
               <Typography color='primary' variant='h4'>RIF Marketplace services</Typography>
