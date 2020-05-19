@@ -13,6 +13,8 @@ var ExpandMoreIcon = _interopDefault(require('@material-ui/icons/ExpandMore'));
 var Web3 = _interopDefault(require('web3'));
 var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
 var reactRouterDom = require('react-router-dom');
+var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
+var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
 var AppBar$1 = _interopDefault(require('@material-ui/core/AppBar'));
 var Divider = _interopDefault(require('@material-ui/core/Divider'));
 var Drawer = _interopDefault(require('@material-ui/core/Drawer'));
@@ -1065,7 +1067,78 @@ var AppBar = function AppBar(_ref) {
   }, React__default.createElement(Login, null))));
 };
 
-var useStyles$d = core.makeStyles(function () {
+var useStyles$d = styles.makeStyles(function (theme) {
+  var _answerContainer;
+
+  return {
+    root: {
+      boxShadow: 'none',
+      color: colors.gray4,
+      width: '100%'
+    },
+    heading: {
+      display: 'flex',
+      justifyContent: 'center',
+      color: colors.gray5,
+      fontSize: fonts.size.subtitleSmall,
+      width: '100%'
+    },
+    headingExpanded: {
+      color: colors.primary
+    },
+    headingCollapsed: {
+      fontWeight: fonts.weight.lightBold
+    },
+    panelDetails: {
+      display: 'flex',
+      justifyContent: 'center'
+    },
+    answerContainer: (_answerContainer = {}, _answerContainer[theme.breakpoints.up('md')] = {
+      maxWidth: '80%'
+    }, _answerContainer),
+    answerText: {
+      color: colors.gray5
+    }
+  };
+});
+
+var FAQSection = function FAQSection(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      initiallyExpanded = _ref.initiallyExpanded,
+      question = _ref.question,
+      answer = _ref.answer,
+      id = _ref.id;
+  var classes = useStyles$d();
+
+  var _useState = React.useState(!!initiallyExpanded),
+      isExpanded = _useState[0],
+      setIsExpanded = _useState[1];
+
+  var onChange = function onChange() {
+    return setIsExpanded(!isExpanded);
+  };
+
+  return React__default.createElement(core.ExpansionPanel, {
+    className: (classes.root + " " + className).trim(),
+    expanded: isExpanded,
+    onChange: onChange
+  }, React__default.createElement(core.ExpansionPanelSummary, {
+    expandIcon: isExpanded ? React__default.createElement(RemoveIcon, null) : React__default.createElement(AddIcon, null),
+    "aria-controls": "panel-" + id + "-content",
+    id: id
+  }, React__default.createElement(Typography, {
+    className: (classes.heading + " " + (isExpanded ? classes.headingExpanded : classes.headingCollapsed)).trim()
+  }, question)), React__default.createElement(core.ExpansionPanelDetails, {
+    className: classes.panelDetails
+  }, React__default.createElement("div", {
+    className: classes.answerContainer
+  }, React__default.createElement(Typography, {
+    className: classes.answerText
+  }, answer))));
+};
+
+var useStyles$e = core.makeStyles(function () {
   return core.createStyles({
     root: {
       color: colors.gray3
@@ -1078,13 +1151,13 @@ var FormControlLabel = function FormControlLabel(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className,
       rest = _objectWithoutPropertiesLoose(_ref, ["className"]);
 
-  var classes = useStyles$d();
+  var classes = useStyles$e();
   return React__default.createElement(core.FormControlLabel, Object.assign({
     className: (classes.root + " " + className + " ").trim()
   }, rest));
 };
 
-var useStyles$e = core.makeStyles(function (theme) {
+var useStyles$f = core.makeStyles(function (theme) {
   return {
     root: {
       color: colors.gray4,
@@ -1099,7 +1172,7 @@ var LabeledCheckbox = function LabeledCheckbox(_ref) {
       labelClassName = _ref$labelClassName === void 0 ? '' : _ref$labelClassName,
       rest = _objectWithoutPropertiesLoose(_ref, ["labelText", "labelClassName"]);
 
-  var classes = useStyles$e();
+  var classes = useStyles$f();
   return React__default.createElement(FormControlLabel, {
     className: classes.root + " " + labelClassName.trim(),
     label: labelText,
@@ -1123,7 +1196,7 @@ var FilterCheckboxCard = function FilterCheckboxCard(_ref) {
   }));
 };
 
-var useStyles$f = styles.makeStyles(function (theme) {
+var useStyles$g = styles.makeStyles(function (theme) {
   return {
     root: {
       alignItems: 'center',
@@ -1150,7 +1223,7 @@ var FooterColumn = function FooterColumn(_ref) {
       links = _ref.links,
       _ref$className = _ref.className,
       className = _ref$className === void 0 ? '' : _ref$className;
-  var classes = useStyles$f();
+  var classes = useStyles$g();
   return React__default.createElement("div", {
     className: (classes.root + " " + className).trim()
   }, React__default.createElement(Typography, {
@@ -1195,7 +1268,7 @@ var ModalDialogue = function ModalDialogue(_ref) {
   return React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 };
 
-var useStyles$g = styles.makeStyles(function (theme) {
+var useStyles$h = styles.makeStyles(function (theme) {
   return {
     root: {
       color: colors.gray4,
@@ -1236,7 +1309,7 @@ var UnitsInput = function UnitsInput(props) {
       value = props.value,
       _props$step = props.step,
       step = _props$step === void 0 ? 1 : _props$step;
-  var classes = useStyles$g();
+  var classes = useStyles$h();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -1268,7 +1341,7 @@ var UnitsInput = function UnitsInput(props) {
   }, units))));
 };
 
-var useStyles$h = styles.makeStyles(function () {
+var useStyles$i = styles.makeStyles(function () {
   return {
     root: {
       width: "100%"
@@ -1297,7 +1370,7 @@ var RangeSliderWithInputs = function RangeSliderWithInputs(_ref) {
       className = _ref.className,
       rest = _objectWithoutPropertiesLoose(_ref, ["values", "unit", "handleChange", "className"]);
 
-  var classes = useStyles$h();
+  var classes = useStyles$i();
   var maxValue = rest.max || endValue;
   var minValue = rest.min || startValue;
   var step = rest.step || 1;
@@ -1393,7 +1466,7 @@ var a11yProps = function a11yProps(index) {
   };
 };
 
-var useStyles$i = styles.makeStyles(function (theme) {
+var useStyles$j = styles.makeStyles(function (theme) {
   return {
     root: {
       backgroundColor: colors.white,
@@ -1442,7 +1515,7 @@ var SwitchTabs = function SwitchTabs(_ref) {
       label2 = _ref.label2,
       controlledValue = _ref.value,
       onChange = _ref.onChange;
-  var classes = useStyles$i();
+  var classes = useStyles$j();
 
   var handleChange = function handleChange(event, newValue) {
     onChange(event, newValue);
@@ -1474,7 +1547,7 @@ var SwitchTabs = function SwitchTabs(_ref) {
   }))));
 };
 
-var useStyles$j = styles.makeStyles(function (theme) {
+var useStyles$k = styles.makeStyles(function (theme) {
   return {
     copyright: {
       display: 'flex',
@@ -1528,7 +1601,7 @@ var Footer = function Footer(_ref) {
       linksColumns = _ref.linksColumns,
       rest = _objectWithoutPropertiesLoose(_ref, ["className", "copyrightText", "linksColumns"]);
 
-  var classes = useStyles$j();
+  var classes = useStyles$k();
   return React__default.createElement("footer", Object.assign({
     className: (classes.root + " " + className).trim()
   }, rest), React__default.createElement("div", {
@@ -1569,7 +1642,7 @@ var Footer = function Footer(_ref) {
 };
 
 var drawerWidth = 240;
-var useStyles$k = styles.makeStyles(function (theme) {
+var useStyles$l = styles.makeStyles(function (theme) {
   return styles.createStyles({
     activeNavlink: {
       color: colors.white + " !important",
@@ -1645,7 +1718,7 @@ var Header = function Header(_ref) {
   var hreflogo = _ref.hreflogo,
       items = _ref.items,
       login = _ref.login;
-  var classes = useStyles$k();
+  var classes = useStyles$l();
 
   var _useState = React.useState(false),
       open = _useState[0],
@@ -1711,7 +1784,7 @@ var Header = function Header(_ref) {
   }))))));
 };
 
-var useStyles$l = styles.makeStyles(function (theme) {
+var useStyles$m = styles.makeStyles(function (theme) {
   var _textContent;
 
   return {
@@ -1748,7 +1821,7 @@ var HeaderTongue = function HeaderTongue(_ref) {
   var description = _ref.description,
       titleLine1 = _ref.titleLine1,
       titleLine2 = _ref.titleLine2;
-  var classes = useStyles$l();
+  var classes = useStyles$m();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
@@ -1766,7 +1839,39 @@ var HeaderTongue = function HeaderTongue(_ref) {
   }));
 };
 
-var useStyles$m = styles.makeStyles(function (theme) {
+var useStyles$n = styles.makeStyles(function (theme) {
+  var _container;
+
+  return {
+    root: {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      marginTop: theme.spacing(3)
+    },
+    container: (_container = {
+      alignItems: 'center',
+      display: 'flex',
+      flexDirection: 'column'
+    }, _container[theme.breakpoints.up('md')] = {
+      maxWidth: '80%'
+    }, _container)
+  };
+});
+
+var FAQPageTemplate = function FAQPageTemplate(_ref) {
+  var _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      children = _ref.children;
+  var classes = useStyles$n();
+  return React__default.createElement("div", {
+    className: (classes.root + " " + className).trim()
+  }, React__default.createElement("div", {
+    className: classes.container
+  }, children));
+};
+
+var useStyles$o = styles.makeStyles(function (theme) {
   return {
     root: {
       marginTop: theme.spacing(8),
@@ -1781,7 +1886,7 @@ var PageTemplate = function PageTemplate(_ref) {
       className = _ref$className === void 0 ? '' : _ref$className,
       props = _objectWithoutPropertiesLoose(_ref, ["children", "className"]);
 
-  var classes = useStyles$m();
+  var classes = useStyles$o();
   return React__default.createElement("div", Object.assign({
     className: (classes.root + " " + className).trim()
   }, props), children);
@@ -1931,6 +2036,8 @@ exports.CardContent = CardContent;
 exports.CardHeader = CardHeader;
 exports.Checkbox = Checkbox;
 exports.CircularProgress = CircularProgress;
+exports.FAQPageTemplate = FAQPageTemplate;
+exports.FAQSection = FAQSection;
 exports.FilterCheckboxCard = FilterCheckboxCard;
 exports.Footer = Footer;
 exports.FooterColumn = FooterColumn;

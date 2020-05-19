@@ -2,6 +2,7 @@ import Accordion from './Accordion';
 import Account from './Account';
 import AccountModal from './AccountModal';
 import AppBar from './Appbar';
+import FAQSection from './FAQSection';
 import FilterCheckboxCard from './FilterCheckboxCard';
 import FooterColumn from './FooterColumn';
 import LabeledCheckbox from './LabeledCheckbox';
@@ -16,6 +17,7 @@ export {
   Account,
   AccountModal,
   AppBar,
+  FAQSection,
   FilterCheckboxCard,
   FooterColumn,
   LabeledCheckbox,
