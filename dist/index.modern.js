@@ -1,5 +1,5 @@
 import React, { useState, createContext, Component } from 'react';
-import { CircularProgress as CircularProgress$1, Grid as Grid$1, Link as Link$1, Button as Button$1, makeStyles as makeStyles$1, IconButton as IconButton$1, Card as Card$1, CardActions as CardActions$1, CardContent as CardContent$1, CardHeader as CardHeader$1, createStyles, Checkbox as Checkbox$1, FormControl as FormControl$1, FormGroup as FormGroup$1, Input as Input$1, InputAdornment as InputAdornment$1, InputLabel as InputLabel$1, Switch as Switch$1, TextField as TextField$1, MenuItem as MenuItem$1, Select as Select$1, Modal as Modal$1, Typography as Typography$1, Table as Table$1, TableBody as TableBody$1, TableCell as TableCell$1, TableHead as TableHead$1, TableRow as TableRow$1, AppBar as AppBar$1, FormControlLabel as FormControlLabel$1, List as List$1, Tabs, Tab } from '@material-ui/core';
+import { CircularProgress as CircularProgress$1, Grid as Grid$1, Link as Link$1, Button as Button$1, makeStyles as makeStyles$1, IconButton as IconButton$1, Card as Card$1, CardActions as CardActions$1, CardContent as CardContent$1, CardHeader as CardHeader$1, createStyles, Checkbox as Checkbox$1, FormControl as FormControl$1, FormGroup as FormGroup$1, Input as Input$1, InputAdornment as InputAdornment$1, InputLabel as InputLabel$1, Switch as Switch$1, TextField as TextField$1, MenuItem as MenuItem$1, Select as Select$1, Modal as Modal$1, Typography as Typography$1, Table as Table$1, TableBody as TableBody$1, TableCell as TableCell$1, TableHead as TableHead$1, TableRow as TableRow$1, AppBar as AppBar$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel as FormControlLabel$1, List as List$1, Tabs, Tab } from '@material-ui/core';
 import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import Slider from '@material-ui/core/Slider';
@@ -10,6 +10,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Web3 from 'web3';
 import Toolbar from '@material-ui/core/Toolbar';
 import { NavLink } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import AppBar$2 from '@material-ui/core/AppBar';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -743,7 +745,71 @@ const AppBar = ({
   }, React.createElement(Login, null))));
 };
 
-const useStyles$d = makeStyles$1(() => createStyles({
+const useStyles$d = makeStyles(theme => ({
+  root: {
+    boxShadow: 'none',
+    color: colors.gray4,
+    width: '100%'
+  },
+  heading: {
+    display: 'flex',
+    justifyContent: 'center',
+    color: colors.gray5,
+    fontSize: fonts.size.subtitleSmall,
+    width: '100%'
+  },
+  headingExpanded: {
+    color: colors.primary
+  },
+  headingCollapsed: {
+    fontWeight: fonts.weight.lightBold
+  },
+  panelDetails: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  answerContainer: {
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '80%'
+    }
+  },
+  answerText: {
+    color: colors.gray5
+  }
+}));
+
+const FAQSection = ({
+  className: _className = '',
+  initiallyExpanded,
+  question,
+  answer,
+  id
+}) => {
+  const classes = useStyles$d();
+  const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
+
+  const onChange = () => setIsExpanded(!isExpanded);
+
+  return React.createElement(ExpansionPanel$1, {
+    className: `${classes.root} ${_className}`.trim(),
+    expanded: isExpanded,
+    onChange: onChange
+  }, React.createElement(ExpansionPanelSummary$1, {
+    expandIcon: isExpanded ? React.createElement(RemoveIcon, null) : React.createElement(AddIcon, null),
+    "aria-controls": `panel-${id}-content`,
+    id: id
+  }, React.createElement(Typography, {
+    className: `${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()
+  }, question)), React.createElement(ExpansionPanelDetails$1, {
+    className: classes.panelDetails
+  }, React.createElement("div", {
+    className: classes.answerContainer
+  }, React.createElement(Typography, {
+    className: classes.answerText
+  }, answer))));
+};
+
+const useStyles$e = makeStyles$1(() => createStyles({
   root: {
     color: colors.gray3
   }
@@ -753,13 +819,13 @@ const FormControlLabel = ({
   className: _className = '',
   ...rest
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$e();
   return React.createElement(FormControlLabel$1, Object.assign({
     className: `${classes.root} ${_className} `.trim()
   }, rest));
 };
 
-const useStyles$e = makeStyles$1(theme => ({
+const useStyles$f = makeStyles$1(theme => ({
   root: {
     color: colors.gray4,
     width: "100%"
@@ -771,7 +837,7 @@ const LabeledCheckbox = ({
   labelClassName: _labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$e();
+  const classes = useStyles$f();
   return React.createElement(FormControlLabel, {
     className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
@@ -793,7 +859,7 @@ const FilterCheckboxCard = ({
   }, item))));
 };
 
-const useStyles$f = makeStyles(theme => ({
+const useStyles$g = makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -818,7 +884,7 @@ const FooterColumn = ({
   links,
   className: _className = ''
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$g();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React.createElement(Typography, {
@@ -863,7 +929,7 @@ const ModalDialogue = ({
   return React.createElement(Modal, Object.assign({}, props), React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, title)), React.createElement(ModalBody, null, children), React.createElement(ModalFooter, null, footer)));
 };
 
-const useStyles$g = makeStyles(theme => ({
+const useStyles$h = makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -903,7 +969,7 @@ const UnitsInput = props => {
     value,
     step = 1
   } = props;
-  const classes = useStyles$g();
+  const classes = useStyles$h();
   return React.createElement(React.Fragment, null, React.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -935,7 +1001,7 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$h = makeStyles(() => ({
+const useStyles$i = makeStyles(() => ({
   root: {
     width: "100%"
   },
@@ -963,7 +1029,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$i();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -1059,7 +1125,7 @@ const a11yProps = index => {
   };
 };
 
-const useStyles$i = makeStyles(theme => ({
+const useStyles$j = makeStyles(theme => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1107,7 +1173,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$j();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1139,7 +1205,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$j = makeStyles(theme => ({
+const useStyles$k = makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1190,7 +1256,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$k();
   return React.createElement("footer", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, rest), React.createElement("div", {
@@ -1229,7 +1295,7 @@ const Footer = ({
 };
 
 const drawerWidth = 240;
-const useStyles$k = makeStyles(theme => createStyles$1({
+const useStyles$l = makeStyles(theme => createStyles$1({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.bold
@@ -1304,7 +1370,7 @@ const Header = ({
   items,
   login
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$l();
   const [open, setOpen] = useState(false);
   const Login = login;
 
@@ -1362,7 +1428,7 @@ const Header = ({
   })))))))));
 };
 
-const useStyles$l = makeStyles(theme => ({
+const useStyles$m = makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -1399,7 +1465,7 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$l();
+  const classes = useStyles$m();
   return React.createElement(React.Fragment, null, React.createElement("div", {
     className: classes.textContainer
   }, React.createElement("div", {
@@ -1417,7 +1483,36 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$m = makeStyles(theme => ({
+const useStyles$n = makeStyles(theme => ({
+  root: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: theme.spacing(3)
+  },
+  container: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '80%'
+    }
+  }
+}));
+
+const FAQPageTemplate = ({
+  className: _className = '',
+  children
+}) => {
+  const classes = useStyles$n();
+  return React.createElement("div", {
+    className: `${classes.root} ${_className}`.trim()
+  }, React.createElement("div", {
+    className: classes.container
+  }, children));
+};
+
+const useStyles$o = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(8),
     width: '100%'
@@ -1429,7 +1524,7 @@ const PageTemplate = ({
   className: _className = '',
   ...props
 }) => {
-  const classes = useStyles$m();
+  const classes = useStyles$o();
   return React.createElement("div", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, props), children);
@@ -1543,5 +1638,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, IconButton, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
+export { Accordion, Account, AccountModal, AppBar, Button, Card, CardActions, CardContent, CardHeader, Checkbox, CircularProgress, EProvider, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, FormControl, FormGroup, Grid, Header, HeaderTongue, IconButton, Input, InputAdornment, InputLabel, LabeledCheckbox, Link, List, LoginOption, Logo, LogoNavbar, MenuItem, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSlider, RangeSliderWithInputs, Select, Switch, SwitchTabs, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map
