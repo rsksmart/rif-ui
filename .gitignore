@@ -7,6 +7,7 @@ node_modules
 # builds
 build
 .rpt2_cache
+.editorconfig
 
 # misc
 .DS_Store
