@@ -1497,19 +1497,42 @@ const useStyles$n = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       maxWidth: '80%'
     }
+  },
+  grayBackground: {
+    backgroundColor: colors.gray1
+  },
+  mainTitle: {
+    fontSize: theme.typography.pxToRem(50),
+    margin: theme.spacing(2, 0)
+  },
+  questionsSection: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: theme.spacing(2)
   }
 }));
 
 const FAQPageTemplate = ({
   className: _className = '',
-  children
+  mainTitle,
+  questionsAndAnswers
 }) => {
   const classes = useStyles$n();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React.createElement("div", {
     className: classes.container
-  }, children));
+  }, React.createElement(Typography, {
+    className: classes.mainTitle,
+    variant: 'h1',
+    color: 'primary'
+  }, mainTitle), React.createElement("div", {
+    className: classes.questionsSection
+  }, questionsAndAnswers.map((qAndA, i) => React.createElement(FAQSection, Object.assign({
+    className: `${i % 2 === 0 ? classes.grayBackground : ''}`,
+    key: `faq-${i}`
+  }, qAndA))))));
 };
 
 const useStyles$o = makeStyles(theme => ({
