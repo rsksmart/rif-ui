@@ -7,6 +7,7 @@ interface RangeSliderProps extends MUISliderProps {
   handleChange: (event: FormEvent<Element>, newValue: number | number[]) => void;
 }
 
+// .ito - todo: check if possible to move to the theme
 const useStyles = makeStyles(() =>
   createStyles({
     root: {

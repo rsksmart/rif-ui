@@ -10,6 +10,7 @@ export interface TypographyProps extends MUITypographyProps {
   weight?: 'normal' | 'lightBold' | 'bold' | 'superBold'
 };
 
+// .ito - check if we can move this to styles
 const useStyles = makeStyles((theme: Theme) => ({
   normal: {
     fontWeight: fonts.weight.normal
