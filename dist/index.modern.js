@@ -782,8 +782,7 @@ const FAQSection = ({
   className: _className = '',
   initiallyExpanded,
   question,
-  answer,
-  id
+  answer
 }) => {
   const classes = useStyles$d();
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
@@ -795,9 +794,7 @@ const FAQSection = ({
     expanded: isExpanded,
     onChange: onChange
   }, React.createElement(ExpansionPanelSummary$1, {
-    expandIcon: isExpanded ? React.createElement(RemoveIcon, null) : React.createElement(AddIcon, null),
-    "aria-controls": `panel-${id}-content`,
-    id: id
+    expandIcon: isExpanded ? React.createElement(RemoveIcon, null) : React.createElement(AddIcon, null)
   }, React.createElement(Typography, {
     className: `${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()
   }, question)), React.createElement(ExpansionPanelDetails$1, {

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 export interface FAQSectionProps {
     answer: string;
-    id: string;
     initiallyExpanded?: boolean;
     question: string;
     className?: string;

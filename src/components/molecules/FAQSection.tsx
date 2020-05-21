@@ -8,7 +8,7 @@ import { colors, fonts } from '../../theme';
 
 export interface FAQSectionProps {
   answer: string;
-  id: string;
+  // id: string;
   initiallyExpanded?: boolean;
   question: string;
   className?: string;
@@ -47,9 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-// TODO - ito: 
-// - generate random unique ids so we can get rid of the id prop
-const FAQSection: FC<FAQSectionProps> = ({ className = '', initiallyExpanded, question, answer, id }) => {
+const FAQSection: FC<FAQSectionProps> = ({ className = '', initiallyExpanded, question, answer }) => {
   const classes = useStyles();
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
 
@@ -59,8 +57,8 @@ const FAQSection: FC<FAQSectionProps> = ({ className = '', initiallyExpanded, qu
     <ExpansionPanel className={`${classes.root} ${className}`.trim()} expanded={isExpanded} onChange={onChange}>
       <ExpansionPanelSummary
         expandIcon={isExpanded ? <RemoveIcon /> : <AddIcon />}
-        aria-controls={`panel-${id}-content`}
-        id={id}
+        // aria-controls={`panel-${id}-content`}
+      // id={id}
       >
         <Typography className={`${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()}>{question}</Typography>
       </ExpansionPanelSummary>
