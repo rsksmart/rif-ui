@@ -13,9 +13,7 @@ import {
   Footer,
   Header,
   PageTemplate,
-  theme,
-  RangeSliderWithInputs,
-  LabeledCheckbox
+  theme
 } from '@rsksmart/rif-ui';
 import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
@@ -149,18 +147,6 @@ const App = () => {
       <BrowserRouter>
         <Header {...headerProps} />
         <PageTemplate>
-          <RangeSliderWithInputs
-            values={{
-              start: 20,
-              end: 80,
-            }}
-            edgeValues={{
-              min: 0,
-              max: 100,
-            }}
-            handleChange={({ min, max }) => (console.log(`min: ${min}, max: ${max}`))}
-            unit="RIF" />
-          <LabeledCheckbox labelText='asasa' />
           <Routes />
         </PageTemplate>
         <Footer {...footerProps} />

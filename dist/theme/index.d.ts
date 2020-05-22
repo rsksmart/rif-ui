@@ -1,2 +1,2 @@
-import theme, { colors, fonts } from './theme';
-export { colors, fonts, theme, };
+import theme, { colors, fonts, globalConstants } from './theme';
+export { colors, fonts, globalConstants, theme, };

@@ -1,5 +1,5 @@
 import React, { useState, createContext, Component } from 'react';
-import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Modal as Modal$1, Typography as Typography$1, AppBar as AppBar$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel, List as List$1, Grid, Input, Tabs, Tab } from '@material-ui/core';
+import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Modal as Modal$1, Typography as Typography$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel, Grid, Input, Tabs, Tab, AppBar, Toolbar, IconButton, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -7,21 +7,13 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Web3 from 'web3';
-import Toolbar from '@material-ui/core/Toolbar';
-import { NavLink } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { NavLink } from 'react-router-dom';
 import Slider from '@material-ui/core/Slider';
-import AppBar$2 from '@material-ui/core/AppBar';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4 - 1, 4)}`;
 
@@ -164,6 +156,9 @@ const fonts = {
     superBold: 900
   }
 };
+const globalConstants = {
+  headerHeight: 8
+};
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -302,7 +297,7 @@ const ModalHeader = ({
   }, children);
 };
 
-const useStyles$5 = makeStyles(theme => ({
+const useStyles$5 = makeStyles(() => ({
   normal: {
     fontWeight: fonts.weight.normal
   },
@@ -538,66 +533,6 @@ const Account = ({
 };
 
 const useStyles$a = makeStyles(theme => ({
-  activeNavlink: {
-    color: `${colors.white} !important`,
-    fontWeight: fonts.weight.lightBold
-  },
-  itemsContainer: {
-    display: 'flex'
-  },
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto'
-  },
-  navLink: {
-    alignItems: 'center',
-    color: colors.white,
-    display: 'flex',
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    textAlign: 'center',
-    textDecoration: 'none',
-    '&:hover': {
-      color: colors.gray5,
-      textDecoration: 'none'
-    }
-  },
-  navLinkContainer: {
-    display: 'flex'
-  },
-  root: {
-    boxShadow: 'none',
-    height: theme.spacing(8)
-  }
-}));
-
-const AppBar = ({
-  className: _className = '',
-  items,
-  login,
-  ...rest
-}) => {
-  const classes = useStyles$a();
-  const Login = login;
-  return React.createElement(AppBar$1, Object.assign({
-    position: 'fixed',
-    className: `${classes.root} ${_className}`.trim()
-  }, rest), React.createElement(Toolbar, null, React.createElement(NavLink, {
-    to: rest.hreflogo
-  }, React.createElement(LogoNavbar, null)), React.createElement("div", {
-    className: classes.itemsContainer
-  }, !!items.length && items.map((navItem, i) => React.createElement(Typography, {
-    className: classes.navLinkContainer,
-    key: `${navItem.title}-${i}`
-  }, React.createElement(NavLink, Object.assign({
-    className: classes.navLink,
-    activeClassName: classes.activeNavlink
-  }, navItem), navItem.title)))), React.createElement("div", {
-    className: classes.loginContainer
-  }, React.createElement(Login, null))));
-};
-
-const useStyles$b = makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -636,7 +571,7 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$a();
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -658,7 +593,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$c = makeStyles(theme => ({
+const useStyles$b = makeStyles(theme => ({
   root: {
     color: colors.gray4,
     width: "100%"
@@ -670,7 +605,7 @@ const LabeledCheckbox = ({
   labelClassName: _labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$b();
   return React.createElement(FormControlLabel, {
     className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
@@ -692,7 +627,7 @@ const FilterCheckboxCard = ({
   }, item))));
 };
 
-const useStyles$d = makeStyles(theme => ({
+const useStyles$c = makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -717,7 +652,7 @@ const FooterColumn = ({
   links,
   className: _className = ''
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$c();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React.createElement(Typography, {
@@ -746,13 +681,6 @@ const FooterColumn = ({
   }));
 };
 
-const List = ({
-  children,
-  ...rest
-}) => {
-  return React.createElement(List$1, Object.assign({}, rest), children);
-};
-
 const ModalDialogue = ({
   title,
   footer,
@@ -762,7 +690,7 @@ const ModalDialogue = ({
   return React.createElement(Modal, Object.assign({}, props), React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, title)), React.createElement(ModalBody, null, children), React.createElement(ModalFooter, null, footer)));
 };
 
-const useStyles$e = makeStyles(theme => ({
+const useStyles$d = makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -802,7 +730,7 @@ const UnitsInput = props => {
     value,
     step = 1
   } = props;
-  const classes = useStyles$e();
+  const classes = useStyles$d();
   return React.createElement(React.Fragment, null, React.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -834,7 +762,7 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$f = makeStyles(() => ({
+const useStyles$e = makeStyles(() => ({
   root: {
     width: "100%"
   },
@@ -862,7 +790,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$e();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -958,7 +886,7 @@ const a11yProps = index => {
   };
 };
 
-const useStyles$g = makeStyles(theme => ({
+const useStyles$f = makeStyles(theme => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1006,7 +934,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$f();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1038,7 +966,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$h = makeStyles(theme => ({
+const useStyles$g = makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1089,7 +1017,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$g();
   return React.createElement("footer", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, rest), React.createElement("div", {
@@ -1127,11 +1055,10 @@ const Footer = ({
   }, copyrightText)))));
 };
 
-const drawerWidth = 240;
-const useStyles$i = makeStyles(theme => createStyles$1({
+const useStyles$h = makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
-    fontWeight: fonts.weight.bold
+    fontWeight: fonts.weight.lightBold
   },
   itemsContainer: {
     display: 'flex'
@@ -1156,6 +1083,43 @@ const useStyles$i = makeStyles(theme => createStyles$1({
   navLinkContainer: {
     display: 'flex'
   },
+  root: {
+    boxShadow: 'none',
+    height: theme.spacing(globalConstants.headerHeight)
+  }
+}));
+
+const HeaderDesktop = ({
+  hreflogo,
+  items,
+  login
+}) => {
+  const classes = useStyles$h();
+  const Login = login;
+  return React.createElement(AppBar, {
+    position: 'fixed',
+    className: classes.root
+  }, React.createElement(Toolbar, null, React.createElement(NavLink, {
+    to: hreflogo
+  }, React.createElement(LogoNavbar, null)), React.createElement("div", {
+    className: classes.itemsContainer
+  }, !!items.length && items.map((navItem, i) => React.createElement(Typography, {
+    className: classes.navLinkContainer,
+    key: `${navItem.title}-${i}`
+  }, React.createElement(NavLink, Object.assign({
+    className: classes.navLink,
+    activeClassName: classes.activeNavlink
+  }, navItem), navItem.title)))), React.createElement("div", {
+    className: classes.loginContainer
+  }, React.createElement(Login, null))));
+};
+
+const drawerWidth = 240;
+const useStyles$i = makeStyles(theme => createStyles$1({
+  loginContainer: {
+    display: 'flex',
+    marginLeft: 'auto'
+  },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -1168,7 +1132,7 @@ const useStyles$i = makeStyles(theme => createStyles$1({
   },
   mobileAppBar: {
     boxShadow: 'none',
-    height: theme.spacing(8),
+    height: theme.spacing(globalConstants.headerHeight),
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -1198,7 +1162,7 @@ const useStyles$i = makeStyles(theme => createStyles$1({
   }
 }));
 
-const Header = ({
+const HeaderMobile = ({
   hreflogo,
   items,
   login
@@ -1215,18 +1179,10 @@ const Header = ({
     setOpen(isOpen);
   };
 
-  return React.createElement(React.Fragment, null, React.createElement(Hidden, {
-    smDown: true
-  }, React.createElement(AppBar, {
-    hreflogo: hreflogo,
-    items: items,
-    login: login
-  })), React.createElement(Hidden, {
-    mdUp: true
-  }, React.createElement("div", {
+  return React.createElement("div", {
     role: "presentation",
     onKeyDown: toggleDrawer(false)
-  }, React.createElement(AppBar$2, {
+  }, React.createElement(AppBar, {
     position: "fixed",
     className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
   }, React.createElement(Toolbar, null, !open && React.createElement(React.Fragment, null, React.createElement(IconButton, {
@@ -1258,7 +1214,27 @@ const Header = ({
     activeClassName: classes.mobileNavLinkActive
   }, React.createElement(ListItemIcon, null, headerItem.icon), React.createElement(ListItemText, {
     primary: headerItem.title
-  })))))))));
+  })))))));
+};
+
+const Header = ({
+  hreflogo,
+  items,
+  login
+}) => {
+  return React.createElement(React.Fragment, null, React.createElement(Hidden, {
+    smDown: true
+  }, React.createElement(HeaderDesktop, {
+    hreflogo: hreflogo,
+    items: items,
+    login: login
+  })), React.createElement(Hidden, {
+    mdUp: true
+  }, React.createElement(HeaderMobile, {
+    hreflogo: hreflogo,
+    items: items,
+    login: login
+  })));
 };
 
 const useStyles$j = makeStyles(theme => ({
@@ -1370,7 +1346,7 @@ const FAQPageTemplate = ({
 
 const useStyles$l = makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
   }
 }));
@@ -1494,5 +1470,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, AppBar, Button, Checkbox, EProvider, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, List, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, SwitchTabs, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, getWeb3, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
+export { Accordion, Account, AccountModal, Button, Checkbox, EProvider, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, SwitchTabs, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, getWeb3, globalConstants, headerTongueImg, logoBlackAndBlue, logoFullWhite, nameService as nameServiceImg, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenAddress, storage as storageImg, theme, tickWide as tickWideImg };
 //# sourceMappingURL=index.modern.js.map

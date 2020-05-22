@@ -3,15 +3,14 @@ import {
   Typography as MUITypography,
   TypographyProps as MUITypographyProps
 } from '@material-ui/core';
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { fonts } from '../../../theme';
 
 export interface TypographyProps extends MUITypographyProps {
   weight?: 'normal' | 'lightBold' | 'bold' | 'superBold'
 };
 
-// .ito - check if we can move this to styles
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   normal: {
     fontWeight: fonts.weight.normal
   },
