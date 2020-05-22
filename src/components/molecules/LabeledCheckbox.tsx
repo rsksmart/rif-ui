@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
+import { FormControlLabel } from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Checkbox, { CheckboxProps } from '../atoms/forms/Checkbox';
-import FormControlLabel from '../atoms/forms/FormControlLabel';
 import { colors } from '../../theme';
 
 export interface LabeledCheckboxProps extends CheckboxProps {
