@@ -10,21 +10,13 @@ var ExpansionPanelDetails = _interopDefault(require('@material-ui/core/Expansion
 var ExpansionPanelSummary = _interopDefault(require('@material-ui/core/ExpansionPanelSummary'));
 var ExpandMoreIcon = _interopDefault(require('@material-ui/icons/ExpandMore'));
 var Web3 = _interopDefault(require('web3'));
-var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
-var reactRouterDom = require('react-router-dom');
 var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
+var reactRouterDom = require('react-router-dom');
 var Slider = _interopDefault(require('@material-ui/core/Slider'));
-var AppBar$1 = _interopDefault(require('@material-ui/core/AppBar'));
-var Divider = _interopDefault(require('@material-ui/core/Divider'));
-var Drawer = _interopDefault(require('@material-ui/core/Drawer'));
 var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
-var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
-var ListItem = _interopDefault(require('@material-ui/core/ListItem'));
-var ListItemIcon = _interopDefault(require('@material-ui/core/ListItemIcon'));
-var ListItemText = _interopDefault(require('@material-ui/core/ListItemText'));
-var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
 var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
+var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
 
 var shortenAddress = function shortenAddress(address) {
   return address.substr(0, 6) + "..." + address.substr(address.length - 4 - 1, 4);
@@ -169,6 +161,9 @@ const fonts = {
     superBold: 900
   }
 };
+const globalConstants = {
+  headerHeight: 8
+};
 const theme = styles.createMuiTheme({
   palette: {
     primary: {
@@ -307,7 +302,7 @@ const ModalHeader = ({
   }, children);
 };
 
-const useStyles$5 = styles.makeStyles(theme => ({
+const useStyles$5 = styles.makeStyles(() => ({
   normal: {
     fontWeight: fonts.weight.normal
   },
@@ -746,66 +741,6 @@ const Account = ({
 };
 
 const useStyles$a = styles.makeStyles(theme => ({
-  activeNavlink: {
-    color: `${colors.white} !important`,
-    fontWeight: fonts.weight.lightBold
-  },
-  itemsContainer: {
-    display: 'flex'
-  },
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto'
-  },
-  navLink: {
-    alignItems: 'center',
-    color: colors.white,
-    display: 'flex',
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    textAlign: 'center',
-    textDecoration: 'none',
-    '&:hover': {
-      color: colors.gray5,
-      textDecoration: 'none'
-    }
-  },
-  navLinkContainer: {
-    display: 'flex'
-  },
-  root: {
-    boxShadow: 'none',
-    height: theme.spacing(8)
-  }
-}));
-
-const AppBar = ({
-  className = '',
-  items,
-  login,
-  ...rest
-}) => {
-  const classes = useStyles$a();
-  const Login = login;
-  return React__default.createElement(core.AppBar, Object.assign({
-    position: 'fixed',
-    className: `${classes.root} ${className}`.trim()
-  }, rest), React__default.createElement(Toolbar, null, React__default.createElement(reactRouterDom.NavLink, {
-    to: rest.hreflogo
-  }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
-    className: classes.itemsContainer
-  }, !!items.length && items.map((navItem, i) => React__default.createElement(Typography, {
-    className: classes.navLinkContainer,
-    key: `${navItem.title}-${i}`
-  }, React__default.createElement(reactRouterDom.NavLink, Object.assign({
-    className: classes.navLink,
-    activeClassName: classes.activeNavlink
-  }, navItem), navItem.title)))), React__default.createElement("div", {
-    className: classes.loginContainer
-  }, React__default.createElement(Login, null))));
-};
-
-const useStyles$b = styles.makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -844,7 +779,7 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$a();
   const [isExpanded, setIsExpanded] = React.useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -866,7 +801,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$c = styles.makeStyles(theme => ({
+const useStyles$b = styles.makeStyles(theme => ({
   root: {
     color: colors.gray4,
     width: "100%"
@@ -878,7 +813,7 @@ const LabeledCheckbox = ({
   labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$b();
   return React__default.createElement(core.FormControlLabel, {
     className: `${classes.root} ${labelClassName.trim()}`,
     label: labelText,
@@ -900,7 +835,7 @@ const FilterCheckboxCard = ({
   }, item))));
 };
 
-const useStyles$d = styles.makeStyles(theme => ({
+const useStyles$c = styles.makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -925,7 +860,7 @@ const FooterColumn = ({
   links,
   className = ''
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$c();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement(Typography, {
@@ -954,13 +889,6 @@ const FooterColumn = ({
   }));
 };
 
-const List = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.List, Object.assign({}, rest), children);
-};
-
 const ModalDialogue = ({
   title,
   footer,
@@ -970,7 +898,7 @@ const ModalDialogue = ({
   return React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 };
 
-const useStyles$e = styles.makeStyles(theme => ({
+const useStyles$d = styles.makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -1010,7 +938,7 @@ const UnitsInput = props => {
     value,
     step = 1
   } = props;
-  const classes = useStyles$e();
+  const classes = useStyles$d();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(core.Grid, {
     className: classes.root,
     container: true,
@@ -1042,7 +970,7 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$f = styles.makeStyles(() => ({
+const useStyles$e = styles.makeStyles(() => ({
   root: {
     width: "100%"
   },
@@ -1070,7 +998,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$e();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -1166,7 +1094,7 @@ const a11yProps = index => {
   };
 };
 
-const useStyles$g = styles.makeStyles(theme => ({
+const useStyles$f = styles.makeStyles(theme => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1214,7 +1142,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$f();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1246,7 +1174,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$h = styles.makeStyles(theme => ({
+const useStyles$g = styles.makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1297,7 +1225,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$g();
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, rest), React__default.createElement("div", {
@@ -1335,11 +1263,10 @@ const Footer = ({
   }, copyrightText)))));
 };
 
-const drawerWidth = 240;
-const useStyles$i = styles.makeStyles(theme => styles.createStyles({
+const useStyles$h = styles.makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
-    fontWeight: fonts.weight.bold
+    fontWeight: fonts.weight.lightBold
   },
   itemsContainer: {
     display: 'flex'
@@ -1364,6 +1291,43 @@ const useStyles$i = styles.makeStyles(theme => styles.createStyles({
   navLinkContainer: {
     display: 'flex'
   },
+  root: {
+    boxShadow: 'none',
+    height: theme.spacing(globalConstants.headerHeight)
+  }
+}));
+
+const HeaderDesktop = ({
+  hreflogo,
+  items,
+  login
+}) => {
+  const classes = useStyles$h();
+  const Login = login;
+  return React__default.createElement(core.AppBar, {
+    position: 'fixed',
+    className: classes.root
+  }, React__default.createElement(core.Toolbar, null, React__default.createElement(reactRouterDom.NavLink, {
+    to: hreflogo
+  }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
+    className: classes.itemsContainer
+  }, !!items.length && items.map((navItem, i) => React__default.createElement(Typography, {
+    className: classes.navLinkContainer,
+    key: `${navItem.title}-${i}`
+  }, React__default.createElement(reactRouterDom.NavLink, Object.assign({
+    className: classes.navLink,
+    activeClassName: classes.activeNavlink
+  }, navItem), navItem.title)))), React__default.createElement("div", {
+    className: classes.loginContainer
+  }, React__default.createElement(Login, null))));
+};
+
+const drawerWidth = 240;
+const useStyles$i = styles.makeStyles(theme => styles.createStyles({
+  loginContainer: {
+    display: 'flex',
+    marginLeft: 'auto'
+  },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -1376,7 +1340,7 @@ const useStyles$i = styles.makeStyles(theme => styles.createStyles({
   },
   mobileAppBar: {
     boxShadow: 'none',
-    height: theme.spacing(8),
+    height: theme.spacing(globalConstants.headerHeight),
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -1406,7 +1370,7 @@ const useStyles$i = styles.makeStyles(theme => styles.createStyles({
   }
 }));
 
-const Header = ({
+const HeaderMobile = ({
   hreflogo,
   items,
   login
@@ -1423,21 +1387,13 @@ const Header = ({
     setOpen(isOpen);
   };
 
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Hidden, {
-    smDown: true
-  }, React__default.createElement(AppBar, {
-    hreflogo: hreflogo,
-    items: items,
-    login: login
-  })), React__default.createElement(Hidden, {
-    mdUp: true
-  }, React__default.createElement("div", {
+  return React__default.createElement("div", {
     role: "presentation",
     onKeyDown: toggleDrawer(false)
-  }, React__default.createElement(AppBar$1, {
+  }, React__default.createElement(core.AppBar, {
     position: "fixed",
     className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
-  }, React__default.createElement(Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(IconButton, {
+  }, React__default.createElement(core.Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(core.IconButton, {
     color: "inherit",
     "aria-label": "open drawer",
     onClick: toggleDrawer(true)
@@ -1445,7 +1401,7 @@ const Header = ({
     to: hreflogo
   }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
     className: classes.loginContainer
-  }, React__default.createElement(Login, null))))), React__default.createElement(Drawer, {
+  }, React__default.createElement(Login, null))))), React__default.createElement(core.Drawer, {
     anchor: "left",
     open: open,
     onClose: toggleDrawer(false),
@@ -1455,18 +1411,38 @@ const Header = ({
     onClick: toggleDrawer(false)
   }, React__default.createElement("div", {
     className: classes.drawerHeader
-  }, React__default.createElement(IconButton, {
+  }, React__default.createElement(core.IconButton, {
     onClick: toggleDrawer(false)
-  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(Divider, null), React__default.createElement(List, null, !!items.length && items.map((headerItem, i) => React__default.createElement(ListItem, {
+  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(core.Divider, null), React__default.createElement(core.List, null, !!items.length && items.map((headerItem, i) => React__default.createElement(core.ListItem, {
     button: true,
     key: `${headerItem.title}-${i}`
   }, React__default.createElement(reactRouterDom.NavLink, {
     to: headerItem.to,
     className: classes.mobileNavLink,
     activeClassName: classes.mobileNavLinkActive
-  }, React__default.createElement(ListItemIcon, null, headerItem.icon), React__default.createElement(ListItemText, {
+  }, React__default.createElement(core.ListItemIcon, null, headerItem.icon), React__default.createElement(core.ListItemText, {
     primary: headerItem.title
-  })))))))));
+  })))))));
+};
+
+const Header = ({
+  hreflogo,
+  items,
+  login
+}) => {
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Hidden, {
+    smDown: true
+  }, React__default.createElement(HeaderDesktop, {
+    hreflogo: hreflogo,
+    items: items,
+    login: login
+  })), React__default.createElement(Hidden, {
+    mdUp: true
+  }, React__default.createElement(HeaderMobile, {
+    hreflogo: hreflogo,
+    items: items,
+    login: login
+  })));
 };
 
 const useStyles$j = styles.makeStyles(theme => ({
@@ -1578,7 +1554,7 @@ const FAQPageTemplate = ({
 
 const useStyles$l = styles.makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
   }
 }));
@@ -1725,7 +1701,6 @@ var Web3Provider$1 = {
 exports.Accordion = Accordion;
 exports.Account = Account;
 exports.AccountModal = AccountModal;
-exports.AppBar = AppBar;
 exports.Button = Button;
 exports.Checkbox = Checkbox;
 exports.FAQPageTemplate = FAQPageTemplate;
@@ -1736,7 +1711,6 @@ exports.FooterColumn = FooterColumn;
 exports.Header = Header;
 exports.HeaderTongue = HeaderTongue;
 exports.LabeledCheckbox = LabeledCheckbox;
-exports.List = List;
 exports.LoginOption = LoginOption;
 exports.Logo = Logo;
 exports.LogoNavbar = LogoNavbar;
@@ -1758,6 +1732,7 @@ exports.doneThumbsUpImg = doneThumbsUp;
 exports.fonts = fonts;
 exports.footerTongueImg = footerTongue;
 exports.getWeb3 = getWeb3;
+exports.globalConstants = globalConstants;
 exports.headerTongueImg = headerTongueImg;
 exports.logoBlackAndBlue = logoBlackAndBlue;
 exports.logoFullWhite = logoFullWhite;

@@ -29,5 +29,8 @@ export declare const fonts: {
         superBold: number;
     };
 };
+export declare const globalConstants: {
+    headerHeight: number;
+};
 declare const theme: import("@material-ui/core/styles").Theme;
 export default theme;

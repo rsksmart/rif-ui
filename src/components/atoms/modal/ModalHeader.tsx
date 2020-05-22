@@ -6,7 +6,6 @@ export interface ModalHeaderProps {
   className?: string;
 };
 
-// .ito - same as modal body
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     borderBottom: `1px solid ${colors.gray2}`,

@@ -1,12 +1,13 @@
 import React, { FC, HTMLAttributes } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { globalConstants } from '../../theme';
 
 export interface PageTemplateProps extends HTMLAttributes<HTMLElement> { };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  // this margin is the same height as the header, we need this because it has fixed position
   root: {
-    marginTop: theme.spacing(8),
+    // as the header has fixed position, we need to match its height
+    marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
   }
 }));

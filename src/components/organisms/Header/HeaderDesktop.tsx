@@ -1,16 +1,11 @@
-import React, { FC } from 'react';
-import { AppBar as MUIAppBar, AppBarProps as MUIAppBarProps } from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
+import React, { FC } from 'react'
+import { AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { NavLink, NavLinkProps } from 'react-router-dom';
-import { LogoNavbar, Typography } from '../atoms';
-import { colors, fonts } from '../../theme';
-
-export interface AppBarProps extends MUIAppBarProps {
-  hreflogo: string;
-  items: NavLinkProps[];
-  login: React.ElementType;
-};
+import { NavLink, NavLinkProps } from 'react-router-dom'
+import { LogoNavbar, Typography } from '../../atoms';
+import { colors, fonts } from '../../../theme';
+import { HeaderProps } from './utils'
+import { globalConstants } from '../../../theme';
 
 const useStyles = makeStyles((theme: Theme) => ({
   activeNavlink: {
@@ -42,20 +37,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   root: {
     boxShadow: 'none',
-    // this height need to be equal to the marginTop of the HeaderTongue component
-    height: theme.spacing(8),
+    // this height needs to be equal to the marginTop of PageTemplate
+    height: theme.spacing(globalConstants.headerHeight),
   },
 }));
 
-const AppBar: FC<AppBarProps> = ({ className = '', items, login, ...rest }) => {
+const HeaderDesktop: FC<HeaderProps> = ({ hreflogo, items, login }) => {
 
   const classes = useStyles();
   const Login = login;
 
   return (
-    <MUIAppBar position='fixed' className={`${classes.root} ${className}`.trim()} {...rest}>
+    <AppBar position='fixed' className={classes.root}>
       <Toolbar>
-        <NavLink to={rest.hreflogo}>
+        <NavLink to={hreflogo}>
           <LogoNavbar />
         </NavLink>
         <div className={classes.itemsContainer}>
@@ -74,8 +69,8 @@ const AppBar: FC<AppBarProps> = ({ className = '', items, login, ...rest }) => {
           <Login />
         </div>
       </Toolbar>
-    </MUIAppBar >
+    </AppBar >
   );
-}
+};
 
-export default AppBar;
+export default HeaderDesktop;

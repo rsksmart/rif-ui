@@ -33,6 +33,10 @@ export const fonts = {
     }
 };
 
+export const globalConstants = {
+    headerHeight: 8
+}
+
 const theme = createMuiTheme({
     palette: {
         primary: {

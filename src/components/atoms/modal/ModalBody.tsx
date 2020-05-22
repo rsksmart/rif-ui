@@ -5,7 +5,6 @@ export interface ModalBodyProps {
   className?: string;
 };
 
-// .ito - may be the modal can get a body prop and we can set this style by default
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(3, 0),
