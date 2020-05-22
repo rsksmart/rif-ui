@@ -5,7 +5,6 @@ var React__default = _interopDefault(React);
 var core = require('@material-ui/core');
 var styles = require('@material-ui/core/styles');
 var icons = require('@material-ui/icons');
-var Slider = _interopDefault(require('@material-ui/core/Slider'));
 var ExpansionPanel = _interopDefault(require('@material-ui/core/ExpansionPanel'));
 var ExpansionPanelDetails = _interopDefault(require('@material-ui/core/ExpansionPanelDetails'));
 var ExpansionPanelSummary = _interopDefault(require('@material-ui/core/ExpansionPanelSummary'));
@@ -15,11 +14,12 @@ var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
 var reactRouterDom = require('react-router-dom');
 var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
+var Slider = _interopDefault(require('@material-ui/core/Slider'));
 var AppBar$1 = _interopDefault(require('@material-ui/core/AppBar'));
 var Divider = _interopDefault(require('@material-ui/core/Divider'));
 var Drawer = _interopDefault(require('@material-ui/core/Drawer'));
 var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
-var IconButton$1 = _interopDefault(require('@material-ui/core/IconButton'));
+var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
 var ListItem = _interopDefault(require('@material-ui/core/ListItem'));
 var ListItemIcon = _interopDefault(require('@material-ui/core/ListItemIcon'));
 var ListItemText = _interopDefault(require('@material-ui/core/ListItemText'));
@@ -28,21 +28,6 @@ var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 
 var shortenAddress = function shortenAddress(address) {
   return address.substr(0, 6) + "..." + address.substr(address.length - 4 - 1, 4);
-};
-
-const CircularProgress = props => {
-  return React__default.createElement(core.CircularProgress, Object.assign({}, props));
-};
-
-const Grid = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.Grid, Object.assign({}, rest), children);
-};
-
-const Link = props => {
-  return React__default.createElement(core.Link, Object.assign({}, props));
 };
 
 const useStyles = styles.makeStyles(theme => ({
@@ -154,41 +139,6 @@ var LogoNavbar = React__default.forwardRef(function LogoFooter(props, ref) {
   }, other));
 });
 
-const IconButton = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.IconButton, Object.assign({}, rest), children);
-};
-
-const Card = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.Card, Object.assign({}, rest), children);
-};
-
-const CardActions = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.CardActions, Object.assign({}, rest), children);
-};
-
-const CardContent = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.CardContent, Object.assign({}, rest), children);
-};
-
-const CardHeader = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.CardHeader, Object.assign({}, rest), children);
-};
-
 const colors = {
   black: '#000000',
   primary: '#008FF7',
@@ -241,6 +191,39 @@ const theme = styles.createMuiTheme({
       root: {
         fontWeight: fonts.weight.normal
       }
+    },
+    MuiFormControlLabel: {
+      root: {
+        color: colors.gray3
+      }
+    },
+    MuiSlider: {
+      rail: {
+        color: colors.gray3,
+        height: 4,
+        opacity: 1
+      },
+      root: {
+        width: "100%",
+        color: colors.primary,
+        height: 4
+      },
+      track: {
+        height: 4
+      },
+      thumb: {
+        marginLeft: -4,
+        height: 14,
+        width: 14
+      }
+    },
+    MuiTextField: {
+      root: {
+        color: colors.gray3,
+        '&:hover': {
+          color: colors.gray2
+        }
+      }
     }
   }
 });
@@ -279,113 +262,7 @@ const Checkbox = props => {
   }));
 };
 
-const FormControl = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.FormControl, Object.assign({}, rest), children);
-};
-
-const FormGroup = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.FormGroup, Object.assign({}, rest), children);
-};
-
-const Input = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.Input, Object.assign({}, rest), children);
-};
-
-const InputAdornment = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.InputAdornment, Object.assign({}, rest), children);
-};
-
-const InputLabel = ({
-  children,
-  ...rest
-}) => {
-  return React__default.createElement(core.InputLabel, Object.assign({}, rest), children);
-};
-
-const useStyles$3 = styles.makeStyles(() => styles.createStyles({
-  root: {
-    width: "100%",
-    color: colors.primary,
-    height: 4
-  },
-  rail: {
-    color: colors.gray3,
-    height: 4,
-    opacity: 1
-  },
-  track: {
-    height: 4
-  },
-  thumb: {
-    marginLeft: -4,
-    height: 14,
-    width: 14
-  }
-}));
-
-const RangeSlider = ({
-  handleChange,
-  ...rest
-}) => {
-  const classes = useStyles$3();
-
-  const onChange = (event, newValue) => {
-    handleChange(event, newValue);
-  };
-
-  return React__default.createElement(Slider, Object.assign({
-    classes: classes,
-    onChange: onChange
-  }, rest));
-};
-
-const Switch = ({ ...rest
-}) => {
-  return React__default.createElement(core.Switch, Object.assign({}, rest));
-};
-
-const useStyles$4 = core.makeStyles(() => ({
-  root: {
-    color: colors.gray3,
-    '&:hover': {
-      color: colors.gray2
-    }
-  }
-}));
-
-const TextField = ({
-  className = '',
-  ...rest
-}) => {
-  const classes = useStyles$4();
-  return React__default.createElement(core.TextField, Object.assign({
-    className: `${classes.root} ${className}`.trim()
-  }, rest));
-};
-
-const MenuItem = ({ ...rest
-}) => {
-  return React__default.createElement(core.MenuItem, Object.assign({}, rest));
-};
-
-const Select = ({ ...rest
-}) => {
-  return React__default.createElement(core.Select, Object.assign({}, rest));
-};
-
-const useStyles$5 = styles.makeStyles(theme => ({
+const useStyles$3 = styles.makeStyles(theme => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: `2px solid ${colors.primary}`,
@@ -403,13 +280,13 @@ const Modal = ({
   children,
   ...rest
 }) => {
-  const classes = useStyles$5();
+  const classes = useStyles$3();
   return React__default.createElement(core.Modal, Object.assign({}, rest), React__default.createElement("div", {
     className: classes.paper
   }, children));
 };
 
-const useStyles$6 = styles.makeStyles(theme => ({
+const useStyles$4 = styles.makeStyles(theme => ({
   root: {
     borderBottom: `1px solid ${colors.gray2}`,
     color: colors.primary,
@@ -424,13 +301,13 @@ const ModalHeader = ({
   className = '',
   ...rest
 }) => {
-  const classes = useStyles$6();
+  const classes = useStyles$4();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
 
-const useStyles$7 = styles.makeStyles(theme => ({
+const useStyles$5 = styles.makeStyles(theme => ({
   normal: {
     fontWeight: fonts.weight.normal
   },
@@ -451,7 +328,7 @@ const Typography = ({
   children,
   ...rest
 }) => {
-  const classes = useStyles$7();
+  const classes = useStyles$5();
   return React__default.createElement(core.Typography, Object.assign({
     className: `${classes[weight]} ${className}`.trim()
   }, rest), children);
@@ -466,7 +343,7 @@ const ModalTitle = ({
   }, rest), children);
 };
 
-const useStyles$8 = styles.makeStyles(theme => ({
+const useStyles$6 = styles.makeStyles(theme => ({
   root: {
     borderTop: `1px solid ${colors.gray2}`,
     display: 'flex',
@@ -481,13 +358,13 @@ const ModalFooter = ({
   className = '',
   ...rest
 }) => {
-  const classes = useStyles$8();
+  const classes = useStyles$6();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
 
-const useStyles$9 = styles.makeStyles(theme => ({
+const useStyles$7 = styles.makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 0),
     width: '100%'
@@ -499,38 +376,13 @@ const ModalBody = ({
   className = '',
   ...rest
 }) => {
-  const classes = useStyles$9();
+  const classes = useStyles$7();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
 
-const Table = ({
-  children,
-  ...rest
-}) => React__default.createElement(core.Table, Object.assign({}, rest), children);
-
-const TableBody = ({
-  children,
-  ...rest
-}) => React__default.createElement(core.TableBody, Object.assign({}, rest), children);
-
-const TableCell = ({
-  children,
-  ...rest
-}) => React__default.createElement(core.TableCell, Object.assign({}, rest), children);
-
-const TableHead = ({
-  children,
-  ...rest
-}) => React__default.createElement(core.TableHead, Object.assign({}, rest), children);
-
-const TableRow = ({
-  children,
-  ...rest
-}) => React__default.createElement(core.TableRow, Object.assign({}, rest), children);
-
-const useStyles$a = styles.makeStyles(theme => styles.createStyles({
+const useStyles$8 = styles.makeStyles(theme => styles.createStyles({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -554,7 +406,7 @@ const Accordion = ({
   title,
   ...rest
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$8();
   const [isExpanded, setIsExpanded] = React.useState(!!expanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -848,7 +700,7 @@ const AccountModal = ({
   }, "Close"))));
 };
 
-const useStyles$b = styles.makeStyles(theme => ({
+const useStyles$9 = styles.makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -868,7 +720,7 @@ const Account = ({
   setProvider,
   providers
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$9();
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => setOpen(false);
@@ -893,7 +745,7 @@ const Account = ({
   }));
 };
 
-const useStyles$c = styles.makeStyles(theme => ({
+const useStyles$a = styles.makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.lightBold
@@ -933,7 +785,7 @@ const AppBar = ({
   login,
   ...rest
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$a();
   const Login = login;
   return React__default.createElement(core.AppBar, Object.assign({
     position: 'fixed',
@@ -953,7 +805,7 @@ const AppBar = ({
   }, React__default.createElement(Login, null))));
 };
 
-const useStyles$d = styles.makeStyles(theme => ({
+const useStyles$b = styles.makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -992,7 +844,7 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$b();
   const [isExpanded, setIsExpanded] = React.useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -1014,23 +866,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$e = core.makeStyles(() => core.createStyles({
-  root: {
-    color: colors.gray3
-  }
-}));
-
-const FormControlLabel = ({
-  className = '',
-  ...rest
-}) => {
-  const classes = useStyles$e();
-  return React__default.createElement(core.FormControlLabel, Object.assign({
-    className: `${classes.root} ${className} `.trim()
-  }, rest));
-};
-
-const useStyles$f = core.makeStyles(theme => ({
+const useStyles$c = styles.makeStyles(theme => ({
   root: {
     color: colors.gray4,
     width: "100%"
@@ -1042,8 +878,8 @@ const LabeledCheckbox = ({
   labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$f();
-  return React__default.createElement(FormControlLabel, {
+  const classes = useStyles$c();
+  return React__default.createElement(core.FormControlLabel, {
     className: `${classes.root} ${labelClassName.trim()}`,
     label: labelText,
     control: React__default.createElement(Checkbox, Object.assign({}, rest))
@@ -1064,7 +900,7 @@ const FilterCheckboxCard = ({
   }, item))));
 };
 
-const useStyles$g = styles.makeStyles(theme => ({
+const useStyles$d = styles.makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -1089,7 +925,7 @@ const FooterColumn = ({
   links,
   className = ''
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$d();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement(Typography, {
@@ -1134,7 +970,7 @@ const ModalDialogue = ({
   return React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 };
 
-const useStyles$h = styles.makeStyles(theme => ({
+const useStyles$e = styles.makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -1174,16 +1010,16 @@ const UnitsInput = props => {
     value,
     step = 1
   } = props;
-  const classes = useStyles$h();
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
+  const classes = useStyles$e();
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(core.Grid, {
     className: classes.root,
     container: true,
     spacing: 1
-  }, React__default.createElement(Grid, {
+  }, React__default.createElement(core.Grid, {
     className: classes.inputContainer,
     item: true,
     xs: 8
-  }, React__default.createElement(Input, {
+  }, React__default.createElement(core.Input, {
     className: classes.input,
     classes: {
       input: classes.input
@@ -1197,7 +1033,7 @@ const UnitsInput = props => {
       max: maxValue,
       'aria-labelledby': 'input-slider'
     }
-  })), React__default.createElement(Grid, {
+  })), React__default.createElement(core.Grid, {
     item: true,
     xs: 4,
     className: classes.unitsContainer
@@ -1206,7 +1042,7 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$i = styles.makeStyles(() => ({
+const useStyles$f = styles.makeStyles(() => ({
   root: {
     width: "100%"
   },
@@ -1234,7 +1070,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$f();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -1301,10 +1137,10 @@ const RangeSliderWithInputs = ({
 
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
-  }, React__default.createElement(RangeSlider, Object.assign({
+  }, React__default.createElement(Slider, Object.assign({
     value: [startValue, endValue]
   }, rest, {
-    handleChange: handleSliderChange
+    onChange: handleSliderChange
   })), React__default.createElement("div", {
     className: classes.inputsContainer
   }, React__default.createElement(UnitsInput, Object.assign({
@@ -1330,7 +1166,7 @@ const a11yProps = index => {
   };
 };
 
-const useStyles$j = styles.makeStyles(theme => ({
+const useStyles$g = styles.makeStyles(theme => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1378,7 +1214,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$g();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1410,7 +1246,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$k = styles.makeStyles(theme => ({
+const useStyles$h = styles.makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1461,7 +1297,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$h();
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, rest), React__default.createElement("div", {
@@ -1470,10 +1306,10 @@ const Footer = ({
     className: classes.footerContainer
   }, React__default.createElement("div", {
     className: classes.footerContent
-  }, React__default.createElement(Grid, {
+  }, React__default.createElement(core.Grid, {
     container: true,
     direction: 'row'
-  }, React__default.createElement(Grid, {
+  }, React__default.createElement(core.Grid, {
     className: classes.logoColumn,
     item: true,
     xs: 12,
@@ -1483,7 +1319,7 @@ const Footer = ({
     src: logoBlackAndBlue,
     height: '75px',
     alt: "logo"
-  })), linksColumns.map((linkColumn, i) => React__default.createElement(Grid, {
+  })), linksColumns.map((linkColumn, i) => React__default.createElement(core.Grid, {
     key: `fc-${i}`,
     item: true,
     xs: 12,
@@ -1500,7 +1336,7 @@ const Footer = ({
 };
 
 const drawerWidth = 240;
-const useStyles$l = styles.makeStyles(theme => styles.createStyles({
+const useStyles$i = styles.makeStyles(theme => styles.createStyles({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.bold
@@ -1575,7 +1411,7 @@ const Header = ({
   items,
   login
 }) => {
-  const classes = useStyles$l();
+  const classes = useStyles$i();
   const [open, setOpen] = React.useState(false);
   const Login = login;
 
@@ -1601,7 +1437,7 @@ const Header = ({
   }, React__default.createElement(AppBar$1, {
     position: "fixed",
     className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
-  }, React__default.createElement(Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(IconButton$1, {
+  }, React__default.createElement(Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(IconButton, {
     color: "inherit",
     "aria-label": "open drawer",
     onClick: toggleDrawer(true)
@@ -1619,7 +1455,7 @@ const Header = ({
     onClick: toggleDrawer(false)
   }, React__default.createElement("div", {
     className: classes.drawerHeader
-  }, React__default.createElement(IconButton$1, {
+  }, React__default.createElement(IconButton, {
     onClick: toggleDrawer(false)
   }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(Divider, null), React__default.createElement(List, null, !!items.length && items.map((headerItem, i) => React__default.createElement(ListItem, {
     button: true,
@@ -1633,7 +1469,7 @@ const Header = ({
   })))))))));
 };
 
-const useStyles$m = styles.makeStyles(theme => ({
+const useStyles$j = styles.makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -1670,7 +1506,7 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$m();
+  const classes = useStyles$j();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
@@ -1688,7 +1524,7 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$n = styles.makeStyles(theme => ({
+const useStyles$k = styles.makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -1723,7 +1559,7 @@ const FAQPageTemplate = ({
   mainTitle,
   questionsAndAnswers
 }) => {
-  const classes = useStyles$n();
+  const classes = useStyles$k();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement("div", {
@@ -1740,7 +1576,7 @@ const FAQPageTemplate = ({
   }, qAndA))))));
 };
 
-const useStyles$o = styles.makeStyles(theme => ({
+const useStyles$l = styles.makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(8),
     width: '100%'
@@ -1752,7 +1588,7 @@ const PageTemplate = ({
   className = '',
   ...props
 }) => {
-  const classes = useStyles$o();
+  const classes = useStyles$l();
   return React__default.createElement("div", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, props), children);
@@ -1891,33 +1727,19 @@ exports.Account = Account;
 exports.AccountModal = AccountModal;
 exports.AppBar = AppBar;
 exports.Button = Button;
-exports.Card = Card;
-exports.CardActions = CardActions;
-exports.CardContent = CardContent;
-exports.CardHeader = CardHeader;
 exports.Checkbox = Checkbox;
-exports.CircularProgress = CircularProgress;
 exports.FAQPageTemplate = FAQPageTemplate;
 exports.FAQSection = FAQSection;
 exports.FilterCheckboxCard = FilterCheckboxCard;
 exports.Footer = Footer;
 exports.FooterColumn = FooterColumn;
-exports.FormControl = FormControl;
-exports.FormGroup = FormGroup;
-exports.Grid = Grid;
 exports.Header = Header;
 exports.HeaderTongue = HeaderTongue;
-exports.IconButton = IconButton;
-exports.Input = Input;
-exports.InputAdornment = InputAdornment;
-exports.InputLabel = InputLabel;
 exports.LabeledCheckbox = LabeledCheckbox;
-exports.Link = Link;
 exports.List = List;
 exports.LoginOption = LoginOption;
 exports.Logo = Logo;
 exports.LogoNavbar = LogoNavbar;
-exports.MenuItem = MenuItem;
 exports.Modal = Modal;
 exports.ModalBody = ModalBody;
 exports.ModalDialogue = ModalDialogue;
@@ -1925,17 +1747,8 @@ exports.ModalFooter = ModalFooter;
 exports.ModalHeader = ModalHeader;
 exports.ModalTitle = ModalTitle;
 exports.PageTemplate = PageTemplate;
-exports.RangeSlider = RangeSlider;
 exports.RangeSliderWithInputs = RangeSliderWithInputs;
-exports.Select = Select;
-exports.Switch = Switch;
 exports.SwitchTabs = SwitchTabs;
-exports.Table = Table;
-exports.TableBody = TableBody;
-exports.TableCell = TableCell;
-exports.TableHead = TableHead;
-exports.TableRow = TableRow;
-exports.TextField = TextField;
 exports.Typography = Typography;
 exports.UnitsInput = UnitsInput;
 exports.Web3Provider = Web3Provider$1;

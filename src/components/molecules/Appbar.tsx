@@ -3,7 +3,7 @@ import { AppBar as MUIAppBar, AppBarProps as MUIAppBarProps } from '@material-ui
 import Toolbar from '@material-ui/core/Toolbar';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { NavLink, NavLinkProps } from 'react-router-dom';
-import { LogoNavbar, Link, Typography } from '../atoms';
+import { LogoNavbar, Typography } from '../atoms';
 import { colors, fonts } from '../../theme';
 
 export interface AppBarProps extends MUIAppBarProps {

@@ -56,6 +56,39 @@ const theme = createMuiTheme({
             root: {
                 fontWeight: fonts.weight.normal,
             }
+        },
+        MuiFormControlLabel: {
+            root: {
+                color: colors.gray3
+            }
+        },
+        MuiSlider: {
+            rail: {
+                color: colors.gray3,
+                height: 4,
+                opacity: 1
+            },
+            root: {
+                width: "100%",
+                color: colors.primary,
+                height: 4
+            },
+            track: {
+                height: 4
+            },
+            thumb: {
+                marginLeft: -4,
+                height: 14,
+                width: 14
+            }
+        },
+        MuiTextField: {
+            root: {
+                color: colors.gray3,
+                '&:hover': {
+                    color: colors.gray2,
+                },
+            },
         }
     }
 });

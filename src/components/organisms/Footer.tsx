@@ -1,6 +1,7 @@
 import React, { FC, HTMLAttributes } from 'react';
+import { Grid } from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Grid, Typography } from '../atoms';
+import { Typography } from '../atoms';
 import FooterColumn, { FooterColumnProps } from '../molecules/FooterColumn';
 import { colors, fonts } from '../../theme';
 import { logoBlackAndBlue } from '../../assets/images';

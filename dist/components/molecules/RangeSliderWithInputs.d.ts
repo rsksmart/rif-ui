@@ -1,6 +1,6 @@
-import { SliderProps as MUISliderProps } from '@material-ui/core/Slider';
+import { SliderProps } from '@material-ui/core/Slider';
 import { FC } from 'react';
-export interface RangeSliderWithInputsProps extends MUISliderProps {
+export interface RangeSliderWithInputsProps extends SliderProps {
     values: {
         start: number;
         end: number;

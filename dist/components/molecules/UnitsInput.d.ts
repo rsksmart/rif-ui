@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { InputProps } from '../atoms/forms/Input';
+import { InputProps } from '@material-ui/core';
 export interface UnitsInputProps extends InputProps {
     handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleOnBlur: () => void;

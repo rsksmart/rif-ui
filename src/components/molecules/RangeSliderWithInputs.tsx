@@ -1,10 +1,10 @@
-import { SliderProps as MUISliderProps } from '@material-ui/core/Slider';
+import Slider, { SliderProps } from '@material-ui/core/Slider';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { FC } from 'react';
 import UnitsInput from './UnitsInput';
-import { RangeSlider, Typography } from '../atoms';
+import { Typography } from '../atoms';
 
-export interface RangeSliderWithInputsProps extends MUISliderProps {
+export interface RangeSliderWithInputsProps extends SliderProps {
   values: {
     start: number,
     end: number
@@ -82,7 +82,7 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({ values: { start
 
   return (
     <div className={`${classes.root} ${className}`.trim()}>
-      <RangeSlider value={[startValue, endValue]} {...rest} handleChange={handleSliderChange} />
+      <Slider value={[startValue, endValue]} {...rest} onChange={handleSliderChange} />
       <div className={classes.inputsContainer}>
         <UnitsInput
           handleOnBlur={handleStartValueBlur}
