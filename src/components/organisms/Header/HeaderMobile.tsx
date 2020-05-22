@@ -6,7 +6,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { colors } from '../../../theme';
 import { LogoNavbar } from '../../atoms';
-import { HeaderProps, HeaderItemProps } from './utils';
+import { HeaderProps, HeaderItemProps } from './HeaderProps';
 import { globalConstants } from '../../../theme';
 
 const drawerWidth = 240;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Hidden from '@material-ui/core/Hidden';
-import { HeaderProps } from './utils'
+import { HeaderProps } from './HeaderProps'
 import HeaderDesktop from './HeaderDesktop';
 import HeaderMobile from './HeaderMobile';
 
