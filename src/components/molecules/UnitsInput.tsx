@@ -1,16 +1,14 @@
 import React, { FC } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Input, InputProps } from '@material-ui/core';
-// import { InputProps } from '../atoms/forms/Input';
 import {
-  // Grid, Input, 
   Typography
 } from '../atoms';
 import { colors, fonts } from '../../theme';
 
 export interface UnitsInputProps extends InputProps {
   handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOnBlur: () => void;
+  handleOnBlur?: () => void;
   maxValue?: number;
   minValue?: number;
   step?: number;
