@@ -8,7 +8,6 @@ import { colors, fonts } from '../../theme';
 
 export interface FAQSectionProps {
   answer: string;
-  // id: string;
   initiallyExpanded?: boolean;
   question: string;
   className?: string;
@@ -57,8 +56,6 @@ const FAQSection: FC<FAQSectionProps> = ({ className = '', initiallyExpanded, qu
     <ExpansionPanel className={`${classes.root} ${className}`.trim()} expanded={isExpanded} onChange={onChange}>
       <ExpansionPanelSummary
         expandIcon={isExpanded ? <RemoveIcon /> : <AddIcon />}
-        // aria-controls={`panel-${id}-content`}
-      // id={id}
       >
         <Typography className={`${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()}>{question}</Typography>
       </ExpansionPanelSummary>
