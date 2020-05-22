@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { NavLink, NavLinkProps } from 'react-router-dom'
 import { LogoNavbar, Typography } from '../../atoms';
 import { colors, fonts } from '../../../theme';
-import { HeaderProps } from './utils'
+import { HeaderProps } from './HeaderProps'
 import { globalConstants } from '../../../theme';
 
 const useStyles = makeStyles((theme: Theme) => ({
