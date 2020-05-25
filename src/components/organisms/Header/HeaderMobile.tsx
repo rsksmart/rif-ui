@@ -1,6 +1,10 @@
 import React, { FC, useState } from 'react'
 import {
-  AppBar, Divider, Drawer, Toolbar, IconButton, List, ListItem, ListItemText, ListItemIcon,
+  AppBar,
+  Divider,
+  Drawer, Toolbar,
+  IconButton, List, ListItem,
+  ListItemText, ListItemIcon,
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -71,7 +75,7 @@ const HeaderMobile: FC<HeaderProps> = ({ hreflogo, items, login }) => {
 
   const toggleDrawer = (isOpen: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
-  ) => {
+  ): void => {
     if (
       event.type === 'keydown'
       && ((event as React.KeyboardEvent).key === 'Tab'
@@ -132,8 +136,15 @@ const HeaderMobile: FC<HeaderProps> = ({ hreflogo, items, login }) => {
           {
             !!items.length
             && items.map((headerItem: HeaderItemProps) => (
-              <ListItem button key={`him-${removeEmptySpaces(headerItem.title)}`}>
-                <NavLink to={headerItem.to} className={classes.mobileNavLink} activeClassName={classes.mobileNavLinkActive}>
+              <ListItem
+                button
+                key={`him-${removeEmptySpaces(headerItem.title)}`}
+              >
+                <NavLink
+                  to={headerItem.to}
+                  className={classes.mobileNavLink}
+                  activeClassName={classes.mobileNavLinkActive}
+                >
                   <ListItemIcon>
                     {headerItem.icon}
                   </ListItemIcon>

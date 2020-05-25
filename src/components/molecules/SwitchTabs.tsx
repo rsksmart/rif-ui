@@ -7,10 +7,10 @@ export interface SwitchTabsProps {
   label1: string
   label2: string
   value?: 0 | 1
-  onChange: (event: React.ChangeEvent<{}>, value: any) => void
+  onChange: (event: React.ChangeEvent<{}>, value: number) => void
 }
 
-const a11yProps = (index: any) => ({
+const a11yProps = (index: number): {} => ({
   id: `full-width-tab-${index}`,
   'aria-controls': `full-width-tabpanel-${index}`,
 })
@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
   tabSelected: {
-    // the '!important' here is to override the on hover functionality when it's active
+    // the '!important' overrides the on hover functionality when it's active
     backgroundColor: `${colors.primary} !important`,
     color: `${colors.white} !important`,
   },
@@ -64,7 +64,9 @@ const SwitchTabs: FC<SwitchTabsProps> = ({
 }) => {
   const classes = useStyles()
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
+  const handleChange = (
+    event: React.ChangeEvent<{}>, newValue: number,
+  ): void => {
     onChange(event, newValue)
   }
 

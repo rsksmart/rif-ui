@@ -74,14 +74,26 @@ const Footer: FC<FooterProps> = ({
             </Grid>
             {
               linksColumns.map((linkColumn: FooterColumnProps) => (
-                <Grid key={`fc-${removeEmptySpaces(linkColumn.title)}`} item xs={12} sm={12} md={2} lg={2}>
-                  <FooterColumn className={classes.linksColumn} {...linkColumn} />
+                <Grid
+                  key={`fc-${removeEmptySpaces(linkColumn.title)}`}
+                  item
+                  xs={12}
+                  sm={12}
+                  md={2}
+                  lg={2}
+                >
+                  <FooterColumn
+                    className={classes.linksColumn}
+                    {...linkColumn}
+                  />
                 </Grid>
               ))
             }
           </Grid>
           <div className={classes.copyright}>
-            <Typography className={classes.copyrightContent}>{copyrightText}</Typography>
+            <Typography className={classes.copyrightContent}>
+              {copyrightText}
+            </Typography>
           </div>
         </div>
       </div>

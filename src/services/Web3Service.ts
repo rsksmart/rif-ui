@@ -14,7 +14,9 @@ export enum EProvider {
   LOCAL = 'Localhost'
 }
 
-export function getWeb3(provider: EProvider = EProvider.METAMASK) {
+export function getWeb3(
+  provider: EProvider = EProvider.METAMASK,
+): Promise<Web3> {
   return new Promise<Web3>((resolve, reject) => {
     switch (provider) {
       // Injected Web3 wallet like MetaMask

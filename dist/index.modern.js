@@ -15,12 +15,8 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-var shortenAddress = function shortenAddress(address) {
-  return address.substr(0, 6) + "..." + address.substr(address.length - 4 - 1, 4);
-};
-var removeEmptySpaces = function removeEmptySpaces(str) {
-  return str.replace(/\s/g, '');
-};
+const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4 - 1, 4)}`;
+const removeEmptySpaces = str => str.replace(/\s/g, '');
 
 const useStyles = makeStyles(() => ({
   block: {
@@ -35,7 +31,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Button = ({
-  className = '',
+  className: _className = '',
   block,
   shadow,
   rounded,
@@ -46,7 +42,7 @@ const Button = ({
   return React.createElement(Button$1, Object.assign({
     className: `${rounded ? classes.rounded : ''}
         ${shadow ? '' : classes.noShadow}
-        ${block ? classes.block : ''} ${className}`.trim()
+        ${block ? classes.block : ''} ${_className}`.trim()
   }, rest), children);
 };
 
@@ -188,14 +184,14 @@ const useStyles$2 = makeStyles$1(() => ({
 }));
 
 const LoginOption = ({
-  className = '',
+  className: _className = '',
   onClick,
   text,
   ...rest
 }) => {
   const classes = useStyles$2();
   return React.createElement(Button, Object.assign({
-    className: `${classes.root} ${className}`,
+    className: `${classes.root} ${_className}`,
     block: true,
     rounded: true,
     variant: "outlined",
@@ -276,14 +272,14 @@ const useStyles$3 = makeStyles(() => ({
 }));
 
 const Typography = ({
-  weight = 'normal',
-  className = '',
+  weight: _weight = 'normal',
+  className: _className = '',
   children,
   ...rest
 }) => {
   const classes = useStyles$3();
   return React.createElement(Typography$1, Object.assign({
-    className: `${classes[weight]} ${className}`.trim()
+    className: `${classes[_weight]} ${_className}`.trim()
   }, rest), children);
 };
 
@@ -323,11 +319,11 @@ const useStyles$5 = makeStyles(() => ({
 
 const ModalHeader = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$5();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -350,11 +346,11 @@ const useStyles$6 = makeStyles(theme => ({
 
 const ModalFooter = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$6();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -367,11 +363,11 @@ const useStyles$7 = makeStyles(theme => ({
 
 const ModalBody = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$7();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -470,14 +466,9 @@ const AccountModal = ({
 }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
   key: provider,
   text: provider,
-  onClick: function () {
-    try {
-      return Promise.resolve(setProvider(provider)).then(function () {
-        handleClose();
-      });
-    } catch (e) {
-      return Promise.reject(e);
-    }
+  onClick: async () => {
+    await setProvider(provider);
+    handleClose();
   }
 }))), React.createElement(ModalFooter, null, React.createElement(Button, {
   variant: "outlined",
@@ -565,7 +556,7 @@ const useStyles$a = makeStyles(theme => ({
 }));
 
 const FAQSection = ({
-  className = '',
+  className: _className = '',
   initiallyExpanded,
   question,
   answer
@@ -576,7 +567,7 @@ const FAQSection = ({
   const onChange = () => setIsExpanded(!isExpanded);
 
   return React.createElement(ExpansionPanel$1, {
-    className: `${classes.root} ${className}`.trim(),
+    className: `${classes.root} ${_className}`.trim(),
     expanded: isExpanded,
     onChange: onChange
   }, React.createElement(ExpansionPanelSummary$1, {
@@ -601,26 +592,26 @@ const useStyles$b = makeStyles(() => ({
 
 const LabeledCheckbox = ({
   labelText,
-  labelClassName = '',
+  labelClassName: _labelClassName = '',
   ...rest
 }) => {
   const classes = useStyles$b();
   return React.createElement(FormControlLabel, {
-    className: `${classes.root} ${labelClassName.trim()}`,
+    className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
     control: React.createElement(Checkbox, Object.assign({}, rest))
   });
 };
 
 const FilterCheckboxCard = ({
-  className = '',
+  className: _className = '',
   onClick,
   items
 }) => React.createElement("div", {
-  className: className
+  className: _className
 }, items.map((item, i) => React.createElement(LabeledCheckbox, Object.assign({
   onClick: onClick,
-  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
+  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${_className}`.trim(),
   labelClassName: item.labelClassName
 }, item))));
 
@@ -647,11 +638,11 @@ const useStyles$c = makeStyles(() => ({
 const FooterColumn = ({
   title,
   links,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$c();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, React.createElement(Typography, {
     className: classes.footerTitle,
     variant: "subtitle1",
@@ -1005,14 +996,14 @@ const useStyles$g = makeStyles(theme => ({
 }));
 
 const Footer = ({
-  className = '',
+  className: _className = '',
   copyrightText,
   linksColumns,
   ...rest
 }) => {
   const classes = useStyles$g();
   return React.createElement("footer", Object.assign({
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, rest), React.createElement("div", {
     className: classes.tongue
   }), React.createElement("div", {
@@ -1314,13 +1305,13 @@ const useStyles$k = makeStyles(theme => ({
 }));
 
 const FAQPageTemplate = ({
-  className = '',
+  className: _className = '',
   mainTitle,
   questionsAndAnswers
 }) => {
   const classes = useStyles$k();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, React.createElement("div", {
     className: classes.container
   }, React.createElement(Typography, {
@@ -1344,12 +1335,12 @@ const useStyles$l = makeStyles(theme => ({
 
 const PageTemplate = ({
   children,
-  className = '',
+  className: _className = '',
   ...props
 }) => {
   const classes = useStyles$l();
   return React.createElement("div", Object.assign({
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, props), children);
 };
 
@@ -1410,37 +1401,19 @@ class Web3Provider extends Component {
     this.setProvider = this.setProvider.bind(this);
   }
 
-  setProvider(provider) {
-    try {
-      const _this = this;
-
-      return Promise.resolve(getWeb3(provider)).then(function (web3) {
-        return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-          let account;
-          if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
-          return Promise.resolve(web3.eth.net.getId()).then(function (networkId) {
-            function _temp2() {
-              _this.setState({
-                web3,
-                provider,
-                account,
-                networkName: getNetworkName(networkId)
-              });
-            }
-
-            const _temp = function () {
-              if (networkId === 1) return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
-                networkId = _web3$eth$getChainId;
-              });
-            }();
-
-            return _temp && _temp.then ? _temp.then(_temp2) : _temp2(_temp);
-          });
-        });
-      });
-    } catch (e) {
-      return Promise.reject(e);
-    }
+  async setProvider(provider) {
+    const web3 = await getWeb3(provider);
+    const accounts = await web3.eth.getAccounts();
+    let account;
+    if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
+    let networkId = await web3.eth.net.getId();
+    if (networkId === 1) networkId = await web3.eth.getChainId();
+    this.setState({
+      web3,
+      provider,
+      account,
+      networkName: getNetworkName(networkId)
+    });
   }
 
   render() {

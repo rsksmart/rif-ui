@@ -42,14 +42,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const HeaderTongue: FC<HeaderTongueProps> = ({ description, titleLine1, titleLine2 }) => {
+const HeaderTongue: FC<HeaderTongueProps> = (
+  { description, titleLine1, titleLine2 },
+) => {
   const classes = useStyles()
 
   return (
     <React.Fragment>
       <div className={classes.textContainer}>
         <div className={classes.textContent}>
-          <Typography className={classes.titleContent} variant="h3" weight="lightBold">
+          <Typography
+            className={classes.titleContent}
+            variant="h3"
+            weight="lightBold"
+          >
             {titleLine1}
             <br />
             {' '}
@@ -58,7 +64,11 @@ const HeaderTongue: FC<HeaderTongueProps> = ({ description, titleLine1, titleLin
           <Typography variant="subtitle1">{description}</Typography>
         </div>
       </div>
-      <img className={classes.tongueImg} src={headerTongueImg} alt="headerTongueImg" />
+      <img
+        className={classes.tongueImg}
+        src={headerTongueImg}
+        alt="headerTongueImg"
+      />
     </React.Fragment>
   )
 }
