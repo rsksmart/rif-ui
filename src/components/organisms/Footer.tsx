@@ -1,16 +1,17 @@
-import React, { FC, HTMLAttributes } from 'react';
+import React, { FC, HTMLAttributes } from 'react'
 import { Grid } from '@material-ui/core'
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from '../atoms';
-import FooterColumn, { FooterColumnProps } from '../molecules/FooterColumn';
-import { colors, fonts } from '../../theme';
-import { logoBlackAndBlue } from '../../assets/images';
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Typography } from '../atoms'
+import FooterColumn, { FooterColumnProps } from '../molecules/FooterColumn'
+import { colors, fonts } from '../../theme'
+import { logoBlackAndBlue } from '../../assets/images'
+import { removeEmptySpaces } from '../../utils'
 
 export interface FooterProps extends HTMLAttributes<HTMLElement> {
-  className?: string;
-  copyrightText: string;
-  linksColumns: FooterColumnProps[];
-};
+  className?: string
+  copyrightText: string
+  linksColumns: FooterColumnProps[]
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   copyright: {
@@ -53,27 +54,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderTopLeftRadius: '50% 80%',
     borderTopRightRadius: '50% 80%',
     height: theme.spacing(10),
-    width: '100%'
-  }
-}));
+    width: '100%',
+  },
+}))
 
-const Footer: FC<FooterProps> = ({ className = '', copyrightText, linksColumns, ...rest }) => {
-
-  const classes = useStyles();
+const Footer: FC<FooterProps> = ({
+  className = '', copyrightText, linksColumns, ...rest
+}) => {
+  const classes = useStyles()
 
   return (
     <footer className={`${classes.root} ${className}`.trim()} {...rest}>
-      <div className={classes.tongue}>
-      </div>
+      <div className={classes.tongue} />
       <div className={classes.footerContainer}>
         <div className={classes.footerContent}>
-          <Grid container direction='row'>
+          <Grid container direction="row">
             <Grid className={classes.logoColumn} item xs={12} md={3} lg={3}>
-              <img src={logoBlackAndBlue} height='75px' alt="logo" />
+              <img src={logoBlackAndBlue} height="75px" alt="logo" />
             </Grid>
             {
-              linksColumns.map((linkColumn: FooterColumnProps, i) => (
-                <Grid key={`fc-${i}`} item xs={12} sm={12} md={2} lg={2}>
+              linksColumns.map((linkColumn: FooterColumnProps) => (
+                <Grid key={`fc-${removeEmptySpaces(linkColumn.title)}`} item xs={12} sm={12} md={2} lg={2}>
                   <FooterColumn className={classes.linksColumn} {...linkColumn} />
                 </Grid>
               ))
@@ -85,7 +86,7 @@ const Footer: FC<FooterProps> = ({ className = '', copyrightText, linksColumns, 
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

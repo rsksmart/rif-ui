@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { EProvider } from '../services/Web3Service';
 import Web3 from 'web3';
-export interface IWeb3Provider {
+import { EProvider } from '../services/Web3Service';
+export interface Web3ProviderProps {
     state: {
         provider: EProvider | null;
         web3: Web3 | null;
@@ -12,22 +12,20 @@ export interface IWeb3Provider {
         setProvider: (provider: EProvider) => Promise<void>;
     };
 }
-export declare const Web3Store: React.Context<IWeb3Provider>;
-interface IWeb3ProviderProps {
-}
-interface IWeb3ProviderState {
+export declare const Web3Store: React.Context<Web3ProviderProps>;
+interface Web3ProviderState {
     provider: EProvider | null;
     web3: Web3 | null;
     account: string | null;
     networkName: string | null;
 }
-declare class Web3Provider extends Component<IWeb3ProviderProps, IWeb3ProviderState> {
-    constructor(props: IWeb3Provider);
+declare class Web3Provider extends Component<{}, Web3ProviderState> {
+    constructor(props: Web3ProviderProps);
     setProvider(provider: EProvider): Promise<void>;
     render(): JSX.Element;
 }
 declare const _default: {
-    Consumer: React.Consumer<IWeb3Provider>;
+    Consumer: React.Consumer<Web3ProviderProps>;
     Provider: typeof Web3Provider;
 };
 export default _default;

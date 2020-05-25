@@ -21,8 +21,11 @@ var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'))
 var shortenAddress = function shortenAddress(address) {
   return address.substr(0, 6) + "..." + address.substr(address.length - 4 - 1, 4);
 };
+var removeEmptySpaces = function removeEmptySpaces(str) {
+  return str.replace(/\s/g, '');
+};
 
-const useStyles = styles.makeStyles(theme => ({
+const useStyles = styles.makeStyles(() => ({
   block: {
     width: '100%'
   },
@@ -49,87 +52,6 @@ const Button = ({
         ${block ? classes.block : ''} ${className}`.trim()
   }, rest), children);
 };
-
-const useStyles$1 = core.makeStyles(() => ({
-  root: {
-    padding: 5,
-    margin: 5,
-    width: '100%'
-  }
-}));
-
-const LoginOption = ({
-  className = '',
-  onClick,
-  text,
-  ...rest
-}) => {
-  const classes = useStyles$1();
-  return React__default.createElement(Button, Object.assign({
-    className: `${classes.root} ${className}`,
-    block: true,
-    rounded: true,
-    variant: 'outlined',
-    color: 'primary',
-    onClick: onClick
-  }, rest), text);
-};
-
-var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
-
-var footerTongue = require("./footerTongue~bbJNSCWG.svg");
-
-var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
-
-var tickWide = require("./tickWide~bmvsBAER.svg");
-
-var nameService = require("./nameService~UWbtQqmT.svg");
-
-var rifCom = require("./rifCom~udwpaCym.png");
-
-var rifDir = require("./rifDir~bottaDNJ.png");
-
-var rifGat = require("./rifGat~balFpEzC.png");
-
-var rifMar = require("./rifMar~IDqKMWpK.png");
-
-var rifPay = require("./rifPay~bdtOAceT.png");
-
-var rifSto = require("./rifSto~fMRetflo.png");
-
-var storage = require("./storage~fCGkZtHN.svg");
-
-var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
-
-var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
-
-var rskLogo = require("./rskLogo~bdMEZSPk.svg");
-
-var Logo = React__default.forwardRef(function LogoFooter(props, ref) {
-  const {
-    alt = 'RIF OS',
-    ...other
-  } = props;
-  return React__default.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    ref: ref
-  }, other));
-});
-
-var LogoNavbar = React__default.forwardRef(function LogoFooter(props, ref) {
-  const {
-    alt = 'RIF OS',
-    height = '44px',
-    ...other
-  } = props;
-  return React__default.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    height: height,
-    ref: ref
-  }, other));
-});
 
 const colors = {
   black: '#000000',
@@ -199,7 +121,7 @@ const theme = styles.createMuiTheme({
         opacity: 1
       },
       root: {
-        width: "100%",
+        width: '100%',
         color: colors.primary,
         height: 4
       },
@@ -223,7 +145,7 @@ const theme = styles.createMuiTheme({
   }
 });
 
-const useStyles$2 = core.makeStyles(() => core.createStyles({
+const useStyles$1 = core.makeStyles(() => core.createStyles({
   unCheckedIcon: {
     color: colors.gray4
   },
@@ -233,15 +155,18 @@ const useStyles$2 = core.makeStyles(() => core.createStyles({
 }));
 
 const Checkbox = props => {
-  const classes = useStyles$2();
-  const [isChecked, setIsChecked] = React.useState(!!props.checked);
+  const classes = useStyles$1();
+  const {
+    checked
+  } = props;
+  const [isChecked, setIsChecked] = React.useState(!!checked);
 
-  const handleChange = (event, checked) => {
-    setIsChecked(checked);
+  const handleChange = (event, newChecked) => {
+    setIsChecked(newChecked);
     const {
       onChange
     } = props;
-    !!onChange && onChange(event, checked);
+    if (onChange) onChange(event, newChecked);
   };
 
   return React__default.createElement(core.Checkbox, Object.assign({
@@ -257,52 +182,88 @@ const Checkbox = props => {
   }));
 };
 
-const useStyles$3 = styles.makeStyles(theme => ({
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: `2px solid ${colors.primary}`,
-    boxShadow: theme.shadows[5],
-    left: '50%',
-    minWidth: 400,
-    padding: theme.spacing(2, 4, 3),
-    position: 'absolute',
-    top: '50%',
-    transform: `translate(-50%, -50%)`
-  }
-}));
-
-const Modal = ({
-  children,
-  ...rest
-}) => {
-  const classes = useStyles$3();
-  return React__default.createElement(core.Modal, Object.assign({}, rest), React__default.createElement("div", {
-    className: classes.paper
-  }, children));
-};
-
-const useStyles$4 = styles.makeStyles(theme => ({
+const useStyles$2 = core.makeStyles(() => ({
   root: {
-    borderBottom: `1px solid ${colors.gray2}`,
-    color: colors.primary,
-    display: 'flex',
-    justifyContent: 'center',
+    padding: 5,
+    margin: 5,
     width: '100%'
   }
 }));
 
-const ModalHeader = ({
-  children,
+const LoginOption = ({
   className = '',
+  onClick,
+  text,
   ...rest
 }) => {
-  const classes = useStyles$4();
-  return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
-  }, children);
+  const classes = useStyles$2();
+  return React__default.createElement(Button, Object.assign({
+    className: `${classes.root} ${className}`,
+    block: true,
+    rounded: true,
+    variant: "outlined",
+    color: "primary",
+    onClick: onClick
+  }, rest), text);
 };
 
-const useStyles$5 = styles.makeStyles(() => ({
+var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
+
+var footerTongue = require("./footerTongue~bbJNSCWG.svg");
+
+var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
+
+var tickWide = require("./tickWide~bmvsBAER.svg");
+
+var nameService = require("./nameService~UWbtQqmT.svg");
+
+var rifCom = require("./rifCom~udwpaCym.png");
+
+var rifDir = require("./rifDir~bottaDNJ.png");
+
+var rifGat = require("./rifGat~balFpEzC.png");
+
+var rifMar = require("./rifMar~IDqKMWpK.png");
+
+var rifPay = require("./rifPay~bdtOAceT.png");
+
+var rifSto = require("./rifSto~fMRetflo.png");
+
+var storage = require("./storage~fCGkZtHN.svg");
+
+var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
+
+var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
+
+var rskLogo = require("./rskLogo~bdMEZSPk.svg");
+
+var Logo = React__default.forwardRef((props, ref) => {
+  const {
+    alt = 'RIF OS',
+    ...other
+  } = props;
+  return React__default.createElement("img", Object.assign({
+    src: logoFullWhite,
+    alt: alt,
+    ref: ref
+  }, other));
+});
+
+var LogoNavbar = React__default.forwardRef((props, ref) => {
+  const {
+    alt = 'RIF OS',
+    height = '44px',
+    ...other
+  } = props;
+  return React__default.createElement("img", Object.assign({
+    src: logoFullWhite,
+    alt: alt,
+    height: height,
+    ref: ref
+  }, other));
+});
+
+const useStyles$3 = styles.makeStyles(() => ({
   normal: {
     fontWeight: fonts.weight.normal
   },
@@ -323,20 +284,62 @@ const Typography = ({
   children,
   ...rest
 }) => {
-  const classes = useStyles$5();
+  const classes = useStyles$3();
   return React__default.createElement(core.Typography, Object.assign({
     className: `${classes[weight]} ${className}`.trim()
   }, rest), children);
 };
 
-const ModalTitle = ({
+const useStyles$4 = styles.makeStyles(theme => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: `2px solid ${colors.primary}`,
+    boxShadow: theme.shadows[5],
+    left: '50%',
+    minWidth: 400,
+    padding: theme.spacing(2, 4, 3),
+    position: 'absolute',
+    top: '50%',
+    transform: 'translate(-50%, -50%)'
+  }
+}));
+
+const Modal = ({
   children,
   ...rest
 }) => {
-  return React__default.createElement(Typography, Object.assign({
-    variant: 'h5'
-  }, rest), children);
+  const classes = useStyles$4();
+  return React__default.createElement(core.Modal, Object.assign({}, rest), React__default.createElement("div", {
+    className: classes.paper
+  }, children));
 };
+
+const useStyles$5 = styles.makeStyles(() => ({
+  root: {
+    borderBottom: `1px solid ${colors.gray2}`,
+    color: colors.primary,
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%'
+  }
+}));
+
+const ModalHeader = ({
+  children,
+  className = ''
+}) => {
+  const classes = useStyles$5();
+  return React__default.createElement("div", {
+    className: `${classes.root} ${className}`.trim()
+  }, children);
+};
+
+const ModalTitle = ({
+  children,
+  ...rest
+}) => React__default.createElement(Typography, Object.assign({
+  variant: "h5"
+}, rest), children);
 
 const useStyles$6 = styles.makeStyles(theme => ({
   root: {
@@ -350,8 +353,7 @@ const useStyles$6 = styles.makeStyles(theme => ({
 
 const ModalFooter = ({
   children,
-  className = '',
-  ...rest
+  className = ''
 }) => {
   const classes = useStyles$6();
   return React__default.createElement("div", {
@@ -368,8 +370,7 @@ const useStyles$7 = styles.makeStyles(theme => ({
 
 const ModalBody = ({
   children,
-  className = '',
-  ...rest
+  className = ''
 }) => {
   const classes = useStyles$7();
   return React__default.createElement("div", {
@@ -398,8 +399,7 @@ const Accordion = ({
   children,
   expanded,
   id,
-  title,
-  ...rest
+  title
 }) => {
   const classes = useStyles$8();
   const [isExpanded, setIsExpanded] = React.useState(!!expanded);
@@ -420,194 +420,6 @@ const Accordion = ({
   }, title)), React__default.createElement(ExpansionPanelDetails, null, children));
 };
 
-// A type of promise-like that resolves synchronously and supports only one observer
-const _Pact = /*#__PURE__*/(function() {
-	function _Pact() {}
-	_Pact.prototype.then = function(onFulfilled, onRejected) {
-		const result = new _Pact();
-		const state = this.s;
-		if (state) {
-			const callback = state & 1 ? onFulfilled : onRejected;
-			if (callback) {
-				try {
-					_settle(result, 1, callback(this.v));
-				} catch (e) {
-					_settle(result, 2, e);
-				}
-				return result;
-			} else {
-				return this;
-			}
-		}
-		this.o = function(_this) {
-			try {
-				const value = _this.v;
-				if (_this.s & 1) {
-					_settle(result, 1, onFulfilled ? onFulfilled(value) : value);
-				} else if (onRejected) {
-					_settle(result, 1, onRejected(value));
-				} else {
-					_settle(result, 2, value);
-				}
-			} catch (e) {
-				_settle(result, 2, e);
-			}
-		};
-		return result;
-	};
-	return _Pact;
-})();
-
-// Settles a pact synchronously
-function _settle(pact, state, value) {
-	if (!pact.s) {
-		if (value instanceof _Pact) {
-			if (value.s) {
-				if (state & 1) {
-					state = value.s;
-				}
-				value = value.v;
-			} else {
-				value.o = _settle.bind(null, pact, state);
-				return;
-			}
-		}
-		if (value && value.then) {
-			value.then(_settle.bind(null, pact, state), _settle.bind(null, pact, 2));
-			return;
-		}
-		pact.s = state;
-		pact.v = value;
-		const observer = pact.o;
-		if (observer) {
-			observer(pact);
-		}
-	}
-}
-
-const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
-
-const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
-
-// Asynchronously implement a switch statement
-function _switch(discriminant, cases) {
-	var dispatchIndex = -1;
-	var awaitBody;
-	outer: {
-		for (var i = 0; i < cases.length; i++) {
-			var test = cases[i][0];
-			if (test) {
-				var testValue = test();
-				if (testValue && testValue.then) {
-					break outer;
-				}
-				if (testValue === discriminant) {
-					dispatchIndex = i;
-					break;
-				}
-			} else {
-				// Found the default case, set it as the pending dispatch case
-				dispatchIndex = i;
-			}
-		}
-		if (dispatchIndex !== -1) {
-			do {
-				var body = cases[dispatchIndex][1];
-				while (!body) {
-					dispatchIndex++;
-					body = cases[dispatchIndex][1];
-				}
-				var result = body();
-				if (result && result.then) {
-					awaitBody = true;
-					break outer;
-				}
-				var fallthroughCheck = cases[dispatchIndex][2];
-				dispatchIndex++;
-			} while (fallthroughCheck && !fallthroughCheck());
-			return result;
-		}
-	}
-	const pact = new _Pact();
-	const reject = _settle.bind(null, pact, 2);
-	(awaitBody ? result.then(_resumeAfterBody) : testValue.then(_resumeAfterTest)).then(void 0, reject);
-	return pact;
-	function _resumeAfterTest(value) {
-		for (;;) {
-			if (value === discriminant) {
-				dispatchIndex = i;
-				break;
-			}
-			if (++i === cases.length) {
-				if (dispatchIndex !== -1) {
-					break;
-				} else {
-					_settle(pact, 1, result);
-					return;
-				}
-			}
-			test = cases[i][0];
-			if (test) {
-				value = test();
-				if (value && value.then) {
-					value.then(_resumeAfterTest).then(void 0, reject);
-					return;
-				}
-			} else {
-				dispatchIndex = i;
-			}
-		}
-		do {
-			var body = cases[dispatchIndex][1];
-			while (!body) {
-				dispatchIndex++;
-				body = cases[dispatchIndex][1];
-			}
-			var result = body();
-			if (result && result.then) {
-				result.then(_resumeAfterBody).then(void 0, reject);
-				return;
-			}
-			var fallthroughCheck = cases[dispatchIndex][2];
-			dispatchIndex++;
-		} while (fallthroughCheck && !fallthroughCheck());
-		_settle(pact, 1, result);
-	}
-	function _resumeAfterBody(result) {
-		for (;;) {
-			var fallthroughCheck = cases[dispatchIndex][2];
-			if (!fallthroughCheck || fallthroughCheck()) {
-				break;
-			}
-			dispatchIndex++;
-			var body = cases[dispatchIndex][1];
-			while (!body) {
-				dispatchIndex++;
-				body = cases[dispatchIndex][1];
-			}
-			result = body();
-			if (result && result.then) {
-				result.then(_resumeAfterBody).then(void 0, reject);
-				return;
-			}
-		}
-		_settle(pact, 1, result);
-	}
-}
-
-// Asynchronously call a function and send errors to recovery continuation
-function _catch(body, recover) {
-	try {
-		var result = body();
-	} catch(e) {
-		return recover(e);
-	}
-	if (result && result.then) {
-		return result.then(void 0, recover);
-	}
-	return result;
-}
-
 (function (EProvider) {
   EProvider["METAMASK"] = "Metamask";
   EProvider["LEDGER"] = "Ledger";
@@ -616,50 +428,32 @@ function _catch(body, recover) {
 })(exports.EProvider || (exports.EProvider = {}));
 
 function getWeb3(provider = exports.EProvider.METAMASK) {
-  return new Promise(function (resolve, reject) {
-    try {
-      const _temp3 = _switch(provider, [[function () {
-        return exports.EProvider.METAMASK;
-      }, function () {
+  return new Promise((resolve, reject) => {
+    switch (provider) {
+      case exports.EProvider.METAMASK:
         {
-          const _temp2 = function () {
-            if (window.ethereum) {
-              const web3 = new Web3(window.ethereum);
+          if (window.ethereum) {
+            const web3 = new Web3(window.ethereum);
+            window.ethereum.enable().then(() => resolve(web3)).catch(reject);
+          } else if (window.web3) {
+            resolve(new Web3(window.web3.currentProvider));
+          } else reject(new Error('No injected web3 found'));
 
-              const _temp = _catch(function () {
-                return Promise.resolve(window.ethereum.enable()).then(function () {
-                  resolve(web3);
-                });
-              }, function (error) {
-                reject(error);
-              });
-
-              if (_temp && _temp.then) return _temp.then(function () {});
-            } else if (window.web3) {
-                resolve(new Web3(window.web3.currentProvider));
-              } else reject(new Error('No injected web3 found'));
-          }();
-
-          return _temp2 && _temp2.then ? _temp2.then(function () {}) : void 0;
+          break;
         }
-      }], [function () {
-        return exports.EProvider.LOCAL;
-      }, function () {
+
+      case exports.EProvider.LOCAL:
         {
-          const provider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
-          resolve(new Web3(provider));
-          return;
+          const localhostProvider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
+          resolve(new Web3(localhostProvider));
+          break;
         }
-      }], [void 0, function () {
+
+      default:
         {
           reject(new Error(`Provider not implemented or unknown. Chosen provider ${provider}`));
-          return;
+          break;
         }
-      }]]);
-
-      return Promise.resolve(_temp3 && _temp3.then ? _temp3.then(function () {}) : void 0);
-    } catch (e) {
-      return Promise.reject(e);
     }
   });
 }
@@ -669,33 +463,31 @@ const AccountModal = ({
   providers,
   open,
   handleClose
-}) => {
-  return React__default.createElement(Modal, {
-    open: open,
-    onClose: handleClose,
-    "aria-labelledby": "account-modal-title",
-    "aria-describedby": "account-modal-description"
-  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, (providers || [exports.EProvider.METAMASK, exports.EProvider.LOCAL]).map(provider => React__default.createElement(LoginOption, {
-    key: provider,
-    text: provider,
-    onClick: function () {
-      try {
-        return Promise.resolve(setProvider(provider)).then(function () {
-          handleClose();
-        });
-      } catch (e) {
-        return Promise.reject(e);
-      }
+}) => React__default.createElement(Modal, {
+  open: open,
+  onClose: handleClose,
+  "aria-labelledby": "account-modal-title",
+  "aria-describedby": "account-modal-description"
+}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, (providers || [exports.EProvider.METAMASK, exports.EProvider.LOCAL]).map(provider => React__default.createElement(LoginOption, {
+  key: provider,
+  text: provider,
+  onClick: function () {
+    try {
+      return Promise.resolve(setProvider(provider)).then(function () {
+        handleClose();
+      });
+    } catch (e) {
+      return Promise.reject(e);
     }
-  }))), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
-    variant: 'outlined',
-    color: 'secondary',
-    block: true,
-    onClick: handleClose
-  }, "Close"))));
-};
+  }
+}))), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
+  variant: "outlined",
+  color: "secondary",
+  block: true,
+  onClick: handleClose
+}, "Close"))));
 
-const useStyles$9 = styles.makeStyles(theme => ({
+const useStyles$9 = styles.makeStyles(() => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -725,8 +517,8 @@ const Account = ({
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
     onClick: handleOpen,
     className: classes.button,
-    variant: 'contained',
-    color: 'primary',
+    variant: "contained",
+    color: "primary",
     rounded: true
   }, React__default.createElement(Typography, {
     className: classes.accountText
@@ -801,10 +593,10 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$b = styles.makeStyles(theme => ({
+const useStyles$b = styles.makeStyles(() => ({
   root: {
     color: colors.gray4,
-    width: "100%"
+    width: '100%'
   }
 }));
 
@@ -825,17 +617,15 @@ const FilterCheckboxCard = ({
   className = '',
   onClick,
   items
-}) => {
-  return React__default.createElement("div", {
-    className: className
-  }, items.map((item, i) => React__default.createElement(LabeledCheckbox, Object.assign({
-    onClick: onClick,
-    key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
-    labelClassName: item.labelClassName
-  }, item))));
-};
+}) => React__default.createElement("div", {
+  className: className
+}, items.map((item, i) => React__default.createElement(LabeledCheckbox, Object.assign({
+  onClick: onClick,
+  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
+  labelClassName: item.labelClassName
+}, item))));
 
-const useStyles$c = styles.makeStyles(theme => ({
+const useStyles$c = styles.makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -865,16 +655,18 @@ const FooterColumn = ({
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement(Typography, {
     className: classes.footerTitle,
-    variant: 'subtitle1',
-    color: 'primary'
-  }, title), links.map((link, i) => {
+    variant: "subtitle1",
+    color: "primary"
+  }, title), links.map(link => {
+    const key = removeEmptySpaces(title);
+
     if (link.isExternal) {
       const href = (link.to || '#').toString();
       return React__default.createElement("a", {
         className: classes.footerLink,
         target: link.target,
-        color: 'secondary',
-        key: i,
+        color: "secondary",
+        key: key,
         href: href
       }, link.title);
     }
@@ -882,8 +674,8 @@ const FooterColumn = ({
     return React__default.createElement(reactRouterDom.NavLink, {
       className: classes.footerLink,
       target: link.target,
-      color: 'secondary',
-      key: i,
+      color: "secondary",
+      key: key,
       to: link.to
     }, link.title);
   }));
@@ -894,9 +686,7 @@ const ModalDialogue = ({
   footer,
   children,
   ...props
-}) => {
-  return React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
-};
+}) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 
 const useStyles$d = styles.makeStyles(theme => ({
   root: {
@@ -956,7 +746,7 @@ const UnitsInput = props => {
     onChange: handleOnChange,
     onBlur: handleOnBlur,
     inputProps: {
-      step: step,
+      step,
       min: minValue,
       max: maxValue,
       'aria-labelledby': 'input-slider'
@@ -972,7 +762,7 @@ const UnitsInput = props => {
 
 const useStyles$e = styles.makeStyles(() => ({
   root: {
-    width: "100%"
+    width: '100%'
   },
   inputsContainer: {
     alignSelf: 'center',
@@ -1054,14 +844,12 @@ const RangeSliderWithInputs = ({
     }
   };
 
-  const getCommonInputValues = () => {
-    return {
-      maxValue: maxValue,
-      minValue: minValue,
-      step: step,
-      units: unit
-    };
-  };
+  const getCommonInputValues = () => ({
+    maxValue,
+    minValue,
+    step,
+    units: unit
+  });
 
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
@@ -1078,7 +866,7 @@ const RangeSliderWithInputs = ({
     value: startValue
   })), React__default.createElement(Typography, {
     className: classes.toContainer,
-    weight: 'bold'
+    weight: "bold"
   }, "to"), React__default.createElement(UnitsInput, Object.assign({
     handleOnBlur: handleEndValueBlur,
     handleOnChange: handleEndInputChange
@@ -1087,14 +875,12 @@ const RangeSliderWithInputs = ({
   }))));
 };
 
-const a11yProps = index => {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`
-  };
-};
+const a11yProps = index => ({
+  id: `full-width-tab-${index}`,
+  'aria-controls': `full-width-tabpanel-${index}`
+});
 
-const useStyles$f = styles.makeStyles(theme => ({
+const useStyles$f = styles.makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1108,7 +894,7 @@ const useStyles$f = styles.makeStyles(theme => ({
     width: '100%'
   },
   tab: {
-    "&:hover": {
+    '&:hover': {
       color: colors.primary
     },
     borderRadius: 50,
@@ -1236,7 +1022,7 @@ const Footer = ({
     className: classes.footerContent
   }, React__default.createElement(core.Grid, {
     container: true,
-    direction: 'row'
+    direction: "row"
   }, React__default.createElement(core.Grid, {
     className: classes.logoColumn,
     item: true,
@@ -1245,10 +1031,10 @@ const Footer = ({
     lg: 3
   }, React__default.createElement("img", {
     src: logoBlackAndBlue,
-    height: '75px',
+    height: "75px",
     alt: "logo"
-  })), linksColumns.map((linkColumn, i) => React__default.createElement(core.Grid, {
-    key: `fc-${i}`,
+  })), linksColumns.map(linkColumn => React__default.createElement(core.Grid, {
+    key: `fc-${removeEmptySpaces(linkColumn.title)}`,
     item: true,
     xs: 12,
     sm: 12,
@@ -1305,15 +1091,15 @@ const HeaderDesktop = ({
   const classes = useStyles$h();
   const Login = login;
   return React__default.createElement(core.AppBar, {
-    position: 'fixed',
+    position: "fixed",
     className: classes.root
   }, React__default.createElement(core.Toolbar, null, React__default.createElement(reactRouterDom.NavLink, {
     to: hreflogo
   }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
     className: classes.itemsContainer
-  }, !!items.length && items.map((navItem, i) => React__default.createElement(Typography, {
+  }, !!items.length && items.map(navItem => React__default.createElement(Typography, {
     className: classes.navLinkContainer,
-    key: `${navItem.title}-${i}`
+    key: `hi-${removeEmptySpaces(navItem.title)}`
   }, React__default.createElement(reactRouterDom.NavLink, Object.assign({
     className: classes.navLink,
     activeClassName: classes.activeNavlink
@@ -1413,9 +1199,9 @@ const HeaderMobile = ({
     className: classes.drawerHeader
   }, React__default.createElement(core.IconButton, {
     onClick: toggleDrawer(false)
-  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(core.Divider, null), React__default.createElement(core.List, null, !!items.length && items.map((headerItem, i) => React__default.createElement(core.ListItem, {
+  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(core.Divider, null), React__default.createElement(core.List, null, !!items.length && items.map(headerItem => React__default.createElement(core.ListItem, {
     button: true,
-    key: `${headerItem.title}-${i}`
+    key: `him-${removeEmptySpaces(headerItem.title)}`
   }, React__default.createElement(reactRouterDom.NavLink, {
     to: headerItem.to,
     className: classes.mobileNavLink,
@@ -1429,21 +1215,19 @@ const Header = ({
   hreflogo,
   items,
   login
-}) => {
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Hidden, {
-    smDown: true
-  }, React__default.createElement(HeaderDesktop, {
-    hreflogo: hreflogo,
-    items: items,
-    login: login
-  })), React__default.createElement(Hidden, {
-    mdUp: true
-  }, React__default.createElement(HeaderMobile, {
-    hreflogo: hreflogo,
-    items: items,
-    login: login
-  })));
-};
+}) => React__default.createElement(React__default.Fragment, null, React__default.createElement(Hidden, {
+  smDown: true
+}, React__default.createElement(HeaderDesktop, {
+  hreflogo: hreflogo,
+  items: items,
+  login: login
+})), React__default.createElement(Hidden, {
+  mdUp: true
+}, React__default.createElement(HeaderMobile, {
+  hreflogo: hreflogo,
+  items: items,
+  login: login
+})));
 
 const useStyles$j = styles.makeStyles(theme => ({
   textContainer: {
@@ -1489,10 +1273,10 @@ const HeaderTongue = ({
     className: classes.textContent
   }, React__default.createElement(Typography, {
     className: classes.titleContent,
-    variant: 'h3',
-    weight: 'lightBold'
-  }, titleLine1, React__default.createElement("br", null), " ", titleLine2), React__default.createElement(Typography, {
-    variant: 'subtitle1'
+    variant: "h3",
+    weight: "lightBold"
+  }, titleLine1, React__default.createElement("br", null), ' ', titleLine2), React__default.createElement(Typography, {
+    variant: "subtitle1"
   }, description))), React__default.createElement("img", {
     className: classes.tongueImg,
     src: headerTongueImg,
@@ -1542,13 +1326,13 @@ const FAQPageTemplate = ({
     className: classes.container
   }, React__default.createElement(Typography, {
     className: classes.mainTitle,
-    variant: 'h1',
-    color: 'primary'
+    variant: "h1",
+    color: "primary"
   }, mainTitle), React__default.createElement("div", {
     className: classes.questionsSection
   }, questionsAndAnswers.map((qAndA, i) => React__default.createElement(FAQSection, Object.assign({
     className: `${i % 2 === 0 ? classes.grayBackground : ''}`,
-    key: `faq-${i}`
+    key: `faq-${removeEmptySpaces(qAndA.question)}`
   }, qAndA))))));
 };
 
@@ -1579,9 +1363,7 @@ const defaultState = {
 const Web3Store = React.createContext({
   state: defaultState,
   actions: {
-    setProvider: function () {
-      return Promise.resolve();
-    }
+    setProvider: () => Promise.resolve()
   }
 });
 
@@ -1633,34 +1415,30 @@ class Web3Provider extends React.Component {
     try {
       const _this = this;
 
-      return Promise.resolve(_catch(function () {
-        return Promise.resolve(getWeb3(provider)).then(function (web3) {
-          return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-            let account;
-            if (Array.isArray(accounts)) account = accounts[0];else account = accounts;
-            return Promise.resolve(web3.eth.net.getId()).then(function (networkId) {
-              function _temp2() {
-                _this.setState({
-                  web3,
-                  provider,
-                  account,
-                  networkName: getNetworkName(networkId)
-                });
-              }
+      return Promise.resolve(getWeb3(provider)).then(function (web3) {
+        return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
+          let account;
+          if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
+          return Promise.resolve(web3.eth.net.getId()).then(function (networkId) {
+            function _temp2() {
+              _this.setState({
+                web3,
+                provider,
+                account,
+                networkName: getNetworkName(networkId)
+              });
+            }
 
-              const _temp = function () {
-                if (networkId === 1) return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
-                  networkId = _web3$eth$getChainId;
-                });
-              }();
+            const _temp = function () {
+              if (networkId === 1) return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
+                networkId = _web3$eth$getChainId;
+              });
+            }();
 
-              return _temp && _temp.then ? _temp.then(_temp2) : _temp2(_temp);
-            });
+            return _temp && _temp.then ? _temp.then(_temp2) : _temp2(_temp);
           });
         });
-      }, function (e) {
-        throw e;
-      }));
+      });
     } catch (e) {
       return Promise.reject(e);
     }
@@ -1676,6 +1454,9 @@ class Web3Provider extends React.Component {
     const {
       setProvider
     } = this;
+    const {
+      children
+    } = this.props;
     return React__default.createElement(Web3Store.Provider, {
       value: {
         actions: {
@@ -1688,7 +1469,7 @@ class Web3Provider extends React.Component {
           networkName
         }
       }
-    }, this.props.children);
+    }, children);
   }
 
 }

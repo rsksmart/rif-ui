@@ -47,7 +47,7 @@ const LandingPage = () => {
   }
 
   return (
-    <>
+    <React.Fragment>
       <HeaderTongue {...headerTongueProps} />
       <div className={classes.root}>
         <div className={classes.titleContainer}>
@@ -64,7 +64,7 @@ const LandingPage = () => {
           </Grid>
         </Grid>
       </div>
-    </>
+    </React.Fragment>
   );
 }
 

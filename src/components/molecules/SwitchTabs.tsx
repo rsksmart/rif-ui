@@ -1,23 +1,21 @@
-import { Tab as MUITab, Tabs as MUITabs } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import React, { FC } from 'react';
-import { colors, fonts } from '../../theme';
+import { Tab as MUITab, Tabs as MUITabs } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import React, { FC } from 'react'
+import { colors, fonts } from '../../theme'
 
 export interface SwitchTabsProps {
-  label1: string;
-  label2: string;
-  value?: 0 | 1;
-  onChange: (event: React.ChangeEvent<{}>, value: any) => void;
-};
-
-const a11yProps = (index: any) => {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
-  };
+  label1: string
+  label2: string
+  value?: 0 | 1
+  onChange: (event: React.ChangeEvent<{}>, value: any) => void
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const a11yProps = (index: any) => ({
+  id: `full-width-tab-${index}`,
+  'aria-controls': `full-width-tabpanel-${index}`,
+})
+
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -28,11 +26,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tabContainer: {
     minHeight: 20,
-    width: '100%'
+    width: '100%',
   },
   tab: {
-    "&:hover": {
-      color: colors.primary
+    '&:hover': {
+      color: colors.primary,
     },
     borderRadius: 50,
     color: colors.gray3,
@@ -45,8 +43,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     textTransform: 'capitalize',
     zIndex: 1,
     '&:focus': {
-      outlineStyle: 'none'
-    }
+      outlineStyle: 'none',
+    },
   },
   // shows the transition between tabs
   tabIndicator: {
@@ -58,15 +56,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     // the '!important' here is to override the on hover functionality when it's active
     backgroundColor: `${colors.primary} !important`,
     color: `${colors.white} !important`,
-  }
-}));
+  },
+}))
 
-const SwitchTabs: FC<SwitchTabsProps> = ({ label1, label2, value: controlledValue, onChange }) => {
-  const classes = useStyles();
+const SwitchTabs: FC<SwitchTabsProps> = ({
+  label1, label2, value: controlledValue, onChange,
+}) => {
+  const classes = useStyles()
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number): void => {
-    onChange(event, newValue);
-  };
+    onChange(event, newValue)
+  }
 
   return (
     <div className={classes.root}>
@@ -75,7 +75,7 @@ const SwitchTabs: FC<SwitchTabsProps> = ({ label1, label2, value: controlledValu
         className={classes.tabContainer}
         onChange={handleChange}
         TabIndicatorProps={{
-          className: classes.tabIndicator
+          className: classes.tabIndicator,
         }}
         value={controlledValue}
         variant="fullWidth"
@@ -94,7 +94,7 @@ const SwitchTabs: FC<SwitchTabsProps> = ({ label1, label2, value: controlledValu
         />
       </MUITabs>
     </div>
-  );
+  )
 }
 
-export default SwitchTabs;
+export default SwitchTabs
