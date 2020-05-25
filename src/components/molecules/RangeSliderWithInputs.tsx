@@ -43,17 +43,25 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({
   const minValue = rest.min || startValue
   const step = rest.step || 1
 
-  const handleStartInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleStartInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     const newStartValue = event.target.value === '' ? startValue : Number(event.target.value)
     handleChange({ min: newStartValue, max: endValue })
   }
 
-  const handleEndInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const newEndValue = event.target.value === '' ? endValue : Number(event.target.value)
+  const handleEndInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
+    const newEndValue = event.target.value === ''
+      ? endValue
+      : Number(event.target.value)
     handleChange({ min: startValue, max: newEndValue })
   }
 
-  const handleSliderChange = (_: any, newSliderValue: number | number[]): void => {
+  const handleSliderChange = (
+    _: React.ChangeEvent<{}>, newSliderValue: number | number[],
+  ): void => {
     handleChange({ min: newSliderValue[0], max: newSliderValue[1] })
   }
 
@@ -73,7 +81,7 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({
     }
   }
 
-  const getCommonInputValues = () => ({
+  const getCommonInputValues = (): {} => ({
     maxValue,
     minValue,
     step,

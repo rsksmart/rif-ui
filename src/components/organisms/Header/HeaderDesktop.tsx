@@ -56,8 +56,15 @@ const HeaderDesktop: FC<HeaderProps> = ({ hreflogo, items, login }) => {
           {
             !!items.length
             && items.map((navItem: HeaderItemProps) => (
-              <Typography className={classes.navLinkContainer} key={`hi-${removeEmptySpaces(navItem.title)}`}>
-                <NavLink className={classes.navLink} activeClassName={classes.activeNavlink} {...navItem}>
+              <Typography
+                className={classes.navLinkContainer}
+                key={`hi-${removeEmptySpaces(navItem.title)}`}
+              >
+                <NavLink
+                  className={classes.navLink}
+                  activeClassName={classes.activeNavlink}
+                  {...navItem}
+                >
                   {navItem.title}
                 </NavLink>
               </Typography>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import Web3 from 'web3';
 import { EProvider } from '../services/Web3Service';
 export interface Web3ProviderProps {
@@ -22,7 +22,7 @@ interface Web3ProviderState {
 declare class Web3Provider extends Component<{}, Web3ProviderState> {
     constructor(props: Web3ProviderProps);
     setProvider(provider: EProvider): Promise<void>;
-    render(): JSX.Element;
+    render(): ReactNode;
 }
 declare const _default: {
     Consumer: React.Consumer<Web3ProviderProps>;

@@ -1,4 +1,4 @@
-import React, { Component, createContext } from 'react'
+import React, { Component, createContext, ReactNode } from 'react'
 import Web3 from 'web3'
 import { getWeb3, EProvider } from '../services/Web3Service'
 
@@ -35,7 +35,7 @@ interface Web3ProviderState {
   networkName: string | null
 }
 
-const getNetworkName = (networkId: number) => {
+const getNetworkName = (networkId: number): string | null => {
   switch (networkId) {
     case 1:
       return 'Ethereum'
@@ -71,7 +71,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     this.setProvider = this.setProvider.bind(this)
   }
 
-  public async setProvider(provider: EProvider) {
+  public async setProvider(provider: EProvider): Promise<void> {
     const web3 = await getWeb3(provider)
     const accounts = await web3.eth.getAccounts()
     let account: string
@@ -89,7 +89,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     })
   }
 
-  public render() {
+  public render(): ReactNode {
     const {
       provider, web3, account, networkName,
     } = this.state

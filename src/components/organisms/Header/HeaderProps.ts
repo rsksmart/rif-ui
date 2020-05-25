@@ -1,4 +1,5 @@
 import { NavLinkProps } from 'react-router-dom'
+import { ReactElement } from 'react'
 
 export interface HeaderProps {
   hreflogo: string
@@ -7,6 +8,6 @@ export interface HeaderProps {
 }
 
 export interface HeaderItemProps extends NavLinkProps {
-  icon?: any
+  icon?: ReactElement
   title: string
 }
