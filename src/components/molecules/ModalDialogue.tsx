@@ -1,16 +1,16 @@
-import React, { FC } from 'react';
+import React, { FC } from 'react'
 import {
   Modal,
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalTitle,
-} from '../atoms';
-import { ModalProps } from '../atoms/modal/Modal';
+} from '../atoms'
+import { ModalProps } from '../atoms/modal/Modal'
 
 export interface ModalDialogueProps extends ModalProps {
-  title: string;
-  footer?: React.ReactElement;
+  title: string
+  footer?: React.ReactElement
 }
 
 const ModalDialogue: FC<ModalDialogueProps> = ({
@@ -18,18 +18,16 @@ const ModalDialogue: FC<ModalDialogueProps> = ({
   footer,
   children,
   ...props
-}) => {
-  return (
-    <Modal {...props}>
-      <React.Fragment>
-        <ModalHeader>
-          <ModalTitle>{title}</ModalTitle>
-        </ModalHeader>
-        <ModalBody>{children}</ModalBody>
-        <ModalFooter>{footer}</ModalFooter>
-      </React.Fragment>
-    </Modal>
-  );
-};
+}) => (
+  <Modal {...props}>
+    <>
+      <ModalHeader>
+        <ModalTitle>{title}</ModalTitle>
+      </ModalHeader>
+      <ModalBody>{children}</ModalBody>
+      <ModalFooter>{footer}</ModalFooter>
+    </>
+  </Modal>
+)
 
-export default ModalDialogue;
+export default ModalDialogue

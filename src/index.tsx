@@ -1,22 +1,22 @@
-import { shortenAddress } from './utils';
+import { shortenAddress } from './utils'
 
 // CSS files
-import './assets/css/fonts/rubik.css';
+import './assets/css/fonts/rubik.css'
 
 // Components
-export * from './components/index';
+export * from './components/index'
 
 // Images
-export * from './assets/images';
+export * from './assets/images'
 
 // Providers
-export * from './providers/index';
+export * from './providers/index'
 
 // Services
-export * from './services/index';
+export * from './services/index'
 
 // Theme
-export * from './theme/index';
+export * from './theme/index'
 
 // Utils
-export { shortenAddress };
+export { shortenAddress }

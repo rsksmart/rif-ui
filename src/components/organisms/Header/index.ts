@@ -1,4 +1,4 @@
-import Header from './Header';
-import HeaderTongue from './HeaderTongue';
+import Header from './Header'
+import HeaderTongue from './HeaderTongue'
 
-export { Header, HeaderTongue };
+export { Header, HeaderTongue }

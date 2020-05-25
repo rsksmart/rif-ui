@@ -1,27 +1,29 @@
-import React, { FC } from 'react';
-import { Button as MUIButton, ButtonProps as MUIButtonProps } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import React, { FC } from 'react'
+import { Button as MUIButton, ButtonProps as MUIButtonProps } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 export interface ButtonProps extends MUIButtonProps {
-  block?: boolean;
-  shadow?: boolean;
-  rounded?: boolean;
-};
+  block?: boolean
+  shadow?: boolean
+  rounded?: boolean
+}
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   block: {
-    width: '100%'
+    width: '100%',
   },
   noShadow: {
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   rounded: {
     borderRadius: 50,
   },
-}));
+}))
 
-const Button: FC<ButtonProps> = ({ className = '', block, shadow, rounded, children, ...rest }) => {
-  const classes = useStyles();
+const Button: FC<ButtonProps> = ({
+  className = '', block, shadow, rounded, children, ...rest
+}) => {
+  const classes = useStyles()
 
   return (
     <MUIButton
@@ -30,10 +32,11 @@ const Button: FC<ButtonProps> = ({ className = '', block, shadow, rounded, child
         ${shadow ? '' : classes.noShadow}
         ${block ? classes.block : ''} ${className}`.trim()
       }
-      {...rest}>
+      {...rest}
+    >
       {children}
-    </MUIButton >
-  );
+    </MUIButton>
+  )
 }
 
-export default Button;
+export default Button

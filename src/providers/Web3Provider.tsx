@@ -1,17 +1,17 @@
-import React, { Component, createContext } from 'react';
-import { getWeb3, EProvider } from '../services/Web3Service';
-import Web3 from 'web3';
+import React, { Component, createContext } from 'react'
+import Web3 from 'web3'
+import { getWeb3, EProvider } from '../services/Web3Service'
 
 export interface IWeb3Provider {
   state: {
-    provider: EProvider | null;
-    web3: Web3 | null;
-    account: string | null;
-    networkName: string | null;
-  };
+    provider: EProvider | null
+    web3: Web3 | null
+    account: string | null
+    networkName: string | null
+  }
   actions: {
-    setProvider: (provider: EProvider) => Promise<void>;
-  };
+    setProvider: (provider: EProvider) => Promise<void>
+  }
 }
 
 const defaultState = {
@@ -19,82 +19,86 @@ const defaultState = {
   web3: null,
   account: null,
   networkName: null,
-};
+}
 
 export const Web3Store = createContext<IWeb3Provider>({
   state: defaultState,
   actions: {
     setProvider: async () => { },
   },
-});
+})
 
 interface IWeb3ProviderProps { }
 interface IWeb3ProviderState {
-  provider: EProvider | null;
-  web3: Web3 | null;
-  account: string | null;
-  networkName: string | null;
+  provider: EProvider | null
+  web3: Web3 | null
+  account: string | null
+  networkName: string | null
 }
 
 const getNetworkName = (networkId: number) => {
   switch (networkId) {
     case 1:
-      return 'Ethereum';
+      return 'Ethereum'
     case 3:
-      return 'Ropsten';
+      return 'Ropsten'
     case 4:
-      return 'Rinkeby';
+      return 'Rinkeby'
     case 5:
-      return 'Goerli';
+      return 'Goerli'
     case 30:
-      return 'RSK MainNet';
+      return 'RSK MainNet'
     case 31:
-      return 'RSK TestNet';
+      return 'RSK TestNet'
     case 42:
-      return 'Kovan';
+      return 'Kovan'
     case 61:
-      return 'Ethereum Classic';
+      return 'Ethereum Classic'
     case 99:
-      return 'POA Core';
+      return 'POA Core'
     case 100:
-      return 'xDai';
+      return 'xDai'
     default:
-      return null;
+      return null
   }
-};
+}
 
 class Web3Provider extends Component<IWeb3ProviderProps, IWeb3ProviderState> {
   constructor(props: IWeb3Provider) {
-    super(props);
+    super(props)
 
-    this.state = defaultState;
+    this.state = defaultState
 
-    this.setProvider = this.setProvider.bind(this);
+    this.setProvider = this.setProvider.bind(this)
   }
 
   public async setProvider(provider: EProvider) {
     try {
-      const web3 = await getWeb3(provider);
-      const accounts = await web3.eth.getAccounts();
-      let account: string;
-      if (Array.isArray(accounts)) account = accounts[0];
-      else account = accounts;
-      let networkId = await web3.eth.net.getId();
-      if (networkId === 1) networkId = await web3.eth.getChainId();
+      const web3 = await getWeb3(provider)
+      const accounts = await web3.eth.getAccounts()
+      let account: string
+
+      if (Array.isArray(accounts)) account = accounts[0]
+      else account = accounts
+      let networkId = await web3.eth.net.getId()
+
+      if (networkId === 1) networkId = await web3.eth.getChainId()
       this.setState({
         web3,
         provider,
         account,
         networkName: getNetworkName(networkId),
-      });
+      })
     } catch (e) {
-      throw e;
+      throw e
     }
   }
 
   public render() {
-    const { provider, web3, account, networkName } = this.state;
-    const { setProvider } = this;
+    const {
+      provider, web3, account, networkName,
+    } = this.state
+    const { setProvider } = this
 
     return (
       <Web3Store.Provider
@@ -112,8 +116,8 @@ class Web3Provider extends Component<IWeb3ProviderProps, IWeb3ProviderState> {
       >
         {this.props.children}
       </Web3Store.Provider>
-    );
+    )
   }
 }
 
-export default { Consumer: Web3Store.Consumer, Provider: Web3Provider };
+export default { Consumer: Web3Store.Consumer, Provider: Web3Provider }

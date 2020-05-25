@@ -1,17 +1,17 @@
-import React, { FC, useState } from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import { Typography } from '../atoms';
-import { colors, fonts } from '../../theme';
+import React, { FC, useState } from 'react'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
+import { Typography } from '../atoms'
+import { colors, fonts } from '../../theme'
 
 export interface FAQSectionProps {
-  answer: string;
-  initiallyExpanded?: boolean;
-  question: string;
-  className?: string;
-};
+  answer: string
+  initiallyExpanded?: boolean
+  question: string
+  className?: string
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     color: colors.gray5,
     fontSize: fonts.size.subtitleSmall,
-    width: '100%'
+    width: '100%',
   },
   headingExpanded: {
     color: colors.primary,
   },
   headingCollapsed: {
-    fontWeight: fonts.weight.lightBold
+    fontWeight: fonts.weight.lightBold,
   },
   panelDetails: {
     display: 'flex',
@@ -42,15 +42,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   answerText: {
-    color: colors.gray5
-  }
-}));
+    color: colors.gray5,
+  },
+}))
 
-const FAQSection: FC<FAQSectionProps> = ({ className = '', initiallyExpanded, question, answer }) => {
-  const classes = useStyles();
-  const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
+const FAQSection: FC<FAQSectionProps> = ({
+  className = '', initiallyExpanded, question, answer,
+}) => {
+  const classes = useStyles()
+  const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
 
-  const onChange = () => setIsExpanded(!isExpanded);
+  const onChange = () => setIsExpanded(!isExpanded)
 
   return (
     <ExpansionPanel className={`${classes.root} ${className}`.trim()} expanded={isExpanded} onChange={onChange}>
@@ -65,7 +67,7 @@ const FAQSection: FC<FAQSectionProps> = ({ className = '', initiallyExpanded, qu
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
-  );
+  )
 }
 
-export default FAQSection;
+export default FAQSection
