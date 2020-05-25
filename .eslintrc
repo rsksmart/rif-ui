@@ -2,12 +2,23 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "paths": ["src"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
+        "paths": [
+          "src"
+        ]
       }
     }
   },
-  "extends": ["standard", "plugin:@typescript-eslint/recommended", "airbnb"],
+  "extends": [
+    "standard",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb"
+  ],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -19,13 +30,27 @@
     "sourceType": "module",
     "ecmaVersion": 2018
   },
-  "plugins": ["no-only-tests"],
+  "plugins": [
+    "no-only-tests"
+  ],
   "rules": {
-    "jsx-a11y/href-no-hash": ["off"],
+    "react/prop-types": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "jsx-a11y/href-no-hash": [
+      "off"
+    ],
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [".jsx", ".tsx"]
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
       }
     ],
     "max-len": [
@@ -48,14 +73,20 @@
         "multiline": true
       }
     ],
-    "strict": ["error", "safe"],
+    "strict": [
+      "error",
+      "safe"
+    ],
     "curly": "error",
     "block-scoped-var": "error",
     "complexity": "warn",
     "default-case": "error",
     "dot-notation": "warn",
     "guard-for-in": "warn",
-    "linebreak-style": ["warn", "unix"],
+    "linebreak-style": [
+      "warn",
+      "unix"
+    ],
     "no-alert": "error",
     "no-case-declarations": "error",
     "no-console": "error",
@@ -73,10 +104,19 @@
     "no-script-url": "error",
     "no-shadow": "error",
     "no-warning-comments": "warn",
-    "quote-props": ["error", "as-needed"],
+    "quote-props": [
+      "error",
+      "as-needed"
+    ],
     "require-yield": "error",
-    "max-nested-callbacks": ["error", 4],
-    "max-depth": ["error", 4],
+    "max-nested-callbacks": [
+      "error",
+      4
+    ],
+    "max-depth": [
+      "error",
+      4
+    ],
     "require-await": "error",
     "padding-line-between-statements": [
       "error",
@@ -108,15 +148,27 @@
         }
       }
     ],
-    "import/extensions": ["error", "never"],
-    "semi": ["error", "never"]
+    "import/extensions": [
+      "error",
+      "never"
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "semi": [
+      "error",
+      "never"
+    ]
   },
   "overrides": [
     {
-      "files": ["*.spec.ts"],
+      "files": [
+        "*.spec.ts"
+      ],
       "rules": {
         "@typescript-eslint/ban-ts-ignore": "off",
-        "max-nested-callbacks": ["error", 10] // allow describe/it nesting
+        "max-nested-callbacks": [
+          "error",
+          10
+        ] // allow describe/it nesting
       }
     }
   ]
