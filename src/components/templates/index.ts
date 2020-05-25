@@ -1,4 +1,4 @@
-import FAQPageTemplate from './FAQPageTemplate';
-import PageTemplate from './PageTemplate';
+import FAQPageTemplate from './FAQPageTemplate'
+import PageTemplate from './PageTemplate'
 
-export { FAQPageTemplate, PageTemplate };
+export { FAQPageTemplate, PageTemplate }

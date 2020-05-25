@@ -1,8 +1,8 @@
+import Button from './Button';
+import Checkbox from './Checkbox';
 import LoginOption from './LoginOption';
 import Logo from './Logo';
 import LogoNavbar from './LogoNavbar';
-export * from './buttons';
-export * from './forms';
+import Typography from './Typography';
 export * from './modal';
-export * from './typography';
-export { LoginOption, Logo, LogoNavbar, };
+export { Button, Checkbox, LoginOption, Logo, LogoNavbar, Typography, };

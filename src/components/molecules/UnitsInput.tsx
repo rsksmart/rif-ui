@@ -1,19 +1,19 @@
-import React, { FC } from 'react';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Grid, Input, InputProps } from '@material-ui/core';
+import React, { FC } from 'react'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { Grid, Input, InputProps } from '@material-ui/core'
 import {
-  Typography
-} from '../atoms';
-import { colors, fonts } from '../../theme';
+  Typography,
+} from '../atoms'
+import { colors, fonts } from '../../theme'
 
 export interface UnitsInputProps extends InputProps {
-  handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleOnBlur?: () => void;
-  maxValue?: number;
-  minValue?: number;
-  step?: number;
-  units?: string;
-};
+  handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleOnBlur?: () => void
+  maxValue?: number
+  minValue?: number
+  step?: number
+  units?: string
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -25,27 +25,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingLeft: theme.spacing(0.1),
     textAlign: 'center',
     '&::before': {
-      borderBottom: `1px solid ${colors.gray4}`
+      borderBottom: `1px solid ${colors.gray4}`,
     },
   },
   inputContainer: {
-    paddingRight: '0 !important'
+    paddingRight: '0 !important',
   },
   units: {
     color: colors.gray4,
     display: 'flex',
-    fontSize: fonts.size.tiny
+    fontSize: fonts.size.tiny,
   },
   unitsContainer: {
     alignSelf: 'center',
     color: colors.gray4,
     display: 'flex',
     fontSize: fonts.size.normal,
-    paddingLeft: '0 !important'
-  }
-}));
+    paddingLeft: '0 !important',
+  },
+}))
 
-const UnitsInput: FC<UnitsInputProps> = props => {
+const UnitsInput: FC<UnitsInputProps> = (props) => {
   const {
     handleOnBlur,
     handleOnChange,
@@ -53,10 +53,10 @@ const UnitsInput: FC<UnitsInputProps> = props => {
     minValue,
     units,
     value,
-    step = 1
-  } = props;
+    step = 1,
+  } = props
 
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <React.Fragment>
       <Grid className={classes.root} container spacing={1}>
@@ -68,7 +68,7 @@ const UnitsInput: FC<UnitsInputProps> = props => {
             onChange={handleOnChange}
             onBlur={handleOnBlur}
             inputProps={{
-              step: step,
+              step,
               min: minValue,
               max: maxValue,
               'aria-labelledby': 'input-slider',
@@ -82,7 +82,7 @@ const UnitsInput: FC<UnitsInputProps> = props => {
         </Grid>
       </Grid>
     </React.Fragment>
-  );
-};
+  )
+}
 
-export default UnitsInput;
+export default UnitsInput

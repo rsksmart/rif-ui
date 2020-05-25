@@ -1,13 +1,17 @@
-import LoginOption from './LoginOption';
-import Logo from './Logo';
-import LogoNavbar from './LogoNavbar';
+import Button from './Button'
+import Checkbox from './Checkbox'
+import LoginOption from './LoginOption'
+import Logo from './Logo'
+import LogoNavbar from './LogoNavbar'
+import Typography from './Typography'
 
-export * from './buttons';
-export * from './forms';
-export * from './modal';
-export * from './typography';
+export * from './modal'
+
 export {
-    LoginOption,
-    Logo,
-    LogoNavbar,
-};
+  Button,
+  Checkbox,
+  LoginOption,
+  Logo,
+  LogoNavbar,
+  Typography,
+}

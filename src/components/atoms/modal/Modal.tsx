@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
-import { Modal as MUIModal, ModalProps as MUIModalProps } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { colors } from '../../../theme';
+import React, { FC } from 'react'
+import { Modal as MUIModal, ModalProps as MUIModalProps } from '@material-ui/core'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { colors } from '../../../theme'
 
-export interface ModalProps extends MUIModalProps { };
+export type ModalProps = MUIModalProps;
 
 const useStyles = makeStyles((theme: Theme) => ({
   paper: {
@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2, 4, 3),
     position: 'absolute',
     top: '50%',
-    transform: `translate(-50%, -50%)`,
+    transform: 'translate(-50%, -50%)',
   },
-}));
+}))
 
 const Modal: FC<ModalProps> = ({ children, ...rest }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <MUIModal {...rest}>
@@ -28,7 +28,7 @@ const Modal: FC<ModalProps> = ({ children, ...rest }) => {
         {children}
       </div>
     </MUIModal>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

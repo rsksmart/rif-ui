@@ -7,4 +7,5 @@ export interface HeaderProps {
 }
 export interface HeaderItemProps extends NavLinkProps {
     icon?: any;
+    title: string;
 }

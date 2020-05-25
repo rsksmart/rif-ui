@@ -1,5 +1,5 @@
 import React, { useState, createContext, Component } from 'react';
-import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Modal as Modal$1, Typography as Typography$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel, Grid, Input, Tabs, Tab, AppBar, Toolbar, IconButton, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Typography as Typography$1, Modal as Modal$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel, Grid, Input, Tabs, Tab, AppBar, Toolbar, IconButton, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -15,9 +15,14 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4 - 1, 4)}`;
+var shortenAddress = function shortenAddress(address) {
+  return address.substr(0, 6) + "..." + address.substr(address.length - 4 - 1, 4);
+};
+var removeEmptySpaces = function removeEmptySpaces(str) {
+  return str.replace(/\s/g, '');
+};
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   block: {
     width: '100%'
   },
@@ -30,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Button = ({
-  className: _className = '',
+  className = '',
   block,
   shadow,
   rounded,
@@ -41,90 +46,9 @@ const Button = ({
   return React.createElement(Button$1, Object.assign({
     className: `${rounded ? classes.rounded : ''}
         ${shadow ? '' : classes.noShadow}
-        ${block ? classes.block : ''} ${_className}`.trim()
+        ${block ? classes.block : ''} ${className}`.trim()
   }, rest), children);
 };
-
-const useStyles$1 = makeStyles$1(() => ({
-  root: {
-    padding: 5,
-    margin: 5,
-    width: '100%'
-  }
-}));
-
-const LoginOption = ({
-  className: _className = '',
-  onClick,
-  text,
-  ...rest
-}) => {
-  const classes = useStyles$1();
-  return React.createElement(Button, Object.assign({
-    className: `${classes.root} ${_className}`,
-    block: true,
-    rounded: true,
-    variant: 'outlined',
-    color: 'primary',
-    onClick: onClick
-  }, rest), text);
-};
-
-var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
-
-var footerTongue = require("./footerTongue~bbJNSCWG.svg");
-
-var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
-
-var tickWide = require("./tickWide~bmvsBAER.svg");
-
-var nameService = require("./nameService~UWbtQqmT.svg");
-
-var rifCom = require("./rifCom~udwpaCym.png");
-
-var rifDir = require("./rifDir~bottaDNJ.png");
-
-var rifGat = require("./rifGat~balFpEzC.png");
-
-var rifMar = require("./rifMar~IDqKMWpK.png");
-
-var rifPay = require("./rifPay~bdtOAceT.png");
-
-var rifSto = require("./rifSto~fMRetflo.png");
-
-var storage = require("./storage~fCGkZtHN.svg");
-
-var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
-
-var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
-
-var rskLogo = require("./rskLogo~bdMEZSPk.svg");
-
-var Logo = React.forwardRef(function LogoFooter(props, ref) {
-  const {
-    alt = 'RIF OS',
-    ...other
-  } = props;
-  return React.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    ref: ref
-  }, other));
-});
-
-var LogoNavbar = React.forwardRef(function LogoFooter(props, ref) {
-  const {
-    alt = 'RIF OS',
-    height = '44px',
-    ...other
-  } = props;
-  return React.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    height: height,
-    ref: ref
-  }, other));
-});
 
 const colors = {
   black: '#000000',
@@ -194,7 +118,7 @@ const theme = createMuiTheme({
         opacity: 1
       },
       root: {
-        width: "100%",
+        width: '100%',
         color: colors.primary,
         height: 4
       },
@@ -218,7 +142,7 @@ const theme = createMuiTheme({
   }
 });
 
-const useStyles$2 = makeStyles$1(() => createStyles({
+const useStyles$1 = makeStyles$1(() => createStyles({
   unCheckedIcon: {
     color: colors.gray4
   },
@@ -228,15 +152,18 @@ const useStyles$2 = makeStyles$1(() => createStyles({
 }));
 
 const Checkbox = props => {
-  const classes = useStyles$2();
-  const [isChecked, setIsChecked] = useState(!!props.checked);
+  const classes = useStyles$1();
+  const {
+    checked
+  } = props;
+  const [isChecked, setIsChecked] = useState(!!checked);
 
-  const handleChange = (event, checked) => {
-    setIsChecked(checked);
+  const handleChange = (event, newChecked) => {
+    setIsChecked(newChecked);
     const {
       onChange
     } = props;
-    !!onChange && onChange(event, checked);
+    if (onChange) onChange(event, newChecked);
   };
 
   return React.createElement(Checkbox$1, Object.assign({
@@ -252,52 +179,88 @@ const Checkbox = props => {
   }));
 };
 
-const useStyles$3 = makeStyles(theme => ({
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: `2px solid ${colors.primary}`,
-    boxShadow: theme.shadows[5],
-    left: '50%',
-    minWidth: 400,
-    padding: theme.spacing(2, 4, 3),
-    position: 'absolute',
-    top: '50%',
-    transform: `translate(-50%, -50%)`
-  }
-}));
-
-const Modal = ({
-  children,
-  ...rest
-}) => {
-  const classes = useStyles$3();
-  return React.createElement(Modal$1, Object.assign({}, rest), React.createElement("div", {
-    className: classes.paper
-  }, children));
-};
-
-const useStyles$4 = makeStyles(theme => ({
+const useStyles$2 = makeStyles$1(() => ({
   root: {
-    borderBottom: `1px solid ${colors.gray2}`,
-    color: colors.primary,
-    display: 'flex',
-    justifyContent: 'center',
+    padding: 5,
+    margin: 5,
     width: '100%'
   }
 }));
 
-const ModalHeader = ({
-  children,
-  className: _className = '',
+const LoginOption = ({
+  className = '',
+  onClick,
+  text,
   ...rest
 }) => {
-  const classes = useStyles$4();
-  return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
-  }, children);
+  const classes = useStyles$2();
+  return React.createElement(Button, Object.assign({
+    className: `${classes.root} ${className}`,
+    block: true,
+    rounded: true,
+    variant: "outlined",
+    color: "primary",
+    onClick: onClick
+  }, rest), text);
 };
 
-const useStyles$5 = makeStyles(() => ({
+var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
+
+var footerTongue = require("./footerTongue~bbJNSCWG.svg");
+
+var headerTongueImg = require("./headerTongue~VLlRBGMc.svg");
+
+var tickWide = require("./tickWide~bmvsBAER.svg");
+
+var nameService = require("./nameService~UWbtQqmT.svg");
+
+var rifCom = require("./rifCom~udwpaCym.png");
+
+var rifDir = require("./rifDir~bottaDNJ.png");
+
+var rifGat = require("./rifGat~balFpEzC.png");
+
+var rifMar = require("./rifMar~IDqKMWpK.png");
+
+var rifPay = require("./rifPay~bdtOAceT.png");
+
+var rifSto = require("./rifSto~fMRetflo.png");
+
+var storage = require("./storage~fCGkZtHN.svg");
+
+var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
+
+var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
+
+var rskLogo = require("./rskLogo~bdMEZSPk.svg");
+
+var Logo = React.forwardRef((props, ref) => {
+  const {
+    alt = 'RIF OS',
+    ...other
+  } = props;
+  return React.createElement("img", Object.assign({
+    src: logoFullWhite,
+    alt: alt,
+    ref: ref
+  }, other));
+});
+
+var LogoNavbar = React.forwardRef((props, ref) => {
+  const {
+    alt = 'RIF OS',
+    height = '44px',
+    ...other
+  } = props;
+  return React.createElement("img", Object.assign({
+    src: logoFullWhite,
+    alt: alt,
+    height: height,
+    ref: ref
+  }, other));
+});
+
+const useStyles$3 = makeStyles(() => ({
   normal: {
     fontWeight: fonts.weight.normal
   },
@@ -313,25 +276,67 @@ const useStyles$5 = makeStyles(() => ({
 }));
 
 const Typography = ({
-  weight: _weight = 'normal',
-  className: _className = '',
+  weight = 'normal',
+  className = '',
   children,
   ...rest
 }) => {
-  const classes = useStyles$5();
+  const classes = useStyles$3();
   return React.createElement(Typography$1, Object.assign({
-    className: `${classes[_weight]} ${_className}`.trim()
+    className: `${classes[weight]} ${className}`.trim()
   }, rest), children);
+};
+
+const useStyles$4 = makeStyles(theme => ({
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: `2px solid ${colors.primary}`,
+    boxShadow: theme.shadows[5],
+    left: '50%',
+    minWidth: 400,
+    padding: theme.spacing(2, 4, 3),
+    position: 'absolute',
+    top: '50%',
+    transform: 'translate(-50%, -50%)'
+  }
+}));
+
+const Modal = ({
+  children,
+  ...rest
+}) => {
+  const classes = useStyles$4();
+  return React.createElement(Modal$1, Object.assign({}, rest), React.createElement("div", {
+    className: classes.paper
+  }, children));
+};
+
+const useStyles$5 = makeStyles(() => ({
+  root: {
+    borderBottom: `1px solid ${colors.gray2}`,
+    color: colors.primary,
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%'
+  }
+}));
+
+const ModalHeader = ({
+  children,
+  className = ''
+}) => {
+  const classes = useStyles$5();
+  return React.createElement("div", {
+    className: `${classes.root} ${className}`.trim()
+  }, children);
 };
 
 const ModalTitle = ({
   children,
   ...rest
-}) => {
-  return React.createElement(Typography, Object.assign({
-    variant: 'h5'
-  }, rest), children);
-};
+}) => React.createElement(Typography, Object.assign({
+  variant: "h5"
+}, rest), children);
 
 const useStyles$6 = makeStyles(theme => ({
   root: {
@@ -345,12 +350,11 @@ const useStyles$6 = makeStyles(theme => ({
 
 const ModalFooter = ({
   children,
-  className: _className = '',
-  ...rest
+  className = ''
 }) => {
   const classes = useStyles$6();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: `${classes.root} ${className}`.trim()
   }, children);
 };
 
@@ -363,12 +367,11 @@ const useStyles$7 = makeStyles(theme => ({
 
 const ModalBody = ({
   children,
-  className: _className = '',
-  ...rest
+  className = ''
 }) => {
   const classes = useStyles$7();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: `${classes.root} ${className}`.trim()
   }, children);
 };
 
@@ -393,8 +396,7 @@ const Accordion = ({
   children,
   expanded,
   id,
-  title,
-  ...rest
+  title
 }) => {
   const classes = useStyles$8();
   const [isExpanded, setIsExpanded] = useState(!!expanded);
@@ -425,30 +427,24 @@ var EProvider;
 })(EProvider || (EProvider = {}));
 
 function getWeb3(provider = EProvider.METAMASK) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     switch (provider) {
       case EProvider.METAMASK:
         {
           if (window.ethereum) {
             const web3 = new Web3(window.ethereum);
-
-            try {
-              await window.ethereum.enable();
-              resolve(web3);
-            } catch (error) {
-              reject(error);
-            }
+            window.ethereum.enable().then(() => resolve(web3)).catch(reject);
           } else if (window.web3) {
-              resolve(new Web3(window.web3.currentProvider));
-            } else reject(new Error('No injected web3 found'));
+            resolve(new Web3(window.web3.currentProvider));
+          } else reject(new Error('No injected web3 found'));
 
           break;
         }
 
       case EProvider.LOCAL:
         {
-          const provider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
-          resolve(new Web3(provider));
+          const localhostProvider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
+          resolve(new Web3(localhostProvider));
           break;
         }
 
@@ -466,28 +462,31 @@ const AccountModal = ({
   providers,
   open,
   handleClose
-}) => {
-  return React.createElement(Modal, {
-    open: open,
-    onClose: handleClose,
-    "aria-labelledby": "account-modal-title",
-    "aria-describedby": "account-modal-description"
-  }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
-    key: provider,
-    text: provider,
-    onClick: async () => {
-      await setProvider(provider);
-      handleClose();
+}) => React.createElement(Modal, {
+  open: open,
+  onClose: handleClose,
+  "aria-labelledby": "account-modal-title",
+  "aria-describedby": "account-modal-description"
+}, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
+  key: provider,
+  text: provider,
+  onClick: function () {
+    try {
+      return Promise.resolve(setProvider(provider)).then(function () {
+        handleClose();
+      });
+    } catch (e) {
+      return Promise.reject(e);
     }
-  }))), React.createElement(ModalFooter, null, React.createElement(Button, {
-    variant: 'outlined',
-    color: 'secondary',
-    block: true,
-    onClick: handleClose
-  }, "Close"))));
-};
+  }
+}))), React.createElement(ModalFooter, null, React.createElement(Button, {
+  variant: "outlined",
+  color: "secondary",
+  block: true,
+  onClick: handleClose
+}, "Close"))));
 
-const useStyles$9 = makeStyles(theme => ({
+const useStyles$9 = makeStyles(() => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -517,8 +516,8 @@ const Account = ({
   return React.createElement(React.Fragment, null, React.createElement(Button, {
     onClick: handleOpen,
     className: classes.button,
-    variant: 'contained',
-    color: 'primary',
+    variant: "contained",
+    color: "primary",
     rounded: true
   }, React.createElement(Typography, {
     className: classes.accountText
@@ -566,7 +565,7 @@ const useStyles$a = makeStyles(theme => ({
 }));
 
 const FAQSection = ({
-  className: _className = '',
+  className = '',
   initiallyExpanded,
   question,
   answer
@@ -577,7 +576,7 @@ const FAQSection = ({
   const onChange = () => setIsExpanded(!isExpanded);
 
   return React.createElement(ExpansionPanel$1, {
-    className: `${classes.root} ${_className}`.trim(),
+    className: `${classes.root} ${className}`.trim(),
     expanded: isExpanded,
     onChange: onChange
   }, React.createElement(ExpansionPanelSummary$1, {
@@ -593,41 +592,39 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$b = makeStyles(theme => ({
+const useStyles$b = makeStyles(() => ({
   root: {
     color: colors.gray4,
-    width: "100%"
+    width: '100%'
   }
 }));
 
 const LabeledCheckbox = ({
   labelText,
-  labelClassName: _labelClassName = '',
+  labelClassName = '',
   ...rest
 }) => {
   const classes = useStyles$b();
   return React.createElement(FormControlLabel, {
-    className: `${classes.root} ${_labelClassName.trim()}`,
+    className: `${classes.root} ${labelClassName.trim()}`,
     label: labelText,
     control: React.createElement(Checkbox, Object.assign({}, rest))
   });
 };
 
 const FilterCheckboxCard = ({
-  className: _className = '',
+  className = '',
   onClick,
   items
-}) => {
-  return React.createElement("div", {
-    className: _className
-  }, items.map((item, i) => React.createElement(LabeledCheckbox, Object.assign({
-    onClick: onClick,
-    key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${_className}`.trim(),
-    labelClassName: item.labelClassName
-  }, item))));
-};
+}) => React.createElement("div", {
+  className: className
+}, items.map((item, i) => React.createElement(LabeledCheckbox, Object.assign({
+  onClick: onClick,
+  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
+  labelClassName: item.labelClassName
+}, item))));
 
-const useStyles$c = makeStyles(theme => ({
+const useStyles$c = makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -650,23 +647,25 @@ const useStyles$c = makeStyles(theme => ({
 const FooterColumn = ({
   title,
   links,
-  className: _className = ''
+  className = ''
 }) => {
   const classes = useStyles$c();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: `${classes.root} ${className}`.trim()
   }, React.createElement(Typography, {
     className: classes.footerTitle,
-    variant: 'subtitle1',
-    color: 'primary'
-  }, title), links.map((link, i) => {
+    variant: "subtitle1",
+    color: "primary"
+  }, title), links.map(link => {
+    const key = removeEmptySpaces(title);
+
     if (link.isExternal) {
       const href = (link.to || '#').toString();
       return React.createElement("a", {
         className: classes.footerLink,
         target: link.target,
-        color: 'secondary',
-        key: i,
+        color: "secondary",
+        key: key,
         href: href
       }, link.title);
     }
@@ -674,8 +673,8 @@ const FooterColumn = ({
     return React.createElement(NavLink, {
       className: classes.footerLink,
       target: link.target,
-      color: 'secondary',
-      key: i,
+      color: "secondary",
+      key: key,
       to: link.to
     }, link.title);
   }));
@@ -686,9 +685,7 @@ const ModalDialogue = ({
   footer,
   children,
   ...props
-}) => {
-  return React.createElement(Modal, Object.assign({}, props), React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, title)), React.createElement(ModalBody, null, children), React.createElement(ModalFooter, null, footer)));
-};
+}) => React.createElement(Modal, Object.assign({}, props), React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, title)), React.createElement(ModalBody, null, children), React.createElement(ModalFooter, null, footer)));
 
 const useStyles$d = makeStyles(theme => ({
   root: {
@@ -748,7 +745,7 @@ const UnitsInput = props => {
     onChange: handleOnChange,
     onBlur: handleOnBlur,
     inputProps: {
-      step: step,
+      step,
       min: minValue,
       max: maxValue,
       'aria-labelledby': 'input-slider'
@@ -764,7 +761,7 @@ const UnitsInput = props => {
 
 const useStyles$e = makeStyles(() => ({
   root: {
-    width: "100%"
+    width: '100%'
   },
   inputsContainer: {
     alignSelf: 'center',
@@ -846,14 +843,12 @@ const RangeSliderWithInputs = ({
     }
   };
 
-  const getCommonInputValues = () => {
-    return {
-      maxValue: maxValue,
-      minValue: minValue,
-      step: step,
-      units: unit
-    };
-  };
+  const getCommonInputValues = () => ({
+    maxValue,
+    minValue,
+    step,
+    units: unit
+  });
 
   return React.createElement("div", {
     className: `${classes.root} ${className}`.trim()
@@ -870,7 +865,7 @@ const RangeSliderWithInputs = ({
     value: startValue
   })), React.createElement(Typography, {
     className: classes.toContainer,
-    weight: 'bold'
+    weight: "bold"
   }, "to"), React.createElement(UnitsInput, Object.assign({
     handleOnBlur: handleEndValueBlur,
     handleOnChange: handleEndInputChange
@@ -879,14 +874,12 @@ const RangeSliderWithInputs = ({
   }))));
 };
 
-const a11yProps = index => {
-  return {
-    id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`
-  };
-};
+const a11yProps = index => ({
+  id: `full-width-tab-${index}`,
+  'aria-controls': `full-width-tabpanel-${index}`
+});
 
-const useStyles$f = makeStyles(theme => ({
+const useStyles$f = makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -900,7 +893,7 @@ const useStyles$f = makeStyles(theme => ({
     width: '100%'
   },
   tab: {
-    "&:hover": {
+    '&:hover': {
       color: colors.primary
     },
     borderRadius: 50,
@@ -1012,14 +1005,14 @@ const useStyles$g = makeStyles(theme => ({
 }));
 
 const Footer = ({
-  className: _className = '',
+  className = '',
   copyrightText,
   linksColumns,
   ...rest
 }) => {
   const classes = useStyles$g();
   return React.createElement("footer", Object.assign({
-    className: `${classes.root} ${_className}`.trim()
+    className: `${classes.root} ${className}`.trim()
   }, rest), React.createElement("div", {
     className: classes.tongue
   }), React.createElement("div", {
@@ -1028,7 +1021,7 @@ const Footer = ({
     className: classes.footerContent
   }, React.createElement(Grid, {
     container: true,
-    direction: 'row'
+    direction: "row"
   }, React.createElement(Grid, {
     className: classes.logoColumn,
     item: true,
@@ -1037,10 +1030,10 @@ const Footer = ({
     lg: 3
   }, React.createElement("img", {
     src: logoBlackAndBlue,
-    height: '75px',
+    height: "75px",
     alt: "logo"
-  })), linksColumns.map((linkColumn, i) => React.createElement(Grid, {
-    key: `fc-${i}`,
+  })), linksColumns.map(linkColumn => React.createElement(Grid, {
+    key: `fc-${removeEmptySpaces(linkColumn.title)}`,
     item: true,
     xs: 12,
     sm: 12,
@@ -1097,15 +1090,15 @@ const HeaderDesktop = ({
   const classes = useStyles$h();
   const Login = login;
   return React.createElement(AppBar, {
-    position: 'fixed',
+    position: "fixed",
     className: classes.root
   }, React.createElement(Toolbar, null, React.createElement(NavLink, {
     to: hreflogo
   }, React.createElement(LogoNavbar, null)), React.createElement("div", {
     className: classes.itemsContainer
-  }, !!items.length && items.map((navItem, i) => React.createElement(Typography, {
+  }, !!items.length && items.map(navItem => React.createElement(Typography, {
     className: classes.navLinkContainer,
-    key: `${navItem.title}-${i}`
+    key: `hi-${removeEmptySpaces(navItem.title)}`
   }, React.createElement(NavLink, Object.assign({
     className: classes.navLink,
     activeClassName: classes.activeNavlink
@@ -1205,9 +1198,9 @@ const HeaderMobile = ({
     className: classes.drawerHeader
   }, React.createElement(IconButton, {
     onClick: toggleDrawer(false)
-  }, React.createElement(ChevronLeftIcon, null))), React.createElement(Divider, null), React.createElement(List, null, !!items.length && items.map((headerItem, i) => React.createElement(ListItem, {
+  }, React.createElement(ChevronLeftIcon, null))), React.createElement(Divider, null), React.createElement(List, null, !!items.length && items.map(headerItem => React.createElement(ListItem, {
     button: true,
-    key: `${headerItem.title}-${i}`
+    key: `him-${removeEmptySpaces(headerItem.title)}`
   }, React.createElement(NavLink, {
     to: headerItem.to,
     className: classes.mobileNavLink,
@@ -1221,21 +1214,19 @@ const Header = ({
   hreflogo,
   items,
   login
-}) => {
-  return React.createElement(React.Fragment, null, React.createElement(Hidden, {
-    smDown: true
-  }, React.createElement(HeaderDesktop, {
-    hreflogo: hreflogo,
-    items: items,
-    login: login
-  })), React.createElement(Hidden, {
-    mdUp: true
-  }, React.createElement(HeaderMobile, {
-    hreflogo: hreflogo,
-    items: items,
-    login: login
-  })));
-};
+}) => React.createElement(React.Fragment, null, React.createElement(Hidden, {
+  smDown: true
+}, React.createElement(HeaderDesktop, {
+  hreflogo: hreflogo,
+  items: items,
+  login: login
+})), React.createElement(Hidden, {
+  mdUp: true
+}, React.createElement(HeaderMobile, {
+  hreflogo: hreflogo,
+  items: items,
+  login: login
+})));
 
 const useStyles$j = makeStyles(theme => ({
   textContainer: {
@@ -1281,10 +1272,10 @@ const HeaderTongue = ({
     className: classes.textContent
   }, React.createElement(Typography, {
     className: classes.titleContent,
-    variant: 'h3',
-    weight: 'lightBold'
-  }, titleLine1, React.createElement("br", null), " ", titleLine2), React.createElement(Typography, {
-    variant: 'subtitle1'
+    variant: "h3",
+    weight: "lightBold"
+  }, titleLine1, React.createElement("br", null), ' ', titleLine2), React.createElement(Typography, {
+    variant: "subtitle1"
   }, description))), React.createElement("img", {
     className: classes.tongueImg,
     src: headerTongueImg,
@@ -1323,24 +1314,24 @@ const useStyles$k = makeStyles(theme => ({
 }));
 
 const FAQPageTemplate = ({
-  className: _className = '',
+  className = '',
   mainTitle,
   questionsAndAnswers
 }) => {
   const classes = useStyles$k();
   return React.createElement("div", {
-    className: `${classes.root} ${_className}`.trim()
+    className: `${classes.root} ${className}`.trim()
   }, React.createElement("div", {
     className: classes.container
   }, React.createElement(Typography, {
     className: classes.mainTitle,
-    variant: 'h1',
-    color: 'primary'
+    variant: "h1",
+    color: "primary"
   }, mainTitle), React.createElement("div", {
     className: classes.questionsSection
   }, questionsAndAnswers.map((qAndA, i) => React.createElement(FAQSection, Object.assign({
     className: `${i % 2 === 0 ? classes.grayBackground : ''}`,
-    key: `faq-${i}`
+    key: `faq-${removeEmptySpaces(qAndA.question)}`
   }, qAndA))))));
 };
 
@@ -1353,12 +1344,12 @@ const useStyles$l = makeStyles(theme => ({
 
 const PageTemplate = ({
   children,
-  className: _className = '',
+  className = '',
   ...props
 }) => {
   const classes = useStyles$l();
   return React.createElement("div", Object.assign({
-    className: `${classes.root} ${_className}`.trim()
+    className: `${classes.root} ${className}`.trim()
   }, props), children);
 };
 
@@ -1371,7 +1362,7 @@ const defaultState = {
 const Web3Store = createContext({
   state: defaultState,
   actions: {
-    setProvider: async () => {}
+    setProvider: () => Promise.resolve()
   }
 });
 
@@ -1419,22 +1410,36 @@ class Web3Provider extends Component {
     this.setProvider = this.setProvider.bind(this);
   }
 
-  async setProvider(provider) {
+  setProvider(provider) {
     try {
-      const web3 = await getWeb3(provider);
-      const accounts = await web3.eth.getAccounts();
-      let account;
-      if (Array.isArray(accounts)) account = accounts[0];else account = accounts;
-      let networkId = await web3.eth.net.getId();
-      if (networkId === 1) networkId = await web3.eth.getChainId();
-      this.setState({
-        web3,
-        provider,
-        account,
-        networkName: getNetworkName(networkId)
+      const _this = this;
+
+      return Promise.resolve(getWeb3(provider)).then(function (web3) {
+        return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
+          let account;
+          if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
+          return Promise.resolve(web3.eth.net.getId()).then(function (networkId) {
+            function _temp2() {
+              _this.setState({
+                web3,
+                provider,
+                account,
+                networkName: getNetworkName(networkId)
+              });
+            }
+
+            const _temp = function () {
+              if (networkId === 1) return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
+                networkId = _web3$eth$getChainId;
+              });
+            }();
+
+            return _temp && _temp.then ? _temp.then(_temp2) : _temp2(_temp);
+          });
+        });
       });
     } catch (e) {
-      throw e;
+      return Promise.reject(e);
     }
   }
 
@@ -1448,6 +1453,9 @@ class Web3Provider extends Component {
     const {
       setProvider
     } = this;
+    const {
+      children
+    } = this.props;
     return React.createElement(Web3Store.Provider, {
       value: {
         actions: {
@@ -1460,7 +1468,7 @@ class Web3Provider extends Component {
           networkName
         }
       }
-    }, this.props.children);
+    }, children);
   }
 
 }
