@@ -36,7 +36,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "devDependencies": {
-    "@material-ui/core": "^4.9.13",
+    "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
     "@types/jest": "^25.2.3",
     "@types/react": "^16.9.35",
@@ -62,7 +62,7 @@
     "web3": "^1.2.8"
   },
   "peerDependencies": {
-    "@material-ui/core": "^4.9.13",
+    "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
