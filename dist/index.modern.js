@@ -648,7 +648,7 @@ const FooterColumn = ({
     variant: "subtitle1",
     color: "primary"
   }, title), links.map(link => {
-    const key = removeEmptySpaces(title);
+    const key = removeEmptySpaces(link.title);
 
     if (link.isExternal) {
       const href = (link.to || '#').toString();
