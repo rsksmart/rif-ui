@@ -38,7 +38,7 @@
   "devDependencies": {
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^25.2.3",
     "@types/react": "^16.9.35",
     "@types/react-router-dom": "^5.1.5",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
