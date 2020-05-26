@@ -7,6 +7,7 @@ export interface FooterColumnProps {
 }
 export interface FooterLinkProps extends NavLinkProps {
     isExternal?: boolean;
+    title: string;
 }
 declare const FooterColumn: FC<FooterColumnProps>;
 export default FooterColumn;

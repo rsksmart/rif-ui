@@ -13,6 +13,7 @@ export interface FooterColumnProps {
 
 export interface FooterLinkProps extends NavLinkProps {
   isExternal?: boolean
+  title: string
 }
 
 const useStyles = makeStyles(() => ({
@@ -42,8 +43,8 @@ const FooterColumn: FC<FooterColumnProps> = ({ title, links, className = '' }) =
     <div className={`${classes.root} ${className}`.trim()}>
       <Typography className={classes.footerTitle} variant="subtitle1" color="primary">{title}</Typography>
       {
-        links.map((link) => {
-          const key = removeEmptySpaces(title)
+        links.map((link: FooterLinkProps) => {
+          const key = removeEmptySpaces(link.title)
 
           if (link.isExternal) {
             const href = (link.to || '#').toString()
