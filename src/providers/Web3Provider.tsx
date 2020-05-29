@@ -10,7 +10,7 @@ export interface Web3ProviderProps {
     networkName: string | null
   }
   actions: {
-    setProvider: (provider: EProvider) => Promise<void>
+    setProvider: (provider: EProvider, onStateChanged?: (account: string) => void) => Promise<void>
   }
 }
 
@@ -71,7 +71,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     this.setProvider = this.setProvider.bind(this)
   }
 
-  public async setProvider(provider: EProvider): Promise<void> {
+  public async setProvider(provider: EProvider, onStateChanged?: (account: string) => void): Promise<void> {
     const web3 = await getWeb3(provider)
     const accounts = await web3.eth.getAccounts()
     let account: string
@@ -81,12 +81,15 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     let networkId = await web3.eth.net.getId()
 
     if (networkId === 1) networkId = await web3.eth.getChainId()
-    this.setState({
-      web3,
-      provider,
-      account,
-      networkName: getNetworkName(networkId),
-    })
+    this.setState(
+      {
+        web3,
+        provider,
+        account,
+        networkName: getNetworkName(networkId),
+      },
+      () => (onStateChanged && onStateChanged(account)),
+    )
   }
 
   public render(): ReactNode {

@@ -457,7 +457,8 @@ const AccountModal = ({
   setProvider,
   providers,
   open,
-  handleClose
+  handleClose,
+  onProviderSet
 }) => React.createElement(Modal, {
   open: open,
   onClose: handleClose,
@@ -467,8 +468,7 @@ const AccountModal = ({
   key: provider,
   text: provider,
   onClick: async () => {
-    await setProvider(provider);
-    handleClose();
+    await setProvider(provider, onProviderSet);
   }
 }))), React.createElement(ModalFooter, null, React.createElement(Button, {
   variant: "outlined",
@@ -1401,7 +1401,7 @@ class Web3Provider extends Component {
     this.setProvider = this.setProvider.bind(this);
   }
 
-  async setProvider(provider) {
+  async setProvider(provider, onStateChanged) {
     const web3 = await getWeb3(provider);
     const accounts = await web3.eth.getAccounts();
     let account;
@@ -1413,6 +1413,8 @@ class Web3Provider extends Component {
       provider,
       account,
       networkName: getNetworkName(networkId)
+    }, () => {
+      onStateChanged && onStateChanged(account);
     });
   }
 
