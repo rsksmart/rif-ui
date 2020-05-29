@@ -8,9 +8,11 @@ import {
 export interface AccountModalProps {
   web3: Web3 | null
   networkName: string | null
-  setProvider: (provider: EProvider) => Promise<void>
+  setProvider: (provider: EProvider, onProviderSet?:
+    (account: string) => void) => Promise<void>
   providers?: EProvider[]
-  handleClose: () => void
+  handleClose?: () => void
+  onProviderSet?: (account) => void
   open: boolean
 }
 
@@ -19,6 +21,7 @@ const AccountModal: FC<AccountModalProps> = ({
   providers,
   open,
   handleClose,
+  onProviderSet,
 }) => (
   <Modal
     open={open}
@@ -37,15 +40,21 @@ const AccountModal: FC<AccountModalProps> = ({
               key={provider}
               text={provider}
               onClick={async (): Promise<void> => {
-                await setProvider(provider)
-                handleClose()
+                await setProvider(provider, onProviderSet)
               }}
             />
           ),
         )}
       </ModalBody>
       <ModalFooter>
-        <Button variant="outlined" color="secondary" block onClick={handleClose}>Close</Button>
+        <Button
+          variant="outlined"
+          color="secondary"
+          block
+          onClick={handleClose}
+        >
+          Close
+        </Button>
       </ModalFooter>
     </React.Fragment>
   </Modal>

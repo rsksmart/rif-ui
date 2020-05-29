@@ -4,9 +4,10 @@ import { EProvider } from '../../services/Web3Service';
 export interface AccountModalProps {
     web3: Web3 | null;
     networkName: string | null;
-    setProvider: (provider: EProvider) => Promise<void>;
+    setProvider: (provider: EProvider, onProviderSet?: (account: string) => void) => Promise<void>;
     providers?: EProvider[];
-    handleClose: () => void;
+    handleClose?: () => void;
+    onProviderSet?: (account: any) => void;
     open: boolean;
 }
 declare const AccountModal: FC<AccountModalProps>;

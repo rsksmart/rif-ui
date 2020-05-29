@@ -462,7 +462,8 @@ const AccountModal = ({
   setProvider,
   providers,
   open,
-  handleClose
+  handleClose,
+  onProviderSet
 }) => React__default.createElement(Modal, {
   open: open,
   onClose: handleClose,
@@ -473,9 +474,7 @@ const AccountModal = ({
   text: provider,
   onClick: function () {
     try {
-      return Promise.resolve(setProvider(provider)).then(function () {
-        handleClose();
-      });
+      return Promise.resolve(setProvider(provider, onProviderSet)).then(function () {});
     } catch (e) {
       return Promise.reject(e);
     }
@@ -1411,7 +1410,7 @@ class Web3Provider extends React.Component {
     this.setProvider = this.setProvider.bind(this);
   }
 
-  setProvider(provider) {
+  setProvider(provider, onStateChanged) {
     try {
       const _this = this;
 
@@ -1426,6 +1425,8 @@ class Web3Provider extends React.Component {
                 provider,
                 account,
                 networkName: getNetworkName(networkId)
+              }, () => {
+                onStateChanged && onStateChanged(account);
               });
             }
 
