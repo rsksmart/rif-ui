@@ -9,7 +9,7 @@ export interface Web3ProviderProps {
         networkName: string | null;
     };
     actions: {
-        setProvider: (provider: EProvider) => Promise<void>;
+        setProvider: (provider: EProvider, onStateChanged?: (account: string) => void) => Promise<void>;
     };
 }
 export declare const Web3Store: React.Context<Web3ProviderProps>;
@@ -21,7 +21,7 @@ interface Web3ProviderState {
 }
 declare class Web3Provider extends Component<{}, Web3ProviderState> {
     constructor(props: Web3ProviderProps);
-    setProvider(provider: EProvider, onStateChanged?: (account: string) => void | undefined): Promise<void>;
+    setProvider(provider: EProvider, onStateChanged?: (account: string) => void): Promise<void>;
     render(): ReactNode;
 }
 declare const _default: {
