@@ -1413,9 +1413,7 @@ class Web3Provider extends Component {
       provider,
       account,
       networkName: getNetworkName(networkId)
-    }, () => {
-      onStateChanged && onStateChanged(account);
-    });
+    }, () => onStateChanged && onStateChanged(account));
   }
 
   render() {

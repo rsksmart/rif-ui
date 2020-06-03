@@ -1425,9 +1425,7 @@ class Web3Provider extends React.Component {
                 provider,
                 account,
                 networkName: getNetworkName(networkId)
-              }, () => {
-                onStateChanged && onStateChanged(account);
-              });
+              }, () => onStateChanged && onStateChanged(account));
             }
 
             const _temp = function () {
