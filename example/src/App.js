@@ -13,7 +13,8 @@ import {
   Footer,
   Header,
   PageTemplate,
-  theme
+  theme,
+  Web3Provider
 } from '@rsksmart/rif-ui';
 import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
@@ -49,7 +50,18 @@ const App = () => {
         icon: <ForumIcon />
       }
     ],
-    login: () => (<Account />)
+    login: () => (
+      <Web3Provider.Consumer>
+        {({ state: { web3, networkName, account }, actions: { setProvider } }) => (
+          <Account
+            web3={web3}
+            networkName={networkName}
+            account={account}
+            setProvider={setProvider}
+          />
+        )}
+      </Web3Provider.Consumer>
+      )
   };
 
   const footerProps = {
