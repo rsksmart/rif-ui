@@ -526,6 +526,7 @@ const Account = ({
     handleClose: handleClose,
     networkName: networkName,
     web3: web3,
+    onProviderSet: handleClose,
     setProvider: setProvider,
     providers: providers
   }));

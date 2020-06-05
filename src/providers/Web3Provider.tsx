@@ -10,7 +10,10 @@ export interface Web3ProviderProps {
     networkName: string | null
   }
   actions: {
-    setProvider: (provider: EProvider, onStateChanged?: (account: string) => void) => Promise<void>
+    setProvider: (
+      provider: EProvider,
+      onStateChanged?: (account: string) => void
+    ) => Promise<void>
   }
 }
 
@@ -71,7 +74,8 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     this.setProvider = this.setProvider.bind(this)
   }
 
-  public async setProvider(provider: EProvider, onStateChanged?: (account: string) => void): Promise<void> {
+  public async setProvider(provider: EProvider,
+    onStateChanged?: (account: string) => void): Promise<void> {
     const web3 = await getWeb3(provider)
     const accounts = await web3.eth.getAccounts()
     let account: string
