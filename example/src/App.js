@@ -156,13 +156,15 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Header {...headerProps} />
-        <PageTemplate>
-          <Routes />
-        </PageTemplate>
-        <Footer {...footerProps} />
-      </BrowserRouter>
+      <Web3Provider.Provider>
+        <BrowserRouter>
+          <Header {...headerProps} />
+          <PageTemplate>
+            <Routes />
+          </PageTemplate>
+          <Footer {...footerProps} />
+        </BrowserRouter>
+      </Web3Provider.Provider>
     </ThemeProvider>
   )
 }
