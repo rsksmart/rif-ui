@@ -4,10 +4,12 @@ import { getWeb3, EProvider } from '../services/Web3Service'
 
 export interface Web3ProviderProps {
   state: {
-    provider: EProvider | null
-    web3: Web3 | null
-    account: string | null
-    networkName: string | null
+    provider?: EProvider
+    web3?: Web3
+    account?: string
+    networkName?: string
+    networkId?: Number
+    chainId?: Number
   }
   actions: {
     setProvider: (
@@ -17,11 +19,13 @@ export interface Web3ProviderProps {
   }
 }
 
-const defaultState = {
-  provider: null,
-  web3: null,
-  account: null,
-  networkName: null,
+const defaultState: Web3ProviderState = {
+  provider: undefined,
+  web3: undefined,
+  account: undefined,
+  networkName: undefined,
+  networkId: undefined,
+  chainId: undefined,
 }
 
 export const Web3Store = createContext<Web3ProviderProps>({
@@ -32,13 +36,15 @@ export const Web3Store = createContext<Web3ProviderProps>({
 })
 
 interface Web3ProviderState {
-  provider: EProvider | null
-  web3: Web3 | null
-  account: string | null
-  networkName: string | null
+  provider?: EProvider
+  web3?: Web3
+  account?: string
+  networkName?: string
+  networkId?: Number
+  chainId?: Number
 }
 
-const getNetworkName = (networkId: number): string | null => {
+const getNetworkName = (networkId: number): string | undefined => {
   switch (networkId) {
     case 1:
       return 'Ethereum'
@@ -61,7 +67,7 @@ const getNetworkName = (networkId: number): string | null => {
     case 100:
       return 'xDai'
     default:
-      return null
+      return undefined
   }
 }
 
@@ -83,14 +89,16 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     if (Array.isArray(accounts)) [account] = accounts
     else account = accounts
     let networkId = await web3.eth.net.getId()
-
-    if (networkId === 1) networkId = await web3.eth.getChainId()
+    let chainId: Number | undefined = undefined
+    if (networkId) chainId = await web3.eth.getChainId()
     this.setState(
       {
         web3,
         provider,
         account,
         networkName: getNetworkName(networkId),
+        networkId,
+        chainId
       },
       () => (onStateChanged && onStateChanged(account)),
     )
@@ -98,7 +106,12 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
 
   public render(): ReactNode {
     const {
-      provider, web3, account, networkName,
+      provider,
+      web3,
+      account,
+      networkName,
+      networkId,
+      chainId
     } = this.state
     const { setProvider } = this
 
@@ -115,6 +128,8 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
             web3,
             account,
             networkName,
+            networkId,
+            chainId
           },
         }}
       >

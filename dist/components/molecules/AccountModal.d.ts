@@ -9,6 +9,8 @@ export interface AccountModalProps {
     handleClose?: () => void;
     onProviderSet?: (account: any) => void;
     open: boolean;
+    currentNetworkId: Number;
+    expectedNetworkId: Number;
 }
 declare const AccountModal: FC<AccountModalProps>;
 export default AccountModal;

@@ -13,6 +13,10 @@ export interface AccountProps {
   account: string | null
   setProvider: (provider: EProvider) => Promise<void>
   providers?: EProvider[]
+  networkId?: Number
+  chainId?: Number
+  currentNetworkId: Number
+  expectedNetworkId: Number
 }
 
 const useStyles = makeStyles(() => ({
@@ -34,6 +38,8 @@ const Account: FC<AccountProps> = ({
   account,
   setProvider,
   providers,
+  currentNetworkId,
+  expectedNetworkId
 }) => {
   const classes = useStyles()
 
@@ -59,6 +65,8 @@ const Account: FC<AccountProps> = ({
         onProviderSet={handleClose}
         setProvider={setProvider}
         providers={providers}
+        currentNetworkId={currentNetworkId}
+        expectedNetworkId={expectedNetworkId}
       />
     </React.Fragment>
   )
