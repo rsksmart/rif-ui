@@ -453,31 +453,48 @@ function getWeb3(provider = EProvider.METAMASK) {
   });
 }
 
+const useStyles$9 = makeStyles$1(() => ({
+  noNetworkMatch: {
+    color: 'red',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  }
+}));
+
 const AccountModal = ({
   setProvider,
   providers,
   open,
   handleClose,
-  onProviderSet
-}) => React.createElement(Modal, {
-  open: open,
-  onClose: handleClose,
-  "aria-labelledby": "account-modal-title",
-  "aria-describedby": "account-modal-description"
-}, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
-  key: provider,
-  text: provider,
-  onClick: async () => {
-    await setProvider(provider, onProviderSet);
-  }
-}))), React.createElement(ModalFooter, null, React.createElement(Button, {
-  variant: "outlined",
-  color: "secondary",
-  block: true,
-  onClick: handleClose
-}, "Close"))));
+  onProviderSet,
+  currentNetworkId,
+  expectedNetworkId
+}) => {
+  const classes = useStyles$9();
+  const networkIdMatches = currentNetworkId === expectedNetworkId;
+  return React.createElement(Modal, {
+    open: open,
+    onClose: handleClose,
+    "aria-labelledby": "account-modal-title",
+    "aria-describedby": "account-modal-description"
+  }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, networkIdMatches && (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
+    key: provider,
+    text: provider,
+    onClick: async () => {
+      await setProvider(provider, onProviderSet);
+    }
+  })), !networkIdMatches && React.createElement(Typography$1, {
+    className: classes.noNetworkMatch
+  }, "Please sign in to the proper network")), React.createElement(ModalFooter, null, React.createElement(Button, {
+    variant: "outlined",
+    color: "secondary",
+    block: true,
+    onClick: handleClose
+  }, "Close"))));
+};
 
-const useStyles$9 = makeStyles(() => ({
+const useStyles$a = makeStyles(() => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -495,9 +512,11 @@ const Account = ({
   networkName,
   account,
   setProvider,
-  providers
+  providers,
+  currentNetworkId,
+  expectedNetworkId
 }) => {
-  const classes = useStyles$9();
+  const classes = useStyles$a();
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
@@ -519,11 +538,13 @@ const Account = ({
     web3: web3,
     onProviderSet: handleClose,
     setProvider: setProvider,
-    providers: providers
+    providers: providers,
+    currentNetworkId: currentNetworkId,
+    expectedNetworkId: expectedNetworkId
   }));
 };
 
-const useStyles$a = makeStyles(theme => ({
+const useStyles$b = makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -562,7 +583,7 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$b();
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -584,7 +605,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$b = makeStyles(() => ({
+const useStyles$c = makeStyles(() => ({
   root: {
     color: colors.gray4,
     width: '100%'
@@ -596,7 +617,7 @@ const LabeledCheckbox = ({
   labelClassName: _labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$c();
   return React.createElement(FormControlLabel, {
     className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
@@ -616,7 +637,7 @@ const FilterCheckboxCard = ({
   labelClassName: item.labelClassName
 }, item))));
 
-const useStyles$c = makeStyles(() => ({
+const useStyles$d = makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -641,7 +662,7 @@ const FooterColumn = ({
   links,
   className: _className = ''
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$d();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React.createElement(Typography, {
@@ -679,7 +700,7 @@ const ModalDialogue = ({
   ...props
 }) => React.createElement(Modal, Object.assign({}, props), React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, title)), React.createElement(ModalBody, null, children), React.createElement(ModalFooter, null, footer)));
 
-const useStyles$d = makeStyles(theme => ({
+const useStyles$e = makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -719,7 +740,7 @@ const UnitsInput = props => {
     value,
     step = 1
   } = props;
-  const classes = useStyles$d();
+  const classes = useStyles$e();
   return React.createElement(React.Fragment, null, React.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -751,7 +772,7 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$e = makeStyles(() => ({
+const useStyles$f = makeStyles(() => ({
   root: {
     width: '100%'
   },
@@ -779,7 +800,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$e();
+  const classes = useStyles$f();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -871,7 +892,7 @@ const a11yProps = index => ({
   'aria-controls': `full-width-tabpanel-${index}`
 });
 
-const useStyles$f = makeStyles(() => ({
+const useStyles$g = makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -919,7 +940,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$g();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -951,7 +972,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$g = makeStyles(theme => ({
+const useStyles$h = makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1002,7 +1023,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$h();
   return React.createElement("footer", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, rest), React.createElement("div", {
@@ -1040,7 +1061,7 @@ const Footer = ({
   }, copyrightText)))));
 };
 
-const useStyles$h = makeStyles(theme => ({
+const useStyles$i = makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.lightBold
@@ -1079,7 +1100,7 @@ const HeaderDesktop = ({
   items,
   login
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$i();
   const Login = login;
   return React.createElement(AppBar, {
     position: "fixed",
@@ -1100,7 +1121,7 @@ const HeaderDesktop = ({
 };
 
 const drawerWidth = 240;
-const useStyles$i = makeStyles(theme => createStyles$1({
+const useStyles$j = makeStyles(theme => createStyles$1({
   loginContainer: {
     display: 'flex',
     marginLeft: 'auto'
@@ -1152,7 +1173,7 @@ const HeaderMobile = ({
   items,
   login
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$j();
   const [open, setOpen] = useState(false);
   const Login = login;
 
@@ -1220,7 +1241,7 @@ const Header = ({
   login: login
 })));
 
-const useStyles$j = makeStyles(theme => ({
+const useStyles$k = makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -1257,7 +1278,7 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$k();
   return React.createElement(React.Fragment, null, React.createElement("div", {
     className: classes.textContainer
   }, React.createElement("div", {
@@ -1275,7 +1296,7 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$k = makeStyles(theme => ({
+const useStyles$l = makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -1310,7 +1331,7 @@ const FAQPageTemplate = ({
   mainTitle,
   questionsAndAnswers
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$l();
   return React.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React.createElement("div", {
@@ -1327,7 +1348,7 @@ const FAQPageTemplate = ({
   }, qAndA))))));
 };
 
-const useStyles$l = makeStyles(theme => ({
+const useStyles$m = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
@@ -1339,17 +1360,19 @@ const PageTemplate = ({
   className: _className = '',
   ...props
 }) => {
-  const classes = useStyles$l();
+  const classes = useStyles$m();
   return React.createElement("div", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, props), children);
 };
 
 const defaultState = {
-  provider: null,
-  web3: null,
-  account: null,
-  networkName: null
+  provider: undefined,
+  web3: undefined,
+  account: undefined,
+  networkName: undefined,
+  networkId: undefined,
+  chainId: undefined
 };
 const Web3Store = createContext({
   state: defaultState,
@@ -1391,7 +1414,7 @@ const getNetworkName = networkId => {
       return 'xDai';
 
     default:
-      return null;
+      return undefined;
   }
 };
 
@@ -1408,12 +1431,15 @@ class Web3Provider extends Component {
     let account;
     if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
     let networkId = await web3.eth.net.getId();
-    if (networkId === 1) networkId = await web3.eth.getChainId();
+    let chainId = undefined;
+    if (networkId) chainId = await web3.eth.getChainId();
     this.setState({
       web3,
       provider,
       account,
-      networkName: getNetworkName(networkId)
+      networkName: getNetworkName(networkId),
+      networkId,
+      chainId
     }, () => onStateChanged && onStateChanged(account));
   }
 
@@ -1422,7 +1448,9 @@ class Web3Provider extends Component {
       provider,
       web3,
       account,
-      networkName
+      networkName,
+      networkId,
+      chainId
     } = this.state;
     const {
       setProvider
@@ -1439,7 +1467,9 @@ class Web3Provider extends Component {
           provider,
           web3,
           account,
-          networkName
+          networkName,
+          networkId,
+          chainId
         }
       }
     }, children);
