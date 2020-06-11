@@ -44,7 +44,7 @@ interface Web3ProviderState {
   chainId?: Number
 }
 
-const getNetworkName = (networkId: number): string | undefined => {
+const getNetworkName = (networkId?: number): string | undefined => {
   switch (networkId) {
     case 1:
       return 'Ethereum'
@@ -88,9 +88,16 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
 
     if (Array.isArray(accounts)) [account] = accounts
     else account = accounts
-    let networkId = await web3.eth.net.getId()
-    let chainId: Number | undefined = undefined
-    if (networkId) chainId = await web3.eth.getChainId()
+    let networkId: number | undefined
+    let chainId: number | undefined
+    try {
+      networkId = await web3.eth.net.getId()
+      if (networkId) {
+        chainId = await web3.eth.getChainId()
+      }
+    } catch (error) {
+    }
+
     this.setState(
       {
         web3,

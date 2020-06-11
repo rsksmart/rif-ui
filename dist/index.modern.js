@@ -1467,9 +1467,17 @@ class Web3Provider extends Component {
     const accounts = await web3.eth.getAccounts();
     let account;
     if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
-    let networkId = await web3.eth.net.getId();
-    let chainId = undefined;
-    if (networkId) chainId = await web3.eth.getChainId();
+    let networkId;
+    let chainId;
+
+    try {
+      networkId = await web3.eth.net.getId();
+
+      if (networkId) {
+        chainId = await web3.eth.getChainId();
+      }
+    } catch (error) {}
+
     this.setState({
       web3,
       provider,
