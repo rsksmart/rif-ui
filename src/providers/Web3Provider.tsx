@@ -1,6 +1,7 @@
 import React, { Component, createContext, ReactNode } from 'react'
 import Web3 from 'web3'
 import { getWeb3, EProvider } from '../services/Web3Service'
+import NetworkInfo, { getNetworkInfo } from '../models/NetworkInfo'
 
 export interface Web3ProviderProps {
   state: {
@@ -8,8 +9,8 @@ export interface Web3ProviderProps {
     web3?: Web3
     account?: string
     networkName?: string
-    networkId?: Number
-    chainId?: Number
+    networkId?: number
+    chainId?: number
   }
   actions: {
     setProvider: (
@@ -40,8 +41,21 @@ interface Web3ProviderState {
   web3?: Web3
   account?: string
   networkName?: string
-  networkId?: Number
-  chainId?: Number
+  networkId?: number
+  chainId?: number
+}
+
+export enum ENetwork {
+  ETHEREUM = 1,
+  ROPSTEN = 3,
+  RINKEBY = 4,
+  GOERLI = 5,
+  RSK_MAINNET = 30,
+  RSK_TESTNET = 31,
+  KOVAN = 42,
+  ETHEREUM_CLASSIC = 61,
+  POA_CORE = 99,
+  X_DAI = 100,
 }
 
 const getNetworkName = (networkId?: number): string | undefined => {
@@ -92,10 +106,17 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     let chainId: number | undefined
     try {
       networkId = await web3.eth.net.getId()
+
       if (networkId) {
         chainId = await web3.eth.getChainId()
       }
     } catch (error) {
+    }
+
+    let networkInfo: NetworkInfo | undefined
+
+    if (networkId) {
+      networkInfo = getNetworkInfo(networkId)
     }
 
     this.setState(
@@ -103,9 +124,10 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
         web3,
         provider,
         account,
+        // .ito - we will remove the below props and instead retrieve only networkInfo
         networkName: getNetworkName(networkId),
         networkId,
-        chainId
+        chainId,
       },
       () => (onStateChanged && onStateChanged(account)),
     )
@@ -118,7 +140,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       account,
       networkName,
       networkId,
-      chainId
+      chainId,
     } = this.state
     const { setProvider } = this
 
@@ -136,7 +158,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
             account,
             networkName,
             networkId,
-            chainId
+            chainId,
           },
         }}
       >

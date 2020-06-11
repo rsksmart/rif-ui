@@ -21,22 +21,20 @@ const AccountModal: FC<AccountModalProps> = ({
   providers,
   open,
   handleClose,
-  onProviderSet
-}) => {
-
-  return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="account-modal-title"
-      aria-describedby="account-modal-description"
-    >
-      <React.Fragment>
-        <ModalHeader>
-          <ModalTitle>Connect a wallet to get started</ModalTitle>
-        </ModalHeader>
-        <ModalBody>
-          {
+  onProviderSet,
+}) => (
+  <Modal
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="account-modal-title"
+    aria-describedby="account-modal-description"
+  >
+    <React.Fragment>
+      <ModalHeader>
+        <ModalTitle>Connect a wallet to get started</ModalTitle>
+      </ModalHeader>
+      <ModalBody>
+        {
             (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(
               (provider) => (
                 <LoginOption
@@ -49,20 +47,19 @@ const AccountModal: FC<AccountModalProps> = ({
               ),
             )
           }
-        </ModalBody>
+      </ModalBody>
 
-        <ModalFooter>
-          <Button
-            variant="outlined"
-            color="secondary"
-            block
-            onClick={handleClose}
-          >
-            Close
+      <ModalFooter>
+        <Button
+          variant="outlined"
+          color="secondary"
+          block
+          onClick={handleClose}
+        >
+          Close
         </Button>
-        </ModalFooter>
-      </React.Fragment>
-    </Modal>
-  )
-}
+      </ModalFooter>
+    </React.Fragment>
+  </Modal>
+)
 export default AccountModal

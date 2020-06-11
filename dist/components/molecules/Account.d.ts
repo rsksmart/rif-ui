@@ -7,10 +7,10 @@ export interface AccountProps {
     account: string | null;
     setProvider: (provider: EProvider) => Promise<void>;
     providers?: EProvider[];
-    networkId?: Number;
-    chainId?: Number;
-    currentNetwork: Number;
-    requiredNetwork: Number;
+    networkId?: number;
+    chainId?: number;
+    currentNetwork: number;
+    requiredNetwork: number;
 }
 declare const Account: FC<AccountProps>;
 export default Account;
