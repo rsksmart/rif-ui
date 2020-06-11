@@ -1408,6 +1408,25 @@ const PageTemplate = ({
   }, props), children);
 };
 
+// A type of promise-like that resolves synchronously and supports only one observer
+
+const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
+
+const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
+
+// Asynchronously call a function and send errors to recovery continuation
+function _catch(body, recover) {
+	try {
+		var result = body();
+	} catch(e) {
+		return recover(e);
+	}
+	if (result && result.then) {
+		return result.then(void 0, recover);
+	}
+	return result;
+}
+
 const defaultState = {
   provider: undefined,
   web3: undefined,
@@ -1473,30 +1492,39 @@ class Web3Provider extends React.Component {
 
       return Promise.resolve(getWeb3(provider)).then(function (web3) {
         return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
+          function _temp3() {
+            _this.setState({
+              web3,
+              provider,
+              account,
+              networkName: getNetworkName(networkId),
+              networkId,
+              chainId
+            }, () => onStateChanged && onStateChanged(account));
+          }
+
           let account;
           if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
-          return Promise.resolve(web3.eth.net.getId()).then(function (networkId) {
-            function _temp2() {
-              _this.setState({
-                web3,
-                provider,
-                account,
-                networkName: getNetworkName(networkId),
-                networkId,
-                chainId
-              }, () => onStateChanged && onStateChanged(account));
-            }
+          let networkId;
+          let chainId;
 
-            let chainId = undefined;
+          const _temp2 = _catch(function () {
+            return Promise.resolve(web3.eth.net.getId()).then(function (_web3$eth$net$getId) {
+              networkId = _web3$eth$net$getId;
 
-            const _temp = function () {
-              if (networkId) return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
-                chainId = _web3$eth$getChainId;
-              });
-            }();
+              const _temp = function () {
+                if (networkId) {
+                  return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
+                    chainId = _web3$eth$getChainId;
+                  });
+                }
+              }();
 
-            return _temp && _temp.then ? _temp.then(_temp2) : _temp2(_temp);
-          });
+              if (_temp && _temp.then) return _temp.then(function () {});
+            });
+          }, function () {});
+
+          return _temp2 && _temp2.then ? _temp2.then(_temp3) : _temp3(_temp2);
         });
       });
     } catch (e) {
