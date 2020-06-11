@@ -14,10 +14,10 @@ export interface AccountProps {
   account: string | null
   setProvider: (provider: EProvider) => Promise<void>
   providers?: EProvider[]
-  networkId?: Number
-  chainId?: Number
-  currentNetwork: Number
-  requiredNetwork: Number
+  networkId?: number
+  chainId?: number
+  currentNetwork: number
+  requiredNetwork: number
 }
 
 const useStyles = makeStyles(() => ({
@@ -40,7 +40,7 @@ const Account: FC<AccountProps> = ({
   setProvider,
   providers,
   currentNetwork,
-  requiredNetwork
+  requiredNetwork,
 }) => {
   const classes = useStyles()
 

@@ -7,8 +7,8 @@ export interface Web3ProviderProps {
         web3?: Web3;
         account?: string;
         networkName?: string;
-        networkId?: Number;
-        chainId?: Number;
+        networkId?: number;
+        chainId?: number;
     };
     actions: {
         setProvider: (provider: EProvider, onStateChanged?: (account: string) => void) => Promise<void>;
@@ -20,8 +20,20 @@ interface Web3ProviderState {
     web3?: Web3;
     account?: string;
     networkName?: string;
-    networkId?: Number;
-    chainId?: Number;
+    networkId?: number;
+    chainId?: number;
+}
+export declare enum ENetwork {
+    ETHEREUM = 1,
+    ROPSTEN = 3,
+    RINKEBY = 4,
+    GOERLI = 5,
+    RSK_MAINNET = 30,
+    RSK_TESTNET = 31,
+    KOVAN = 42,
+    ETHEREUM_CLASSIC = 61,
+    POA_CORE = 99,
+    X_DAI = 100
 }
 declare class Web3Provider extends Component<{}, Web3ProviderState> {
     constructor(props: Web3ProviderProps);

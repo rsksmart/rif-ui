@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import Tooltip from '@material-ui/core/Tooltip';
-import CheckIcon from '@material-ui/icons/Check';
-import ErrorIcon from '@material-ui/icons/Error';
-import WarningIcon from '@material-ui/icons/Warning';
+import Tooltip from '@material-ui/core/Tooltip'
+import CheckIcon from '@material-ui/icons/Check'
+import ErrorIcon from '@material-ui/icons/Error'
+import WarningIcon from '@material-ui/icons/Warning'
 
 export interface NetworkIndicatorProps {
-  currentNetwork?: Number
-  requiredNetwork?: Number
+  currentNetwork?: number
+  requiredNetwork?: number
   onRightNetworkMessage?: string
   onWrongNetworkMessage?: string
   noNetworkMessage?: string
@@ -33,40 +33,34 @@ const getNetworkStatus = (currentNetwork, requiredNetwork): NetworkStatus => {
 }
 
 
-const NetworkIndicator: FC<NetworkIndicatorProps> =
-  ({
-    currentNetwork, requiredNetwork, onRightNetworkMessage,
-    onWrongNetworkMessage, noNetworkMessage
-  }) => {
+const NetworkIndicator: FC<NetworkIndicatorProps> = ({
+  currentNetwork, requiredNetwork, onRightNetworkMessage,
+  onWrongNetworkMessage, noNetworkMessage,
+}) => {
 
-    // .ito - DELETEME
-    console.log('****************************************************************')
-    console.log('current network: ', currentNetwork)
-    console.log('****************************************************************')
+  const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork)
 
-    const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork)
+  // .ito - TODO: use map
+  const iconPerNetworkStatus = {}
+  iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = (
+    <Tooltip title={noNetworkMessage || defaultNoNetworkMessage}>
+      <WarningIcon />
+    </Tooltip>
+  )
+  iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = (
+    <Tooltip title={onWrongNetworkMessage || deaulftOnWrongNetworkMessage}>
+      <ErrorIcon />
+    </Tooltip>
+  )
+  iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = (
+    <Tooltip title={onRightNetworkMessage || defaultOnRightNetworkMessage}>
+      <CheckIcon />
+    </Tooltip>
+  )
 
-    // .ito - TODO: use map
-    const iconPerNetworkStatus = {}
-    iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = (
-      <Tooltip title={noNetworkMessage || defaultNoNetworkMessage}>
-        <WarningIcon />
-      </Tooltip>
-    )
-    iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = (
-      <Tooltip title={onWrongNetworkMessage || deaulftOnWrongNetworkMessage}>
-        <ErrorIcon />
-      </Tooltip>
-    )
-    iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = (
-      <Tooltip title={onRightNetworkMessage || defaultOnRightNetworkMessage}>
-        <CheckIcon />
-      </Tooltip>
-    )
-
-    return (
-      iconPerNetworkStatus[networkStatus]
-    )
-  }
+  return (
+    iconPerNetworkStatus[networkStatus]
+  )
+}
 
 export default NetworkIndicator

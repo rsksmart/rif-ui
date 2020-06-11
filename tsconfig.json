@@ -8,6 +8,7 @@
       "esnext"
     ],
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "jsx": "react",
     "sourceMap": true,
     "declaration": true,

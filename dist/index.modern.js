@@ -463,25 +463,23 @@ const AccountModal = ({
   open,
   handleClose,
   onProviderSet
-}) => {
-  return React.createElement(Modal, {
-    open: open,
-    onClose: handleClose,
-    "aria-labelledby": "account-modal-title",
-    "aria-describedby": "account-modal-description"
-  }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
-    key: provider,
-    text: provider,
-    onClick: async () => {
-      await setProvider(provider, onProviderSet);
-    }
-  }))), React.createElement(ModalFooter, null, React.createElement(Button, {
-    variant: "outlined",
-    color: "secondary",
-    block: true,
-    onClick: handleClose
-  }, "Close"))));
-};
+}) => React.createElement(Modal, {
+  open: open,
+  onClose: handleClose,
+  "aria-labelledby": "account-modal-title",
+  "aria-describedby": "account-modal-description"
+}, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
+  key: provider,
+  text: provider,
+  onClick: async () => {
+    await setProvider(provider, onProviderSet);
+  }
+}))), React.createElement(ModalFooter, null, React.createElement(Button, {
+  variant: "outlined",
+  color: "secondary",
+  block: true,
+  onClick: handleClose
+}, "Close"))));
 
 const defaultOnRightNetworkMessage = 'You are on the right network';
 const deaulftOnWrongNetworkMessage = 'You are on the wrong network';
@@ -513,9 +511,6 @@ const NetworkIndicator = ({
   onWrongNetworkMessage,
   noNetworkMessage
 }) => {
-  console.log('****************************************************************');
-  console.log('current network: ', currentNetwork);
-  console.log('****************************************************************');
   const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork);
   const iconPerNetworkStatus = {};
   iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = React.createElement(Tooltip, {
@@ -1417,6 +1412,20 @@ const Web3Store = createContext({
     setProvider: () => Promise.resolve()
   }
 });
+var ENetwork;
+
+(function (ENetwork) {
+  ENetwork[ENetwork["ETHEREUM"] = 1] = "ETHEREUM";
+  ENetwork[ENetwork["ROPSTEN"] = 3] = "ROPSTEN";
+  ENetwork[ENetwork["RINKEBY"] = 4] = "RINKEBY";
+  ENetwork[ENetwork["GOERLI"] = 5] = "GOERLI";
+  ENetwork[ENetwork["RSK_MAINNET"] = 30] = "RSK_MAINNET";
+  ENetwork[ENetwork["RSK_TESTNET"] = 31] = "RSK_TESTNET";
+  ENetwork[ENetwork["KOVAN"] = 42] = "KOVAN";
+  ENetwork[ENetwork["ETHEREUM_CLASSIC"] = 61] = "ETHEREUM_CLASSIC";
+  ENetwork[ENetwork["POA_CORE"] = 99] = "POA_CORE";
+  ENetwork[ENetwork["X_DAI"] = 100] = "X_DAI";
+})(ENetwork || (ENetwork = {}));
 
 const getNetworkName = networkId => {
   switch (networkId) {
