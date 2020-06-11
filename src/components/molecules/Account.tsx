@@ -6,6 +6,7 @@ import { shortenAddress } from '../../utils'
 import { Button, Typography } from '../atoms'
 import { colors, fonts } from '../../theme'
 import AccountModal from './AccountModal'
+import NetworkIndicator from '../atoms/NetworkIndicator'
 
 export interface AccountProps {
   web3: Web3 | null
@@ -15,8 +16,8 @@ export interface AccountProps {
   providers?: EProvider[]
   networkId?: Number
   chainId?: Number
-  currentNetworkId: Number
-  expectedNetworkId: Number
+  currentNetwork: Number
+  requiredNetwork: Number
 }
 
 const useStyles = makeStyles(() => ({
@@ -38,8 +39,8 @@ const Account: FC<AccountProps> = ({
   account,
   setProvider,
   providers,
-  currentNetworkId,
-  expectedNetworkId
+  currentNetwork,
+  requiredNetwork
 }) => {
   const classes = useStyles()
 
@@ -50,6 +51,7 @@ const Account: FC<AccountProps> = ({
   return (
     <React.Fragment>
       <Button onClick={handleOpen} className={classes.button} variant="contained" color="primary" rounded>
+        <NetworkIndicator currentNetwork={currentNetwork} requiredNetwork={requiredNetwork} />
         <Typography className={classes.accountText}>
           {!web3 && 'Connect wallet'}
           {web3 && networkName}
@@ -65,8 +67,6 @@ const Account: FC<AccountProps> = ({
         onProviderSet={handleClose}
         setProvider={setProvider}
         providers={providers}
-        currentNetworkId={currentNetworkId}
-        expectedNetworkId={expectedNetworkId}
       />
     </React.Fragment>
   )

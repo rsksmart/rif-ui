@@ -4,7 +4,6 @@ import { EProvider } from '../../services/Web3Service'
 import {
   Button, LoginOption, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle,
 } from '../atoms'
-import { Typography, makeStyles } from '@material-ui/core'
 
 export interface AccountModalProps {
   web3: Web3 | null
@@ -15,31 +14,16 @@ export interface AccountModalProps {
   handleClose?: () => void
   onProviderSet?: (account) => void
   open: boolean
-  currentNetworkId: Number
-  expectedNetworkId: Number
 }
-
-const useStyles = makeStyles(() => ({
-  noNetworkMatch: {
-    color: 'red',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  }
-}))
 
 const AccountModal: FC<AccountModalProps> = ({
   setProvider,
   providers,
   open,
   handleClose,
-  onProviderSet,
-  currentNetworkId,
-  expectedNetworkId
+  onProviderSet
 }) => {
 
-  const classes = useStyles()
-  const networkIdMatches = currentNetworkId === expectedNetworkId
   return (
     <Modal
       open={open}
@@ -53,23 +37,16 @@ const AccountModal: FC<AccountModalProps> = ({
         </ModalHeader>
         <ModalBody>
           {
-            networkIdMatches && (
-              (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(
-                (provider) => (
-                  <LoginOption
-                    key={provider}
-                    text={provider}
-                    onClick={async (): Promise<void> => {
-                      await setProvider(provider, onProviderSet)
-                    }}
-                  />
-                ),
-              )
-            )
-          }
-          {
-            !networkIdMatches && (
-              <Typography className={classes.noNetworkMatch}>Please sign in to the proper network</Typography>
+            (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(
+              (provider) => (
+                <LoginOption
+                  key={provider}
+                  text={provider}
+                  onClick={async (): Promise<void> => {
+                    await setProvider(provider, onProviderSet)
+                  }}
+                />
+              ),
             )
           }
         </ModalBody>

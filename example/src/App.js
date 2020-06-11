@@ -60,8 +60,8 @@ const App = () => {
             chainId={chainId}
             account={account}
             setProvider={setProvider}
-            currentNetworkId={networkId}
-            expectedNetworkId={12345}
+            currentNetwork={networkId}
+            requiredNetwork={8545}
           />
         )}
       </Web3Provider.Consumer>
