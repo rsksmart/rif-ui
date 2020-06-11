@@ -9,8 +9,8 @@ export interface AccountProps {
     providers?: EProvider[];
     networkId?: Number;
     chainId?: Number;
-    currentNetworkId: Number;
-    expectedNetworkId: Number;
+    currentNetwork: Number;
+    requiredNetwork: Number;
 }
 declare const Account: FC<AccountProps>;
 export default Account;

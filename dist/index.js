@@ -10,6 +10,10 @@ var ExpansionPanelDetails = _interopDefault(require('@material-ui/core/Expansion
 var ExpansionPanelSummary = _interopDefault(require('@material-ui/core/ExpansionPanelSummary'));
 var ExpandMoreIcon = _interopDefault(require('@material-ui/icons/ExpandMore'));
 var Web3 = _interopDefault(require('web3'));
+var Tooltip = _interopDefault(require('@material-ui/core/Tooltip'));
+var CheckIcon = _interopDefault(require('@material-ui/icons/Check'));
+var ErrorIcon = _interopDefault(require('@material-ui/icons/Error'));
+var WarningIcon = _interopDefault(require('@material-ui/icons/Warning'));
 var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
 var reactRouterDom = require('react-router-dom');
@@ -454,32 +458,19 @@ function getWeb3(provider = exports.EProvider.METAMASK) {
   });
 }
 
-const useStyles$9 = core.makeStyles(() => ({
-  noNetworkMatch: {
-    color: 'red',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  }
-}));
-
 const AccountModal = ({
   setProvider,
   providers,
   open,
   handleClose,
-  onProviderSet,
-  currentNetworkId,
-  expectedNetworkId
+  onProviderSet
 }) => {
-  const classes = useStyles$9();
-  const networkIdMatches = currentNetworkId === expectedNetworkId;
   return React__default.createElement(Modal, {
     open: open,
     onClose: handleClose,
     "aria-labelledby": "account-modal-title",
     "aria-describedby": "account-modal-description"
-  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, networkIdMatches && (providers || [exports.EProvider.METAMASK, exports.EProvider.LOCAL]).map(provider => React__default.createElement(LoginOption, {
+  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, (providers || [exports.EProvider.METAMASK, exports.EProvider.LOCAL]).map(provider => React__default.createElement(LoginOption, {
     key: provider,
     text: provider,
     onClick: function () {
@@ -489,9 +480,7 @@ const AccountModal = ({
         return Promise.reject(e);
       }
     }
-  })), !networkIdMatches && React__default.createElement(core.Typography, {
-    className: classes.noNetworkMatch
-  }, "Please sign in to the proper network")), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
+  }))), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
     variant: "outlined",
     color: "secondary",
     block: true,
@@ -499,7 +488,54 @@ const AccountModal = ({
   }, "Close"))));
 };
 
-const useStyles$a = styles.makeStyles(() => ({
+const defaultOnRightNetworkMessage = 'You are on the right network';
+const deaulftOnWrongNetworkMessage = 'You are on the wrong network';
+const defaultNoNetworkMessage = 'You are not connected to any network';
+var NetworkStatus;
+
+(function (NetworkStatus) {
+  NetworkStatus[NetworkStatus["NO_NETWORK"] = 1] = "NO_NETWORK";
+  NetworkStatus[NetworkStatus["NETWORK_MISSMATCH"] = 2] = "NETWORK_MISSMATCH";
+  NetworkStatus[NetworkStatus["RIGHT_NETWORK"] = 3] = "RIGHT_NETWORK";
+})(NetworkStatus || (NetworkStatus = {}));
+
+const getNetworkStatus = (currentNetwork, requiredNetwork) => {
+  if (currentNetwork) {
+    if (currentNetwork === requiredNetwork) {
+      return NetworkStatus.RIGHT_NETWORK;
+    }
+
+    return NetworkStatus.NETWORK_MISSMATCH;
+  }
+
+  return NetworkStatus.NO_NETWORK;
+};
+
+const NetworkIndicator = ({
+  currentNetwork,
+  requiredNetwork,
+  onRightNetworkMessage,
+  onWrongNetworkMessage,
+  noNetworkMessage
+}) => {
+  console.log('****************************************************************');
+  console.log('current network: ', currentNetwork);
+  console.log('****************************************************************');
+  const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork);
+  const iconPerNetworkStatus = {};
+  iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = React__default.createElement(Tooltip, {
+    title: noNetworkMessage || defaultNoNetworkMessage
+  }, React__default.createElement(WarningIcon, null));
+  iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = React__default.createElement(Tooltip, {
+    title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
+  }, React__default.createElement(ErrorIcon, null));
+  iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = React__default.createElement(Tooltip, {
+    title: onRightNetworkMessage || defaultOnRightNetworkMessage
+  }, React__default.createElement(CheckIcon, null));
+  return iconPerNetworkStatus[networkStatus];
+};
+
+const useStyles$9 = styles.makeStyles(() => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -518,10 +554,10 @@ const Account = ({
   account,
   setProvider,
   providers,
-  currentNetworkId,
-  expectedNetworkId
+  currentNetwork,
+  requiredNetwork
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$9();
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => setOpen(false);
@@ -534,7 +570,10 @@ const Account = ({
     variant: "contained",
     color: "primary",
     rounded: true
-  }, React__default.createElement(Typography, {
+  }, React__default.createElement(NetworkIndicator, {
+    currentNetwork: currentNetwork,
+    requiredNetwork: requiredNetwork
+  }), React__default.createElement(Typography, {
     className: classes.accountText
   }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {
     open: open,
@@ -543,13 +582,11 @@ const Account = ({
     web3: web3,
     onProviderSet: handleClose,
     setProvider: setProvider,
-    providers: providers,
-    currentNetworkId: currentNetworkId,
-    expectedNetworkId: expectedNetworkId
+    providers: providers
   }));
 };
 
-const useStyles$b = styles.makeStyles(theme => ({
+const useStyles$a = styles.makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -588,7 +625,7 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$a();
   const [isExpanded, setIsExpanded] = React.useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -610,7 +647,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$c = styles.makeStyles(() => ({
+const useStyles$b = styles.makeStyles(() => ({
   root: {
     color: colors.gray4,
     width: '100%'
@@ -622,7 +659,7 @@ const LabeledCheckbox = ({
   labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$b();
   return React__default.createElement(core.FormControlLabel, {
     className: `${classes.root} ${labelClassName.trim()}`,
     label: labelText,
@@ -642,7 +679,7 @@ const FilterCheckboxCard = ({
   labelClassName: item.labelClassName
 }, item))));
 
-const useStyles$d = styles.makeStyles(() => ({
+const useStyles$c = styles.makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -667,7 +704,7 @@ const FooterColumn = ({
   links,
   className = ''
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$c();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement(Typography, {
@@ -705,7 +742,7 @@ const ModalDialogue = ({
   ...props
 }) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 
-const useStyles$e = styles.makeStyles(theme => ({
+const useStyles$d = styles.makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -745,7 +782,7 @@ const UnitsInput = props => {
     value,
     step = 1
   } = props;
-  const classes = useStyles$e();
+  const classes = useStyles$d();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(core.Grid, {
     className: classes.root,
     container: true,
@@ -777,7 +814,7 @@ const UnitsInput = props => {
   }, units))));
 };
 
-const useStyles$f = styles.makeStyles(() => ({
+const useStyles$e = styles.makeStyles(() => ({
   root: {
     width: '100%'
   },
@@ -805,7 +842,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$e();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -897,7 +934,7 @@ const a11yProps = index => ({
   'aria-controls': `full-width-tabpanel-${index}`
 });
 
-const useStyles$g = styles.makeStyles(() => ({
+const useStyles$f = styles.makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -945,7 +982,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$f();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -977,7 +1014,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$h = styles.makeStyles(theme => ({
+const useStyles$g = styles.makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1028,7 +1065,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$g();
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, rest), React__default.createElement("div", {
@@ -1066,7 +1103,7 @@ const Footer = ({
   }, copyrightText)))));
 };
 
-const useStyles$i = styles.makeStyles(theme => ({
+const useStyles$h = styles.makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.lightBold
@@ -1105,7 +1142,7 @@ const HeaderDesktop = ({
   items,
   login
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$h();
   const Login = login;
   return React__default.createElement(core.AppBar, {
     position: "fixed",
@@ -1126,7 +1163,7 @@ const HeaderDesktop = ({
 };
 
 const drawerWidth = 240;
-const useStyles$j = styles.makeStyles(theme => styles.createStyles({
+const useStyles$i = styles.makeStyles(theme => styles.createStyles({
   loginContainer: {
     display: 'flex',
     marginLeft: 'auto'
@@ -1178,7 +1215,7 @@ const HeaderMobile = ({
   items,
   login
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$i();
   const [open, setOpen] = React.useState(false);
   const Login = login;
 
@@ -1246,7 +1283,7 @@ const Header = ({
   login: login
 })));
 
-const useStyles$k = styles.makeStyles(theme => ({
+const useStyles$j = styles.makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -1283,7 +1320,7 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$j();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
@@ -1301,7 +1338,7 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$l = styles.makeStyles(theme => ({
+const useStyles$k = styles.makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -1336,7 +1373,7 @@ const FAQPageTemplate = ({
   mainTitle,
   questionsAndAnswers
 }) => {
-  const classes = useStyles$l();
+  const classes = useStyles$k();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement("div", {
@@ -1353,7 +1390,7 @@ const FAQPageTemplate = ({
   }, qAndA))))));
 };
 
-const useStyles$m = styles.makeStyles(theme => ({
+const useStyles$l = styles.makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
@@ -1365,7 +1402,7 @@ const PageTemplate = ({
   className = '',
   ...props
 }) => {
-  const classes = useStyles$m();
+  const classes = useStyles$l();
   return React__default.createElement("div", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, props), children);
