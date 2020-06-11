@@ -15,7 +15,7 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4 - 1, 4)}`;
+const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`;
 const removeEmptySpaces = str => str.replace(/\s/g, '');
 
 const useStyles = makeStyles(() => ({
