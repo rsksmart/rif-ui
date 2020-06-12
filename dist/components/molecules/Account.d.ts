@@ -11,6 +11,9 @@ export interface AccountProps {
     chainId?: number;
     currentNetwork: number;
     requiredNetwork: number;
+    onRightNetworkMessage?: string;
+    onWrongNetworkMessage?: string;
+    noNetworkMessage?: string;
 }
 declare const Account: FC<AccountProps>;
 export default Account;
