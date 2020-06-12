@@ -22,8 +22,12 @@ var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
 var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
 
-const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`;
-const removeEmptySpaces = str => str.replace(/\s/g, '');
+var shortenAddress = function shortenAddress(address) {
+  return address.substr(0, 6) + "..." + address.substr(address.length - 4);
+};
+var removeEmptySpaces = function removeEmptySpaces(str) {
+  return str.replace(/\s/g, '');
+};
 
 const useStyles = styles.makeStyles(() => ({
   block: {
@@ -2611,15 +2615,23 @@ const defaultState = {
 const Web3Store = React.createContext({
   state: defaultState,
   actions: {
-    setProvider: () => Promise.resolve()
+    setProvider: () => Promise.resolve(),
+    registerOnAccountsChange: handleOnAccountsChange => {}
   }
 });
+
+const getAccountFromAccountsEth = accounts => {
+  let account;
+  if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
+  return account;
+};
 
 class Web3Provider extends React.Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
     this.setProvider = this.setProvider.bind(this);
+    this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this);
   }
 
   setProvider(provider, onStateChanged) {
@@ -2655,8 +2667,7 @@ class Web3Provider extends React.Component {
             return _temp3 && _temp3.then ? _temp3.then(_temp4) : _temp4(_temp3);
           }
 
-          let account;
-          if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
+          const account = getAccountFromAccountsEth(accounts);
           let networkId;
           let chainId;
 
@@ -2684,6 +2695,34 @@ class Web3Provider extends React.Component {
     }
   }
 
+  registerOnAccountsChange(handleOnAccountsChange) {
+    window.ethereum.on('accountsChanged', accounts => {
+      const account = getAccountFromAccountsEth(accounts);
+
+      if (account) {
+        this.setState({ ...this.state,
+          account
+        }, () => handleOnAccountsChange());
+      }
+    });
+  }
+
+  subscribeToAccountsChanges(handleOnAccountsChange) {
+    window.ethereum.on('accountsChanged', accounts => {
+      console.log('currentState: ', this.state);
+
+      if (accounts && accounts.length && accounts[0]) {
+        const currentAccount = accounts[0];
+        this.setState({
+          account: currentAccount
+        }, () => {
+          console.log('ACT UPON THE CHANGE OF ACCOUNTS. acc: ', this.state.account);
+          handleOnAccountsChange();
+        });
+      }
+    });
+  }
+
   render() {
     const {
       provider,
@@ -2692,7 +2731,8 @@ class Web3Provider extends React.Component {
       networkInfo
     } = this.state;
     const {
-      setProvider
+      setProvider,
+      registerOnAccountsChange
     } = this;
     const {
       children
@@ -2700,7 +2740,8 @@ class Web3Provider extends React.Component {
     return React__default.createElement(Web3Store.Provider, {
       value: {
         actions: {
-          setProvider
+          setProvider,
+          registerOnAccountsChange
         },
         state: {
           provider,

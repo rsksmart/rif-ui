@@ -15,6 +15,7 @@ export interface Web3ProviderProps {
       provider: EProvider,
       onStateChanged?: (account: string) => void
     ) => Promise<void>
+    registerOnAccountsChange: (handleOnAccountsChange: () => void) => void
   }
 }
 
@@ -22,13 +23,14 @@ const defaultState: Web3ProviderState = {
   provider: undefined,
   web3: undefined,
   account: undefined,
-  networkInfo: undefined
+  networkInfo: undefined,
 }
 
 export const Web3Store = createContext<Web3ProviderProps>({
   state: defaultState,
   actions: {
     setProvider: (): Promise<void> => Promise.resolve(),
+    registerOnAccountsChange: (handleOnAccountsChange: () => void): void => { },
   },
 })
 
@@ -39,6 +41,13 @@ interface Web3ProviderState {
   networkInfo?: NetworkInfo
 }
 
+const getAccountFromAccountsEth = (accounts: string[] | string): string => {
+  let account: string
+  if (Array.isArray(accounts)) [account] = accounts
+  else account = accounts
+  return account
+}
+
 class Web3Provider extends Component<{}, Web3ProviderState> {
   constructor(props: Web3ProviderProps) {
     super(props)
@@ -46,16 +55,15 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     this.state = defaultState
 
     this.setProvider = this.setProvider.bind(this)
+    this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this)
   }
 
   public async setProvider(provider: EProvider,
     onStateChanged?: (account: string) => void): Promise<void> {
     const web3 = await getWeb3(provider)
     const accounts = await web3.eth.getAccounts()
-    let account: string
+    const account = getAccountFromAccountsEth(accounts)
 
-    if (Array.isArray(accounts)) [account] = accounts
-    else account = accounts
     let networkId: number | undefined
     let chainId: number | undefined
     try {
@@ -64,16 +72,12 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       if (networkId) {
         chainId = await web3.eth.getChainId()
       }
-    } catch (error) {
-    }
-
+    } catch (error) { }
     let networkInfo: NetworkInfo | undefined
-
     if (networkId) {
       try {
         networkInfo = await getNetworkInfo(networkId, chainId)
-      }
-      catch (error) {
+      } catch (error) {
       }
     }
 
@@ -82,10 +86,44 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
         web3,
         provider,
         account,
-        networkInfo
+        networkInfo,
       },
       () => (onStateChanged && onStateChanged(account)),
     )
+  }
+
+  public registerOnAccountsChange(handleOnAccountsChange: () => void): void {
+    window.ethereum.on('accountsChanged', (accounts: string | string[]) => {
+      const account = getAccountFromAccountsEth(accounts)
+      if (account) {
+        this.setState({
+          ...this.state,
+          account,
+        },
+          () => (handleOnAccountsChange())
+        )
+      }
+    })
+  }
+
+  public subscribeToAccountsChanges(handleOnAccountsChange: () => void): void {
+    // this should not go here, may be provide the method for the consumer to subscribe?
+    // let acc
+    // cuando se desloguea (cambia la network) tambien se dispara esto
+    window.ethereum.on('accountsChanged', (accounts: string | any[]) => {
+      console.log('currentState: ', this.state)
+      if (accounts && accounts.length && accounts[0]) {
+        const currentAccount = accounts[0]
+        // acc = currentAccount
+        this.setState({
+          account: currentAccount,
+        },
+          () => {
+            console.log('ACT UPON THE CHANGE OF ACCOUNTS. acc: ', this.state.account)
+            handleOnAccountsChange()
+          })
+      }
+    })
   }
 
   public render(): ReactNode {
@@ -93,9 +131,9 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       provider,
       web3,
       account,
-      networkInfo
+      networkInfo,
     } = this.state
-    const { setProvider } = this
+    const { setProvider, registerOnAccountsChange } = this
 
     const { children } = this.props
 
@@ -104,12 +142,13 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
         value={{
           actions: {
             setProvider,
+            registerOnAccountsChange,
           },
           state: {
             provider,
             web3,
             account,
-            networkInfo
+            networkInfo,
           },
         }}
       >
