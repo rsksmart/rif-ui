@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react'
 import Web3 from 'web3'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import { EProvider } from '../../services/Web3Service'
 import { shortenAddress } from '../../utils'
 import { Button, Typography } from '../atoms'
-import { colors, fonts } from '../../theme'
+import { colors, fonts, theme } from '../../theme'
 import AccountModal from './AccountModal'
 import NetworkIndicator from '../atoms/NetworkIndicator'
 
@@ -23,7 +23,7 @@ export interface AccountProps {
   noNetworkMessage?: string
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center',
@@ -34,6 +34,9 @@ const useStyles = makeStyles(() => ({
       border: `1px solid ${colors.transparent}`,
     },
   },
+  networkIndicator: {
+    marginRight: theme.spacing(1)
+  }
 }))
 
 const Account: FC<AccountProps> = ({
@@ -57,7 +60,7 @@ const Account: FC<AccountProps> = ({
   return (
     <React.Fragment>
       <Button onClick={handleOpen} className={classes.button} variant="contained" color="primary" rounded>
-        <NetworkIndicator
+        <NetworkIndicator iconClassName={classes.networkIndicator}
           currentNetwork={currentNetwork}
           requiredNetwork={requiredNetwork}
           onRightNetworkMessage={onRightNetworkMessage}
