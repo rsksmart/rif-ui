@@ -1,10 +1,12 @@
 import React, { FC } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
-import CheckIcon from '@material-ui/icons/Check'
+import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import ErrorIcon from '@material-ui/icons/Error'
 import WarningIcon from '@material-ui/icons/Warning'
+import { green, yellow } from '@material-ui/core/colors';
 
 export interface NetworkIndicatorProps {
+  iconClassName?: string
   currentNetwork?: number
   requiredNetwork?: number
   onRightNetworkMessage?: string
@@ -34,6 +36,7 @@ const getNetworkStatus = (currentNetwork, requiredNetwork): NetworkStatus => {
 
 
 const NetworkIndicator: FC<NetworkIndicatorProps> = ({
+  iconClassName = '',
   currentNetwork, requiredNetwork, onRightNetworkMessage,
   onWrongNetworkMessage, noNetworkMessage,
 }) => {
@@ -43,17 +46,17 @@ const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   const iconPerNetworkStatus = {}
   iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = (
     <Tooltip title={noNetworkMessage || defaultNoNetworkMessage}>
-      <WarningIcon />
+      <WarningIcon className={iconClassName} style={{ color: yellow[800] }} />
     </Tooltip>
   )
   iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = (
     <Tooltip title={onWrongNetworkMessage || deaulftOnWrongNetworkMessage}>
-      <ErrorIcon />
+      <ErrorIcon className={iconClassName} color='error' />
     </Tooltip>
   )
   iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = (
     <Tooltip title={onRightNetworkMessage || defaultOnRightNetworkMessage}>
-      <CheckIcon />
+      <CheckCircleOutlineOutlinedIcon className={iconClassName} style={{ color: green[300] }} />
     </Tooltip>
   )
 

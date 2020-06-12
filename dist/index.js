@@ -11,9 +11,10 @@ var ExpansionPanelSummary = _interopDefault(require('@material-ui/core/Expansion
 var ExpandMoreIcon = _interopDefault(require('@material-ui/icons/ExpandMore'));
 var Web3 = _interopDefault(require('web3'));
 var Tooltip = _interopDefault(require('@material-ui/core/Tooltip'));
-var CheckIcon = _interopDefault(require('@material-ui/icons/Check'));
+var CheckCircleOutlineOutlinedIcon = _interopDefault(require('@material-ui/icons/CheckCircleOutlineOutlined'));
 var ErrorIcon = _interopDefault(require('@material-ui/icons/Error'));
 var WarningIcon = _interopDefault(require('@material-ui/icons/Warning'));
+var colors$1 = require('@material-ui/core/colors');
 var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
 var reactRouterDom = require('react-router-dom');
@@ -514,6 +515,7 @@ const getNetworkStatus = (currentNetwork, requiredNetwork) => {
 };
 
 const NetworkIndicator = ({
+  iconClassName = '',
   currentNetwork,
   requiredNetwork,
   onRightNetworkMessage,
@@ -524,17 +526,30 @@ const NetworkIndicator = ({
   const iconPerNetworkStatus = {};
   iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = React__default.createElement(Tooltip, {
     title: noNetworkMessage || defaultNoNetworkMessage
-  }, React__default.createElement(WarningIcon, null));
+  }, React__default.createElement(WarningIcon, {
+    className: iconClassName,
+    style: {
+      color: colors$1.yellow[800]
+    }
+  }));
   iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = React__default.createElement(Tooltip, {
     title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
-  }, React__default.createElement(ErrorIcon, null));
+  }, React__default.createElement(ErrorIcon, {
+    className: iconClassName,
+    color: 'error'
+  }));
   iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = React__default.createElement(Tooltip, {
     title: onRightNetworkMessage || defaultOnRightNetworkMessage
-  }, React__default.createElement(CheckIcon, null));
+  }, React__default.createElement(CheckCircleOutlineOutlinedIcon, {
+    className: iconClassName,
+    style: {
+      color: colors$1.green[300]
+    }
+  }));
   return iconPerNetworkStatus[networkStatus];
 };
 
-const useStyles$9 = styles.makeStyles(() => ({
+const useStyles$9 = styles.makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -544,6 +559,9 @@ const useStyles$9 = styles.makeStyles(() => ({
     '&:hover': {
       border: `1px solid ${colors.transparent}`
     }
+  },
+  networkIndicator: {
+    marginRight: theme.spacing(1)
   }
 }));
 
@@ -573,6 +591,7 @@ const Account = ({
     color: "primary",
     rounded: true
   }, React__default.createElement(NetworkIndicator, {
+    iconClassName: classes.networkIndicator,
     currentNetwork: currentNetwork,
     requiredNetwork: requiredNetwork,
     onRightNetworkMessage: onRightNetworkMessage,

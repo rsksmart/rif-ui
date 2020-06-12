@@ -8,9 +8,10 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Web3 from 'web3';
 import Tooltip from '@material-ui/core/Tooltip';
-import CheckIcon from '@material-ui/icons/Check';
+import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
+import { yellow, green } from '@material-ui/core/colors';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { NavLink } from 'react-router-dom';
@@ -505,6 +506,7 @@ const getNetworkStatus = (currentNetwork, requiredNetwork) => {
 };
 
 const NetworkIndicator = ({
+  iconClassName: _iconClassName = '',
   currentNetwork,
   requiredNetwork,
   onRightNetworkMessage,
@@ -515,17 +517,30 @@ const NetworkIndicator = ({
   const iconPerNetworkStatus = {};
   iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = React.createElement(Tooltip, {
     title: noNetworkMessage || defaultNoNetworkMessage
-  }, React.createElement(WarningIcon, null));
+  }, React.createElement(WarningIcon, {
+    className: _iconClassName,
+    style: {
+      color: yellow[800]
+    }
+  }));
   iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = React.createElement(Tooltip, {
     title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
-  }, React.createElement(ErrorIcon, null));
+  }, React.createElement(ErrorIcon, {
+    className: _iconClassName,
+    color: 'error'
+  }));
   iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = React.createElement(Tooltip, {
     title: onRightNetworkMessage || defaultOnRightNetworkMessage
-  }, React.createElement(CheckIcon, null));
+  }, React.createElement(CheckCircleOutlineOutlinedIcon, {
+    className: _iconClassName,
+    style: {
+      color: green[300]
+    }
+  }));
   return iconPerNetworkStatus[networkStatus];
 };
 
-const useStyles$9 = makeStyles(() => ({
+const useStyles$9 = makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -535,6 +550,9 @@ const useStyles$9 = makeStyles(() => ({
     '&:hover': {
       border: `1px solid ${colors.transparent}`
     }
+  },
+  networkIndicator: {
+    marginRight: theme.spacing(1)
   }
 }));
 
@@ -564,6 +582,7 @@ const Account = ({
     color: "primary",
     rounded: true
   }, React.createElement(NetworkIndicator, {
+    iconClassName: classes.networkIndicator,
     currentNetwork: currentNetwork,
     requiredNetwork: requiredNetwork,
     onRightNetworkMessage: onRightNetworkMessage,

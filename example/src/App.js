@@ -52,10 +52,10 @@ const App = () => {
     ],
     login: () => (
       <Web3Provider.Consumer>
-        {({ state: { web3, account, networkInfo }, actions: { setProvider, subscribeToAccountsChanges } }) => (
+        {({ state: { web3, account, networkInfo }, actions: { setProvider, registerOnAccountsChange } }) => (
           <>
           {
-            subscribeToAccountsChanges(() => {
+            registerOnAccountsChange(() => {
               console.log('************************************')
               console.log('account has changed')
               console.log('************************************')
