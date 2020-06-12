@@ -550,7 +550,10 @@ const Account = ({
   setProvider,
   providers,
   currentNetwork,
-  requiredNetwork
+  requiredNetwork,
+  onRightNetworkMessage,
+  onWrongNetworkMessage,
+  noNetworkMessage
 }) => {
   const classes = useStyles$9();
   const [open, setOpen] = React.useState(false);
@@ -567,7 +570,10 @@ const Account = ({
     rounded: true
   }, React__default.createElement(NetworkIndicator, {
     currentNetwork: currentNetwork,
-    requiredNetwork: requiredNetwork
+    requiredNetwork: requiredNetwork,
+    onRightNetworkMessage: onRightNetworkMessage,
+    onWrongNetworkMessage: onWrongNetworkMessage,
+    noNetworkMessage: noNetworkMessage
   }), React__default.createElement(Typography, {
     className: classes.accountText
   }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {

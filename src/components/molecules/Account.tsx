@@ -18,6 +18,9 @@ export interface AccountProps {
   chainId?: number
   currentNetwork: number
   requiredNetwork: number
+  onRightNetworkMessage?: string
+  onWrongNetworkMessage?: string
+  noNetworkMessage?: string
 }
 
 const useStyles = makeStyles(() => ({
@@ -41,6 +44,9 @@ const Account: FC<AccountProps> = ({
   providers,
   currentNetwork,
   requiredNetwork,
+  onRightNetworkMessage,
+  onWrongNetworkMessage,
+  noNetworkMessage
 }) => {
   const classes = useStyles()
 
@@ -51,7 +57,12 @@ const Account: FC<AccountProps> = ({
   return (
     <React.Fragment>
       <Button onClick={handleOpen} className={classes.button} variant="contained" color="primary" rounded>
-        <NetworkIndicator currentNetwork={currentNetwork} requiredNetwork={requiredNetwork} />
+        <NetworkIndicator
+          currentNetwork={currentNetwork}
+          requiredNetwork={requiredNetwork}
+          onRightNetworkMessage={onRightNetworkMessage}
+          onWrongNetworkMessage={onWrongNetworkMessage}
+          noNetworkMessage={noNetworkMessage} />
         <Typography className={classes.accountText}>
           {!web3 && 'Connect wallet'}
           {web3 && networkName}
