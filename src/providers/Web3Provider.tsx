@@ -8,9 +8,7 @@ export interface Web3ProviderProps {
     provider?: EProvider
     web3?: Web3
     account?: string
-    networkName?: string
-    networkId?: number
-    chainId?: number
+    networkInfo?: NetworkInfo
   }
   actions: {
     setProvider: (
@@ -24,9 +22,7 @@ const defaultState: Web3ProviderState = {
   provider: undefined,
   web3: undefined,
   account: undefined,
-  networkName: undefined,
-  networkId: undefined,
-  chainId: undefined,
+  networkInfo: undefined
 }
 
 export const Web3Store = createContext<Web3ProviderProps>({
@@ -40,49 +36,7 @@ interface Web3ProviderState {
   provider?: EProvider
   web3?: Web3
   account?: string
-  networkName?: string
-  networkId?: number
-  chainId?: number
-}
-
-export enum ENetwork {
-  ETHEREUM = 1,
-  ROPSTEN = 3,
-  RINKEBY = 4,
-  GOERLI = 5,
-  RSK_MAINNET = 30,
-  RSK_TESTNET = 31,
-  KOVAN = 42,
-  ETHEREUM_CLASSIC = 61,
-  POA_CORE = 99,
-  X_DAI = 100,
-}
-
-const getNetworkName = (networkId?: number): string | undefined => {
-  switch (networkId) {
-    case 1:
-      return 'Ethereum'
-    case 3:
-      return 'Ropsten'
-    case 4:
-      return 'Rinkeby'
-    case 5:
-      return 'Goerli'
-    case 30:
-      return 'RSK MainNet'
-    case 31:
-      return 'RSK TestNet'
-    case 42:
-      return 'Kovan'
-    case 61:
-      return 'Ethereum Classic'
-    case 99:
-      return 'POA Core'
-    case 100:
-      return 'xDai'
-    default:
-      return undefined
-  }
+  networkInfo?: NetworkInfo
 }
 
 class Web3Provider extends Component<{}, Web3ProviderState> {
@@ -116,7 +70,11 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     let networkInfo: NetworkInfo | undefined
 
     if (networkId) {
-      networkInfo = getNetworkInfo(networkId)
+      try {
+        networkInfo = await getNetworkInfo(networkId, chainId)
+      }
+      catch (error) {
+      }
     }
 
     this.setState(
@@ -124,10 +82,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
         web3,
         provider,
         account,
-        // .ito - we will remove the below props and instead retrieve only networkInfo
-        networkName: getNetworkName(networkId),
-        networkId,
-        chainId,
+        networkInfo
       },
       () => (onStateChanged && onStateChanged(account)),
     )
@@ -138,9 +93,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       provider,
       web3,
       account,
-      networkName,
-      networkId,
-      chainId,
+      networkInfo
     } = this.state
     const { setProvider } = this
 
@@ -156,9 +109,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
             provider,
             web3,
             account,
-            networkName,
-            networkId,
-            chainId,
+            networkInfo
           },
         }}
       >

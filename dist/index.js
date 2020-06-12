@@ -2588,15 +2588,19 @@ var networksData = [
 	}
 ];
 
-const getNetworkInfo = (networkId, chainId) => networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId);
+const getNetworkInfo = function (networkId, chainId) {
+  try {
+    return Promise.resolve(networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId));
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};
 
 const defaultState = {
   provider: undefined,
   web3: undefined,
   account: undefined,
-  networkName: undefined,
-  networkId: undefined,
-  chainId: undefined
+  networkInfo: undefined
 };
 const Web3Store = React.createContext({
   state: defaultState,
@@ -2604,57 +2608,6 @@ const Web3Store = React.createContext({
     setProvider: () => Promise.resolve()
   }
 });
-var ENetwork;
-
-(function (ENetwork) {
-  ENetwork[ENetwork["ETHEREUM"] = 1] = "ETHEREUM";
-  ENetwork[ENetwork["ROPSTEN"] = 3] = "ROPSTEN";
-  ENetwork[ENetwork["RINKEBY"] = 4] = "RINKEBY";
-  ENetwork[ENetwork["GOERLI"] = 5] = "GOERLI";
-  ENetwork[ENetwork["RSK_MAINNET"] = 30] = "RSK_MAINNET";
-  ENetwork[ENetwork["RSK_TESTNET"] = 31] = "RSK_TESTNET";
-  ENetwork[ENetwork["KOVAN"] = 42] = "KOVAN";
-  ENetwork[ENetwork["ETHEREUM_CLASSIC"] = 61] = "ETHEREUM_CLASSIC";
-  ENetwork[ENetwork["POA_CORE"] = 99] = "POA_CORE";
-  ENetwork[ENetwork["X_DAI"] = 100] = "X_DAI";
-})(ENetwork || (ENetwork = {}));
-
-const getNetworkName = networkId => {
-  switch (networkId) {
-    case 1:
-      return 'Ethereum';
-
-    case 3:
-      return 'Ropsten';
-
-    case 4:
-      return 'Rinkeby';
-
-    case 5:
-      return 'Goerli';
-
-    case 30:
-      return 'RSK MainNet';
-
-    case 31:
-      return 'RSK TestNet';
-
-    case 42:
-      return 'Kovan';
-
-    case 61:
-      return 'Ethereum Classic';
-
-    case 99:
-      return 'POA Core';
-
-    case 100:
-      return 'xDai';
-
-    default:
-      return undefined;
-  }
-};
 
 class Web3Provider extends React.Component {
   constructor(props) {
@@ -2669,21 +2622,31 @@ class Web3Provider extends React.Component {
 
       return Promise.resolve(getWeb3(provider)).then(function (web3) {
         return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-          function _temp3() {
-            let networkInfo;
-
-            if (networkId) {
-              networkInfo = getNetworkInfo(networkId);
+          function _temp6() {
+            function _temp4() {
+              _this.setState({
+                web3,
+                provider,
+                account,
+                networkInfo
+              }, () => onStateChanged && onStateChanged(account));
             }
 
-            _this.setState({
-              web3,
-              provider,
-              account,
-              networkName: getNetworkName(networkId),
-              networkId,
-              chainId
-            }, () => onStateChanged && onStateChanged(account));
+            let networkInfo;
+
+            const _temp3 = function () {
+              if (networkId) {
+                const _temp2 = _catch(function () {
+                  return Promise.resolve(getNetworkInfo(networkId, chainId)).then(function (_getNetworkInfo) {
+                    networkInfo = _getNetworkInfo;
+                  });
+                }, function () {});
+
+                if (_temp2 && _temp2.then) return _temp2.then(function () {});
+              }
+            }();
+
+            return _temp3 && _temp3.then ? _temp3.then(_temp4) : _temp4(_temp3);
           }
 
           let account;
@@ -2691,7 +2654,7 @@ class Web3Provider extends React.Component {
           let networkId;
           let chainId;
 
-          const _temp2 = _catch(function () {
+          const _temp5 = _catch(function () {
             return Promise.resolve(web3.eth.net.getId()).then(function (_web3$eth$net$getId) {
               networkId = _web3$eth$net$getId;
 
@@ -2707,7 +2670,7 @@ class Web3Provider extends React.Component {
             });
           }, function () {});
 
-          return _temp2 && _temp2.then ? _temp2.then(_temp3) : _temp3(_temp2);
+          return _temp5 && _temp5.then ? _temp5.then(_temp6) : _temp6(_temp5);
         });
       });
     } catch (e) {
@@ -2720,9 +2683,7 @@ class Web3Provider extends React.Component {
       provider,
       web3,
       account,
-      networkName,
-      networkId,
-      chainId
+      networkInfo
     } = this.state;
     const {
       setProvider
@@ -2739,9 +2700,7 @@ class Web3Provider extends React.Component {
           provider,
           web3,
           account,
-          networkName,
-          networkId,
-          chainId
+          networkInfo
         }
       }
     }, children);

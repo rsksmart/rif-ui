@@ -1,14 +1,13 @@
 import React, { Component, ReactNode } from 'react';
 import Web3 from 'web3';
 import { EProvider } from '../services/Web3Service';
+import NetworkInfo from '../models/NetworkInfo';
 export interface Web3ProviderProps {
     state: {
         provider?: EProvider;
         web3?: Web3;
         account?: string;
-        networkName?: string;
-        networkId?: number;
-        chainId?: number;
+        networkInfo?: NetworkInfo;
     };
     actions: {
         setProvider: (provider: EProvider, onStateChanged?: (account: string) => void) => Promise<void>;
@@ -19,21 +18,7 @@ interface Web3ProviderState {
     provider?: EProvider;
     web3?: Web3;
     account?: string;
-    networkName?: string;
-    networkId?: number;
-    chainId?: number;
-}
-export declare enum ENetwork {
-    ETHEREUM = 1,
-    ROPSTEN = 3,
-    RINKEBY = 4,
-    GOERLI = 5,
-    RSK_MAINNET = 30,
-    RSK_TESTNET = 31,
-    KOVAN = 42,
-    ETHEREUM_CLASSIC = 61,
-    POA_CORE = 99,
-    X_DAI = 100
+    networkInfo?: NetworkInfo;
 }
 declare class Web3Provider extends Component<{}, Web3ProviderState> {
     constructor(props: Web3ProviderProps);

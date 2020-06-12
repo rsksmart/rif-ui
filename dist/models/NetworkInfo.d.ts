@@ -1,7 +1,18 @@
 export default interface NetworkInfo {
     name: string;
-    networkId?: number;
     chainId?: number;
+    shortName: string;
+    chain: string;
+    network: string;
+    networkId: number;
+    nativeCurrency: {
+        name: string;
+        symbol: string;
+        decimals: number;
+    };
+    rpc: string[];
+    faucets: string[];
+    infoURL: string;
 }
-declare const getNetworkInfo: (networkId: number, chainId?: number | undefined) => NetworkInfo | undefined;
+declare const getNetworkInfo: (networkId: number, chainId?: number | undefined) => Promise<NetworkInfo | undefined>;
 export { getNetworkInfo };

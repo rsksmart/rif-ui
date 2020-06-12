@@ -37,7 +37,6 @@ const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   currentNetwork, requiredNetwork, onRightNetworkMessage,
   onWrongNetworkMessage, noNetworkMessage,
 }) => {
-
   const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork)
 
   // .ito - TODO: use map
