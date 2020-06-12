@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import { EProvider } from '../../services/Web3Service'
 import { shortenAddress } from '../../utils'
 import { Button, Typography } from '../atoms'
-import { colors, fonts, theme } from '../../theme'
+import { colors, fonts } from '../../theme'
 import AccountModal from './AccountModal'
 import NetworkIndicator from '../atoms/NetworkIndicator'
 

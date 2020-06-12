@@ -97,31 +97,10 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       const account = getAccountFromAccountsEth(accounts)
       if (account) {
         this.setState({
-          ...this.state,
           account,
         },
           () => (handleOnAccountsChange())
         )
-      }
-    })
-  }
-
-  public subscribeToAccountsChanges(handleOnAccountsChange: () => void): void {
-    // this should not go here, may be provide the method for the consumer to subscribe?
-    // let acc
-    // cuando se desloguea (cambia la network) tambien se dispara esto
-    window.ethereum.on('accountsChanged', (accounts: string | any[]) => {
-      console.log('currentState: ', this.state)
-      if (accounts && accounts.length && accounts[0]) {
-        const currentAccount = accounts[0]
-        // acc = currentAccount
-        this.setState({
-          account: currentAccount,
-        },
-          () => {
-            console.log('ACT UPON THE CHANGE OF ACCOUNTS. acc: ', this.state.account)
-            handleOnAccountsChange()
-          })
       }
     })
   }

@@ -523,30 +523,30 @@ const NetworkIndicator = ({
   noNetworkMessage
 }) => {
   const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork);
-  const iconPerNetworkStatus = {};
-  iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = React__default.createElement(Tooltip, {
+  const iconPerNetworkStatus = new Map();
+  iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React__default.createElement(Tooltip, {
     title: noNetworkMessage || defaultNoNetworkMessage
   }, React__default.createElement(WarningIcon, {
     className: iconClassName,
     style: {
       color: colors$1.yellow[800]
     }
-  }));
-  iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = React__default.createElement(Tooltip, {
+  })));
+  iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React__default.createElement(Tooltip, {
     title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
   }, React__default.createElement(ErrorIcon, {
     className: iconClassName,
     color: 'error'
-  }));
-  iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = React__default.createElement(Tooltip, {
+  })));
+  iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, React__default.createElement(Tooltip, {
     title: onRightNetworkMessage || defaultOnRightNetworkMessage
   }, React__default.createElement(CheckCircleOutlineOutlinedIcon, {
     className: iconClassName,
     style: {
       color: colors$1.green[300]
     }
-  }));
-  return iconPerNetworkStatus[networkStatus];
+  })));
+  return iconPerNetworkStatus.get(networkStatus);
 };
 
 const useStyles$9 = styles.makeStyles(theme => ({
@@ -2719,25 +2719,9 @@ class Web3Provider extends React.Component {
       const account = getAccountFromAccountsEth(accounts);
 
       if (account) {
-        this.setState({ ...this.state,
+        this.setState({
           account
         }, () => handleOnAccountsChange());
-      }
-    });
-  }
-
-  subscribeToAccountsChanges(handleOnAccountsChange) {
-    window.ethereum.on('accountsChanged', accounts => {
-      console.log('currentState: ', this.state);
-
-      if (accounts && accounts.length && accounts[0]) {
-        const currentAccount = accounts[0];
-        this.setState({
-          account: currentAccount
-        }, () => {
-          console.log('ACT UPON THE CHANGE OF ACCOUNTS. acc: ', this.state.account);
-          handleOnAccountsChange();
-        });
       }
     });
   }
