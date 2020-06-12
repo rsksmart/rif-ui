@@ -46,7 +46,7 @@ const Account: FC<AccountProps> = ({
   requiredNetwork,
   onRightNetworkMessage,
   onWrongNetworkMessage,
-  noNetworkMessage
+  noNetworkMessage,
 }) => {
   const classes = useStyles()
 
@@ -62,7 +62,8 @@ const Account: FC<AccountProps> = ({
           requiredNetwork={requiredNetwork}
           onRightNetworkMessage={onRightNetworkMessage}
           onWrongNetworkMessage={onWrongNetworkMessage}
-          noNetworkMessage={noNetworkMessage} />
+          noNetworkMessage={noNetworkMessage}
+        />
         <Typography className={classes.accountText}>
           {!web3 && 'Connect wallet'}
           {web3 && networkName}

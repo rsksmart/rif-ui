@@ -52,14 +52,23 @@ const App = () => {
     ],
     login: () => (
       <Web3Provider.Consumer>
-        {({ state: { web3, account, networkInfo }, actions: { setProvider } }) => (
-          <Account
-            web3={web3}
-            account={account}
-            setProvider={setProvider}
-            currentNetwork={networkInfo?.networkId}
-            requiredNetwork={1}
-          />
+        {({ state: { web3, account, networkInfo }, actions: { setProvider, subscribeToAccountsChanges } }) => (
+          <>
+          {
+            subscribeToAccountsChanges(() => {
+              console.log('************************************')
+              console.log('account has changed')
+              console.log('************************************')
+            })
+          }
+            <Account
+              web3={web3}
+              account={account}
+              setProvider={setProvider}
+              currentNetwork={networkInfo?.networkId}
+              requiredNetwork={1}
+            />
+          </>
         )}
       </Web3Provider.Consumer>
       )

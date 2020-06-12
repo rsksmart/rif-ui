@@ -2581,22 +2581,29 @@ const defaultState = {
 const Web3Store = createContext({
   state: defaultState,
   actions: {
-    setProvider: () => Promise.resolve()
+    setProvider: () => Promise.resolve(),
+    registerOnAccountsChange: handleOnAccountsChange => {}
   }
 });
+
+const getAccountFromAccountsEth = accounts => {
+  let account;
+  if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
+  return account;
+};
 
 class Web3Provider extends Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
     this.setProvider = this.setProvider.bind(this);
+    this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this);
   }
 
   async setProvider(provider, onStateChanged) {
     const web3 = await getWeb3(provider);
     const accounts = await web3.eth.getAccounts();
-    let account;
-    if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
+    const account = getAccountFromAccountsEth(accounts);
     let networkId;
     let chainId;
 
@@ -2624,6 +2631,34 @@ class Web3Provider extends Component {
     }, () => onStateChanged && onStateChanged(account));
   }
 
+  registerOnAccountsChange(handleOnAccountsChange) {
+    window.ethereum.on('accountsChanged', accounts => {
+      const account = getAccountFromAccountsEth(accounts);
+
+      if (account) {
+        this.setState({ ...this.state,
+          account
+        }, () => handleOnAccountsChange());
+      }
+    });
+  }
+
+  subscribeToAccountsChanges(handleOnAccountsChange) {
+    window.ethereum.on('accountsChanged', accounts => {
+      console.log('currentState: ', this.state);
+
+      if (accounts && accounts.length && accounts[0]) {
+        const currentAccount = accounts[0];
+        this.setState({
+          account: currentAccount
+        }, () => {
+          console.log('ACT UPON THE CHANGE OF ACCOUNTS. acc: ', this.state.account);
+          handleOnAccountsChange();
+        });
+      }
+    });
+  }
+
   render() {
     const {
       provider,
@@ -2632,7 +2667,8 @@ class Web3Provider extends Component {
       networkInfo
     } = this.state;
     const {
-      setProvider
+      setProvider,
+      registerOnAccountsChange
     } = this;
     const {
       children
@@ -2640,7 +2676,8 @@ class Web3Provider extends Component {
     return React.createElement(Web3Store.Provider, {
       value: {
         actions: {
-          setProvider
+          setProvider,
+          registerOnAccountsChange
         },
         state: {
           provider,

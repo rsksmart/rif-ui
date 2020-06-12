@@ -19,12 +19,9 @@ export default interface NetworkInfo {
 
 const getNetworkInfo = async (
   networkId: number,
-  chainId?: number
-): Promise<NetworkInfo | undefined> =>
-  networksData.find((n) =>
-    chainId
-      ? n.networkId === networkId && n.chainId === chainId
-      : n.networkId === networkId
-  ) as NetworkInfo
+  chainId?: number,
+): Promise<NetworkInfo | undefined> => networksData.find((n) => (chainId
+  ? n.networkId === networkId && n.chainId === chainId
+  : n.networkId === networkId)) as NetworkInfo
 
 export { getNetworkInfo }
