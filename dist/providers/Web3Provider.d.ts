@@ -25,7 +25,6 @@ declare class Web3Provider extends Component<{}, Web3ProviderState> {
     constructor(props: Web3ProviderProps);
     setProvider(provider: EProvider, onStateChanged?: (account: string) => void): Promise<void>;
     registerOnAccountsChange(handleOnAccountsChange: () => void): void;
-    subscribeToAccountsChanges(handleOnAccountsChange: () => void): void;
     render(): ReactNode;
 }
 declare const _default: {

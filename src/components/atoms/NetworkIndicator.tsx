@@ -42,26 +42,25 @@ const NetworkIndicator: FC<NetworkIndicatorProps> = ({
 }) => {
   const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork)
 
-  // .ito - TODO: use map
-  const iconPerNetworkStatus = {}
-  iconPerNetworkStatus[NetworkStatus.NO_NETWORK] = (
+  const iconPerNetworkStatus = new Map()
+  iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, (
     <Tooltip title={noNetworkMessage || defaultNoNetworkMessage}>
       <WarningIcon className={iconClassName} style={{ color: yellow[800] }} />
     </Tooltip>
-  )
-  iconPerNetworkStatus[NetworkStatus.NETWORK_MISSMATCH] = (
+  ))
+  iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, (
     <Tooltip title={onWrongNetworkMessage || deaulftOnWrongNetworkMessage}>
       <ErrorIcon className={iconClassName} color='error' />
     </Tooltip>
-  )
-  iconPerNetworkStatus[NetworkStatus.RIGHT_NETWORK] = (
+  ))
+  iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, (
     <Tooltip title={onRightNetworkMessage || defaultOnRightNetworkMessage}>
       <CheckCircleOutlineOutlinedIcon className={iconClassName} style={{ color: green[300] }} />
     </Tooltip>
-  )
+  ))
 
   return (
-    iconPerNetworkStatus[networkStatus]
+    iconPerNetworkStatus.get(networkStatus)
   )
 }
 
