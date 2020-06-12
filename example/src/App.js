@@ -52,16 +52,13 @@ const App = () => {
     ],
     login: () => (
       <Web3Provider.Consumer>
-        {({ state: { web3, networkName, account, networkId, chainId }, actions: { setProvider } }) => (
+        {({ state: { web3, account, networkInfo }, actions: { setProvider } }) => (
           <Account
             web3={web3}
-            networkName={networkName}
-            networkId={networkId}
-            chainId={chainId}
             account={account}
             setProvider={setProvider}
-            currentNetwork={networkId}
-            requiredNetwork={8545}
+            currentNetwork={networkInfo?.networkId}
+            requiredNetwork={1}
           />
         )}
       </Web3Provider.Consumer>
