@@ -9,6 +9,8 @@ export * from './components/index'
 // Images
 export * from './assets/images'
 
+export * from './models/index'
+
 // Providers
 export * from './providers/index'
 

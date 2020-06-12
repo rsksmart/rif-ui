@@ -1409,25 +1409,6 @@ const PageTemplate = ({
   }, props), children);
 };
 
-// A type of promise-like that resolves synchronously and supports only one observer
-
-const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
-
-const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
-
-// Asynchronously call a function and send errors to recovery continuation
-function _catch(body, recover) {
-	try {
-		var result = body();
-	} catch(e) {
-		return recover(e);
-	}
-	if (result && result.then) {
-		return result.then(void 0, recover);
-	}
-	return result;
-}
-
 var networksData = [
 	{
 		name: "Ethereum Mainnet",
@@ -2602,6 +2583,25 @@ const getNetworkInfo = function (networkId, chainId) {
   }
 };
 
+// A type of promise-like that resolves synchronously and supports only one observer
+
+const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
+
+const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
+
+// Asynchronously call a function and send errors to recovery continuation
+function _catch(body, recover) {
+	try {
+		var result = body();
+	} catch(e) {
+		return recover(e);
+	}
+	if (result && result.then) {
+		return result.then(void 0, recover);
+	}
+	return result;
+}
+
 const defaultState = {
   provider: undefined,
   web3: undefined,
@@ -2752,6 +2752,7 @@ exports.colors = colors;
 exports.doneThumbsUpImg = doneThumbsUp;
 exports.fonts = fonts;
 exports.footerTongueImg = footerTongue;
+exports.getNetworkInfo = getNetworkInfo;
 exports.getWeb3 = getWeb3;
 exports.globalConstants = globalConstants;
 exports.headerTongueImg = headerTongueImg;
