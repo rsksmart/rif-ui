@@ -2604,7 +2604,8 @@ const Web3Store = createContext({
     registerOnAccountsChange: () => {}
   },
   requiredNetworkId: undefined,
-  requiredChainId: undefined
+  requiredChainId: undefined,
+  onNetworkChangeWithAccount: () => {}
 });
 
 const getAccountFromAccountsEth = accounts => {
@@ -2630,8 +2631,19 @@ class Web3Provider extends Component {
     this.state = defaultState;
     this.requiredNetworkId = props.requiredNetworkId;
     this.requiredChainId = props.requiredChainId;
+    this.onNetworkChangeWithAccount = props.onNetworkChangeWithAccount;
     this.setProvider = this.setProvider.bind(this);
     this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this);
+    this.initialize();
+  }
+
+  initialize() {
+    window.ethereum.autoRefreshOnNetworkChange = false;
+    window.ethereum.on('networkChanged', () => {
+      if (this.state.account) {
+        this.onNetworkChangeWithAccount();
+      }
+    });
   }
 
   async setProvider(provider, onStateChanged) {
@@ -2672,7 +2684,7 @@ class Web3Provider extends Component {
         provider,
         account: undefined,
         networkInfo
-      }, () => onStateChanged && onStateChanged(account));
+      }, () => onStateChanged && onStateChanged(undefined));
     }
   }
 
@@ -2697,7 +2709,8 @@ class Web3Provider extends Component {
     } = this.state;
     const {
       setProvider,
-      registerOnAccountsChange
+      registerOnAccountsChange,
+      onNetworkChangeWithAccount
     } = this;
     const {
       children
@@ -2713,7 +2726,8 @@ class Web3Provider extends Component {
           web3,
           account,
           networkInfo
-        }
+        },
+        onNetworkChangeWithAccount
       }
     }, children);
   }

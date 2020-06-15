@@ -16,6 +16,7 @@ export interface Web3ProviderProps {
     };
     requiredNetworkId?: number;
     requiredChainId?: number;
+    onNetworkChangeWithAccount: () => void;
 }
 export declare const Web3Store: React.Context<Web3ProviderProps>;
 interface Web3ProviderState {
@@ -28,6 +29,8 @@ declare class Web3Provider extends Component<{}, Web3ProviderState> {
     constructor(props: Web3ProviderProps);
     private readonly requiredNetworkId?;
     private readonly requiredChainId?;
+    private readonly onNetworkChangeWithAccount;
+    private initialize;
     setProvider(provider: EProvider, onStateChanged?: (account?: string) => void): Promise<void>;
     registerOnAccountsChange(handleOnAccountsChange: () => void): void;
     render(): ReactNode;
