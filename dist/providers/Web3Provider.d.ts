@@ -26,14 +26,13 @@ interface Web3ProviderState {
     networkInfo?: NetworkInfo;
 }
 declare class Web3Provider extends Component<{}, Web3ProviderState> {
-    constructor(props: Web3ProviderProps);
     private readonly requiredNetworkId?;
     private readonly requiredChainId?;
+    constructor(props: Web3ProviderProps);
     private readonly onConnectedNetworkChange?;
     private readonly onConnectedAccountChange?;
-    private _initialize;
     setProvider(provider: EProvider, onStateChanged?: (account?: string) => void): Promise<void>;
-    registerOnAccountsChange(handleOnAccountsChange: () => void): void;
+    private initialize;
     render(): ReactNode;
 }
 declare const _default: {

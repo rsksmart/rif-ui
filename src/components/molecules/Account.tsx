@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   networkIndicator: {
-    marginRight: theme.spacing(1)
-  }
+    marginRight: theme.spacing(1),
+  },
 }))
 
 const Account: FC<AccountProps> = ({
@@ -60,7 +60,8 @@ const Account: FC<AccountProps> = ({
   return (
     <React.Fragment>
       <Button onClick={handleOpen} className={classes.button} variant="contained" color="primary" rounded>
-        <NetworkIndicator iconClassName={classes.networkIndicator}
+        <NetworkIndicator
+          iconClassName={classes.networkIndicator}
           currentNetwork={currentNetwork}
           requiredNetwork={requiredNetwork}
           onRightNetworkMessage={onRightNetworkMessage}

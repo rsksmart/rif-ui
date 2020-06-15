@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined'
 import ErrorIcon from '@material-ui/icons/Error'
 import WarningIcon from '@material-ui/icons/Warning'
-import { green, yellow } from '@material-ui/core/colors';
+import { green, yellow } from '@material-ui/core/colors'
 
 export interface NetworkIndicatorProps {
   iconClassName?: string
@@ -49,12 +49,15 @@ const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   ))
   iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, (
     <Tooltip title={onWrongNetworkMessage || deaulftOnWrongNetworkMessage}>
-      <ErrorIcon className={iconClassName} color='error' />
+      <ErrorIcon className={iconClassName} color="error" />
     </Tooltip>
   ))
   iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, (
     <Tooltip title={onRightNetworkMessage || defaultOnRightNetworkMessage}>
-      <CheckCircleOutlineOutlinedIcon className={iconClassName} style={{ color: green[300] }} />
+      <CheckCircleOutlineOutlinedIcon
+        className={iconClassName}
+        style={{ color: green[300] }}
+      />
     </Tooltip>
   ))
 

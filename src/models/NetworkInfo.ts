@@ -17,10 +17,10 @@ export default interface NetworkInfo {
   infoURL: string
 }
 
-const getNetworkInfo = async (
+const getNetworkInfo = (
   networkId: number,
   chainId?: number,
-): Promise<NetworkInfo | undefined> => networksData.find((n) => (chainId
+): NetworkInfo | undefined => networksData.find((n) => (chainId
   ? n.networkId === networkId && n.chainId === chainId
   : n.networkId === networkId)) as NetworkInfo
 
