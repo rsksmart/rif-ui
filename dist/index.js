@@ -421,1012 +421,24 @@ const Accordion = ({
   }, title)), React__default.createElement(ExpansionPanelDetails, null, children));
 };
 
-(function (EProvider) {
-  EProvider["METAMASK"] = "Metamask";
-  EProvider["LEDGER"] = "Ledger";
-  EProvider["TREZOR"] = "Trezor";
-  EProvider["LOCAL"] = "Localhost";
-})(exports.EProvider || (exports.EProvider = {}));
+// A type of promise-like that resolves synchronously and supports only one observer
 
-function getWeb3(provider = exports.EProvider.METAMASK) {
-  return new Promise((resolve, reject) => {
-    switch (provider) {
-      case exports.EProvider.METAMASK:
-        {
-          if (window.ethereum) {
-            const web3 = new Web3(window.ethereum);
-            window.ethereum.enable().then(() => resolve(web3)).catch(reject);
-          } else if (window.web3) {
-            resolve(new Web3(window.web3.currentProvider));
-          } else reject(new Error('No injected web3 found'));
+const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
 
-          break;
-        }
+const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
 
-      case exports.EProvider.LOCAL:
-        {
-          const localhostProvider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
-          resolve(new Web3(localhostProvider));
-          break;
-        }
-
-      default:
-        {
-          reject(new Error(`Provider not implemented or unknown. Chosen provider ${provider}`));
-          break;
-        }
-    }
-  });
+// Asynchronously call a function and send errors to recovery continuation
+function _catch(body, recover) {
+	try {
+		var result = body();
+	} catch(e) {
+		return recover(e);
+	}
+	if (result && result.then) {
+		return result.then(void 0, recover);
+	}
+	return result;
 }
-
-const AccountModal = ({
-  setProvider,
-  providers,
-  open,
-  handleClose,
-  onProviderSet
-}) => React__default.createElement(Modal, {
-  open: open,
-  onClose: handleClose,
-  "aria-labelledby": "account-modal-title",
-  "aria-describedby": "account-modal-description"
-}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, (providers || [exports.EProvider.METAMASK, exports.EProvider.LOCAL]).map(provider => React__default.createElement(LoginOption, {
-  key: provider,
-  text: provider,
-  onClick: function () {
-    try {
-      return Promise.resolve(setProvider(provider, onProviderSet)).then(function () {});
-    } catch (e) {
-      return Promise.reject(e);
-    }
-  }
-}))), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
-  variant: "outlined",
-  color: "secondary",
-  block: true,
-  onClick: handleClose
-}, "Close"))));
-
-const defaultOnRightNetworkMessage = 'You are on the right network';
-const deaulftOnWrongNetworkMessage = 'You are on the wrong network';
-const defaultNoNetworkMessage = 'You are not connected to any network';
-var NetworkStatus;
-
-(function (NetworkStatus) {
-  NetworkStatus[NetworkStatus["NO_NETWORK"] = 1] = "NO_NETWORK";
-  NetworkStatus[NetworkStatus["NETWORK_MISSMATCH"] = 2] = "NETWORK_MISSMATCH";
-  NetworkStatus[NetworkStatus["RIGHT_NETWORK"] = 3] = "RIGHT_NETWORK";
-})(NetworkStatus || (NetworkStatus = {}));
-
-const getNetworkStatus = (currentNetworkId, requiredNetworkId) => {
-  if (currentNetworkId) {
-    if (currentNetworkId === requiredNetworkId) {
-      return NetworkStatus.RIGHT_NETWORK;
-    }
-
-    return NetworkStatus.NETWORK_MISSMATCH;
-  }
-
-  return NetworkStatus.NO_NETWORK;
-};
-
-const NetworkIndicator = ({
-  iconClassName = '',
-  currentNetworkId,
-  requiredNetworkId,
-  onRightNetworkMessage,
-  onWrongNetworkMessage,
-  noNetworkMessage
-}) => {
-  const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId);
-  const iconPerNetworkStatus = new Map();
-  iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React__default.createElement(Tooltip, {
-    title: noNetworkMessage || defaultNoNetworkMessage
-  }, React__default.createElement(WarningIcon, {
-    className: iconClassName,
-    style: {
-      color: colors$1.yellow[800]
-    }
-  })));
-  iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React__default.createElement(Tooltip, {
-    title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
-  }, React__default.createElement(ErrorIcon, {
-    className: iconClassName,
-    color: "error"
-  })));
-  iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, React__default.createElement(Tooltip, {
-    title: onRightNetworkMessage || defaultOnRightNetworkMessage
-  }, React__default.createElement(CheckCircleOutlineOutlinedIcon, {
-    className: iconClassName,
-    style: {
-      color: colors$1.green[300]
-    }
-  })));
-  return iconPerNetworkStatus.get(networkStatus);
-};
-
-const useStyles$9 = styles.makeStyles(theme => ({
-  accountText: {
-    fontSize: fonts.size.tiny,
-    textAlign: 'center'
-  },
-  button: {
-    border: `1px solid ${colors.white}`,
-    '&:hover': {
-      border: `1px solid ${colors.transparent}`
-    }
-  },
-  networkIndicator: {
-    marginRight: theme.spacing(1)
-  }
-}));
-
-const Account = ({
-  web3,
-  networkName,
-  account,
-  setProvider,
-  providers,
-  currentNetworkId,
-  requiredNetworkId,
-  onRightNetworkMessage,
-  onWrongNetworkMessage,
-  noNetworkMessage
-}) => {
-  const classes = useStyles$9();
-  const [open, setOpen] = React.useState(false);
-
-  const handleClose = () => setOpen(false);
-
-  const handleOpen = () => setOpen(true);
-
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
-    onClick: handleOpen,
-    className: classes.button,
-    variant: "contained",
-    color: "primary",
-    rounded: true
-  }, !!requiredNetworkId && React__default.createElement(NetworkIndicator, {
-    iconClassName: classes.networkIndicator,
-    currentNetworkId: currentNetworkId,
-    requiredNetworkId: requiredNetworkId,
-    onRightNetworkMessage: onRightNetworkMessage,
-    onWrongNetworkMessage: onWrongNetworkMessage,
-    noNetworkMessage: noNetworkMessage
-  }), React__default.createElement(Typography, {
-    className: classes.accountText
-  }, !web3 && 'Connect wallet', web3 && networkName, web3 && !account && 'Wrong Network', web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {
-    open: open,
-    handleClose: handleClose,
-    networkName: networkName,
-    web3: web3,
-    onProviderSet: handleClose,
-    setProvider: setProvider,
-    providers: providers
-  }));
-};
-
-const useStyles$a = styles.makeStyles(theme => ({
-  root: {
-    boxShadow: 'none',
-    color: colors.gray4,
-    width: '100%'
-  },
-  heading: {
-    display: 'flex',
-    justifyContent: 'center',
-    color: colors.gray5,
-    fontSize: fonts.size.subtitleSmall,
-    width: '100%'
-  },
-  headingExpanded: {
-    color: colors.primary
-  },
-  headingCollapsed: {
-    fontWeight: fonts.weight.lightBold
-  },
-  panelDetails: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  answerContainer: {
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '80%'
-    }
-  },
-  answerText: {
-    color: colors.gray5
-  }
-}));
-
-const FAQSection = ({
-  className = '',
-  initiallyExpanded,
-  question,
-  answer
-}) => {
-  const classes = useStyles$a();
-  const [isExpanded, setIsExpanded] = React.useState(!!initiallyExpanded);
-
-  const onChange = () => setIsExpanded(!isExpanded);
-
-  return React__default.createElement(core.ExpansionPanel, {
-    className: `${classes.root} ${className}`.trim(),
-    expanded: isExpanded,
-    onChange: onChange
-  }, React__default.createElement(core.ExpansionPanelSummary, {
-    expandIcon: isExpanded ? React__default.createElement(RemoveIcon, null) : React__default.createElement(AddIcon, null)
-  }, React__default.createElement(Typography, {
-    className: `${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()
-  }, question)), React__default.createElement(core.ExpansionPanelDetails, {
-    className: classes.panelDetails
-  }, React__default.createElement("div", {
-    className: classes.answerContainer
-  }, React__default.createElement(Typography, {
-    className: classes.answerText
-  }, answer))));
-};
-
-const useStyles$b = styles.makeStyles(() => ({
-  root: {
-    color: colors.gray4,
-    width: '100%'
-  }
-}));
-
-const LabeledCheckbox = ({
-  labelText,
-  labelClassName = '',
-  ...rest
-}) => {
-  const classes = useStyles$b();
-  return React__default.createElement(core.FormControlLabel, {
-    className: `${classes.root} ${labelClassName.trim()}`,
-    label: labelText,
-    control: React__default.createElement(Checkbox, Object.assign({}, rest))
-  });
-};
-
-const FilterCheckboxCard = ({
-  className = '',
-  onClick,
-  items
-}) => React__default.createElement("div", {
-  className: className
-}, items.map((item, i) => React__default.createElement(LabeledCheckbox, Object.assign({
-  onClick: onClick,
-  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
-  labelClassName: item.labelClassName
-}, item))));
-
-const useStyles$c = styles.makeStyles(() => ({
-  root: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  footerLink: {
-    color: colors.gray4,
-    fontWeight: fonts.weight.normal,
-    textDecoration: 'none',
-    '&:hover': {
-      fontWeight: fonts.weight.lightBold
-    }
-  },
-  footerTitle: {
-    fontSize: fonts.size.subtitleBig,
-    textAlign: 'center'
-  }
-}));
-
-const FooterColumn = ({
-  title,
-  links,
-  className = ''
-}) => {
-  const classes = useStyles$c();
-  return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
-  }, React__default.createElement(Typography, {
-    className: classes.footerTitle,
-    variant: "subtitle1",
-    color: "primary"
-  }, title), links.map(link => {
-    const key = removeEmptySpaces(link.title);
-
-    if (link.isExternal) {
-      const href = (link.to || '#').toString();
-      return React__default.createElement("a", {
-        className: classes.footerLink,
-        target: link.target,
-        color: "secondary",
-        key: key,
-        href: href
-      }, link.title);
-    }
-
-    return React__default.createElement(reactRouterDom.NavLink, {
-      className: classes.footerLink,
-      target: link.target,
-      color: "secondary",
-      key: key,
-      to: link.to
-    }, link.title);
-  }));
-};
-
-const ModalDialogue = ({
-  title,
-  footer,
-  children,
-  ...props
-}) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
-
-const useStyles$d = styles.makeStyles(theme => ({
-  root: {
-    color: colors.gray4,
-    display: 'flex'
-  },
-  input: {
-    color: colors.gray4,
-    paddingLeft: theme.spacing(0.1),
-    textAlign: 'center',
-    '&::before': {
-      borderBottom: `1px solid ${colors.gray4}`
-    }
-  },
-  inputContainer: {
-    paddingRight: '0 !important'
-  },
-  units: {
-    color: colors.gray4,
-    display: 'flex',
-    fontSize: fonts.size.tiny
-  },
-  unitsContainer: {
-    alignSelf: 'center',
-    color: colors.gray4,
-    display: 'flex',
-    fontSize: fonts.size.normal,
-    paddingLeft: '0 !important'
-  }
-}));
-
-const UnitsInput = props => {
-  const {
-    handleOnBlur,
-    handleOnChange,
-    maxValue,
-    minValue,
-    units,
-    value,
-    step = 1
-  } = props;
-  const classes = useStyles$d();
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(core.Grid, {
-    className: classes.root,
-    container: true,
-    spacing: 1
-  }, React__default.createElement(core.Grid, {
-    className: classes.inputContainer,
-    item: true,
-    xs: 8
-  }, React__default.createElement(core.Input, {
-    className: classes.input,
-    classes: {
-      input: classes.input
-    },
-    value: value,
-    onChange: handleOnChange,
-    onBlur: handleOnBlur,
-    inputProps: {
-      step,
-      min: minValue,
-      max: maxValue,
-      'aria-labelledby': 'input-slider'
-    }
-  })), React__default.createElement(core.Grid, {
-    item: true,
-    xs: 4,
-    className: classes.unitsContainer
-  }, React__default.createElement(Typography, {
-    className: classes.units
-  }, units))));
-};
-
-const useStyles$e = styles.makeStyles(() => ({
-  root: {
-    width: '100%'
-  },
-  inputsContainer: {
-    alignSelf: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%'
-  },
-  toContainer: {
-    alignSelf: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%'
-  }
-}));
-
-const RangeSliderWithInputs = ({
-  values: {
-    start: startValue,
-    end: endValue
-  },
-  unit,
-  handleChange,
-  className,
-  ...rest
-}) => {
-  const classes = useStyles$e();
-  const maxValue = rest.max || endValue;
-  const minValue = rest.min || startValue;
-  const step = rest.step || 1;
-
-  const handleStartInputChange = event => {
-    const newStartValue = event.target.value === '' ? startValue : Number(event.target.value);
-    handleChange({
-      min: newStartValue,
-      max: endValue
-    });
-  };
-
-  const handleEndInputChange = event => {
-    const newEndValue = event.target.value === '' ? endValue : Number(event.target.value);
-    handleChange({
-      min: startValue,
-      max: newEndValue
-    });
-  };
-
-  const handleSliderChange = (_, newSliderValue) => {
-    handleChange({
-      min: newSliderValue[0],
-      max: newSliderValue[1]
-    });
-  };
-
-  const handleStartValueBlur = () => {
-    if (startValue < minValue) {
-      handleChange({
-        min: minValue,
-        max: endValue
-      });
-    } else if (startValue > endValue) {
-      handleChange({
-        min: endValue,
-        max: endValue
-      });
-    }
-  };
-
-  const handleEndValueBlur = () => {
-    if (endValue < startValue) {
-      handleChange({
-        min: minValue,
-        max: startValue
-      });
-    } else if (endValue > maxValue) {
-      handleChange({
-        min: minValue,
-        max: maxValue
-      });
-    }
-  };
-
-  const getCommonInputValues = () => ({
-    maxValue,
-    minValue,
-    step,
-    units: unit
-  });
-
-  return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
-  }, React__default.createElement(Slider, Object.assign({
-    value: [startValue, endValue]
-  }, rest, {
-    onChange: handleSliderChange
-  })), React__default.createElement("div", {
-    className: classes.inputsContainer
-  }, React__default.createElement(UnitsInput, Object.assign({
-    handleOnBlur: handleStartValueBlur,
-    handleOnChange: handleStartInputChange
-  }, getCommonInputValues(), {
-    value: startValue
-  })), React__default.createElement(Typography, {
-    className: classes.toContainer,
-    weight: "bold"
-  }, "to"), React__default.createElement(UnitsInput, Object.assign({
-    handleOnBlur: handleEndValueBlur,
-    handleOnChange: handleEndInputChange
-  }, getCommonInputValues(), {
-    value: endValue
-  }))));
-};
-
-const a11yProps = index => ({
-  id: `full-width-tab-${index}`,
-  'aria-controls': `full-width-tabpanel-${index}`
-});
-
-const useStyles$f = styles.makeStyles(() => ({
-  root: {
-    backgroundColor: colors.white,
-    minHeight: 20,
-    width: '100%',
-    border: `${colors.primary} solid 1px`,
-    borderRadius: 50,
-    overflow: 'hidden'
-  },
-  tabContainer: {
-    minHeight: 20,
-    width: '100%'
-  },
-  tab: {
-    '&:hover': {
-      color: colors.primary
-    },
-    borderRadius: 50,
-    color: colors.gray3,
-    fontWeight: fonts.weight.normal,
-    maxWidth: '50%',
-    minHeight: '100%',
-    minWidth: '50%',
-    outlineStyle: 'none',
-    padding: 0,
-    textTransform: 'capitalize',
-    zIndex: 1,
-    '&:focus': {
-      outlineStyle: 'none'
-    }
-  },
-  tabIndicator: {
-    backgroundColor: colors.primary,
-    borderRadius: 50,
-    height: '100%'
-  },
-  tabSelected: {
-    backgroundColor: `${colors.primary} !important`,
-    color: `${colors.white} !important`
-  }
-}));
-
-const SwitchTabs = ({
-  label1,
-  label2,
-  value: controlledValue,
-  onChange
-}) => {
-  const classes = useStyles$f();
-
-  const handleChange = (event, newValue) => {
-    onChange(event, newValue);
-  };
-
-  return React__default.createElement("div", {
-    className: classes.root
-  }, React__default.createElement(core.Tabs, {
-    "aria-label": "tabs switch",
-    className: classes.tabContainer,
-    onChange: handleChange,
-    TabIndicatorProps: {
-      className: classes.tabIndicator
-    },
-    value: controlledValue,
-    variant: "fullWidth"
-  }, React__default.createElement(core.Tab, Object.assign({}, a11yProps(0), {
-    classes: {
-      selected: classes.tabSelected
-    },
-    className: classes.tab,
-    label: label1
-  })), React__default.createElement(core.Tab, Object.assign({}, a11yProps(1), {
-    classes: {
-      selected: classes.tabSelected
-    },
-    className: classes.tab,
-    label: label2
-  }))));
-};
-
-const useStyles$g = styles.makeStyles(theme => ({
-  copyright: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  copyrightContent: {
-    color: colors.gray4,
-    fontSize: fonts.size.tiny
-  },
-  footerContainer: {
-    backgroundColor: colors.gray2,
-    display: 'flex',
-    justifyContent: 'center',
-    paddingBottom: theme.spacing(2),
-    width: '100%'
-  },
-  footerContent: {
-    marginTop: theme.spacing(2),
-    maxWidth: '80%',
-    width: '100%'
-  },
-  linksColumn: {
-    marginBottom: theme.spacing(1)
-  },
-  logoColumn: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(5)
-  },
-  root: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    paddingTop: theme.spacing(4),
-    width: '100%'
-  },
-  tongue: {
-    backgroundColor: colors.gray2,
-    borderTopLeftRadius: '50% 80%',
-    borderTopRightRadius: '50% 80%',
-    height: theme.spacing(10),
-    width: '100%'
-  }
-}));
-
-const Footer = ({
-  className = '',
-  copyrightText,
-  linksColumns,
-  ...rest
-}) => {
-  const classes = useStyles$g();
-  return React__default.createElement("footer", Object.assign({
-    className: `${classes.root} ${className}`.trim()
-  }, rest), React__default.createElement("div", {
-    className: classes.tongue
-  }), React__default.createElement("div", {
-    className: classes.footerContainer
-  }, React__default.createElement("div", {
-    className: classes.footerContent
-  }, React__default.createElement(core.Grid, {
-    container: true,
-    direction: "row"
-  }, React__default.createElement(core.Grid, {
-    className: classes.logoColumn,
-    item: true,
-    xs: 12,
-    md: 3,
-    lg: 3
-  }, React__default.createElement("img", {
-    src: logoBlackAndBlue,
-    height: "75px",
-    alt: "logo"
-  })), linksColumns.map(linkColumn => React__default.createElement(core.Grid, {
-    key: `fc-${removeEmptySpaces(linkColumn.title)}`,
-    item: true,
-    xs: 12,
-    sm: 12,
-    md: 2,
-    lg: 2
-  }, React__default.createElement(FooterColumn, Object.assign({
-    className: classes.linksColumn
-  }, linkColumn))))), React__default.createElement("div", {
-    className: classes.copyright
-  }, React__default.createElement(Typography, {
-    className: classes.copyrightContent
-  }, copyrightText)))));
-};
-
-const useStyles$h = styles.makeStyles(theme => ({
-  activeNavlink: {
-    color: `${colors.white} !important`,
-    fontWeight: fonts.weight.lightBold
-  },
-  itemsContainer: {
-    display: 'flex'
-  },
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto'
-  },
-  navLink: {
-    alignItems: 'center',
-    color: colors.white,
-    display: 'flex',
-    paddingLeft: theme.spacing(5),
-    paddingRight: theme.spacing(5),
-    textAlign: 'center',
-    textDecoration: 'none',
-    '&:hover': {
-      color: colors.gray5,
-      textDecoration: 'none'
-    }
-  },
-  navLinkContainer: {
-    display: 'flex'
-  },
-  root: {
-    boxShadow: 'none',
-    height: theme.spacing(globalConstants.headerHeight)
-  }
-}));
-
-const HeaderDesktop = ({
-  hreflogo,
-  items,
-  login
-}) => {
-  const classes = useStyles$h();
-  const Login = login;
-  return React__default.createElement(core.AppBar, {
-    position: "fixed",
-    className: classes.root
-  }, React__default.createElement(core.Toolbar, null, React__default.createElement(reactRouterDom.NavLink, {
-    to: hreflogo
-  }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
-    className: classes.itemsContainer
-  }, !!items.length && items.map(navItem => React__default.createElement(Typography, {
-    className: classes.navLinkContainer,
-    key: `hi-${removeEmptySpaces(navItem.title)}`
-  }, React__default.createElement(reactRouterDom.NavLink, Object.assign({
-    className: classes.navLink,
-    activeClassName: classes.activeNavlink
-  }, navItem), navItem.title)))), React__default.createElement("div", {
-    className: classes.loginContainer
-  }, React__default.createElement(Login, null))));
-};
-
-const drawerWidth = 240;
-const useStyles$i = styles.makeStyles(theme => styles.createStyles({
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto'
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end'
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  mobileAppBar: {
-    boxShadow: 'none',
-    height: theme.spacing(globalConstants.headerHeight),
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  mobileAppBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  mobileNavLink: {
-    alignItems: 'center',
-    color: colors.gray4,
-    display: 'flex',
-    textDecoration: 'none',
-    width: '100%',
-    '&:hover': {
-      color: colors.gray5,
-      textDecoration: 'none'
-    }
-  },
-  mobileNavLinkActive: {
-    color: `${colors.primary} !important`
-  }
-}));
-
-const HeaderMobile = ({
-  hreflogo,
-  items,
-  login
-}) => {
-  const classes = useStyles$i();
-  const [open, setOpen] = React.useState(false);
-  const Login = login;
-
-  const toggleDrawer = isOpen => event => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setOpen(isOpen);
-  };
-
-  return React__default.createElement("div", {
-    role: "presentation",
-    onKeyDown: toggleDrawer(false)
-  }, React__default.createElement(core.AppBar, {
-    position: "fixed",
-    className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
-  }, React__default.createElement(core.Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(core.IconButton, {
-    color: "inherit",
-    "aria-label": "open drawer",
-    onClick: toggleDrawer(true)
-  }, React__default.createElement(MenuIcon, null)), React__default.createElement(reactRouterDom.NavLink, {
-    to: hreflogo
-  }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
-    className: classes.loginContainer
-  }, React__default.createElement(Login, null))))), React__default.createElement(core.Drawer, {
-    anchor: "left",
-    open: open,
-    onClose: toggleDrawer(false),
-    classes: {
-      paper: classes.drawerPaper
-    },
-    onClick: toggleDrawer(false)
-  }, React__default.createElement("div", {
-    className: classes.drawerHeader
-  }, React__default.createElement(core.IconButton, {
-    onClick: toggleDrawer(false)
-  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(core.Divider, null), React__default.createElement(core.List, null, !!items.length && items.map(headerItem => React__default.createElement(core.ListItem, {
-    button: true,
-    key: `him-${removeEmptySpaces(headerItem.title)}`
-  }, React__default.createElement(reactRouterDom.NavLink, {
-    to: headerItem.to,
-    className: classes.mobileNavLink,
-    activeClassName: classes.mobileNavLinkActive
-  }, React__default.createElement(core.ListItemIcon, null, headerItem.icon), React__default.createElement(core.ListItemText, {
-    primary: headerItem.title
-  })))))));
-};
-
-const Header = ({
-  hreflogo,
-  items,
-  login
-}) => React__default.createElement(React__default.Fragment, null, React__default.createElement(Hidden, {
-  smDown: true
-}, React__default.createElement(HeaderDesktop, {
-  hreflogo: hreflogo,
-  items: items,
-  login: login
-})), React__default.createElement(Hidden, {
-  mdUp: true
-}, React__default.createElement(HeaderMobile, {
-  hreflogo: hreflogo,
-  items: items,
-  login: login
-})));
-
-const useStyles$j = styles.makeStyles(theme => ({
-  textContainer: {
-    alignItems: 'center',
-    backgroundColor: colors.primary,
-    display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(2, 0),
-    width: '100%'
-  },
-  textContent: {
-    color: colors.white,
-    display: 'flex',
-    flexDirection: 'column',
-    textAlign: 'center',
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '90%'
-    },
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '65%'
-    },
-    [theme.breakpoints.up('xl')]: {
-      maxWidth: '55%'
-    }
-  },
-  titleContent: {
-    marginBottom: theme.spacing(2)
-  },
-  tongueImg: {
-    width: '100%'
-  }
-}));
-
-const HeaderTongue = ({
-  description,
-  titleLine1,
-  titleLine2
-}) => {
-  const classes = useStyles$j();
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
-    className: classes.textContainer
-  }, React__default.createElement("div", {
-    className: classes.textContent
-  }, React__default.createElement(Typography, {
-    className: classes.titleContent,
-    variant: "h3",
-    weight: "lightBold"
-  }, titleLine1, React__default.createElement("br", null), ' ', titleLine2), React__default.createElement(Typography, {
-    variant: "subtitle1"
-  }, description))), React__default.createElement("img", {
-    className: classes.tongueImg,
-    src: headerTongueImg,
-    alt: "headerTongueImg"
-  }));
-};
-
-const useStyles$k = styles.makeStyles(theme => ({
-  root: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: theme.spacing(3)
-  },
-  container: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    [theme.breakpoints.up('md')]: {
-      maxWidth: '80%'
-    }
-  },
-  grayBackground: {
-    backgroundColor: colors.gray1
-  },
-  mainTitle: {
-    fontSize: theme.typography.pxToRem(50),
-    margin: theme.spacing(2, 0)
-  },
-  questionsSection: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'column',
-    marginTop: theme.spacing(2)
-  }
-}));
-
-const FAQPageTemplate = ({
-  className = '',
-  mainTitle,
-  questionsAndAnswers
-}) => {
-  const classes = useStyles$k();
-  return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
-  }, React__default.createElement("div", {
-    className: classes.container
-  }, React__default.createElement(Typography, {
-    className: classes.mainTitle,
-    variant: "h1",
-    color: "primary"
-  }, mainTitle), React__default.createElement("div", {
-    className: classes.questionsSection
-  }, questionsAndAnswers.map((qAndA, i) => React__default.createElement(FAQSection, Object.assign({
-    className: `${i % 2 === 0 ? classes.grayBackground : ''}`,
-    key: `faq-${removeEmptySpaces(qAndA.question)}`
-  }, qAndA))))));
-};
-
-const useStyles$l = styles.makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(globalConstants.headerHeight),
-    width: '100%'
-  }
-}));
-
-const PageTemplate = ({
-  children,
-  className = '',
-  ...props
-}) => {
-  const classes = useStyles$l();
-  return React__default.createElement("div", Object.assign({
-    className: `${classes.root} ${className}`.trim()
-  }, props), children);
-};
 
 var networksData = [
 	{
@@ -2594,26 +1606,1051 @@ var networksData = [
 	}
 ];
 
-const getNetworkInfo = (networkId, chainId) => networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId);
+(function (EProvider) {
+  EProvider["METAMASK"] = "Metamask";
+  EProvider["LEDGER"] = "Ledger";
+  EProvider["TREZOR"] = "Trezor";
+  EProvider["LOCAL"] = "Localhost";
+})(exports.EProvider || (exports.EProvider = {}));
 
-// A type of promise-like that resolves synchronously and supports only one observer
+function getWeb3(provider = exports.EProvider.METAMASK) {
+  return new Promise((resolve, reject) => {
+    switch (provider) {
+      case exports.EProvider.METAMASK:
+        {
+          if (window.ethereum) {
+            const web3 = new Web3(window.ethereum);
+            window.ethereum.enable().then(() => resolve(web3)).catch(reject);
+          } else if (window.web3) {
+            resolve(new Web3(window.web3.currentProvider));
+          } else reject(new Error('No injected web3 found'));
 
-const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
+          break;
+        }
 
-const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
+      case exports.EProvider.LOCAL:
+        {
+          const localhostProvider = new Web3.providers.HttpProvider("'http://127.0.0.1:4444'");
+          resolve(new Web3(localhostProvider));
+          break;
+        }
 
-// Asynchronously call a function and send errors to recovery continuation
-function _catch(body, recover) {
-	try {
-		var result = body();
-	} catch(e) {
-		return recover(e);
-	}
-	if (result && result.then) {
-		return result.then(void 0, recover);
-	}
-	return result;
+      default:
+        {
+          reject(new Error(`Provider not implemented or unknown. Chosen provider ${provider}`));
+          break;
+        }
+    }
+  });
 }
+const getNetworkInfo = (networkId, chainId) => networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId);
+const getNetworkInfoFromWeb3 = function (web3) {
+  try {
+    function _temp3() {
+      let networkInfo;
+
+      if (networkId) {
+        try {
+          networkInfo = getNetworkInfo(networkId, chainId);
+        } catch (error) {}
+      }
+
+      return networkInfo;
+    }
+
+    let networkId;
+    let chainId;
+
+    const _temp2 = _catch(function () {
+      return Promise.resolve(web3.eth.net.getId()).then(function (_web3$eth$net$getId) {
+        networkId = _web3$eth$net$getId;
+
+        const _temp = function () {
+          if (networkId) {
+            return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
+              chainId = _web3$eth$getChainId;
+            });
+          }
+        }();
+
+        if (_temp && _temp.then) return _temp.then(function () {});
+      });
+    }, function () {});
+
+    return Promise.resolve(_temp2 && _temp2.then ? _temp2.then(_temp3) : _temp3(_temp2));
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};
+
+const AccountModal = ({
+  setProvider,
+  providers,
+  open,
+  handleClose,
+  onProviderSet
+}) => React__default.createElement(Modal, {
+  open: open,
+  onClose: handleClose,
+  "aria-labelledby": "account-modal-title",
+  "aria-describedby": "account-modal-description"
+}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, (providers || [exports.EProvider.METAMASK, exports.EProvider.LOCAL]).map(provider => React__default.createElement(LoginOption, {
+  key: provider,
+  text: provider,
+  onClick: function () {
+    try {
+      return Promise.resolve(setProvider(provider, onProviderSet)).then(function () {});
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
+}))), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
+  variant: "outlined",
+  color: "secondary",
+  block: true,
+  onClick: handleClose
+}, "Close"))));
+
+const defaultOnRightNetworkMessage = 'You are on the right network';
+const deaulftOnWrongNetworkMessage = 'You are on the wrong network';
+const defaultNoNetworkMessage = 'You are not connected to any network';
+var NetworkStatus;
+
+(function (NetworkStatus) {
+  NetworkStatus[NetworkStatus["NO_NETWORK"] = 1] = "NO_NETWORK";
+  NetworkStatus[NetworkStatus["NETWORK_MISSMATCH"] = 2] = "NETWORK_MISSMATCH";
+  NetworkStatus[NetworkStatus["RIGHT_NETWORK"] = 3] = "RIGHT_NETWORK";
+})(NetworkStatus || (NetworkStatus = {}));
+
+const getNetworkStatus = (currentNetworkId, requiredNetworkId) => {
+  if (currentNetworkId) {
+    if (currentNetworkId === requiredNetworkId) {
+      return NetworkStatus.RIGHT_NETWORK;
+    }
+
+    return NetworkStatus.NETWORK_MISSMATCH;
+  }
+
+  return NetworkStatus.NO_NETWORK;
+};
+
+const NetworkIndicator = ({
+  iconClassName = '',
+  currentNetworkId,
+  requiredNetworkId,
+  onRightNetworkMessage,
+  onWrongNetworkMessage,
+  noNetworkMessage
+}) => {
+  const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId);
+  const iconPerNetworkStatus = new Map();
+  iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React__default.createElement(Tooltip, {
+    title: noNetworkMessage || defaultNoNetworkMessage
+  }, React__default.createElement(WarningIcon, {
+    className: iconClassName,
+    style: {
+      color: colors$1.yellow[800]
+    }
+  })));
+  iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React__default.createElement(Tooltip, {
+    title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
+  }, React__default.createElement(ErrorIcon, {
+    className: iconClassName,
+    color: "error"
+  })));
+  iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, React__default.createElement(Tooltip, {
+    title: onRightNetworkMessage || defaultOnRightNetworkMessage
+  }, React__default.createElement(CheckCircleOutlineOutlinedIcon, {
+    className: iconClassName,
+    style: {
+      color: colors$1.green[300]
+    }
+  })));
+  return iconPerNetworkStatus.get(networkStatus);
+};
+
+const useStyles$9 = styles.makeStyles(theme => ({
+  accountText: {
+    fontSize: fonts.size.tiny,
+    textAlign: 'center'
+  },
+  button: {
+    border: `1px solid ${colors.white}`,
+    '&:hover': {
+      border: `1px solid ${colors.transparent}`
+    }
+  },
+  networkIndicator: {
+    marginRight: theme.spacing(1)
+  }
+}));
+
+const Account = ({
+  web3,
+  networkName,
+  account,
+  setProvider,
+  providers,
+  currentNetworkId,
+  requiredNetworkId,
+  onRightNetworkMessage,
+  onWrongNetworkMessage,
+  noNetworkMessage
+}) => {
+  const classes = useStyles$9();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => setOpen(false);
+
+  const handleOpen = () => setOpen(true);
+
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
+    onClick: handleOpen,
+    className: classes.button,
+    variant: "contained",
+    color: "primary",
+    rounded: true
+  }, !!requiredNetworkId && React__default.createElement(NetworkIndicator, {
+    iconClassName: classes.networkIndicator,
+    currentNetworkId: currentNetworkId,
+    requiredNetworkId: requiredNetworkId,
+    onRightNetworkMessage: onRightNetworkMessage,
+    onWrongNetworkMessage: onWrongNetworkMessage,
+    noNetworkMessage: noNetworkMessage
+  }), React__default.createElement(Typography, {
+    className: classes.accountText
+  }, !web3 && 'Connect wallet', web3 && networkName, web3 && !account && 'Wrong Network', web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {
+    open: open,
+    handleClose: handleClose,
+    networkName: networkName,
+    web3: web3,
+    onProviderSet: handleClose,
+    setProvider: setProvider,
+    providers: providers
+  }));
+};
+
+const useStyles$a = styles.makeStyles(theme => ({
+  root: {
+    boxShadow: 'none',
+    color: colors.gray4,
+    width: '100%'
+  },
+  heading: {
+    display: 'flex',
+    justifyContent: 'center',
+    color: colors.gray5,
+    fontSize: fonts.size.subtitleSmall,
+    width: '100%'
+  },
+  headingExpanded: {
+    color: colors.primary
+  },
+  headingCollapsed: {
+    fontWeight: fonts.weight.lightBold
+  },
+  panelDetails: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  answerContainer: {
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '80%'
+    }
+  },
+  answerText: {
+    color: colors.gray5
+  }
+}));
+
+const FAQSection = ({
+  className = '',
+  initiallyExpanded,
+  question,
+  answer
+}) => {
+  const classes = useStyles$a();
+  const [isExpanded, setIsExpanded] = React.useState(!!initiallyExpanded);
+
+  const onChange = () => setIsExpanded(!isExpanded);
+
+  return React__default.createElement(core.ExpansionPanel, {
+    className: `${classes.root} ${className}`.trim(),
+    expanded: isExpanded,
+    onChange: onChange
+  }, React__default.createElement(core.ExpansionPanelSummary, {
+    expandIcon: isExpanded ? React__default.createElement(RemoveIcon, null) : React__default.createElement(AddIcon, null)
+  }, React__default.createElement(Typography, {
+    className: `${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()
+  }, question)), React__default.createElement(core.ExpansionPanelDetails, {
+    className: classes.panelDetails
+  }, React__default.createElement("div", {
+    className: classes.answerContainer
+  }, React__default.createElement(Typography, {
+    className: classes.answerText
+  }, answer))));
+};
+
+const useStyles$b = styles.makeStyles(() => ({
+  root: {
+    color: colors.gray4,
+    width: '100%'
+  }
+}));
+
+const LabeledCheckbox = ({
+  labelText,
+  labelClassName = '',
+  ...rest
+}) => {
+  const classes = useStyles$b();
+  return React__default.createElement(core.FormControlLabel, {
+    className: `${classes.root} ${labelClassName.trim()}`,
+    label: labelText,
+    control: React__default.createElement(Checkbox, Object.assign({}, rest))
+  });
+};
+
+const FilterCheckboxCard = ({
+  className = '',
+  onClick,
+  items
+}) => React__default.createElement("div", {
+  className: className
+}, items.map((item, i) => React__default.createElement(LabeledCheckbox, Object.assign({
+  onClick: onClick,
+  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
+  labelClassName: item.labelClassName
+}, item))));
+
+const useStyles$c = styles.makeStyles(() => ({
+  root: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  footerLink: {
+    color: colors.gray4,
+    fontWeight: fonts.weight.normal,
+    textDecoration: 'none',
+    '&:hover': {
+      fontWeight: fonts.weight.lightBold
+    }
+  },
+  footerTitle: {
+    fontSize: fonts.size.subtitleBig,
+    textAlign: 'center'
+  }
+}));
+
+const FooterColumn = ({
+  title,
+  links,
+  className = ''
+}) => {
+  const classes = useStyles$c();
+  return React__default.createElement("div", {
+    className: `${classes.root} ${className}`.trim()
+  }, React__default.createElement(Typography, {
+    className: classes.footerTitle,
+    variant: "subtitle1",
+    color: "primary"
+  }, title), links.map(link => {
+    const key = removeEmptySpaces(link.title);
+
+    if (link.isExternal) {
+      const href = (link.to || '#').toString();
+      return React__default.createElement("a", {
+        className: classes.footerLink,
+        target: link.target,
+        color: "secondary",
+        key: key,
+        href: href
+      }, link.title);
+    }
+
+    return React__default.createElement(reactRouterDom.NavLink, {
+      className: classes.footerLink,
+      target: link.target,
+      color: "secondary",
+      key: key,
+      to: link.to
+    }, link.title);
+  }));
+};
+
+const ModalDialogue = ({
+  title,
+  footer,
+  children,
+  ...props
+}) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
+
+const useStyles$d = styles.makeStyles(theme => ({
+  root: {
+    color: colors.gray4,
+    display: 'flex'
+  },
+  input: {
+    color: colors.gray4,
+    paddingLeft: theme.spacing(0.1),
+    textAlign: 'center',
+    '&::before': {
+      borderBottom: `1px solid ${colors.gray4}`
+    }
+  },
+  inputContainer: {
+    paddingRight: '0 !important'
+  },
+  units: {
+    color: colors.gray4,
+    display: 'flex',
+    fontSize: fonts.size.tiny
+  },
+  unitsContainer: {
+    alignSelf: 'center',
+    color: colors.gray4,
+    display: 'flex',
+    fontSize: fonts.size.normal,
+    paddingLeft: '0 !important'
+  }
+}));
+
+const UnitsInput = props => {
+  const {
+    handleOnBlur,
+    handleOnChange,
+    maxValue,
+    minValue,
+    units,
+    value,
+    step = 1
+  } = props;
+  const classes = useStyles$d();
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(core.Grid, {
+    className: classes.root,
+    container: true,
+    spacing: 1
+  }, React__default.createElement(core.Grid, {
+    className: classes.inputContainer,
+    item: true,
+    xs: 8
+  }, React__default.createElement(core.Input, {
+    className: classes.input,
+    classes: {
+      input: classes.input
+    },
+    value: value,
+    onChange: handleOnChange,
+    onBlur: handleOnBlur,
+    inputProps: {
+      step,
+      min: minValue,
+      max: maxValue,
+      'aria-labelledby': 'input-slider'
+    }
+  })), React__default.createElement(core.Grid, {
+    item: true,
+    xs: 4,
+    className: classes.unitsContainer
+  }, React__default.createElement(Typography, {
+    className: classes.units
+  }, units))));
+};
+
+const useStyles$e = styles.makeStyles(() => ({
+  root: {
+    width: '100%'
+  },
+  inputsContainer: {
+    alignSelf: 'center',
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  toContainer: {
+    alignSelf: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%'
+  }
+}));
+
+const RangeSliderWithInputs = ({
+  values: {
+    start: startValue,
+    end: endValue
+  },
+  unit,
+  handleChange,
+  className,
+  ...rest
+}) => {
+  const classes = useStyles$e();
+  const maxValue = rest.max || endValue;
+  const minValue = rest.min || startValue;
+  const step = rest.step || 1;
+
+  const handleStartInputChange = event => {
+    const newStartValue = event.target.value === '' ? startValue : Number(event.target.value);
+    handleChange({
+      min: newStartValue,
+      max: endValue
+    });
+  };
+
+  const handleEndInputChange = event => {
+    const newEndValue = event.target.value === '' ? endValue : Number(event.target.value);
+    handleChange({
+      min: startValue,
+      max: newEndValue
+    });
+  };
+
+  const handleSliderChange = (_, newSliderValue) => {
+    handleChange({
+      min: newSliderValue[0],
+      max: newSliderValue[1]
+    });
+  };
+
+  const handleStartValueBlur = () => {
+    if (startValue < minValue) {
+      handleChange({
+        min: minValue,
+        max: endValue
+      });
+    } else if (startValue > endValue) {
+      handleChange({
+        min: endValue,
+        max: endValue
+      });
+    }
+  };
+
+  const handleEndValueBlur = () => {
+    if (endValue < startValue) {
+      handleChange({
+        min: minValue,
+        max: startValue
+      });
+    } else if (endValue > maxValue) {
+      handleChange({
+        min: minValue,
+        max: maxValue
+      });
+    }
+  };
+
+  const getCommonInputValues = () => ({
+    maxValue,
+    minValue,
+    step,
+    units: unit
+  });
+
+  return React__default.createElement("div", {
+    className: `${classes.root} ${className}`.trim()
+  }, React__default.createElement(Slider, Object.assign({
+    value: [startValue, endValue]
+  }, rest, {
+    onChange: handleSliderChange
+  })), React__default.createElement("div", {
+    className: classes.inputsContainer
+  }, React__default.createElement(UnitsInput, Object.assign({
+    handleOnBlur: handleStartValueBlur,
+    handleOnChange: handleStartInputChange
+  }, getCommonInputValues(), {
+    value: startValue
+  })), React__default.createElement(Typography, {
+    className: classes.toContainer,
+    weight: "bold"
+  }, "to"), React__default.createElement(UnitsInput, Object.assign({
+    handleOnBlur: handleEndValueBlur,
+    handleOnChange: handleEndInputChange
+  }, getCommonInputValues(), {
+    value: endValue
+  }))));
+};
+
+const a11yProps = index => ({
+  id: `full-width-tab-${index}`,
+  'aria-controls': `full-width-tabpanel-${index}`
+});
+
+const useStyles$f = styles.makeStyles(() => ({
+  root: {
+    backgroundColor: colors.white,
+    minHeight: 20,
+    width: '100%',
+    border: `${colors.primary} solid 1px`,
+    borderRadius: 50,
+    overflow: 'hidden'
+  },
+  tabContainer: {
+    minHeight: 20,
+    width: '100%'
+  },
+  tab: {
+    '&:hover': {
+      color: colors.primary
+    },
+    borderRadius: 50,
+    color: colors.gray3,
+    fontWeight: fonts.weight.normal,
+    maxWidth: '50%',
+    minHeight: '100%',
+    minWidth: '50%',
+    outlineStyle: 'none',
+    padding: 0,
+    textTransform: 'capitalize',
+    zIndex: 1,
+    '&:focus': {
+      outlineStyle: 'none'
+    }
+  },
+  tabIndicator: {
+    backgroundColor: colors.primary,
+    borderRadius: 50,
+    height: '100%'
+  },
+  tabSelected: {
+    backgroundColor: `${colors.primary} !important`,
+    color: `${colors.white} !important`
+  }
+}));
+
+const SwitchTabs = ({
+  label1,
+  label2,
+  value: controlledValue,
+  onChange
+}) => {
+  const classes = useStyles$f();
+
+  const handleChange = (event, newValue) => {
+    onChange(event, newValue);
+  };
+
+  return React__default.createElement("div", {
+    className: classes.root
+  }, React__default.createElement(core.Tabs, {
+    "aria-label": "tabs switch",
+    className: classes.tabContainer,
+    onChange: handleChange,
+    TabIndicatorProps: {
+      className: classes.tabIndicator
+    },
+    value: controlledValue,
+    variant: "fullWidth"
+  }, React__default.createElement(core.Tab, Object.assign({}, a11yProps(0), {
+    classes: {
+      selected: classes.tabSelected
+    },
+    className: classes.tab,
+    label: label1
+  })), React__default.createElement(core.Tab, Object.assign({}, a11yProps(1), {
+    classes: {
+      selected: classes.tabSelected
+    },
+    className: classes.tab,
+    label: label2
+  }))));
+};
+
+const useStyles$g = styles.makeStyles(theme => ({
+  copyright: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  copyrightContent: {
+    color: colors.gray4,
+    fontSize: fonts.size.tiny
+  },
+  footerContainer: {
+    backgroundColor: colors.gray2,
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2),
+    width: '100%'
+  },
+  footerContent: {
+    marginTop: theme.spacing(2),
+    maxWidth: '80%',
+    width: '100%'
+  },
+  linksColumn: {
+    marginBottom: theme.spacing(1)
+  },
+  logoColumn: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(5)
+  },
+  root: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: theme.spacing(4),
+    width: '100%'
+  },
+  tongue: {
+    backgroundColor: colors.gray2,
+    borderTopLeftRadius: '50% 80%',
+    borderTopRightRadius: '50% 80%',
+    height: theme.spacing(10),
+    width: '100%'
+  }
+}));
+
+const Footer = ({
+  className = '',
+  copyrightText,
+  linksColumns,
+  ...rest
+}) => {
+  const classes = useStyles$g();
+  return React__default.createElement("footer", Object.assign({
+    className: `${classes.root} ${className}`.trim()
+  }, rest), React__default.createElement("div", {
+    className: classes.tongue
+  }), React__default.createElement("div", {
+    className: classes.footerContainer
+  }, React__default.createElement("div", {
+    className: classes.footerContent
+  }, React__default.createElement(core.Grid, {
+    container: true,
+    direction: "row"
+  }, React__default.createElement(core.Grid, {
+    className: classes.logoColumn,
+    item: true,
+    xs: 12,
+    md: 3,
+    lg: 3
+  }, React__default.createElement("img", {
+    src: logoBlackAndBlue,
+    height: "75px",
+    alt: "logo"
+  })), linksColumns.map(linkColumn => React__default.createElement(core.Grid, {
+    key: `fc-${removeEmptySpaces(linkColumn.title)}`,
+    item: true,
+    xs: 12,
+    sm: 12,
+    md: 2,
+    lg: 2
+  }, React__default.createElement(FooterColumn, Object.assign({
+    className: classes.linksColumn
+  }, linkColumn))))), React__default.createElement("div", {
+    className: classes.copyright
+  }, React__default.createElement(Typography, {
+    className: classes.copyrightContent
+  }, copyrightText)))));
+};
+
+const useStyles$h = styles.makeStyles(theme => ({
+  activeNavlink: {
+    color: `${colors.white} !important`,
+    fontWeight: fonts.weight.lightBold
+  },
+  itemsContainer: {
+    display: 'flex'
+  },
+  loginContainer: {
+    display: 'flex',
+    marginLeft: 'auto'
+  },
+  navLink: {
+    alignItems: 'center',
+    color: colors.white,
+    display: 'flex',
+    paddingLeft: theme.spacing(5),
+    paddingRight: theme.spacing(5),
+    textAlign: 'center',
+    textDecoration: 'none',
+    '&:hover': {
+      color: colors.gray5,
+      textDecoration: 'none'
+    }
+  },
+  navLinkContainer: {
+    display: 'flex'
+  },
+  root: {
+    boxShadow: 'none',
+    height: theme.spacing(globalConstants.headerHeight)
+  }
+}));
+
+const HeaderDesktop = ({
+  hreflogo,
+  items,
+  login
+}) => {
+  const classes = useStyles$h();
+  const Login = login;
+  return React__default.createElement(core.AppBar, {
+    position: "fixed",
+    className: classes.root
+  }, React__default.createElement(core.Toolbar, null, React__default.createElement(reactRouterDom.NavLink, {
+    to: hreflogo
+  }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
+    className: classes.itemsContainer
+  }, !!items.length && items.map(navItem => React__default.createElement(Typography, {
+    className: classes.navLinkContainer,
+    key: `hi-${removeEmptySpaces(navItem.title)}`
+  }, React__default.createElement(reactRouterDom.NavLink, Object.assign({
+    className: classes.navLink,
+    activeClassName: classes.activeNavlink
+  }, navItem), navItem.title)))), React__default.createElement("div", {
+    className: classes.loginContainer
+  }, React__default.createElement(Login, null))));
+};
+
+const drawerWidth = 240;
+const useStyles$i = styles.makeStyles(theme => styles.createStyles({
+  loginContainer: {
+    display: 'flex',
+    marginLeft: 'auto'
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end'
+  },
+  drawerPaper: {
+    width: drawerWidth
+  },
+  mobileAppBar: {
+    boxShadow: 'none',
+    height: theme.spacing(globalConstants.headerHeight),
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  mobileAppBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  mobileNavLink: {
+    alignItems: 'center',
+    color: colors.gray4,
+    display: 'flex',
+    textDecoration: 'none',
+    width: '100%',
+    '&:hover': {
+      color: colors.gray5,
+      textDecoration: 'none'
+    }
+  },
+  mobileNavLinkActive: {
+    color: `${colors.primary} !important`
+  }
+}));
+
+const HeaderMobile = ({
+  hreflogo,
+  items,
+  login
+}) => {
+  const classes = useStyles$i();
+  const [open, setOpen] = React.useState(false);
+  const Login = login;
+
+  const toggleDrawer = isOpen => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setOpen(isOpen);
+  };
+
+  return React__default.createElement("div", {
+    role: "presentation",
+    onKeyDown: toggleDrawer(false)
+  }, React__default.createElement(core.AppBar, {
+    position: "fixed",
+    className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
+  }, React__default.createElement(core.Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(core.IconButton, {
+    color: "inherit",
+    "aria-label": "open drawer",
+    onClick: toggleDrawer(true)
+  }, React__default.createElement(MenuIcon, null)), React__default.createElement(reactRouterDom.NavLink, {
+    to: hreflogo
+  }, React__default.createElement(LogoNavbar, null)), React__default.createElement("div", {
+    className: classes.loginContainer
+  }, React__default.createElement(Login, null))))), React__default.createElement(core.Drawer, {
+    anchor: "left",
+    open: open,
+    onClose: toggleDrawer(false),
+    classes: {
+      paper: classes.drawerPaper
+    },
+    onClick: toggleDrawer(false)
+  }, React__default.createElement("div", {
+    className: classes.drawerHeader
+  }, React__default.createElement(core.IconButton, {
+    onClick: toggleDrawer(false)
+  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(core.Divider, null), React__default.createElement(core.List, null, !!items.length && items.map(headerItem => React__default.createElement(core.ListItem, {
+    button: true,
+    key: `him-${removeEmptySpaces(headerItem.title)}`
+  }, React__default.createElement(reactRouterDom.NavLink, {
+    to: headerItem.to,
+    className: classes.mobileNavLink,
+    activeClassName: classes.mobileNavLinkActive
+  }, React__default.createElement(core.ListItemIcon, null, headerItem.icon), React__default.createElement(core.ListItemText, {
+    primary: headerItem.title
+  })))))));
+};
+
+const Header = ({
+  hreflogo,
+  items,
+  login
+}) => React__default.createElement(React__default.Fragment, null, React__default.createElement(Hidden, {
+  smDown: true
+}, React__default.createElement(HeaderDesktop, {
+  hreflogo: hreflogo,
+  items: items,
+  login: login
+})), React__default.createElement(Hidden, {
+  mdUp: true
+}, React__default.createElement(HeaderMobile, {
+  hreflogo: hreflogo,
+  items: items,
+  login: login
+})));
+
+const useStyles$j = styles.makeStyles(theme => ({
+  textContainer: {
+    alignItems: 'center',
+    backgroundColor: colors.primary,
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(2, 0),
+    width: '100%'
+  },
+  textContent: {
+    color: colors.white,
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '90%'
+    },
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '65%'
+    },
+    [theme.breakpoints.up('xl')]: {
+      maxWidth: '55%'
+    }
+  },
+  titleContent: {
+    marginBottom: theme.spacing(2)
+  },
+  tongueImg: {
+    width: '100%'
+  }
+}));
+
+const HeaderTongue = ({
+  description,
+  titleLine1,
+  titleLine2
+}) => {
+  const classes = useStyles$j();
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
+    className: classes.textContainer
+  }, React__default.createElement("div", {
+    className: classes.textContent
+  }, React__default.createElement(Typography, {
+    className: classes.titleContent,
+    variant: "h3",
+    weight: "lightBold"
+  }, titleLine1, React__default.createElement("br", null), ' ', titleLine2), React__default.createElement(Typography, {
+    variant: "subtitle1"
+  }, description))), React__default.createElement("img", {
+    className: classes.tongueImg,
+    src: headerTongueImg,
+    alt: "headerTongueImg"
+  }));
+};
+
+const useStyles$k = styles.makeStyles(theme => ({
+  root: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: theme.spacing(3)
+  },
+  container: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '80%'
+    }
+  },
+  grayBackground: {
+    backgroundColor: colors.gray1
+  },
+  mainTitle: {
+    fontSize: theme.typography.pxToRem(50),
+    margin: theme.spacing(2, 0)
+  },
+  questionsSection: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: theme.spacing(2)
+  }
+}));
+
+const FAQPageTemplate = ({
+  className = '',
+  mainTitle,
+  questionsAndAnswers
+}) => {
+  const classes = useStyles$k();
+  return React__default.createElement("div", {
+    className: `${classes.root} ${className}`.trim()
+  }, React__default.createElement("div", {
+    className: classes.container
+  }, React__default.createElement(Typography, {
+    className: classes.mainTitle,
+    variant: "h1",
+    color: "primary"
+  }, mainTitle), React__default.createElement("div", {
+    className: classes.questionsSection
+  }, questionsAndAnswers.map((qAndA, i) => React__default.createElement(FAQSection, Object.assign({
+    className: `${i % 2 === 0 ? classes.grayBackground : ''}`,
+    key: `faq-${removeEmptySpaces(qAndA.question)}`
+  }, qAndA))))));
+};
+
+const useStyles$l = styles.makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(globalConstants.headerHeight),
+    width: '100%'
+  }
+}));
+
+const PageTemplate = ({
+  children,
+  className = '',
+  ...props
+}) => {
+  const classes = useStyles$l();
+  return React__default.createElement("div", Object.assign({
+    className: `${classes.root} ${className}`.trim()
+  }, props), children);
+};
 
 const defaultState = {
   provider: undefined,
@@ -2632,13 +2669,13 @@ const Web3Store = React.createContext({
   requiredChainId: undefined
 });
 
-const getAccountFromAccountsEth = accounts => {
+const getAccountFromEthAccounts = accounts => {
   let account;
   if (Array.isArray(accounts)) [account] = accounts;else account = accounts;
   return account;
 };
 
-const canReadAccount = (requiredNetworkId, requiredChainId, networkInfo) => {
+const shouldReadAccount = (requiredNetworkId, requiredChainId, networkInfo) => {
   if (!requiredNetworkId || !networkInfo) return true;
 
   if (requiredNetworkId === (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.networkId)) {
@@ -2667,55 +2704,17 @@ class Web3Provider extends React.Component {
 
       return Promise.resolve(getWeb3(provider)).then(function (web3) {
         return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-          function _temp3() {
-            let networkInfo;
+          return Promise.resolve(getNetworkInfoFromWeb3(web3)).then(function (networkInfo) {
+            const shouldSetAccount = shouldReadAccount(_this.requiredNetworkId, _this.requiredChainId, networkInfo);
+            const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
 
-            if (networkId) {
-              try {
-                networkInfo = getNetworkInfo(networkId, chainId);
-              } catch (error) {}
-            }
-
-            const shouldSetAccount = canReadAccount(_this.requiredNetworkId, _this.requiredChainId, networkInfo);
-
-            if (shouldSetAccount) {
-              _this.setState({
-                web3,
-                provider,
-                account,
-                networkInfo
-              }, () => onStateChanged && onStateChanged(account));
-            } else {
-              _this.setState({
-                web3,
-                provider,
-                account: undefined,
-                networkInfo
-              }, () => onStateChanged && onStateChanged(undefined));
-            }
-          }
-
-          const account = getAccountFromAccountsEth(accounts);
-          let networkId;
-          let chainId;
-
-          const _temp2 = _catch(function () {
-            return Promise.resolve(web3.eth.net.getId()).then(function (_web3$eth$net$getId) {
-              networkId = _web3$eth$net$getId;
-
-              const _temp = function () {
-                if (networkId) {
-                  return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
-                    chainId = _web3$eth$getChainId;
-                  });
-                }
-              }();
-
-              if (_temp && _temp.then) return _temp.then(function () {});
-            });
-          }, function () {});
-
-          return _temp2 && _temp2.then ? _temp2.then(_temp3) : _temp3(_temp2);
+            _this.setState({
+              web3,
+              provider,
+              account,
+              networkInfo
+            }, () => onStateChanged && onStateChanged(account));
+          });
         });
       });
     } catch (e) {
@@ -2724,24 +2723,44 @@ class Web3Provider extends React.Component {
   }
 
   initialize() {
-    window.ethereum.autoRefreshOnNetworkChange = false;
-    window.ethereum.on('networkChanged', _netId => {
-      const {
-        networkInfo
-      } = this.state;
+    const _this2 = this;
 
-      if (networkInfo) {
-        if (this.onConnectedNetworkChange) this.onConnectedNetworkChange();
-        window.location.reload();
+    window.ethereum.autoRefreshOnNetworkChange = false;
+    window.ethereum.on('networkChanged', function (_netId) {
+      try {
+        const {
+          networkInfo
+        } = _this2.state;
+        if (!networkInfo) return Promise.resolve();
+        const {
+          provider
+        } = _this2.state;
+        return Promise.resolve(getWeb3(provider)).then(function (web3) {
+          return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
+            return Promise.resolve(getNetworkInfoFromWeb3(web3)).then(function (newNetworkInfo) {
+              const shouldSetAccount = shouldReadAccount(_this2.requiredNetworkId, _this2.requiredChainId, newNetworkInfo);
+              const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
+
+              _this2.setState({
+                networkInfo: newNetworkInfo,
+                account
+              }, () => _this2.onConnectedNetworkChange && _this2.onConnectedNetworkChange());
+            });
+          });
+        });
+      } catch (e) {
+        return Promise.reject(e);
       }
     });
     window.ethereum.on('accountsChanged', accounts => {
       const {
         networkInfo
       } = this.state;
+      if (!networkInfo) return;
+      const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo);
 
-      if (!this.requiredNetworkId || (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.networkId) === this.requiredNetworkId) {
-        const account = getAccountFromAccountsEth(accounts);
+      if (shouldSetAccount) {
+        const account = getAccountFromEthAccounts(accounts);
 
         if (account) {
           this.setState({
@@ -2824,7 +2843,6 @@ exports.colors = colors;
 exports.doneThumbsUpImg = doneThumbsUp;
 exports.fonts = fonts;
 exports.footerTongueImg = footerTongue;
-exports.getNetworkInfo = getNetworkInfo;
 exports.getWeb3 = getWeb3;
 exports.globalConstants = globalConstants;
 exports.headerTongueImg = headerTongueImg;

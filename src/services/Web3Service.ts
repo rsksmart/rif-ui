@@ -1,4 +1,6 @@
 import Web3 from 'web3'
+import NetworkInfo from '../models/NetworkInfo'
+import networksData from '../data/networks.json'
 
 declare global {
   interface Window {
@@ -55,4 +57,34 @@ export function getWeb3(
       }
     }
   })
+}
+
+export const getNetworkInfo = (
+  networkId: number,
+  chainId?: number,
+): NetworkInfo | undefined => networksData.find((n) => (chainId
+  ? n.networkId === networkId && n.chainId === chainId
+  : n.networkId === networkId)) as NetworkInfo
+
+export const getNetworkInfoFromWeb3 = async (
+  web3: Web3,
+): Promise<NetworkInfo | undefined> => {
+  // set networkId and chainId
+  let networkId: number | undefined
+  let chainId: number | undefined
+  try {
+    networkId = await web3.eth.net.getId()
+
+    if (networkId) {
+      chainId = await web3.eth.getChainId()
+    }
+  } catch (error) {}
+  let networkInfo: NetworkInfo | undefined
+
+  if (networkId) {
+    try {
+      networkInfo = getNetworkInfo(networkId, chainId)
+    } catch (error) {}
+  }
+  return networkInfo
 }

@@ -1,4 +1,5 @@
 import Web3 from 'web3';
+import NetworkInfo from '../models/NetworkInfo';
 declare global {
     interface Window {
         ethereum: any;
@@ -12,3 +13,5 @@ export declare enum EProvider {
     LOCAL = "Localhost"
 }
 export declare function getWeb3(provider?: EProvider): Promise<Web3>;
+export declare const getNetworkInfo: (networkId: number, chainId?: number | undefined) => NetworkInfo | undefined;
+export declare const getNetworkInfoFromWeb3: (web3: Web3) => Promise<NetworkInfo | undefined>;

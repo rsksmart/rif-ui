@@ -1,2 +1,2 @@
-import NetworkInfo, { getNetworkInfo } from './NetworkInfo';
-export { NetworkInfo, getNetworkInfo };
+import NetworkInfo from './NetworkInfo';
+export default NetworkInfo;

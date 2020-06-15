@@ -148,6 +148,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Web3Provider.Provider 
+        requiredNetworkId={1}
         actions={{
           onConnectedAccountChange: onConnectedAccountChange,
           onConnectedNetworkChange: onConnectedNetworkChange

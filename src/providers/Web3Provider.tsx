@@ -1,7 +1,9 @@
 import React, { Component, createContext, ReactNode } from 'react'
 import Web3 from 'web3'
-import { getWeb3, EProvider } from '../services/Web3Service'
-import NetworkInfo, { getNetworkInfo } from '../models/NetworkInfo'
+import {
+  getWeb3, EProvider, getNetworkInfoFromWeb3,
+} from '../services/Web3Service'
+import NetworkInfo from '../models/NetworkInfo'
 
 export interface Web3ProviderProps {
   state: {
@@ -48,7 +50,7 @@ interface Web3ProviderState {
   networkInfo?: NetworkInfo
 }
 
-const getAccountFromAccountsEth = (accounts: string[] | string): string | undefined => {
+const getAccountFromEthAccounts = (accounts: string[] | string): string | undefined => {
   let account: string
 
   if (Array.isArray(accounts)) [account] = accounts
@@ -64,7 +66,7 @@ const getAccountFromAccountsEth = (accounts: string[] | string): string | undefi
  * @param requiredChainId given on the props of the provider
  * @param networkInfo obtained from the wallet
  */
-const canReadAccount = (
+const shouldReadAccount = (
   requiredNetworkId?: number,
   requiredChainId?: number,
   networkInfo?: NetworkInfo,
@@ -104,75 +106,64 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     onStateChanged?: (account?: string) => void): Promise<void> {
     const web3 = await getWeb3(provider)
     const accounts = await web3.eth.getAccounts()
-    const account: string | undefined = getAccountFromAccountsEth(accounts)
-
-    // set networkId and chainId
-    let networkId: number | undefined
-    let chainId: number | undefined
-    try {
-      networkId = await web3.eth.net.getId()
-
-      if (networkId) {
-        chainId = await web3.eth.getChainId()
-      }
-    } catch (error) { }
-    let networkInfo: NetworkInfo | undefined
-
-    if (networkId) {
-      try {
-        networkInfo = getNetworkInfo(networkId, chainId)
-      } catch (error) {
-      }
-    }
-
+    const networkInfo = await getNetworkInfoFromWeb3(web3)
     // only validate the requiredNetworkId and requiredChainId when they are provided
-    const shouldSetAccount = canReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
+    const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
 
-    if (shouldSetAccount) {
-      this.setState(
-        {
-          web3,
-          provider,
-          account,
-          networkInfo,
-        },
-        () => (onStateChanged && onStateChanged(account)),
-      )
-    } else {
-      this.setState(
-        {
-          web3,
-          provider,
-          account: undefined,
-          networkInfo,
-        },
-        () => (onStateChanged && onStateChanged(undefined)),
-      )
-    }
+    const account = shouldSetAccount
+      ? getAccountFromEthAccounts(accounts)
+      : undefined
+
+    this.setState(
+      {
+        web3,
+        provider,
+        account,
+        networkInfo,
+      },
+      () => (onStateChanged && onStateChanged(account)),
+    )
   }
 
-  private initialize() {
+  private initialize(): void {
     window.ethereum.autoRefreshOnNetworkChange = false
     // handle on networkChange
-    window.ethereum.on('networkChanged', (_netId) => {
-      // wallet is connected
+    window.ethereum.on('networkChanged', async (_netId) => {
       const { networkInfo } = this.state
 
-      if (networkInfo) {
-        if (this.onConnectedNetworkChange) this.onConnectedNetworkChange()
-        // TODO: update state.networkInfo based on the new netId
-        // until the TODO is done, we reload the page when this happens
-        window.location.reload()
-      }
+      if (!networkInfo) return // wallet is not connected
+      const { provider } = this.state
+      const web3 = await getWeb3(provider)
+      const accounts = await web3.eth.getAccounts()
+      const newNetworkInfo = await getNetworkInfoFromWeb3(web3)
+
+      // we do not want to set the account if we know it is the wrong network
+      const shouldSetAccount = shouldReadAccount(
+        this.requiredNetworkId,
+        this.requiredChainId,
+        newNetworkInfo,
+      )
+      const account = shouldSetAccount
+        ? getAccountFromEthAccounts(accounts)
+        : undefined
+
+      this.setState(
+        {
+          networkInfo: newNetworkInfo,
+          account,
+        },
+        () => this.onConnectedNetworkChange && this.onConnectedNetworkChange(),
+      )
     })
     // handle on accountsChanged
     window.ethereum.on('accountsChanged', (accounts: string | string[]) => {
-      // we only care about this change if it's on the right network or we can not validate the required network
       const { networkInfo } = this.state
+      if (!networkInfo) return // wallet is not connected
+      // we only care about this change if it is on the right network or we can not validate the required network
+      const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
 
-      if (!this.requiredNetworkId || networkInfo?.networkId === this.requiredNetworkId) {
-        const account = getAccountFromAccountsEth(accounts)
-
+      if (shouldSetAccount) {
+        const account = getAccountFromEthAccounts(accounts)
         if (account) {
           this.setState({
             account,
