@@ -52,15 +52,8 @@ const App = () => {
     ],
     login: () => (
       <Web3Provider.Consumer>
-        {({ state: { web3, account, networkInfo }, actions: { setProvider, registerOnAccountsChange } }) => (
+        {({ state: { web3, account, networkInfo }, actions: { setProvider } }) => (
           <>
-          {
-            registerOnAccountsChange(() => {
-              console.log('************************************')
-              console.log('account has changed')
-              console.log('************************************')
-            })
-          }
             <Account
               web3={web3}
               account={account}
@@ -166,7 +159,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Web3Provider.Provider>
+      <Web3Provider.Provider requiredNetworkId={1} requiredChainId={1} >
         <BrowserRouter>
           <Header {...headerProps} />
           <PageTemplate>
