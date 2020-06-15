@@ -34,8 +34,8 @@ export const Web3Store = createContext<Web3ProviderProps>({
   state: defaultState,
   actions: {
     setProvider: (): Promise<void> => Promise.resolve(),
-    onConnectedNetworkChange: (): void => { },
-    onConnectedAccountChange: (): void => { },
+    onConnectedNetworkChange: (): any => 0,
+    onConnectedAccountChange: (): any => 0,
   },
   requiredNetworkId: undefined,
   requiredChainId: undefined,
@@ -57,8 +57,8 @@ const getAccountFromAccountsEth = (accounts: string[] | string): string | undefi
 }
 
 /**
- * The provider will not read the account when a requiredNetworkId was provided AND
- * it does not match the networkId of current networkInfo. Same applies to chainId.
+ * The provider will not read the account when a requiredNetworkId was provided and
+ * it does not match the networkId of current networkInfo, same applies to chainId.
  * Nothing happens if the requiredNetworkId was not specified
  * @param requiredNetworkId given on the props of the provider
  * @param requiredChainId given on the props of the provider
@@ -167,7 +167,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     })
     // handle on accountsChanged
     window.ethereum.on('accountsChanged', (accounts: string | string[]) => {
-      // we only care of the accounts changed if it's on the right network or we can not validate the required network
+      // we only care about this change if it's on the right network or we can not validate the required network
       const { networkInfo } = this.state
 
       if (!this.requiredNetworkId || networkInfo?.networkId === this.requiredNetworkId) {

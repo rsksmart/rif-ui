@@ -14,10 +14,8 @@ export interface AccountProps {
   account: string | null
   setProvider: (provider: EProvider) => Promise<void>
   providers?: EProvider[]
-  networkId?: number
-  chainId?: number
-  currentNetwork: number
-  requiredNetwork: number
+  currentNetworkId?: number
+  requiredNetworkId?: number
   onRightNetworkMessage?: string
   onWrongNetworkMessage?: string
   noNetworkMessage?: string
@@ -45,8 +43,8 @@ const Account: FC<AccountProps> = ({
   account,
   setProvider,
   providers,
-  currentNetwork,
-  requiredNetwork,
+  currentNetworkId,
+  requiredNetworkId,
   onRightNetworkMessage,
   onWrongNetworkMessage,
   noNetworkMessage,
@@ -60,14 +58,18 @@ const Account: FC<AccountProps> = ({
   return (
     <React.Fragment>
       <Button onClick={handleOpen} className={classes.button} variant="contained" color="primary" rounded>
-        <NetworkIndicator
-          iconClassName={classes.networkIndicator}
-          currentNetwork={currentNetwork}
-          requiredNetwork={requiredNetwork}
-          onRightNetworkMessage={onRightNetworkMessage}
-          onWrongNetworkMessage={onWrongNetworkMessage}
-          noNetworkMessage={noNetworkMessage}
-        />
+        {
+          !!requiredNetworkId && (
+            <NetworkIndicator
+              iconClassName={classes.networkIndicator}
+              currentNetworkId={currentNetworkId}
+              requiredNetworkId={requiredNetworkId}
+              onRightNetworkMessage={onRightNetworkMessage}
+              onWrongNetworkMessage={onWrongNetworkMessage}
+              noNetworkMessage={noNetworkMessage}
+            />
+          )
+        }
         <Typography className={classes.accountText}>
           {!web3 && 'Connect wallet'}
           {web3 && networkName}
