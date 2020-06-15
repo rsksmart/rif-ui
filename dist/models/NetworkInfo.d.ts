@@ -14,5 +14,3 @@ export default interface NetworkInfo {
     faucets: string[];
     infoURL: string;
 }
-declare const getNetworkInfo: (networkId: number, chainId?: number | undefined) => NetworkInfo | undefined;
-export { getNetworkInfo };
