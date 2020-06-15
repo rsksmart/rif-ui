@@ -2631,11 +2631,11 @@ const Web3Store = React.createContext({
   state: defaultState,
   actions: {
     setProvider: () => Promise.resolve(),
-    registerOnAccountsChange: () => {}
+    onConnectedNetworkChange: () => {},
+    onConnectedAccountChange: () => {}
   },
   requiredNetworkId: undefined,
-  requiredChainId: undefined,
-  onNetworkChangeWithAccount: () => {}
+  requiredChainId: undefined
 });
 
 const getAccountFromAccountsEth = accounts => {
@@ -2661,17 +2661,29 @@ class Web3Provider extends React.Component {
     this.state = defaultState;
     this.requiredNetworkId = props.requiredNetworkId;
     this.requiredChainId = props.requiredChainId;
-    this.onNetworkChangeWithAccount = props.onNetworkChangeWithAccount;
+    this.onConnectedNetworkChange = props.actions.onConnectedNetworkChange;
+    this.onConnectedAccountChange = props.actions.onConnectedAccountChange;
     this.setProvider = this.setProvider.bind(this);
     this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this);
-    this.initialize();
+
+    this._initialize();
   }
 
-  initialize() {
+  _initialize() {
     window.ethereum.autoRefreshOnNetworkChange = false;
-    window.ethereum.on('networkChanged', () => {
-      if (this.state.account) {
-        this.onNetworkChangeWithAccount();
+    window.ethereum.on('networkChanged', netId => {
+      if (this.state.networkInfo) {
+        this.onConnectedNetworkChange && this.onConnectedNetworkChange();
+        window.location.reload();
+      }
+    });
+    window.ethereum.on('accountsChanged', accounts => {
+      const account = getAccountFromAccountsEth(accounts);
+
+      if (this.state.networkInfo && account) {
+        this.setState({
+          account
+        }, () => this.onConnectedAccountChange && this.onConnectedAccountChange());
       }
     });
   }
@@ -2684,9 +2696,9 @@ class Web3Provider extends React.Component {
         return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
           function _temp6() {
             function _temp4() {
-              const setAccount = canReadAccount(_this.requiredNetworkId, _this.requiredChainId, networkInfo);
+              const shouldSetAccount = canReadAccount(_this.requiredNetworkId, _this.requiredChainId, networkInfo);
 
-              if (setAccount) {
+              if (shouldSetAccount) {
                 _this.setState({
                   web3,
                   provider,
@@ -2769,8 +2781,8 @@ class Web3Provider extends React.Component {
     } = this.state;
     const {
       setProvider,
-      registerOnAccountsChange,
-      onNetworkChangeWithAccount
+      onConnectedNetworkChange,
+      onConnectedAccountChange
     } = this;
     const {
       children
@@ -2779,15 +2791,15 @@ class Web3Provider extends React.Component {
       value: {
         actions: {
           setProvider,
-          registerOnAccountsChange
+          onConnectedNetworkChange,
+          onConnectedAccountChange
         },
         state: {
           provider,
           web3,
           account,
           networkInfo
-        },
-        onNetworkChangeWithAccount
+        }
       }
     }, children);
   }

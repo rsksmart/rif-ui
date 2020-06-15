@@ -12,11 +12,11 @@ export interface Web3ProviderProps {
     };
     actions: {
         setProvider: (provider: EProvider, onStateChanged?: (account?: string) => void) => Promise<void>;
-        registerOnAccountsChange: (handleOnAccountsChange: () => void) => void;
+        onConnectedNetworkChange?: () => void;
+        onConnectedAccountChange?: () => void;
     };
     requiredNetworkId?: number;
     requiredChainId?: number;
-    onNetworkChangeWithAccount: () => void;
 }
 export declare const Web3Store: React.Context<Web3ProviderProps>;
 interface Web3ProviderState {
@@ -29,8 +29,9 @@ declare class Web3Provider extends Component<{}, Web3ProviderState> {
     constructor(props: Web3ProviderProps);
     private readonly requiredNetworkId?;
     private readonly requiredChainId?;
-    private readonly onNetworkChangeWithAccount;
-    private initialize;
+    private readonly onConnectedNetworkChange?;
+    private readonly onConnectedAccountChange?;
+    private _initialize;
     setProvider(provider: EProvider, onStateChanged?: (account?: string) => void): Promise<void>;
     registerOnAccountsChange(handleOnAccountsChange: () => void): void;
     render(): ReactNode;

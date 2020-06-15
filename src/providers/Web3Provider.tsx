@@ -15,12 +15,12 @@ export interface Web3ProviderProps {
     setProvider: (
       provider: EProvider,
       onStateChanged?: (account?: string) => void
-    ) => Promise<void>
-    registerOnAccountsChange: (handleOnAccountsChange: () => void) => void
+    ) => Promise<void>,
+    onConnectedNetworkChange?: () => void,
+    onConnectedAccountChange?: () => void
   },
   requiredNetworkId?: number,
   requiredChainId?: number,
-  onNetworkChangeWithAccount: () => void
 }
 
 const defaultState: Web3ProviderState = {
@@ -34,11 +34,11 @@ export const Web3Store = createContext<Web3ProviderProps>({
   state: defaultState,
   actions: {
     setProvider: (): Promise<void> => Promise.resolve(),
-    registerOnAccountsChange: (): void => { },
+    onConnectedNetworkChange: (): void => { },
+    onConnectedAccountChange: (): void => { },
   },
   requiredNetworkId: undefined,
   requiredChainId: undefined,
-  onNetworkChangeWithAccount: (): void => { }
 })
 
 interface Web3ProviderState {
@@ -84,21 +84,39 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     this.state = defaultState
     this.requiredNetworkId = props.requiredNetworkId
     this.requiredChainId = props.requiredChainId
-    this.onNetworkChangeWithAccount = props.onNetworkChangeWithAccount
+    this.onConnectedNetworkChange = props.actions.onConnectedNetworkChange
+    this.onConnectedAccountChange = props.actions.onConnectedAccountChange
     this.setProvider = this.setProvider.bind(this)
     this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this)
-    this.initialize()
+    this._initialize()
   }
 
   private readonly requiredNetworkId?: number
   private readonly requiredChainId?: number
-  private readonly onNetworkChangeWithAccount: () => void
+  private readonly onConnectedNetworkChange?: () => void
+  private readonly onConnectedAccountChange?: () => void
 
-  private initialize() {
+  private _initialize() {
     window.ethereum.autoRefreshOnNetworkChange = false
-    window.ethereum.on('networkChanged', () => {
-      if (this.state.account) {
-        this.onNetworkChangeWithAccount()
+    // handle on networkChange
+    window.ethereum.on('networkChanged', (netId) => {
+      // wallet is connected
+      if (this.state.networkInfo) {
+        // TODO: update state.networkInfo based on the new networkId
+        this.onConnectedNetworkChange && this.onConnectedNetworkChange()
+        // until the TODO is done, we reload the page when this happens
+        window.location.reload()
+      }
+    })
+    // handle on accountsChanged
+    window.ethereum.on('accountsChanged', (accounts: string | string[]) => {
+      const account = getAccountFromAccountsEth(accounts)
+      if (this.state.networkInfo && account) {
+        this.setState({
+          account,
+        },
+          () => this.onConnectedAccountChange && this.onConnectedAccountChange()
+        )
       }
     })
   }
@@ -109,6 +127,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     const accounts = await web3.eth.getAccounts()
     let account: string | undefined = getAccountFromAccountsEth(accounts)
 
+    // set networkId and chainId
     let networkId: number | undefined
     let chainId: number | undefined
     try {
@@ -125,10 +144,11 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       } catch (error) {
       }
     }
-    // only validate the requiredNetworkId and requiredChainId when they are provided
-    const setAccount = canReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
 
-    if (setAccount) {
+    // only validate the requiredNetworkId and requiredChainId when they are provided
+    const shouldSetAccount = canReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
+
+    if (shouldSetAccount) {
       this.setState(
         {
           web3,
@@ -173,8 +193,8 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     } = this.state
     const {
       setProvider,
-      registerOnAccountsChange,
-      onNetworkChangeWithAccount
+      onConnectedNetworkChange,
+      onConnectedAccountChange
     } = this
 
     const { children } = this.props
@@ -184,15 +204,15 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
         value={{
           actions: {
             setProvider,
-            registerOnAccountsChange,
+            onConnectedNetworkChange,
+            onConnectedAccountChange
           },
           state: {
             provider,
             web3,
             account,
             networkInfo,
-          },
-          onNetworkChangeWithAccount
+          }
         }}
       >
         {children}
