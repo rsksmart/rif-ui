@@ -527,7 +527,7 @@ const NetworkIndicator = ({
     title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
   }, React.createElement(ErrorIcon, {
     className: _iconClassName,
-    color: 'error'
+    color: "error"
   })));
   iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, React.createElement(Tooltip, {
     title: onRightNetworkMessage || defaultOnRightNetworkMessage
@@ -2589,7 +2589,7 @@ var networksData = [
 	}
 ];
 
-const getNetworkInfo = async (networkId, chainId) => networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId);
+const getNetworkInfo = (networkId, chainId) => networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId);
 
 const defaultState = {
   provider: undefined,
@@ -2634,34 +2634,13 @@ class Web3Provider extends Component {
     this.onConnectedNetworkChange = props.actions.onConnectedNetworkChange;
     this.onConnectedAccountChange = props.actions.onConnectedAccountChange;
     this.setProvider = this.setProvider.bind(this);
-    this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this);
-
-    this._initialize();
-  }
-
-  _initialize() {
-    window.ethereum.autoRefreshOnNetworkChange = false;
-    window.ethereum.on('networkChanged', netId => {
-      if (this.state.networkInfo) {
-        this.onConnectedNetworkChange && this.onConnectedNetworkChange();
-        window.location.reload();
-      }
-    });
-    window.ethereum.on('accountsChanged', accounts => {
-      const account = getAccountFromAccountsEth(accounts);
-
-      if (this.state.networkInfo && account) {
-        this.setState({
-          account
-        }, () => this.onConnectedAccountChange && this.onConnectedAccountChange());
-      }
-    });
+    this.initialize();
   }
 
   async setProvider(provider, onStateChanged) {
     const web3 = await getWeb3(provider);
     const accounts = await web3.eth.getAccounts();
-    let account = getAccountFromAccountsEth(accounts);
+    const account = getAccountFromAccountsEth(accounts);
     let networkId;
     let chainId;
 
@@ -2677,7 +2656,7 @@ class Web3Provider extends Component {
 
     if (networkId) {
       try {
-        networkInfo = await getNetworkInfo(networkId, chainId);
+        networkInfo = getNetworkInfo(networkId, chainId);
       } catch (error) {}
     }
 
@@ -2700,14 +2679,31 @@ class Web3Provider extends Component {
     }
   }
 
-  registerOnAccountsChange(handleOnAccountsChange) {
-    window.ethereum.on('accountsChanged', accounts => {
-      const account = getAccountFromAccountsEth(accounts);
+  initialize() {
+    window.ethereum.autoRefreshOnNetworkChange = false;
+    window.ethereum.on('networkChanged', _netId => {
+      const {
+        networkInfo
+      } = this.state;
 
-      if (account) {
-        this.setState({
-          account
-        }, () => handleOnAccountsChange());
+      if (networkInfo) {
+        if (this.onConnectedNetworkChange) this.onConnectedNetworkChange();
+        window.location.reload();
+      }
+    });
+    window.ethereum.on('accountsChanged', accounts => {
+      const {
+        networkInfo
+      } = this.state;
+
+      if (!this.requiredNetworkId || (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.networkId) === this.requiredNetworkId) {
+        const account = getAccountFromAccountsEth(accounts);
+
+        if (account) {
+          this.setState({
+            account
+          }, () => this.onConnectedAccountChange && this.onConnectedAccountChange());
+        }
       }
     });
   }

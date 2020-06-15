@@ -1,10 +1,6 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom';
 
-import DataUsageIcon from '@material-ui/icons/DataUsage';
-import ForumIcon from '@material-ui/icons/Forum';
-import PeopleIcon from '@material-ui/icons/People';
-import StorageIcon from '@material-ui/icons/Storage';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import { ThemeProvider } from '@material-ui/core/styles';
 
