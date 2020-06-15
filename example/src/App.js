@@ -25,30 +25,10 @@ const App = () => {
     hreflogo: '/',
     items: [
       {
-        title: 'Domains',
-        to: '/domains',
-        icon: <PeopleIcon />
-      },
-      {
-        title: 'Storage',
-        to: '/storage',
-        icon: <StorageIcon />
-      },
-      {
         title: 'FAQ',
         to: '/faq',
         icon: <LiveHelpIcon />
       },
-      {
-        title: 'Data Services',
-        to: '/data_services',
-        icon: <DataUsageIcon />
-      },
-      {
-        title: 'Communications',
-        to: '/communications',
-        icon: <ForumIcon />
-      }
     ],
     login: () => (
       <Web3Provider.Consumer>
@@ -157,16 +137,27 @@ const App = () => {
     ]
   }
 
-  const onNetworkChangeWithAccount = () => {
+  const onConnectedNetworkChange = () => {
     console.log('****************************************************************')
-    console.log('on network change fired!')
+    console.log('NETWORK change fired!')
     console.log('****************************************************************')
-    window.location.reload()
+  }
+
+  const onConnectedAccountChange = () => {
+    console.log('****************************************************************')
+    console.log('ACCOUNTS change fired!')
+    console.log('****************************************************************')
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <Web3Provider.Provider requiredNetworkId={1} requiredChainId={1} onNetworkChangeWithAccount={onNetworkChangeWithAccount}>
+      <Web3Provider.Provider 
+        actions={{
+          onConnectedAccountChange: onConnectedAccountChange,
+          onConnectedNetworkChange: onConnectedNetworkChange
+        }}
+      requiredNetworkId={1} 
+      requiredChainId={1}>
         <BrowserRouter>
           <Header {...headerProps} />
           <PageTemplate>
