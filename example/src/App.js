@@ -157,9 +157,16 @@ const App = () => {
     ]
   }
 
+  const onNetworkChangeWithAccount = () => {
+    console.log('****************************************************************')
+    console.log('on network change fired!')
+    console.log('****************************************************************')
+    window.location.reload()
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Web3Provider.Provider requiredNetworkId={1} requiredChainId={1} >
+      <Web3Provider.Provider requiredNetworkId={1} requiredChainId={1} onNetworkChangeWithAccount={onNetworkChangeWithAccount}>
         <BrowserRouter>
           <Header {...headerProps} />
           <PageTemplate>
