@@ -493,9 +493,9 @@ var NetworkStatus;
   NetworkStatus[NetworkStatus["RIGHT_NETWORK"] = 3] = "RIGHT_NETWORK";
 })(NetworkStatus || (NetworkStatus = {}));
 
-const getNetworkStatus = (currentNetwork, requiredNetwork) => {
-  if (currentNetwork) {
-    if (currentNetwork === requiredNetwork) {
+const getNetworkStatus = (currentNetworkId, requiredNetworkId) => {
+  if (currentNetworkId) {
+    if (currentNetworkId === requiredNetworkId) {
       return NetworkStatus.RIGHT_NETWORK;
     }
 
@@ -507,13 +507,13 @@ const getNetworkStatus = (currentNetwork, requiredNetwork) => {
 
 const NetworkIndicator = ({
   iconClassName: _iconClassName = '',
-  currentNetwork,
-  requiredNetwork,
+  currentNetworkId,
+  requiredNetworkId,
   onRightNetworkMessage,
   onWrongNetworkMessage,
   noNetworkMessage
 }) => {
-  const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork);
+  const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId);
   const iconPerNetworkStatus = new Map();
   iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React.createElement(Tooltip, {
     title: noNetworkMessage || defaultNoNetworkMessage
@@ -562,8 +562,8 @@ const Account = ({
   account,
   setProvider,
   providers,
-  currentNetwork,
-  requiredNetwork,
+  currentNetworkId,
+  requiredNetworkId,
   onRightNetworkMessage,
   onWrongNetworkMessage,
   noNetworkMessage
@@ -581,10 +581,10 @@ const Account = ({
     variant: "contained",
     color: "primary",
     rounded: true
-  }, React.createElement(NetworkIndicator, {
+  }, !!requiredNetworkId && React.createElement(NetworkIndicator, {
     iconClassName: classes.networkIndicator,
-    currentNetwork: currentNetwork,
-    requiredNetwork: requiredNetwork,
+    currentNetworkId: currentNetworkId,
+    requiredNetworkId: requiredNetworkId,
     onRightNetworkMessage: onRightNetworkMessage,
     onWrongNetworkMessage: onWrongNetworkMessage,
     noNetworkMessage: noNetworkMessage
@@ -2601,8 +2601,8 @@ const Web3Store = createContext({
   state: defaultState,
   actions: {
     setProvider: () => Promise.resolve(),
-    onConnectedNetworkChange: () => {},
-    onConnectedAccountChange: () => {}
+    onConnectedNetworkChange: () => 0,
+    onConnectedAccountChange: () => 0
   },
   requiredNetworkId: undefined,
   requiredChainId: undefined

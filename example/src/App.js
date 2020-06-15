@@ -34,8 +34,8 @@ const App = () => {
               web3={web3}
               account={account}
               setProvider={setProvider}
-              currentNetwork={networkInfo?.networkId}
-              requiredNetwork={1}
+              currentNetworkId={networkInfo?.networkId}
+              requiredNetworkId={1}
             />
           </>
         )}
@@ -151,9 +151,7 @@ const App = () => {
         actions={{
           onConnectedAccountChange: onConnectedAccountChange,
           onConnectedNetworkChange: onConnectedNetworkChange
-        }}
-      requiredNetworkId={1} 
-      requiredChainId={1}>
+        }}>
         <BrowserRouter>
           <Header {...headerProps} />
           <PageTemplate>

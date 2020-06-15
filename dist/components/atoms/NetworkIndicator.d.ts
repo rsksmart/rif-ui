@@ -1,8 +1,8 @@
 import { FC } from 'react';
 export interface NetworkIndicatorProps {
     iconClassName?: string;
-    currentNetwork?: number;
-    requiredNetwork?: number;
+    currentNetworkId?: number;
+    requiredNetworkId?: number;
     onRightNetworkMessage?: string;
     onWrongNetworkMessage?: string;
     noNetworkMessage?: string;

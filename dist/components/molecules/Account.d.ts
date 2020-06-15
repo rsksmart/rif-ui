@@ -7,10 +7,8 @@ export interface AccountProps {
     account: string | null;
     setProvider: (provider: EProvider) => Promise<void>;
     providers?: EProvider[];
-    networkId?: number;
-    chainId?: number;
-    currentNetwork: number;
-    requiredNetwork: number;
+    currentNetworkId?: number;
+    requiredNetworkId?: number;
     onRightNetworkMessage?: string;
     onWrongNetworkMessage?: string;
     noNetworkMessage?: string;

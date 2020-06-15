@@ -7,8 +7,8 @@ import { green, yellow } from '@material-ui/core/colors'
 
 export interface NetworkIndicatorProps {
   iconClassName?: string
-  currentNetwork?: number
-  requiredNetwork?: number
+  currentNetworkId?: number
+  requiredNetworkId?: number
   onRightNetworkMessage?: string
   onWrongNetworkMessage?: string
   noNetworkMessage?: string
@@ -24,9 +24,9 @@ export enum NetworkStatus {
   RIGHT_NETWORK = 3
 }
 
-const getNetworkStatus = (currentNetwork, requiredNetwork): NetworkStatus => {
-  if (currentNetwork) {
-    if (currentNetwork === requiredNetwork) {
+const getNetworkStatus = (currentNetworkId, requiredNetworkId): NetworkStatus => {
+  if (currentNetworkId) {
+    if (currentNetworkId === requiredNetworkId) {
       return NetworkStatus.RIGHT_NETWORK
     }
     return NetworkStatus.NETWORK_MISSMATCH
@@ -36,10 +36,10 @@ const getNetworkStatus = (currentNetwork, requiredNetwork): NetworkStatus => {
 
 const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   iconClassName = '',
-  currentNetwork, requiredNetwork, onRightNetworkMessage,
+  currentNetworkId, requiredNetworkId, onRightNetworkMessage,
   onWrongNetworkMessage, noNetworkMessage,
 }) => {
-  const networkStatus = getNetworkStatus(currentNetwork, requiredNetwork)
+  const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId)
 
   const iconPerNetworkStatus = new Map()
   iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, (
