@@ -590,7 +590,7 @@ const Account = ({
     noNetworkMessage: noNetworkMessage
   }), React.createElement(Typography, {
     className: classes.accountText
-  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React.createElement(AccountModal, {
+  }, !web3 && 'Connect wallet', web3 && networkName, web3 && !account && 'Wrong Network', web3 && account && shortenAddress(account))), React.createElement(AccountModal, {
     open: open,
     handleClose: handleClose,
     networkName: networkName,
@@ -2601,8 +2601,10 @@ const Web3Store = createContext({
   state: defaultState,
   actions: {
     setProvider: () => Promise.resolve(),
-    registerOnAccountsChange: handleOnAccountsChange => {}
-  }
+    registerOnAccountsChange: () => {}
+  },
+  requiredNetworkId: undefined,
+  requiredChainId: undefined
 });
 
 const getAccountFromAccountsEth = accounts => {
@@ -2611,10 +2613,23 @@ const getAccountFromAccountsEth = accounts => {
   return account;
 };
 
+const canReadAccount = (requiredNetworkId, requiredChainId, networkInfo) => {
+  if (!requiredNetworkId || !networkInfo) return true;
+
+  if (requiredNetworkId === (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.networkId)) {
+    if (requiredChainId) return requiredChainId === (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.chainId);
+    return true;
+  }
+
+  return false;
+};
+
 class Web3Provider extends Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
+    this.requiredNetworkId = props.requiredNetworkId;
+    this.requiredChainId = props.requiredChainId;
     this.setProvider = this.setProvider.bind(this);
     this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this);
   }
@@ -2622,7 +2637,7 @@ class Web3Provider extends Component {
   async setProvider(provider, onStateChanged) {
     const web3 = await getWeb3(provider);
     const accounts = await web3.eth.getAccounts();
-    const account = getAccountFromAccountsEth(accounts);
+    let account = getAccountFromAccountsEth(accounts);
     let networkId;
     let chainId;
 
@@ -2642,12 +2657,23 @@ class Web3Provider extends Component {
       } catch (error) {}
     }
 
-    this.setState({
-      web3,
-      provider,
-      account,
-      networkInfo
-    }, () => onStateChanged && onStateChanged(account));
+    const setAccount = canReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo);
+
+    if (setAccount) {
+      this.setState({
+        web3,
+        provider,
+        account,
+        networkInfo
+      }, () => onStateChanged && onStateChanged(account));
+    } else {
+      this.setState({
+        web3,
+        provider,
+        account: undefined,
+        networkInfo
+      }, () => onStateChanged && onStateChanged(account));
+    }
   }
 
   registerOnAccountsChange(handleOnAccountsChange) {

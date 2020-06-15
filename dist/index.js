@@ -23,12 +23,8 @@ var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
 var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
 
-var shortenAddress = function shortenAddress(address) {
-  return address.substr(0, 6) + "..." + address.substr(address.length - 4);
-};
-var removeEmptySpaces = function removeEmptySpaces(str) {
-  return str.replace(/\s/g, '');
-};
+const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`;
+const removeEmptySpaces = str => str.replace(/\s/g, '');
 
 const useStyles = styles.makeStyles(() => ({
   block: {
@@ -599,7 +595,7 @@ const Account = ({
     noNetworkMessage: noNetworkMessage
   }), React__default.createElement(Typography, {
     className: classes.accountText
-  }, !web3 && 'Connect wallet', web3 && networkName, web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {
+  }, !web3 && 'Connect wallet', web3 && networkName, web3 && !account && 'Wrong Network', web3 && account && shortenAddress(account))), React__default.createElement(AccountModal, {
     open: open,
     handleClose: handleClose,
     networkName: networkName,
@@ -2635,8 +2631,10 @@ const Web3Store = React.createContext({
   state: defaultState,
   actions: {
     setProvider: () => Promise.resolve(),
-    registerOnAccountsChange: handleOnAccountsChange => {}
-  }
+    registerOnAccountsChange: () => {}
+  },
+  requiredNetworkId: undefined,
+  requiredChainId: undefined
 });
 
 const getAccountFromAccountsEth = accounts => {
@@ -2645,10 +2643,23 @@ const getAccountFromAccountsEth = accounts => {
   return account;
 };
 
+const canReadAccount = (requiredNetworkId, requiredChainId, networkInfo) => {
+  if (!requiredNetworkId || !networkInfo) return true;
+
+  if (requiredNetworkId === (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.networkId)) {
+    if (requiredChainId) return requiredChainId === (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.chainId);
+    return true;
+  }
+
+  return false;
+};
+
 class Web3Provider extends React.Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
+    this.requiredNetworkId = props.requiredNetworkId;
+    this.requiredChainId = props.requiredChainId;
     this.setProvider = this.setProvider.bind(this);
     this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this);
   }
@@ -2661,12 +2672,23 @@ class Web3Provider extends React.Component {
         return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
           function _temp6() {
             function _temp4() {
-              _this.setState({
-                web3,
-                provider,
-                account,
-                networkInfo
-              }, () => onStateChanged && onStateChanged(account));
+              const setAccount = canReadAccount(_this.requiredNetworkId, _this.requiredChainId, networkInfo);
+
+              if (setAccount) {
+                _this.setState({
+                  web3,
+                  provider,
+                  account,
+                  networkInfo
+                }, () => onStateChanged && onStateChanged(account));
+              } else {
+                _this.setState({
+                  web3,
+                  provider,
+                  account: undefined,
+                  networkInfo
+                }, () => onStateChanged && onStateChanged(account));
+              }
             }
 
             let networkInfo;
@@ -2686,7 +2708,7 @@ class Web3Provider extends React.Component {
             return _temp3 && _temp3.then ? _temp3.then(_temp4) : _temp4(_temp3);
           }
 
-          const account = getAccountFromAccountsEth(accounts);
+          let account = getAccountFromAccountsEth(accounts);
           let networkId;
           let chainId;
 

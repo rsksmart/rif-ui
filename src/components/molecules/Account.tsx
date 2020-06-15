@@ -70,6 +70,7 @@ const Account: FC<AccountProps> = ({
         <Typography className={classes.accountText}>
           {!web3 && 'Connect wallet'}
           {web3 && networkName}
+          {web3 && !account && 'Wrong Network'}
           {web3 && account && shortenAddress(account)}
         </Typography>
       </Button>

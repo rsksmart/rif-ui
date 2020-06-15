@@ -9,14 +9,17 @@ export interface Web3ProviderProps {
     web3?: Web3
     account?: string
     networkInfo?: NetworkInfo
+    requiredNetworkId?: number
   }
   actions: {
     setProvider: (
       provider: EProvider,
-      onStateChanged?: (account: string) => void
+      onStateChanged?: (account?: string) => void
     ) => Promise<void>
     registerOnAccountsChange: (handleOnAccountsChange: () => void) => void
-  }
+  },
+  requiredNetworkId?: number,
+  requiredChainId?: number,
 }
 
 const defaultState: Web3ProviderState = {
@@ -30,8 +33,10 @@ export const Web3Store = createContext<Web3ProviderProps>({
   state: defaultState,
   actions: {
     setProvider: (): Promise<void> => Promise.resolve(),
-    registerOnAccountsChange: (handleOnAccountsChange: () => void): void => { },
+    registerOnAccountsChange: (): void => { },
   },
+  requiredNetworkId: undefined,
+  requiredChainId: undefined,
 })
 
 interface Web3ProviderState {
@@ -41,28 +46,55 @@ interface Web3ProviderState {
   networkInfo?: NetworkInfo
 }
 
-const getAccountFromAccountsEth = (accounts: string[] | string): string => {
+const getAccountFromAccountsEth = (accounts: string[] | string): string | undefined => {
   let account: string
   if (Array.isArray(accounts)) [account] = accounts
   else account = accounts
   return account
 }
 
+/**
+ * The provider will not read the account when a requiredNetworkId was provided AND
+ * it does not match the networkId of current networkInfo. Same applies to chainId.
+ * Nothing happens if the requiredNetworkId was not specified
+ * @param requiredNetworkId given on the props of the provider
+ * @param requiredChainId given on the props of the provider
+ * @param networkInfo obtained from the wallet
+ */
+const canReadAccount = (
+  requiredNetworkId?: number,
+  requiredChainId?: number,
+  networkInfo?: NetworkInfo
+): Boolean => {
+  // the consumer did not provide enough information to validate the network, so we do not check
+  if (!requiredNetworkId || !networkInfo) return true
+
+  if (requiredNetworkId === networkInfo?.networkId) {
+    // only when chainId is provided we compare it
+    if (requiredChainId) return requiredChainId === networkInfo?.chainId
+    return true
+  }
+  return false
+}
+
 class Web3Provider extends Component<{}, Web3ProviderState> {
   constructor(props: Web3ProviderProps) {
     super(props)
-
     this.state = defaultState
-
+    this.requiredNetworkId = props.requiredNetworkId
+    this.requiredChainId = props.requiredChainId
     this.setProvider = this.setProvider.bind(this)
     this.registerOnAccountsChange = this.registerOnAccountsChange.bind(this)
   }
 
+  private readonly requiredNetworkId?: number
+  private readonly requiredChainId?: number
+
   public async setProvider(provider: EProvider,
-    onStateChanged?: (account: string) => void): Promise<void> {
+    onStateChanged?: (account?: string) => void): Promise<void> {
     const web3 = await getWeb3(provider)
     const accounts = await web3.eth.getAccounts()
-    const account = getAccountFromAccountsEth(accounts)
+    let account: string | undefined = getAccountFromAccountsEth(accounts)
 
     let networkId: number | undefined
     let chainId: number | undefined
@@ -80,16 +112,30 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       } catch (error) {
       }
     }
+    // only validate the requiredNetworkId and requiredChainId when they are provided
+    const setAccount = canReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
 
-    this.setState(
-      {
-        web3,
-        provider,
-        account,
-        networkInfo,
-      },
-      () => (onStateChanged && onStateChanged(account)),
-    )
+    if (setAccount) {
+      this.setState(
+        {
+          web3,
+          provider,
+          account,
+          networkInfo,
+        },
+        () => (onStateChanged && onStateChanged(account)),
+      )
+    } else {
+      this.setState(
+        {
+          web3,
+          provider,
+          account: undefined,
+          networkInfo,
+        },
+        () => (onStateChanged && onStateChanged(account)),
+      )
+    }
   }
 
   public registerOnAccountsChange(handleOnAccountsChange: () => void): void {
@@ -112,7 +158,10 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       account,
       networkInfo,
     } = this.state
-    const { setProvider, registerOnAccountsChange } = this
+    const {
+      setProvider,
+      registerOnAccountsChange,
+    } = this
 
     const { children } = this.props
 

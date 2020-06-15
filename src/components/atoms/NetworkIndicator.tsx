@@ -34,7 +34,6 @@ const getNetworkStatus = (currentNetwork, requiredNetwork): NetworkStatus => {
   return NetworkStatus.NO_NETWORK
 }
 
-
 const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   iconClassName = '',
   currentNetwork, requiredNetwork, onRightNetworkMessage,

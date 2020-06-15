@@ -1,6 +1,6 @@
 {
   "name": "rif-ui-example",
-  "homepage": "https://rsksmart.github.io/rif-ui",
+  "homepage": ".",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
