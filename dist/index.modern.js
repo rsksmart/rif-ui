@@ -1581,6 +1581,26 @@ var networksData = [
 		faucets: [
 		],
 		infoURL: "https://poa.network"
+	},
+	{
+		name: "Local Tests",
+		chainId: 1337,
+		shortName: "test",
+		chain: "localtests",
+		network: "localTests",
+		networkId: 8545,
+		nativeCurrency: {
+			name: "Local Tests Ether",
+			symbol: "LT",
+			decimals: 18
+		},
+		rpc: [
+			"http://localhost:8545"
+		],
+		faucets: [
+			"http://localhost:8545"
+		],
+		infoURL: "http://localhost:8545"
 	}
 ];
 
@@ -2636,7 +2656,7 @@ const getAccountFromEthAccounts = accounts => {
 };
 
 const shouldReadAccount = (requiredNetworkId, requiredChainId, networkInfo) => {
-  if (!requiredNetworkId || !networkInfo) return true;
+  if (!requiredNetworkId) return true;
 
   if (requiredNetworkId === (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.networkId)) {
     if (requiredChainId) return requiredChainId === (networkInfo === null || networkInfo === void 0 ? void 0 : networkInfo.chainId);

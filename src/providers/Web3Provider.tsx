@@ -72,7 +72,7 @@ const shouldReadAccount = (
   networkInfo?: NetworkInfo,
 ): boolean => {
   // the consumer did not provide enough information to validate the network, so we do not check
-  if (!requiredNetworkId || !networkInfo) return true
+  if (!requiredNetworkId) return true
 
   if (requiredNetworkId === networkInfo?.networkId) {
     // only when chainId is provided we compare it

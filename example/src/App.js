@@ -15,6 +15,8 @@ import {
 import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
 
+const requiredNetworkId = 8545
+
 const App = () => {
 
   const headerProps = {
@@ -35,7 +37,7 @@ const App = () => {
               account={account}
               setProvider={setProvider}
               currentNetworkId={networkInfo?.networkId}
-              requiredNetworkId={1}
+              requiredNetworkId={requiredNetworkId}
             />
           </>
         )}
@@ -148,7 +150,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Web3Provider.Provider 
-        requiredNetworkId={1}
+        requiredNetworkId={requiredNetworkId}
         actions={{
           onConnectedAccountChange: onConnectedAccountChange,
           onConnectedNetworkChange: onConnectedNetworkChange
