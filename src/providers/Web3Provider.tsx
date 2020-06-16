@@ -126,6 +126,9 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
   }
 
   private initialize(): void {
+    if (!window.ethereum) {
+      return
+    }
     window.ethereum.autoRefreshOnNetworkChange = false
     // handle on networkChange
     window.ethereum.on('networkChanged', async (_netId) => {
@@ -168,7 +171,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
           this.setState({
             account,
           },
-          () => this.onConnectedAccountChange && this.onConnectedAccountChange())
+            () => this.onConnectedAccountChange && this.onConnectedAccountChange())
         }
       }
     })

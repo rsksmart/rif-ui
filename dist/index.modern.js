@@ -2675,6 +2675,10 @@ class Web3Provider extends Component {
   initialize() {
     var _this = this;
 
+    if (!window.ethereum) {
+      return;
+    }
+
     window.ethereum.autoRefreshOnNetworkChange = false;
     window.ethereum.on('networkChanged', async function (_netId) {
       const {
