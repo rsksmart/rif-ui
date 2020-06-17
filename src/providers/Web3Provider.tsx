@@ -161,17 +161,19 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     // handle on accountsChanged
     window.ethereum.on('accountsChanged', (accounts: string | string[]) => {
       const { networkInfo } = this.state
+
       if (!networkInfo) return // wallet is not connected
       // we only care about this change if it is on the right network or we can not validate the required network
       const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
 
       if (shouldSetAccount) {
         const account = getAccountFromEthAccounts(accounts)
+
         if (account) {
           this.setState({
             account,
           },
-            () => this.onConnectedAccountChange && this.onConnectedAccountChange())
+          () => this.onConnectedAccountChange && this.onConnectedAccountChange())
         }
       }
     })
