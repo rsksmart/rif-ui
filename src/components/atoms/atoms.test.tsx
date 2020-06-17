@@ -1,4 +1,6 @@
-import { Button, Checkbox, LoginOption, Logo, LogoNavbar, Typography } from './'
+import {
+  Button, Checkbox, LoginOption, Logo, LogoNavbar, Typography,
+} from '.'
 
 describe('Button component sanity', () => {
   it('is truthy', () => {

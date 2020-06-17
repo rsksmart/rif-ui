@@ -1,4 +1,6 @@
-import { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from './'
+import {
+  Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle,
+} from '.'
 
 describe('Modal component sanity', () => {
   it('is truthy', () => {
