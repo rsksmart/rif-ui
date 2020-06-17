@@ -20,12 +20,8 @@ import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-var shortenAddress = function shortenAddress(address) {
-  return address.substr(0, 6) + "..." + address.substr(address.length - 4);
-};
-var removeEmptySpaces = function removeEmptySpaces(str) {
-  return str.replace(/\s/g, '');
-};
+const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`;
+const removeEmptySpaces = str => str.replace(/\s/g, '');
 
 const useStyles = makeStyles(() => ({
   block: {
@@ -40,7 +36,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Button = ({
-  className = '',
+  className: _className = '',
   block,
   shadow,
   rounded,
@@ -51,7 +47,7 @@ const Button = ({
   return React.createElement(Button$1, Object.assign({
     className: `${rounded ? classes.rounded : ''}
         ${shadow ? '' : classes.noShadow}
-        ${block ? classes.block : ''} ${className}`.trim()
+        ${block ? classes.block : ''} ${_className}`.trim()
   }, rest), children);
 };
 
@@ -193,14 +189,14 @@ const useStyles$2 = makeStyles$1(() => ({
 }));
 
 const LoginOption = ({
-  className = '',
+  className: _className = '',
   onClick,
   text,
   ...rest
 }) => {
   const classes = useStyles$2();
   return React.createElement(Button, Object.assign({
-    className: `${classes.root} ${className}`,
+    className: `${classes.root} ${_className}`,
     block: true,
     rounded: true,
     variant: "outlined",
@@ -281,14 +277,14 @@ const useStyles$3 = makeStyles(() => ({
 }));
 
 const Typography = ({
-  weight = 'normal',
-  className = '',
+  weight: _weight = 'normal',
+  className: _className = '',
   children,
   ...rest
 }) => {
   const classes = useStyles$3();
   return React.createElement(Typography$1, Object.assign({
-    className: `${classes[weight]} ${className}`.trim()
+    className: `${classes[_weight]} ${_className}`.trim()
   }, rest), children);
 };
 
@@ -328,11 +324,11 @@ const useStyles$5 = makeStyles(() => ({
 
 const ModalHeader = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$5();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -355,11 +351,11 @@ const useStyles$6 = makeStyles(theme => ({
 
 const ModalFooter = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$6();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -372,11 +368,11 @@ const useStyles$7 = makeStyles(theme => ({
 
 const ModalBody = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$7();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -421,25 +417,6 @@ const Accordion = ({
     className: classes.heading
   }, title)), React.createElement(ExpansionPanelDetails, null, children));
 };
-
-// A type of promise-like that resolves synchronously and supports only one observer
-
-const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
-
-const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
-
-// Asynchronously call a function and send errors to recovery continuation
-function _catch(body, recover) {
-	try {
-		var result = body();
-	} catch(e) {
-		return recover(e);
-	}
-	if (result && result.then) {
-		return result.then(void 0, recover);
-	}
-	return result;
-}
 
 var networksData = [
 	{
@@ -1667,43 +1644,27 @@ function getWeb3(provider = EProvider.METAMASK) {
   });
 }
 const getNetworkInfo = (networkId, chainId) => networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId);
-const getNetworkInfoFromWeb3 = function (web3) {
+const getNetworkInfoFromWeb3 = async web3 => {
+  let networkId;
+  let chainId;
+
   try {
-    function _temp3() {
-      let networkInfo;
+    networkId = await web3.eth.net.getId();
 
-      if (networkId) {
-        try {
-          networkInfo = getNetworkInfo(networkId, chainId);
-        } catch (error) {}
-      }
-
-      return networkInfo;
+    if (networkId) {
+      chainId = await web3.eth.getChainId();
     }
+  } catch (error) {}
 
-    let networkId;
-    let chainId;
+  let networkInfo;
 
-    const _temp2 = _catch(function () {
-      return Promise.resolve(web3.eth.net.getId()).then(function (_web3$eth$net$getId) {
-        networkId = _web3$eth$net$getId;
-
-        const _temp = function () {
-          if (networkId) {
-            return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
-              chainId = _web3$eth$getChainId;
-            });
-          }
-        }();
-
-        if (_temp && _temp.then) return _temp.then(function () {});
-      });
-    }, function () {});
-
-    return Promise.resolve(_temp2 && _temp2.then ? _temp2.then(_temp3) : _temp3(_temp2));
-  } catch (e) {
-    return Promise.reject(e);
+  if (networkId) {
+    try {
+      networkInfo = getNetworkInfo(networkId, chainId);
+    } catch (error) {}
   }
+
+  return networkInfo;
 };
 
 const AccountModal = ({
@@ -1720,12 +1681,8 @@ const AccountModal = ({
 }, React.createElement(React.Fragment, null, React.createElement(ModalHeader, null, React.createElement(ModalTitle, null, "Connect a wallet to get started")), React.createElement(ModalBody, null, (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(provider => React.createElement(LoginOption, {
   key: provider,
   text: provider,
-  onClick: function () {
-    try {
-      return Promise.resolve(setProvider(provider, onProviderSet)).then(function () {});
-    } catch (e) {
-      return Promise.reject(e);
-    }
+  onClick: async () => {
+    await setProvider(provider, onProviderSet);
   }
 }))), React.createElement(ModalFooter, null, React.createElement(Button, {
   variant: "outlined",
@@ -1734,35 +1691,29 @@ const AccountModal = ({
   onClick: handleClose
 }, "Close"))));
 
-const defaultOnRightNetworkMessage = 'You are on the right network';
-const deaulftOnWrongNetworkMessage = 'You are on the wrong network';
+const defaultonCorrectNetworkMessage = 'You are on the right network';
+const deaulftonNetworkMismatchMessage = 'You are on the wrong network';
 const defaultNoNetworkMessage = 'You are not connected to any network';
 var NetworkStatus;
 
 (function (NetworkStatus) {
   NetworkStatus[NetworkStatus["NO_NETWORK"] = 1] = "NO_NETWORK";
   NetworkStatus[NetworkStatus["NETWORK_MISSMATCH"] = 2] = "NETWORK_MISSMATCH";
-  NetworkStatus[NetworkStatus["RIGHT_NETWORK"] = 3] = "RIGHT_NETWORK";
+  NetworkStatus[NetworkStatus["CORRECT_NETWORK"] = 3] = "CORRECT_NETWORK";
 })(NetworkStatus || (NetworkStatus = {}));
 
 const getNetworkStatus = (currentNetworkId, requiredNetworkId) => {
-  if (currentNetworkId) {
-    if (currentNetworkId === requiredNetworkId) {
-      return NetworkStatus.RIGHT_NETWORK;
-    }
-
-    return NetworkStatus.NETWORK_MISSMATCH;
-  }
-
-  return NetworkStatus.NO_NETWORK;
+  if (!currentNetworkId) return NetworkStatus.NO_NETWORK;
+  if (currentNetworkId === requiredNetworkId) return NetworkStatus.CORRECT_NETWORK;
+  return NetworkStatus.NETWORK_MISSMATCH;
 };
 
 const NetworkIndicator = ({
-  iconClassName = '',
+  iconClassName: _iconClassName = '',
   currentNetworkId,
   requiredNetworkId,
-  onRightNetworkMessage,
-  onWrongNetworkMessage,
+  onCorrectNetworkMessage,
+  onNetworkMismatchMessage,
   noNetworkMessage
 }) => {
   const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId);
@@ -1770,21 +1721,21 @@ const NetworkIndicator = ({
   iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React.createElement(Tooltip, {
     title: noNetworkMessage || defaultNoNetworkMessage
   }, React.createElement(WarningIcon, {
-    className: iconClassName,
+    className: _iconClassName,
     style: {
       color: yellow[800]
     }
   })));
   iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React.createElement(Tooltip, {
-    title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
+    title: onNetworkMismatchMessage || deaulftonNetworkMismatchMessage
   }, React.createElement(ErrorIcon, {
-    className: iconClassName,
+    className: _iconClassName,
     color: "error"
   })));
-  iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, React.createElement(Tooltip, {
-    title: onRightNetworkMessage || defaultOnRightNetworkMessage
+  iconPerNetworkStatus.set(NetworkStatus.CORRECT_NETWORK, React.createElement(Tooltip, {
+    title: onCorrectNetworkMessage || defaultonCorrectNetworkMessage
   }, React.createElement(CheckCircleOutlineOutlinedIcon, {
-    className: iconClassName,
+    className: _iconClassName,
     style: {
       color: green[300]
     }
@@ -1816,8 +1767,8 @@ const Account = ({
   providers,
   currentNetworkId,
   requiredNetworkId,
-  onRightNetworkMessage,
-  onWrongNetworkMessage,
+  onCorrectNetworkMessage,
+  onNetworkMismatchMessage,
   noNetworkMessage
 }) => {
   const classes = useStyles$9();
@@ -1837,8 +1788,8 @@ const Account = ({
     iconClassName: classes.networkIndicator,
     currentNetworkId: currentNetworkId,
     requiredNetworkId: requiredNetworkId,
-    onRightNetworkMessage: onRightNetworkMessage,
-    onWrongNetworkMessage: onWrongNetworkMessage,
+    onCorrectNetworkMessage: onCorrectNetworkMessage,
+    onNetworkMismatchMessage: onNetworkMismatchMessage,
     noNetworkMessage: noNetworkMessage
   }), React.createElement(Typography, {
     className: classes.accountText
@@ -1887,7 +1838,7 @@ const useStyles$a = makeStyles(theme => ({
 }));
 
 const FAQSection = ({
-  className = '',
+  className: _className = '',
   initiallyExpanded,
   question,
   answer
@@ -1898,7 +1849,7 @@ const FAQSection = ({
   const onChange = () => setIsExpanded(!isExpanded);
 
   return React.createElement(ExpansionPanel$1, {
-    className: `${classes.root} ${className}`.trim(),
+    className: `${classes.root} ${_className}`.trim(),
     expanded: isExpanded,
     onChange: onChange
   }, React.createElement(ExpansionPanelSummary$1, {
@@ -1923,26 +1874,26 @@ const useStyles$b = makeStyles(() => ({
 
 const LabeledCheckbox = ({
   labelText,
-  labelClassName = '',
+  labelClassName: _labelClassName = '',
   ...rest
 }) => {
   const classes = useStyles$b();
   return React.createElement(FormControlLabel, {
-    className: `${classes.root} ${labelClassName.trim()}`,
+    className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
     control: React.createElement(Checkbox, Object.assign({}, rest))
   });
 };
 
 const FilterCheckboxCard = ({
-  className = '',
+  className: _className = '',
   onClick,
   items
 }) => React.createElement("div", {
-  className: className
+  className: _className
 }, items.map((item, i) => React.createElement(LabeledCheckbox, Object.assign({
   onClick: onClick,
-  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
+  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${_className}`.trim(),
   labelClassName: item.labelClassName
 }, item))));
 
@@ -1969,11 +1920,11 @@ const useStyles$c = makeStyles(() => ({
 const FooterColumn = ({
   title,
   links,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$c();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, React.createElement(Typography, {
     className: classes.footerTitle,
     variant: "subtitle1",
@@ -2327,14 +2278,14 @@ const useStyles$g = makeStyles(theme => ({
 }));
 
 const Footer = ({
-  className = '',
+  className: _className = '',
   copyrightText,
   linksColumns,
   ...rest
 }) => {
   const classes = useStyles$g();
   return React.createElement("footer", Object.assign({
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, rest), React.createElement("div", {
     className: classes.tongue
   }), React.createElement("div", {
@@ -2636,13 +2587,13 @@ const useStyles$k = makeStyles(theme => ({
 }));
 
 const FAQPageTemplate = ({
-  className = '',
+  className: _className = '',
   mainTitle,
   questionsAndAnswers
 }) => {
   const classes = useStyles$k();
   return React.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, React.createElement("div", {
     className: classes.container
   }, React.createElement(Typography, {
@@ -2666,12 +2617,12 @@ const useStyles$l = makeStyles(theme => ({
 
 const PageTemplate = ({
   children,
-  className = '',
+  className: _className = '',
   ...props
 }) => {
   const classes = useStyles$l();
   return React.createElement("div", Object.assign({
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, props), children);
 };
 
@@ -2721,63 +2672,46 @@ class Web3Provider extends Component {
     this.initialize();
   }
 
-  setProvider(provider, onStateChanged) {
-    try {
-      const _this = this;
-
-      return Promise.resolve(getWeb3(provider)).then(function (web3) {
-        return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-          return Promise.resolve(getNetworkInfoFromWeb3(web3)).then(function (networkInfo) {
-            const shouldSetAccount = shouldReadAccount(_this.requiredNetworkId, _this.requiredChainId, networkInfo);
-            const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
-
-            _this.setState({
-              web3,
-              provider,
-              account,
-              networkInfo
-            }, () => onStateChanged && onStateChanged(account));
-          });
-        });
-      });
-    } catch (e) {
-      return Promise.reject(e);
-    }
+  async setProvider(provider, onStateChanged) {
+    const web3 = await getWeb3(provider);
+    const accounts = await web3.eth.getAccounts();
+    const networkInfo = await getNetworkInfoFromWeb3(web3);
+    const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo);
+    const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
+    this.setState({
+      web3,
+      provider,
+      account,
+      networkInfo
+    }, () => onStateChanged && onStateChanged(account));
   }
 
   initialize() {
-    const _this2 = this;
+    var _this = this;
 
     if (!window.ethereum) {
       return;
     }
 
     window.ethereum.autoRefreshOnNetworkChange = false;
-    window.ethereum.on('networkChanged', function (_netId) {
-      try {
-        const {
-          networkInfo
-        } = _this2.state;
-        if (!networkInfo) return Promise.resolve();
-        const {
-          provider
-        } = _this2.state;
-        return Promise.resolve(getWeb3(provider)).then(function (web3) {
-          return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-            return Promise.resolve(getNetworkInfoFromWeb3(web3)).then(function (newNetworkInfo) {
-              const shouldSetAccount = shouldReadAccount(_this2.requiredNetworkId, _this2.requiredChainId, newNetworkInfo);
-              const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
+    window.ethereum.on('networkChanged', async function (_netId) {
+      const {
+        networkInfo
+      } = _this.state;
+      if (!networkInfo) return;
+      const {
+        provider
+      } = _this.state;
+      const web3 = await getWeb3(provider);
+      const accounts = await web3.eth.getAccounts();
+      const newNetworkInfo = await getNetworkInfoFromWeb3(web3);
+      const shouldSetAccount = shouldReadAccount(_this.requiredNetworkId, _this.requiredChainId, newNetworkInfo);
+      const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
 
-              _this2.setState({
-                networkInfo: newNetworkInfo,
-                account
-              }, () => _this2.onConnectedNetworkChange && _this2.onConnectedNetworkChange());
-            });
-          });
-        });
-      } catch (e) {
-        return Promise.reject(e);
-      }
+      _this.setState({
+        networkInfo: newNetworkInfo,
+        account
+      }, () => _this.onConnectedNetworkChange && _this.onConnectedNetworkChange());
     });
     window.ethereum.on('accountsChanged', accounts => {
       const {

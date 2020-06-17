@@ -3,14 +3,14 @@ export interface NetworkIndicatorProps {
     iconClassName?: string;
     currentNetworkId?: number;
     requiredNetworkId?: number;
-    onRightNetworkMessage?: string;
-    onWrongNetworkMessage?: string;
+    onCorrectNetworkMessage?: string;
+    onNetworkMismatchMessage?: string;
     noNetworkMessage?: string;
 }
 export declare enum NetworkStatus {
     NO_NETWORK = 1,
     NETWORK_MISSMATCH = 2,
-    RIGHT_NETWORK = 3
+    CORRECT_NETWORK = 3
 }
 declare const NetworkIndicator: FC<NetworkIndicatorProps>;
 export default NetworkIndicator;

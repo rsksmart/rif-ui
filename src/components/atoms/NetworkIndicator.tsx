@@ -9,35 +9,32 @@ export interface NetworkIndicatorProps {
   iconClassName?: string
   currentNetworkId?: number
   requiredNetworkId?: number
-  onRightNetworkMessage?: string
-  onWrongNetworkMessage?: string
+  onCorrectNetworkMessage?: string
+  onNetworkMismatchMessage?: string
   noNetworkMessage?: string
 }
 
-const defaultOnRightNetworkMessage = 'You are on the right network'
-const deaulftOnWrongNetworkMessage = 'You are on the wrong network'
+const defaultonCorrectNetworkMessage = 'You are on the right network'
+const deaulftonNetworkMismatchMessage = 'You are on the wrong network'
 const defaultNoNetworkMessage = 'You are not connected to any network'
 
 export enum NetworkStatus {
   NO_NETWORK = 1,
   NETWORK_MISSMATCH = 2,
-  RIGHT_NETWORK = 3
+  CORRECT_NETWORK = 3
 }
 
 const getNetworkStatus = (currentNetworkId, requiredNetworkId): NetworkStatus => {
-  if (currentNetworkId) {
-    if (currentNetworkId === requiredNetworkId) {
-      return NetworkStatus.RIGHT_NETWORK
-    }
-    return NetworkStatus.NETWORK_MISSMATCH
-  }
-  return NetworkStatus.NO_NETWORK
+  if (!currentNetworkId) return NetworkStatus.NO_NETWORK
+
+  if (currentNetworkId === requiredNetworkId) return NetworkStatus.CORRECT_NETWORK
+  return NetworkStatus.NETWORK_MISSMATCH
 }
 
 const NetworkIndicator: FC<NetworkIndicatorProps> = ({
   iconClassName = '',
-  currentNetworkId, requiredNetworkId, onRightNetworkMessage,
-  onWrongNetworkMessage, noNetworkMessage,
+  currentNetworkId, requiredNetworkId, onCorrectNetworkMessage,
+  onNetworkMismatchMessage, noNetworkMessage,
 }) => {
   const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId)
 
@@ -48,12 +45,12 @@ const NetworkIndicator: FC<NetworkIndicatorProps> = ({
     </Tooltip>
   ))
   iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, (
-    <Tooltip title={onWrongNetworkMessage || deaulftOnWrongNetworkMessage}>
+    <Tooltip title={onNetworkMismatchMessage || deaulftonNetworkMismatchMessage}>
       <ErrorIcon className={iconClassName} color="error" />
     </Tooltip>
   ))
-  iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, (
-    <Tooltip title={onRightNetworkMessage || defaultOnRightNetworkMessage}>
+  iconPerNetworkStatus.set(NetworkStatus.CORRECT_NETWORK, (
+    <Tooltip title={onCorrectNetworkMessage || defaultonCorrectNetworkMessage}>
       <CheckCircleOutlineOutlinedIcon
         className={iconClassName}
         style={{ color: green[300] }}

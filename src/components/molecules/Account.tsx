@@ -16,8 +16,8 @@ export interface AccountProps {
   providers?: EProvider[]
   currentNetworkId?: number
   requiredNetworkId?: number
-  onRightNetworkMessage?: string
-  onWrongNetworkMessage?: string
+  onCorrectNetworkMessage?: string
+  onNetworkMismatchMessage?: string
   noNetworkMessage?: string
 }
 
@@ -45,8 +45,8 @@ const Account: FC<AccountProps> = ({
   providers,
   currentNetworkId,
   requiredNetworkId,
-  onRightNetworkMessage,
-  onWrongNetworkMessage,
+  onCorrectNetworkMessage,
+  onNetworkMismatchMessage,
   noNetworkMessage,
 }) => {
   const classes = useStyles()
@@ -64,8 +64,8 @@ const Account: FC<AccountProps> = ({
               iconClassName={classes.networkIndicator}
               currentNetworkId={currentNetworkId}
               requiredNetworkId={requiredNetworkId}
-              onRightNetworkMessage={onRightNetworkMessage}
-              onWrongNetworkMessage={onWrongNetworkMessage}
+              onCorrectNetworkMessage={onCorrectNetworkMessage}
+              onNetworkMismatchMessage={onNetworkMismatchMessage}
               noNetworkMessage={noNetworkMessage}
             />
           )

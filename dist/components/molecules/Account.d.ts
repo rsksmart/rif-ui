@@ -9,8 +9,8 @@ export interface AccountProps {
     providers?: EProvider[];
     currentNetworkId?: number;
     requiredNetworkId?: number;
-    onRightNetworkMessage?: string;
-    onWrongNetworkMessage?: string;
+    onCorrectNetworkMessage?: string;
+    onNetworkMismatchMessage?: string;
     noNetworkMessage?: string;
 }
 declare const Account: FC<AccountProps>;
