@@ -18,8 +18,12 @@ var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
 var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
 
-const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`;
-const removeEmptySpaces = str => str.replace(/\s/g, '');
+var shortenAddress = function shortenAddress(address) {
+  return address.substr(0, 6) + "..." + address.substr(address.length - 4);
+};
+var removeEmptySpaces = function removeEmptySpaces(str) {
+  return str.replace(/\s/g, '');
+};
 
 const useStyles = styles.makeStyles(() => ({
   block: {
