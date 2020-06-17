@@ -1,6 +1,6 @@
 import { Typography } from '.'
 
-describe('ExampleComponent', () => {
+describe('TypographyComponent', () => {
   it('is truthy', () => {
     expect(Typography).toBeTruthy()
   })

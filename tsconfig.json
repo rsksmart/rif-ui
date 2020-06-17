@@ -21,6 +21,9 @@
     "allowSyntheticDefaultImports": true,
     "noErrorTruncation": true,
     "noImplicitAny": false,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "isolatedModules": true
   },
   "include": [
     "src"
