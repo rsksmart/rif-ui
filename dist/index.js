@@ -1,3 +1,4 @@
+<<<<<<< HEAD:dist/index.js
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var React = require('react');
@@ -17,6 +18,24 @@ var Slider = _interopDefault(require('@material-ui/core/Slider'));
 var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
 var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
+=======
+import React, { useState, createContext, Component } from 'react';
+import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Typography as Typography$1, Modal as Modal$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel, Grid, Input, Tabs, Tab, AppBar, Toolbar, IconButton, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
+import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Web3 from 'web3';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import { NavLink } from 'react-router-dom';
+import Slider from '@material-ui/core/Slider';
+import Hidden from '@material-ui/core/Hidden';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+>>>>>>> test: added tests on atom components:dist/index.modern.js
 
 var shortenAddress = function shortenAddress(address) {
   return address.substr(0, 6) + "..." + address.substr(address.length - 4);
@@ -25,7 +44,11 @@ var removeEmptySpaces = function removeEmptySpaces(str) {
   return str.replace(/\s/g, '');
 };
 
+<<<<<<< HEAD:dist/index.js
 const useStyles = styles.makeStyles(() => ({
+=======
+const useStyles = makeStyles(() => ({
+>>>>>>> test: added tests on atom components:dist/index.modern.js
   block: {
     width: '100%'
   },
@@ -197,7 +220,11 @@ const LoginOption = ({
   ...rest
 }) => {
   const classes = useStyles$2();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement(Button, Object.assign({
+=======
+  return React.createElement(Button, Object.assign({
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes.root} ${className}`,
     block: true,
     rounded: true,
@@ -285,7 +312,11 @@ const Typography = ({
   ...rest
 }) => {
   const classes = useStyles$3();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement(core.Typography, Object.assign({
+=======
+  return React.createElement(Typography$1, Object.assign({
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes[weight]} ${className}`.trim()
   }, rest), children);
 };
@@ -329,7 +360,11 @@ const ModalHeader = ({
   className = ''
 }) => {
   const classes = useStyles$5();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement("div", {
+=======
+  return React.createElement("div", {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
@@ -356,7 +391,11 @@ const ModalFooter = ({
   className = ''
 }) => {
   const classes = useStyles$6();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement("div", {
+=======
+  return React.createElement("div", {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
@@ -373,7 +412,11 @@ const ModalBody = ({
   className = ''
 }) => {
   const classes = useStyles$7();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement("div", {
+=======
+  return React.createElement("div", {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
@@ -576,7 +619,11 @@ const FAQSection = ({
 
   const onChange = () => setIsExpanded(!isExpanded);
 
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement(core.ExpansionPanel, {
+=======
+  return React.createElement(ExpansionPanel$1, {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes.root} ${className}`.trim(),
     expanded: isExpanded,
     onChange: onChange
@@ -606,7 +653,11 @@ const LabeledCheckbox = ({
   ...rest
 }) => {
   const classes = useStyles$b();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement(core.FormControlLabel, {
+=======
+  return React.createElement(FormControlLabel, {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes.root} ${labelClassName.trim()}`,
     label: labelText,
     control: React__default.createElement(Checkbox, Object.assign({}, rest))
@@ -617,9 +668,15 @@ const FilterCheckboxCard = ({
   className = '',
   onClick,
   items
+<<<<<<< HEAD:dist/index.js
 }) => React__default.createElement("div", {
   className: className
 }, items.map((item, i) => React__default.createElement(LabeledCheckbox, Object.assign({
+=======
+}) => React.createElement("div", {
+  className: className
+}, items.map((item, i) => React.createElement(LabeledCheckbox, Object.assign({
+>>>>>>> test: added tests on atom components:dist/index.modern.js
   onClick: onClick,
   key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
   labelClassName: item.labelClassName
@@ -651,9 +708,15 @@ const FooterColumn = ({
   className = ''
 }) => {
   const classes = useStyles$c();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement(Typography, {
+=======
+  return React.createElement("div", {
+    className: `${classes.root} ${className}`.trim()
+  }, React.createElement(Typography, {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: classes.footerTitle,
     variant: "subtitle1",
     color: "primary"
@@ -1012,9 +1075,15 @@ const Footer = ({
   ...rest
 }) => {
   const classes = useStyles$g();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, rest), React__default.createElement("div", {
+=======
+  return React.createElement("footer", Object.assign({
+    className: `${classes.root} ${className}`.trim()
+  }, rest), React.createElement("div", {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: classes.tongue
   }), React__default.createElement("div", {
     className: classes.footerContainer
@@ -1320,9 +1389,15 @@ const FAQPageTemplate = ({
   questionsAndAnswers
 }) => {
   const classes = useStyles$k();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement("div", {
+=======
+  return React.createElement("div", {
+    className: `${classes.root} ${className}`.trim()
+  }, React.createElement("div", {
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: classes.container
   }, React__default.createElement(Typography, {
     className: classes.mainTitle,
@@ -1349,7 +1424,11 @@ const PageTemplate = ({
   ...props
 }) => {
   const classes = useStyles$l();
+<<<<<<< HEAD:dist/index.js
   return React__default.createElement("div", Object.assign({
+=======
+  return React.createElement("div", Object.assign({
+>>>>>>> test: added tests on atom components:dist/index.modern.js
     className: `${classes.root} ${className}`.trim()
   }, props), children);
 };
