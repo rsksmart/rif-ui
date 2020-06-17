@@ -1735,35 +1735,29 @@ const AccountModal = ({
   onClick: handleClose
 }, "Close"))));
 
-const defaultOnRightNetworkMessage = 'You are on the right network';
-const deaulftOnWrongNetworkMessage = 'You are on the wrong network';
+const defaultonCorrectNetworkMessage = 'You are on the right network';
+const deaulftonNetworkMismatchMessage = 'You are on the wrong network';
 const defaultNoNetworkMessage = 'You are not connected to any network';
 var NetworkStatus;
 
 (function (NetworkStatus) {
   NetworkStatus[NetworkStatus["NO_NETWORK"] = 1] = "NO_NETWORK";
   NetworkStatus[NetworkStatus["NETWORK_MISSMATCH"] = 2] = "NETWORK_MISSMATCH";
-  NetworkStatus[NetworkStatus["RIGHT_NETWORK"] = 3] = "RIGHT_NETWORK";
+  NetworkStatus[NetworkStatus["CORRECT_NETWORK"] = 3] = "CORRECT_NETWORK";
 })(NetworkStatus || (NetworkStatus = {}));
 
 const getNetworkStatus = (currentNetworkId, requiredNetworkId) => {
-  if (currentNetworkId) {
-    if (currentNetworkId === requiredNetworkId) {
-      return NetworkStatus.RIGHT_NETWORK;
-    }
-
-    return NetworkStatus.NETWORK_MISSMATCH;
-  }
-
-  return NetworkStatus.NO_NETWORK;
+  if (!currentNetworkId) return NetworkStatus.NO_NETWORK;
+  if (currentNetworkId === requiredNetworkId) return NetworkStatus.CORRECT_NETWORK;
+  return NetworkStatus.NETWORK_MISSMATCH;
 };
 
 const NetworkIndicator = ({
   iconClassName = '',
   currentNetworkId,
   requiredNetworkId,
-  onRightNetworkMessage,
-  onWrongNetworkMessage,
+  onCorrectNetworkMessage,
+  onNetworkMismatchMessage,
   noNetworkMessage
 }) => {
   const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId);
@@ -1777,13 +1771,13 @@ const NetworkIndicator = ({
     }
   })));
   iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React__default.createElement(Tooltip, {
-    title: onWrongNetworkMessage || deaulftOnWrongNetworkMessage
+    title: onNetworkMismatchMessage || deaulftonNetworkMismatchMessage
   }, React__default.createElement(ErrorIcon, {
     className: iconClassName,
     color: "error"
   })));
-  iconPerNetworkStatus.set(NetworkStatus.RIGHT_NETWORK, React__default.createElement(Tooltip, {
-    title: onRightNetworkMessage || defaultOnRightNetworkMessage
+  iconPerNetworkStatus.set(NetworkStatus.CORRECT_NETWORK, React__default.createElement(Tooltip, {
+    title: onCorrectNetworkMessage || defaultonCorrectNetworkMessage
   }, React__default.createElement(CheckCircleOutlineOutlinedIcon, {
     className: iconClassName,
     style: {
@@ -1817,8 +1811,8 @@ const Account = ({
   providers,
   currentNetworkId,
   requiredNetworkId,
-  onRightNetworkMessage,
-  onWrongNetworkMessage,
+  onCorrectNetworkMessage,
+  onNetworkMismatchMessage,
   noNetworkMessage
 }) => {
   const classes = useStyles$9();
@@ -1838,8 +1832,8 @@ const Account = ({
     iconClassName: classes.networkIndicator,
     currentNetworkId: currentNetworkId,
     requiredNetworkId: requiredNetworkId,
-    onRightNetworkMessage: onRightNetworkMessage,
-    onWrongNetworkMessage: onWrongNetworkMessage,
+    onCorrectNetworkMessage: onCorrectNetworkMessage,
+    onNetworkMismatchMessage: onNetworkMismatchMessage,
     noNetworkMessage: noNetworkMessage
   }), React__default.createElement(Typography, {
     className: classes.accountText
