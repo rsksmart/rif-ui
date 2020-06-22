@@ -1,3 +1,4 @@
+import metaMaskIconImg from './metaMask.svg'
 import nameServiceImg from './nameService.svg'
 import rifComImg from './rifCom.png'
 import rifDirImg from './rifDir.png'
@@ -8,6 +9,7 @@ import rifStoImg from './rifSto.png'
 import storageImg from './storage.svg'
 
 export {
+  metaMaskIconImg,
   nameServiceImg,
   rifComImg,
   rifDirImg,
@@ -15,5 +17,5 @@ export {
   rifMarImg,
   rifPayImg,
   rifStoImg,
-  storageImg,
+  storageImg
 }

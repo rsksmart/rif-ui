@@ -1,9 +1,10 @@
 import React, { Component, createContext, ReactNode } from 'react'
 import Web3 from 'web3'
 import {
-  getWeb3, EProvider, getNetworkInfoFromWeb3,
+  getWeb3, getNetworkInfoFromWeb3, getCurrentProviderInfo,
 } from '../services/Web3Service'
 import NetworkInfo from '../models/NetworkInfo'
+import { EProvider } from '../models/ProviderInfo'
 
 export interface Web3ProviderProps {
   state: {
@@ -117,6 +118,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     this.setState(
       {
         web3,
+        // cambiar provider a currentProvider y que sea de tipo providerInfo
         provider,
         account,
         networkInfo,
@@ -129,6 +131,9 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     if (!window.ethereum) {
       return
     }
+
+    const currentProviderInfo = getCurrentProviderInfo()
+    
     window.ethereum.autoRefreshOnNetworkChange = false
     // handle on networkChange
     window.ethereum.on('networkChanged', async (_netId) => {
@@ -173,7 +178,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
           this.setState({
             account,
           },
-          () => this.onConnectedAccountChange && this.onConnectedAccountChange())
+            () => this.onConnectedAccountChange && this.onConnectedAccountChange())
         }
       }
     })
