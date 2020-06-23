@@ -1,4 +1,4 @@
-import { metaMaskIconImg } from '../assets/images'
+import { metaMaskIconImg, niftyIconImg } from '../assets/images'
 
 export default interface ProviderInfo {
   name: string
@@ -29,71 +29,72 @@ export const getProviderInfo = (eProvider: EProvider): ProviderInfo => {
       return {
         name: 'MetaMask',
         eProvider,
-        iconImg: metaMaskIconImg
+        iconImg: metaMaskIconImg,
       }
     case EProvider.NIFTY:
       return {
         name: 'Nifty',
-        eProvider
+        eProvider,
+        iconImg: niftyIconImg,
       }
     case EProvider.LEDGER:
       return {
         name: 'Ledger',
-        eProvider
+        eProvider,
       }
     case EProvider.TREZOR:
       return {
         name: 'Trezor',
-        eProvider
+        eProvider,
       }
     case EProvider.TRUST:
       return {
         name: 'Trust',
-        eProvider
+        eProvider,
       }
     case EProvider.GO_WALLET:
       return {
         name: 'Go Wallet',
-        eProvider
+        eProvider,
       }
     case EProvider.ALPHA_WALLET:
       return {
         name: 'Alpha Wallet',
-        eProvider
+        eProvider,
       }
     case EProvider.STATUS:
       return {
         name: 'Status',
-        eProvider
+        eProvider,
       }
     case EProvider.COINBASE:
       return {
         name: 'Coinbase',
-        eProvider
+        eProvider,
       }
     case EProvider.MIST:
       return {
         name: 'Mist',
-        eProvider
+        eProvider,
       }
     case EProvider.PARITY:
       return {
         name: 'Parity',
-        eProvider
+        eProvider,
       }
     case EProvider.INFURA:
       return {
         name: 'Infura',
-        eProvider
+        eProvider,
       }
     case EProvider.LOCAL:
       return {
         name: 'Localhost',
-        eProvider
+        eProvider,
       }
     default: {
       throw new Error(
-        `EProvider not implemented or unknown. Chosen provider ${eProvider}`
+        `EProvider not implemented or unknown. Chosen provider ${eProvider}`,
       )
     }
   }

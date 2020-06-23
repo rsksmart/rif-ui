@@ -1,10 +1,12 @@
-import React, { Component, createContext, ReactNode } from 'react'
+import React, {
+  Component, createContext, ReactNode,
+} from 'react'
 import Web3 from 'web3'
 import {
-  getWeb3, getNetworkInfoFromWeb3, getCurrentProviderInfo,
+  getWeb3, getNetworkInfoFromWeb3, getAvailableProviders,
 } from '../services/Web3Service'
 import NetworkInfo from '../models/NetworkInfo'
-import { EProvider } from '../models/ProviderInfo'
+import ProviderInfo, { EProvider } from '../models/ProviderInfo'
 
 export interface Web3ProviderProps {
   state: {
@@ -24,6 +26,7 @@ export interface Web3ProviderProps {
   }
   requiredNetworkId?: number
   requiredChainId?: number
+  availableProviders?: ProviderInfo[]
 }
 
 const defaultState: Web3ProviderState = {
@@ -88,6 +91,8 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
 
   private readonly requiredChainId?: number
 
+  private availableProviders?: ProviderInfo[]
+
   constructor(props: Web3ProviderProps) {
     super(props)
     this.state = defaultState
@@ -131,9 +136,8 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     if (!window.ethereum) {
       return
     }
+    this.availableProviders = getAvailableProviders()
 
-    const currentProviderInfo = getCurrentProviderInfo()
-    
     window.ethereum.autoRefreshOnNetworkChange = false
     // handle on networkChange
     window.ethereum.on('networkChanged', async (_netId) => {
@@ -178,7 +182,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
           this.setState({
             account,
           },
-            () => this.onConnectedAccountChange && this.onConnectedAccountChange())
+          () => this.onConnectedAccountChange && this.onConnectedAccountChange())
         }
       }
     })
@@ -195,6 +199,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       setProvider,
       onConnectedNetworkChange,
       onConnectedAccountChange,
+      availableProviders,
     } = this
 
     const { children } = this.props
@@ -213,6 +218,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
             account,
             networkInfo,
           },
+          availableProviders,
         }}
       >
         {children}

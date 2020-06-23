@@ -1,34 +1,36 @@
 import React, { FC } from 'react'
 import Web3 from 'web3'
-// import { EProvider } from '../../services/Web3Service'
+import { Typography, Theme, makeStyles } from '@material-ui/core'
 import {
   Button, LoginOption, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle,
 } from '../atoms'
-import ProviderInfo, { EProvider, getProviderInfo } from '../../models/ProviderInfo'
+import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
 
 export interface AccountModalProps {
   web3: Web3 | null
   networkName: string | null
   setProvider: (provider: EProvider, onProviderSet?:
     (account: string) => void) => Promise<void>
-  // .ito - aca va a recibir un providerInfo en vez de Eprovider, asi se puede mostrar la img
-  // .ito - when this is done, move back to providers and get the web3 providers from the provider
   availableProviders?: ProviderInfo[]
-  providers?: EProvider[]
   handleClose?: () => void
   onProviderSet?: (account) => void
   open: boolean
 }
+const useStyles = makeStyles((theme: Theme) => ({
+  imageWrapper: {
+    maxHeight: theme.spacing(4),
+    marginRight: theme.spacing(2),
+  },
+}))
 
 const AccountModal: FC<AccountModalProps> = ({
   setProvider,
   availableProviders,
-  providers,
   open,
   handleClose,
   onProviderSet,
 }) => {
-  availableProviders = availableProviders || [getProviderInfo(EProvider.METAMASK), getProviderInfo(EProvider.LOCAL)]
+  const classes = useStyles()
   return (
     <Modal
       open={open}
@@ -42,29 +44,40 @@ const AccountModal: FC<AccountModalProps> = ({
         </ModalHeader>
         <ModalBody>
           {
-            (availableProviders || [EProvider.METAMASK, EProvider.LOCAL]).map(
-              (provider) => (
+            availableProviders && availableProviders.length && availableProviders.map(
+              (providerInfo) => (
                 <LoginOption
-                  key={provider.eProvider}
-                  text={provider.name}
+                  key={providerInfo.eProvider}
+                  content={(
+                    <React.Fragment>
+                      {
+                        providerInfo.iconImg
+                        && (
+                          <img
+                            className={classes.imageWrapper}
+                            src={providerInfo.iconImg}
+                            alt={`${providerInfo.name} icon`}
+                          />
+                        )
+                      }
+                      {providerInfo.name}
+                    </React.Fragment>
+                  )}
                   onClick={async (): Promise<void> => {
-                    await setProvider(provider.eProvider, onProviderSet)
+                    await setProvider(providerInfo.eProvider, onProviderSet)
                   }}
                 />
               ),
             )
-            // (providers || [EProvider.METAMASK, EProvider.LOCAL]).map(
-            //   (provider) => (
-            //     <LoginOption
-            //       key={provider}
-            //       text={provider}
-            //       onClick={async (): Promise<void> => {
-            //         await setProvider(provider, onProviderSet)
-            //       }}
-            //     />
-            //   ),
-            // )
           }
+          {!availableProviders
+            && (
+              // TODO: redirect to install Nifty Wallet
+              <LoginOption
+                content={<Typography>Install Nifty</Typography>}
+                onClick={() => ''}
+              />
+            )}
         </ModalBody>
 
         <ModalFooter>
@@ -75,7 +88,7 @@ const AccountModal: FC<AccountModalProps> = ({
             onClick={handleClose}
           >
             Close
-        </Button>
+          </Button>
         </ModalFooter>
       </React.Fragment>
     </Modal>

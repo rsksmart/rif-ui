@@ -30,7 +30,7 @@ const App = () => {
     ],
     login: () => (
       <Web3Provider.Consumer>
-        {({ state: { web3, account, networkInfo }, actions: { setProvider } }) => (
+        {({ state: { web3, account, networkInfo }, actions: { setProvider }, availableProviders }) => (
           <>
             <Account
               web3={web3}
@@ -38,6 +38,7 @@ const App = () => {
               setProvider={setProvider}
               currentNetworkId={networkInfo?.networkId}
               requiredNetworkId={requiredNetworkId}
+              availableProviders={availableProviders}
             />
           </>
         )}
