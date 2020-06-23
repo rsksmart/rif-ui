@@ -74,7 +74,7 @@ const AccountModal: FC<AccountModalProps> = ({
             && (
               <LoginOption
                 content={<Typography>Install Nifty wallet</Typography>}
-                onClick={() => (window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', "_blank"))}
+                onClick={() => (window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', '_blank'))}
               />
             )}
         </ModalBody>
