@@ -51,7 +51,7 @@ const Account: FC<AccountProps> = ({
 }) => {
   const classes = useStyles()
 
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const handleClose = (): void => setOpen(false)
   const handleOpen = (): void => setOpen(true)
 

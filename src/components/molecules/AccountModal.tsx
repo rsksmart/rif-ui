@@ -72,10 +72,9 @@ const AccountModal: FC<AccountModalProps> = ({
           }
           {!availableProviders
             && (
-              // TODO: redirect to install Nifty Wallet
               <LoginOption
-                content={<Typography>Install Nifty</Typography>}
-                onClick={() => ''}
+                content={<Typography>Install Nifty wallet</Typography>}
+                onClick={() => (window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', "_blank"))}
               />
             )}
         </ModalBody>
