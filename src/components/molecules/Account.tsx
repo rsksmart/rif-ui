@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import Web3 from 'web3'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { EProvider } from '../../services/Web3Service'
+import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
 import { shortenAddress } from '../../utils'
 import { Button, Typography } from '../atoms'
 import { colors, fonts } from '../../theme'
@@ -13,7 +13,7 @@ export interface AccountProps {
   networkName: string | null
   account: string | null
   setProvider: (provider: EProvider) => Promise<void>
-  providers?: EProvider[]
+  availableProviders?: ProviderInfo[]
   currentNetworkId?: number
   requiredNetworkId?: number
   onCorrectNetworkMessage?: string
@@ -42,7 +42,7 @@ const Account: FC<AccountProps> = ({
   networkName,
   account,
   setProvider,
-  providers,
+  availableProviders,
   currentNetworkId,
   requiredNetworkId,
   onCorrectNetworkMessage,
@@ -51,7 +51,7 @@ const Account: FC<AccountProps> = ({
 }) => {
   const classes = useStyles()
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(true)
   const handleClose = (): void => setOpen(false)
   const handleOpen = (): void => setOpen(true)
 
@@ -85,7 +85,7 @@ const Account: FC<AccountProps> = ({
         web3={web3}
         onProviderSet={handleClose}
         setProvider={setProvider}
-        providers={providers}
+        availableProviders={availableProviders}
       />
     </React.Fragment>
   )

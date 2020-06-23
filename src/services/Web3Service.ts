@@ -3,7 +3,7 @@ import NetworkInfo from '../models/NetworkInfo'
 import networksData from '../data/networks.json'
 import ProviderInfo, {
   EProvider,
-  getProviderInfo
+  getProviderInfo,
 } from '../models/ProviderInfo'
 
 declare global {
@@ -14,12 +14,12 @@ declare global {
 }
 
 export function getWeb3(
-  provider: EProvider = EProvider.METAMASK
+  provider: EProvider = EProvider.METAMASK,
 ): Promise<Web3> {
   return new Promise<Web3>((resolve, reject) => {
     switch (provider) {
-      // Injected Web3 wallet like MetaMask
-      // .ito - volver aca
+      // Injected Web3 wallet like MetaMask or Nifty
+      case EProvider.NIFTY:
       case EProvider.METAMASK: {
         // New MetaMask
         if (window.ethereum) {
@@ -38,7 +38,7 @@ export function getWeb3(
       // Localhost
       case EProvider.LOCAL: {
         const localhostProvider = new Web3.providers.HttpProvider(
-          "'http://127.0.0.1:4444'"
+          "'http://127.0.0.1:4444'",
         )
         resolve(new Web3(localhostProvider))
         break
@@ -48,8 +48,8 @@ export function getWeb3(
       default: {
         reject(
           new Error(
-            `Provider not implemented or unknown. Chosen provider ${provider}`
-          )
+            `Provider not implemented or unknown. Chosen provider ${provider}`,
+          ),
         )
         break
       }
@@ -59,16 +59,13 @@ export function getWeb3(
 
 export const getNetworkInfo = (
   networkId: number,
-  chainId?: number
-): NetworkInfo | undefined =>
-  networksData.find((n) =>
-    chainId
-      ? n.networkId === networkId && n.chainId === chainId
-      : n.networkId === networkId
-  ) as NetworkInfo
+  chainId?: number,
+): NetworkInfo | undefined => networksData.find((n) => (chainId
+  ? n.networkId === networkId && n.chainId === chainId
+  : n.networkId === networkId)) as NetworkInfo
 
 export const getNetworkInfoFromWeb3 = async (
-  web3: Web3
+  web3: Web3,
 ): Promise<NetworkInfo | undefined> => {
   // set networkId and chainId
   let networkId: number | undefined
@@ -90,42 +87,41 @@ export const getNetworkInfoFromWeb3 = async (
   return networkInfo
 }
 
-export const getCurrentProviderInfo = (): ProviderInfo | undefined => {
+export const getAvailableProviders = (): ProviderInfo[] | undefined => {
+  const result: ProviderInfo[] = []
+
   if (!window.web3) return undefined
   const currentProvider = window.web3.currentProvider as any
+
   if (currentProvider.isMetaMask) {
-    // when Nifty is present, isMetaMask is true
-    return currentProvider.isNiftyWallet
-      ? getProviderInfo(EProvider.NIFTY)
-      : getProviderInfo(EProvider.METAMASK)
+    // Nifty is also MetaMask
+    result.push(
+      currentProvider.isNiftyWallet
+        ? getProviderInfo(EProvider.NIFTY)
+        : getProviderInfo(EProvider.METAMASK),
+    )
   }
 
-  if (currentProvider.isTrust) return getProviderInfo(EProvider.TRUST)
+  if (currentProvider.isTrust) result.push(getProviderInfo(EProvider.TRUST))
 
-  if (currentProvider.isGoWallet) return getProviderInfo(EProvider.GO_WALLET)
+  if (currentProvider.isGoWallet) result.push(getProviderInfo(EProvider.GO_WALLET))
 
-  if (currentProvider.isAlphaWallet)
-    return getProviderInfo(EProvider.ALPHA_WALLET)
+  if (currentProvider.isAlphaWallet) result.push(getProviderInfo(EProvider.ALPHA_WALLET))
 
-  if (currentProvider.isStatus) return getProviderInfo(EProvider.STATUS)
+  if (currentProvider.isStatus) result.push(getProviderInfo(EProvider.STATUS))
 
-  if (currentProvider.isToshi) return getProviderInfo(EProvider.COINBASE)
+  if (currentProvider.isToshi) result.push(getProviderInfo(EProvider.COINBASE))
 
-  if (typeof (window as any).__CIPHER__ !== 'undefined')
-    return getProviderInfo(EProvider.CIPHER)
+  // eslint-disable-next-line no-underscore-dangle
+  if (typeof (window as any).__CIPHER__ !== 'undefined') result.push(getProviderInfo(EProvider.CIPHER))
 
-  if (currentProvider.constructor.name === 'EthereumProvider')
-    return getProviderInfo(EProvider.MIST)
+  if (currentProvider.constructor.name === 'EthereumProvider') result.push(getProviderInfo(EProvider.MIST))
 
-  if (currentProvider.constructor.name === 'Web3FrameProvider')
-    return getProviderInfo(EProvider.PARITY)
+  if (currentProvider.constructor.name === 'Web3FrameProvider') result.push(getProviderInfo(EProvider.PARITY))
 
-  if (currentProvider.host && currentProvider.host.indexOf('infura') !== -1)
-    return getProviderInfo(EProvider.INFURA)
+  if (currentProvider.host && currentProvider.host.indexOf('infura') !== -1) result.push(getProviderInfo(EProvider.INFURA))
 
-  if (currentProvider.host && currentProvider.host.indexOf('localhost') !== -1)
-    return getProviderInfo(EProvider.LOCAL)
+  if (currentProvider.host && currentProvider.host.indexOf('localhost') !== -1) result.push(getProviderInfo(EProvider.LOCAL))
 
-  // not implemented or not found
-  return undefined
+  return result
 }
