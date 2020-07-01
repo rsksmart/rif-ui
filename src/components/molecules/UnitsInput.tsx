@@ -45,16 +45,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const UnitsInput: FC<UnitsInputProps> = (props) => {
-  const {
-    handleOnBlur,
-    handleOnChange,
-    maxValue,
-    minValue,
-    units,
-    value,
-    step = 1,
-  } = props
+const UnitsInput: FC<UnitsInputProps> = ({
+  maxValue,
+  minValue,
+  units,
+  value,
+  step = 1,
+  handleOnBlur,
+  handleOnChange,
+  ...rest
+}) => {
 
   const classes = useStyles()
   return (
@@ -73,6 +73,7 @@ const UnitsInput: FC<UnitsInputProps> = (props) => {
               max: maxValue,
               'aria-labelledby': 'input-slider',
             }}
+            {...rest}
           />
         </Grid>
         <Grid item xs={4} className={classes.unitsContainer}>

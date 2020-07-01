@@ -781,16 +781,16 @@ const useStyles$e = makeStyles(theme => ({
   }
 }));
 
-const UnitsInput = props => {
-  const {
-    handleOnBlur,
-    handleOnChange,
-    maxValue,
-    minValue,
-    units,
-    value,
-    step = 1
-  } = props;
+const UnitsInput = ({
+  maxValue,
+  minValue,
+  units,
+  value,
+  step: _step = 1,
+  handleOnBlur,
+  handleOnChange,
+  ...rest
+}) => {
   const classes = useStyles$e();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
     className: classes.root,
@@ -800,7 +800,7 @@ const UnitsInput = props => {
     className: classes.inputContainer,
     item: true,
     xs: 8
-  }, React__default.createElement(Input, {
+  }, React__default.createElement(Input, Object.assign({
     className: classes.input,
     classes: {
       input: classes.input
@@ -809,12 +809,12 @@ const UnitsInput = props => {
     onChange: handleOnChange,
     onBlur: handleOnBlur,
     inputProps: {
-      step,
+      step: _step,
       min: minValue,
       max: maxValue,
       'aria-labelledby': 'input-slider'
     }
-  })), React__default.createElement(Grid, {
+  }, rest))), React__default.createElement(Grid, {
     item: true,
     xs: 4,
     className: classes.unitsContainer

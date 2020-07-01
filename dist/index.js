@@ -23,14 +23,18 @@ var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
 var Web3 = _interopDefault(require('web3'));
 
-const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`;
+var shortenAddress = function shortenAddress(address) {
+  return address.substr(0, 6) + "..." + address.substr(address.length - 4);
+};
 
-const removeEmptySpaces = str => str.replace(/\s/g, '');
+var removeEmptySpaces = function removeEmptySpaces(str) {
+  return str.replace(/\s/g, '');
+};
 
-const maxSupportedNumber = 99999999999999;
-const minSupportedNumber = 0.000000000001;
+var maxSupportedNumber = 99999999999999;
+var minSupportedNumber = 0.000000000001;
 
-const validatedNumber = num => {
+var validatedNumber = function validatedNumber(num) {
   if (num > maxSupportedNumber) return maxSupportedNumber;
   if (num < minSupportedNumber) return minSupportedNumber;
   return num;
@@ -788,16 +792,16 @@ const useStyles$e = styles.makeStyles(theme => ({
   }
 }));
 
-const UnitsInput = props => {
-  const {
-    handleOnBlur,
-    handleOnChange,
-    maxValue,
-    minValue,
-    units,
-    value,
-    step = 1
-  } = props;
+const UnitsInput = ({
+  maxValue,
+  minValue,
+  units,
+  value,
+  step = 1,
+  handleOnBlur,
+  handleOnChange,
+  ...rest
+}) => {
   const classes = useStyles$e();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(core.Grid, {
     className: classes.root,
@@ -807,7 +811,7 @@ const UnitsInput = props => {
     className: classes.inputContainer,
     item: true,
     xs: 8
-  }, React__default.createElement(core.Input, {
+  }, React__default.createElement(core.Input, Object.assign({
     className: classes.input,
     classes: {
       input: classes.input
@@ -821,7 +825,7 @@ const UnitsInput = props => {
       max: maxValue,
       'aria-labelledby': 'input-slider'
     }
-  })), React__default.createElement(core.Grid, {
+  }, rest))), React__default.createElement(core.Grid, {
     item: true,
     xs: 4,
     className: classes.unitsContainer
