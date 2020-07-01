@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import React, { FC } from 'react'
 import UnitsInput from './UnitsInput'
 import { Typography } from '../atoms'
+import { validatedNumber } from '../../utils'
 
 export interface RangeSliderWithInputsProps extends SliderProps {
   values: {
@@ -46,16 +47,14 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({
   const handleStartInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    const newStartValue = event.target.value === '' ? startValue : Number(event.target.value)
+    const newStartValue = validatedNumber(Number(event.target.value)) || startValue
     handleChange({ min: newStartValue, max: endValue })
   }
 
   const handleEndInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    const newEndValue = event.target.value === ''
-      ? endValue
-      : Number(event.target.value)
+    const newEndValue = validatedNumber(Number(event.target.value)) || endValue
     handleChange({ min: startValue, max: newEndValue })
   }
 
