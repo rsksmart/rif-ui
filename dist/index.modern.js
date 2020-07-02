@@ -25,11 +25,19 @@ const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(ad
 const removeEmptySpaces = str => str.replace(/\s/g, '');
 
 const maxSupportedNumber = 99999999999999;
-const minSupportedNumber = 0.000000000001;
+const minSupportedNumber = 0.000001;
 
 const validatedNumber = num => {
-  if (num > maxSupportedNumber) return maxSupportedNumber;
-  if (num < minSupportedNumber) return minSupportedNumber;
+  if (num > 0) {
+    if (num > maxSupportedNumber) return maxSupportedNumber;
+    if (num < minSupportedNumber) return minSupportedNumber;
+  }
+
+  if (num < 0) {
+    if (num < -maxSupportedNumber) return -maxSupportedNumber;
+    if (num > -minSupportedNumber) return -minSupportedNumber;
+  }
+
   return num;
 };
 
@@ -792,6 +800,17 @@ const UnitsInput = ({
   ...rest
 }) => {
   const classes = useStyles$e();
+
+  const handleChange = event => {
+    const {
+      target: {
+        value: newValue
+      }
+    } = event;
+    const numberValue = Number(newValue);
+    if (numberValue || numberValue === 0) handleOnChange(event);
+  };
+
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -806,7 +825,7 @@ const UnitsInput = ({
       input: classes.input
     },
     value: value,
-    onChange: handleOnChange,
+    onChange: handleChange,
     onBlur: handleOnBlur,
     inputProps: {
       step: _step,
@@ -857,7 +876,7 @@ const RangeSliderWithInputs = ({
   const step = rest.step || 1;
 
   const handleStartInputChange = event => {
-    const newStartValue = validatedNumber(Number(event.target.value)) || startValue;
+    const newStartValue = validatedNumber(Number(event.target.value)) || minValue;
     handleChange({
       min: newStartValue,
       max: endValue
