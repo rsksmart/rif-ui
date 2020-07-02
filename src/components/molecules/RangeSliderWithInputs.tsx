@@ -47,7 +47,7 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({
   const handleStartInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    const newStartValue = validatedNumber(Number(event.target.value)) || startValue
+    const newStartValue = validatedNumber(Number(event.target.value)) || minValue
     handleChange({ min: newStartValue, max: endValue })
   }
 

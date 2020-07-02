@@ -55,8 +55,16 @@ const UnitsInput: FC<UnitsInputProps> = ({
   handleOnChange,
   ...rest
 }) => {
-
   const classes = useStyles()
+
+  const handleChange = (event) => {
+    const { target: { value: newValue } } = event
+    const numberValue = Number(newValue)
+
+    // we only handle the change if it's a number
+    if (numberValue || numberValue === 0) handleOnChange(event)
+  }
+
   return (
     <React.Fragment>
       <Grid className={classes.root} container spacing={1}>
@@ -65,7 +73,7 @@ const UnitsInput: FC<UnitsInputProps> = ({
             className={classes.input}
             classes={{ input: classes.input }}
             value={value}
-            onChange={handleOnChange}
+            onChange={handleChange}
             onBlur={handleOnBlur}
             inputProps={{
               step,

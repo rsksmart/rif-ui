@@ -3,12 +3,20 @@ const shortenAddress = (address: string): string => `${address.substr(0, 6)}...$
 const removeEmptySpaces = (str: string): string => str.replace(/\s/g, '')
 
 const maxSupportedNumber = 99999999999999
-const minSupportedNumber = 0.000000000001
+const minSupportedNumber = 0.000001
 
 const validatedNumber = (num: number): number => {
-  if (num > maxSupportedNumber) return maxSupportedNumber
+  if (num > 0) {
+    if (num > maxSupportedNumber) return maxSupportedNumber
 
-  if (num < minSupportedNumber) return minSupportedNumber
+    if (num < minSupportedNumber) return minSupportedNumber
+  }
+
+  if (num < 0) {
+    if (num < -maxSupportedNumber) return -maxSupportedNumber
+
+    if (num > -minSupportedNumber) return -minSupportedNumber
+  }
   return num
 }
 
