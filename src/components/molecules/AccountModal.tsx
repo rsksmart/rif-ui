@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import Web3 from 'web3'
-import { Typography, Theme, makeStyles } from '@material-ui/core'
+import { Typography, Theme, makeStyles, Tooltip } from '@material-ui/core'
 import {
   Button, LoginOption, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle,
 } from '../atoms'
@@ -16,12 +16,6 @@ export interface AccountModalProps {
   onProviderSet?: (account) => void
   open: boolean
 }
-const useStyles = makeStyles((theme: Theme) => ({
-  imageWrapper: {
-    maxHeight: theme.spacing(4),
-    marginRight: theme.spacing(2),
-  },
-}))
 
 const AccountModal: FC<AccountModalProps> = ({
   setProvider,
@@ -29,9 +23,7 @@ const AccountModal: FC<AccountModalProps> = ({
   open,
   handleClose,
   onProviderSet,
-}) => {
-  const classes = useStyles()
-  return (
+}) => (
     <Modal
       open={open}
       onClose={handleClose}
@@ -45,37 +37,23 @@ const AccountModal: FC<AccountModalProps> = ({
         <ModalBody>
           {
             availableProviders && availableProviders.length && availableProviders.map(
-              (providerInfo) => (
-                <LoginOption
-                  key={providerInfo.eProvider}
-                  content={(
-                    <React.Fragment>
-                      {
-                        providerInfo.iconImg
-                        && (
-                          <img
-                            className={classes.imageWrapper}
-                            src={providerInfo.iconImg}
-                            alt={`${providerInfo.name} icon`}
-                          />
-                        )
-                      }
-                      {providerInfo.name}
-                    </React.Fragment>
-                  )}
-                  onClick={async (): Promise<void> => {
-                    await setProvider(providerInfo.eProvider, onProviderSet)
-                  }}
-                />
-              ),
+              (providerInfo) => {
+                return (
+                  <LoginOption
+                    providerInfo={providerInfo}
+                    key={providerInfo.eProvider}
+                    onClick={async (): Promise<void> => {
+                      await setProvider(providerInfo.eProvider, onProviderSet)
+                    }}
+                  />
+                )
+              }
             )
           }
           {!availableProviders
             && (
-              <LoginOption
-                content={<Typography>Install Nifty wallet</Typography>}
-                onClick={() => (window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', '_blank'))}
-              />
+              // empty LoginOption means suggest to install Nifty wallet
+              <LoginOption />
             )}
         </ModalBody>
 
@@ -92,5 +70,5 @@ const AccountModal: FC<AccountModalProps> = ({
       </React.Fragment>
     </Modal>
   )
-}
+
 export default AccountModal

@@ -201,40 +201,6 @@ const Checkbox = props => {
   }));
 };
 
-const useStyles$2 = core.makeStyles(theme => ({
-  root: {
-    padding: 5,
-    margin: 5,
-    width: '100%'
-  },
-  content: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    maxHeight: theme.spacing(5),
-    justifyContent: 'center'
-  }
-}));
-
-const LoginOption = ({
-  className = '',
-  onClick,
-  content,
-  ...rest
-}) => {
-  const classes = useStyles$2();
-  return React__default.createElement(Button, Object.assign({
-    className: `${classes.root} ${className}`,
-    block: true,
-    rounded: true,
-    variant: "outlined",
-    color: "primary",
-    onClick: onClick
-  }, rest), React__default.createElement("div", {
-    className: classes.content
-  }, content));
-};
-
 var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
 
 var footerTongue = require("./footerTongue~bbJNSCWG.svg");
@@ -268,6 +234,175 @@ var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
 var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
 
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
+
+var EProvider;
+
+(function (EProvider) {
+  EProvider["METAMASK"] = "Metamask";
+  EProvider["NIFTY"] = "Nifty";
+  EProvider["LEDGER"] = "Ledger";
+  EProvider["TREZOR"] = "Trezor";
+  EProvider["TRUST"] = "Trust";
+  EProvider["LOCAL"] = "Localhost";
+  EProvider["GO_WALLET"] = "GoWallet";
+  EProvider["ALPHA_WALLET"] = "AlphaWallet";
+  EProvider["STATUS"] = "status";
+  EProvider["CIPHER"] = "cipher";
+  EProvider["COINBASE"] = "coinbase";
+  EProvider["MIST"] = "mist";
+  EProvider["PARITY"] = "parity";
+  EProvider["INFURA"] = "infura";
+})(EProvider || (EProvider = {}));
+
+const getProviderInfo = eProvider => {
+  switch (eProvider) {
+    case EProvider.METAMASK:
+      return {
+        name: 'MetaMask',
+        eProvider,
+        iconImg: metaMaskIconImg
+      };
+
+    case EProvider.NIFTY:
+      return {
+        name: 'Nifty',
+        eProvider,
+        iconImg: niftyIconImg
+      };
+
+    case EProvider.LEDGER:
+      return {
+        name: 'Ledger',
+        eProvider
+      };
+
+    case EProvider.TREZOR:
+      return {
+        name: 'Trezor',
+        eProvider
+      };
+
+    case EProvider.TRUST:
+      return {
+        name: 'Trust',
+        eProvider
+      };
+
+    case EProvider.GO_WALLET:
+      return {
+        name: 'Go Wallet',
+        eProvider
+      };
+
+    case EProvider.ALPHA_WALLET:
+      return {
+        name: 'Alpha Wallet',
+        eProvider
+      };
+
+    case EProvider.STATUS:
+      return {
+        name: 'Status',
+        eProvider
+      };
+
+    case EProvider.COINBASE:
+      return {
+        name: 'Coinbase',
+        eProvider
+      };
+
+    case EProvider.MIST:
+      return {
+        name: 'Mist',
+        eProvider
+      };
+
+    case EProvider.PARITY:
+      return {
+        name: 'Parity',
+        eProvider
+      };
+
+    case EProvider.INFURA:
+      return {
+        name: 'Infura',
+        eProvider
+      };
+
+    case EProvider.LOCAL:
+      return {
+        name: 'Localhost',
+        eProvider
+      };
+
+    default:
+      {
+        throw new Error(`EProvider not implemented or unknown. Chosen provider ${eProvider}`);
+      }
+  }
+};
+
+const useStyles$2 = core.makeStyles(theme => ({
+  root: {
+    padding: 5,
+    margin: 5,
+    width: '100%'
+  },
+  content: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    maxHeight: theme.spacing(5),
+    justifyContent: 'center'
+  },
+  imageWrapper: {
+    maxHeight: theme.spacing(4),
+    marginRight: theme.spacing(2)
+  }
+}));
+
+const LoginOption = ({
+  className = '',
+  onClick,
+  providerInfo,
+  ...rest
+}) => {
+  const classes = useStyles$2();
+  const providerContent = React__default.createElement("div", {
+    className: classes.content
+  }, (providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.iconImg) && React__default.createElement("img", {
+    className: classes.imageWrapper,
+    src: providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.iconImg,
+    alt: `${providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.name} icon`
+  }), providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.name);
+
+  const handleOnClick = () => {
+    if (!!onClick) {
+      return onClick();
+    }
+
+    return window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', '_blank');
+  };
+
+  return React__default.createElement(Button, Object.assign({
+    className: `${classes.root} ${className}`,
+    block: true,
+    rounded: true,
+    variant: "outlined",
+    color: "primary",
+    onClick: handleOnClick
+  }, rest), !!providerInfo && providerInfo.eProvider === EProvider.NIFTY && React__default.createElement(core.Tooltip, {
+    arrow: true,
+    title: 'Please, make sure you only have one browser wallet enabled.'
+  }, providerContent), !!providerInfo && providerInfo.eProvider !== EProvider.NIFTY && providerContent, !providerInfo && React__default.createElement("div", {
+    className: classes.content
+  }, React__default.createElement("img", {
+    className: classes.imageWrapper,
+    src: niftyIconImg,
+    alt: 'Nifty wallet icon'
+  }), 'Install Nifty wallet'));
+};
 
 var Logo = React__default.forwardRef((props, ref) => {
   const {
@@ -452,33 +587,21 @@ const Accordion = ({
   }, title)), React__default.createElement(ExpansionPanelDetails, null, children));
 };
 
-const useStyles$9 = core.makeStyles(theme => ({
-  imageWrapper: {
-    maxHeight: theme.spacing(4),
-    marginRight: theme.spacing(2)
-  }
-}));
-
 const AccountModal = ({
   setProvider,
   availableProviders,
   open,
   handleClose,
   onProviderSet
-}) => {
-  const classes = useStyles$9();
-  return React__default.createElement(Modal, {
-    open: open,
-    onClose: handleClose,
-    "aria-labelledby": "account-modal-title",
-    "aria-describedby": "account-modal-description"
-  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => React__default.createElement(LoginOption, {
+}) => React__default.createElement(Modal, {
+  open: open,
+  onClose: handleClose,
+  "aria-labelledby": "account-modal-title",
+  "aria-describedby": "account-modal-description"
+}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => {
+  return React__default.createElement(LoginOption, {
+    providerInfo: providerInfo,
     key: providerInfo.eProvider,
-    content: React__default.createElement(React__default.Fragment, null, providerInfo.iconImg && React__default.createElement("img", {
-      className: classes.imageWrapper,
-      src: providerInfo.iconImg,
-      alt: `${providerInfo.name} icon`
-    }), providerInfo.name),
     onClick: function () {
       try {
         return Promise.resolve(setProvider(providerInfo.eProvider, onProviderSet)).then(function () {});
@@ -486,16 +609,13 @@ const AccountModal = ({
         return Promise.reject(e);
       }
     }
-  })), !availableProviders && React__default.createElement(LoginOption, {
-    content: React__default.createElement(core.Typography, null, "Install Nifty wallet"),
-    onClick: () => window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', '_blank')
-  })), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
-    variant: "outlined",
-    color: "secondary",
-    block: true,
-    onClick: handleClose
-  }, "Close"))));
-};
+  });
+}), !availableProviders && React__default.createElement(LoginOption, null)), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
+  variant: "outlined",
+  color: "secondary",
+  block: true,
+  onClick: handleClose
+}, "Close"))));
 
 const defaultonCorrectNetworkMessage = 'You are on the right network';
 const deaulftonNetworkMismatchMessage = 'You are on the wrong network';
@@ -549,7 +669,7 @@ const NetworkIndicator = ({
   return iconPerNetworkStatus.get(networkStatus);
 };
 
-const useStyles$a = styles.makeStyles(theme => ({
+const useStyles$9 = styles.makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -577,7 +697,7 @@ const Account = ({
   onNetworkMismatchMessage,
   noNetworkMessage
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$9();
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => setOpen(false);
@@ -610,7 +730,7 @@ const Account = ({
   }));
 };
 
-const useStyles$b = styles.makeStyles(theme => ({
+const useStyles$a = styles.makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -649,7 +769,7 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$a();
   const [isExpanded, setIsExpanded] = React.useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -671,7 +791,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$c = styles.makeStyles(() => ({
+const useStyles$b = styles.makeStyles(() => ({
   root: {
     color: colors.gray4,
     width: '100%'
@@ -683,7 +803,7 @@ const LabeledCheckbox = ({
   labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$b();
   return React__default.createElement(core.FormControlLabel, {
     className: `${classes.root} ${labelClassName.trim()}`,
     label: labelText,
@@ -703,7 +823,7 @@ const FilterCheckboxCard = ({
   labelClassName: item.labelClassName
 }, item))));
 
-const useStyles$d = styles.makeStyles(() => ({
+const useStyles$c = styles.makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -728,7 +848,7 @@ const FooterColumn = ({
   links,
   className = ''
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$c();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement(Typography, {
@@ -766,7 +886,7 @@ const ModalDialogue = ({
   ...props
 }) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 
-const useStyles$e = styles.makeStyles(theme => ({
+const useStyles$d = styles.makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -806,7 +926,7 @@ const UnitsInput = ({
   handleOnChange,
   ...rest
 }) => {
-  const classes = useStyles$e();
+  const classes = useStyles$d();
 
   const handleChange = event => {
     const {
@@ -849,7 +969,7 @@ const UnitsInput = ({
   }, units))));
 };
 
-const useStyles$f = styles.makeStyles(() => ({
+const useStyles$e = styles.makeStyles(() => ({
   root: {
     width: '100%'
   },
@@ -877,7 +997,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$e();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -969,7 +1089,7 @@ const a11yProps = index => ({
   'aria-controls': `full-width-tabpanel-${index}`
 });
 
-const useStyles$g = styles.makeStyles(() => ({
+const useStyles$f = styles.makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1017,7 +1137,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$f();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1049,7 +1169,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$h = styles.makeStyles(theme => ({
+const useStyles$g = styles.makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1100,7 +1220,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$g();
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, rest), React__default.createElement("div", {
@@ -1138,7 +1258,7 @@ const Footer = ({
   }, copyrightText)))));
 };
 
-const useStyles$i = styles.makeStyles(theme => ({
+const useStyles$h = styles.makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.lightBold
@@ -1177,7 +1297,7 @@ const HeaderDesktop = ({
   items,
   login
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$h();
   const Login = login;
   return React__default.createElement(core.AppBar, {
     position: "fixed",
@@ -1198,7 +1318,7 @@ const HeaderDesktop = ({
 };
 
 const drawerWidth = 240;
-const useStyles$j = styles.makeStyles(theme => styles.createStyles({
+const useStyles$i = styles.makeStyles(theme => styles.createStyles({
   loginContainer: {
     display: 'flex',
     marginLeft: 'auto'
@@ -1250,7 +1370,7 @@ const HeaderMobile = ({
   items,
   login
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$i();
   const [open, setOpen] = React.useState(false);
   const Login = login;
 
@@ -1318,7 +1438,7 @@ const Header = ({
   login: login
 })));
 
-const useStyles$k = styles.makeStyles(theme => ({
+const useStyles$j = styles.makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -1355,7 +1475,7 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$j();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
@@ -1373,7 +1493,7 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$l = styles.makeStyles(theme => ({
+const useStyles$k = styles.makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -1408,7 +1528,7 @@ const FAQPageTemplate = ({
   mainTitle,
   questionsAndAnswers
 }) => {
-  const classes = useStyles$l();
+  const classes = useStyles$k();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement("div", {
@@ -1425,7 +1545,7 @@ const FAQPageTemplate = ({
   }, qAndA))))));
 };
 
-const useStyles$m = styles.makeStyles(theme => ({
+const useStyles$l = styles.makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
@@ -1437,7 +1557,7 @@ const PageTemplate = ({
   className = '',
   ...props
 }) => {
-  const classes = useStyles$m();
+  const classes = useStyles$l();
   return React__default.createElement("div", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, props), children);
@@ -2647,114 +2767,6 @@ var networksData = [
 		infoURL: "http://localhost:8545"
 	}
 ];
-
-var EProvider;
-
-(function (EProvider) {
-  EProvider["METAMASK"] = "Metamask";
-  EProvider["NIFTY"] = "Nifty";
-  EProvider["LEDGER"] = "Ledger";
-  EProvider["TREZOR"] = "Trezor";
-  EProvider["TRUST"] = "Trust";
-  EProvider["LOCAL"] = "Localhost";
-  EProvider["GO_WALLET"] = "GoWallet";
-  EProvider["ALPHA_WALLET"] = "AlphaWallet";
-  EProvider["STATUS"] = "status";
-  EProvider["CIPHER"] = "cipher";
-  EProvider["COINBASE"] = "coinbase";
-  EProvider["MIST"] = "mist";
-  EProvider["PARITY"] = "parity";
-  EProvider["INFURA"] = "infura";
-})(EProvider || (EProvider = {}));
-
-const getProviderInfo = eProvider => {
-  switch (eProvider) {
-    case EProvider.METAMASK:
-      return {
-        name: 'MetaMask',
-        eProvider,
-        iconImg: metaMaskIconImg
-      };
-
-    case EProvider.NIFTY:
-      return {
-        name: 'Nifty',
-        eProvider,
-        iconImg: niftyIconImg
-      };
-
-    case EProvider.LEDGER:
-      return {
-        name: 'Ledger',
-        eProvider
-      };
-
-    case EProvider.TREZOR:
-      return {
-        name: 'Trezor',
-        eProvider
-      };
-
-    case EProvider.TRUST:
-      return {
-        name: 'Trust',
-        eProvider
-      };
-
-    case EProvider.GO_WALLET:
-      return {
-        name: 'Go Wallet',
-        eProvider
-      };
-
-    case EProvider.ALPHA_WALLET:
-      return {
-        name: 'Alpha Wallet',
-        eProvider
-      };
-
-    case EProvider.STATUS:
-      return {
-        name: 'Status',
-        eProvider
-      };
-
-    case EProvider.COINBASE:
-      return {
-        name: 'Coinbase',
-        eProvider
-      };
-
-    case EProvider.MIST:
-      return {
-        name: 'Mist',
-        eProvider
-      };
-
-    case EProvider.PARITY:
-      return {
-        name: 'Parity',
-        eProvider
-      };
-
-    case EProvider.INFURA:
-      return {
-        name: 'Infura',
-        eProvider
-      };
-
-    case EProvider.LOCAL:
-      return {
-        name: 'Localhost',
-        eProvider
-      };
-
-    default:
-      {
-        throw new Error(`EProvider not implemented or unknown. Chosen provider ${eProvider}`);
-      }
-  }
-};
 
 function getWeb3(provider = EProvider.METAMASK) {
   return new Promise((resolve, reject) => {

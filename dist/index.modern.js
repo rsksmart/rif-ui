@@ -1,12 +1,12 @@
 import React__default, { useState, createContext, Component } from 'react';
-import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Typography as Typography$1, Modal as Modal$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel, Grid, Input, Tabs, Tab, AppBar, Toolbar, IconButton, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Tooltip, Typography as Typography$1, Modal as Modal$1, ExpansionPanel as ExpansionPanel$1, ExpansionPanelSummary as ExpansionPanelSummary$1, ExpansionPanelDetails as ExpansionPanelDetails$1, FormControlLabel, Grid, Input, Tabs, Tab, AppBar, Toolbar, IconButton, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip$1 from '@material-ui/core/Tooltip';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
 import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -198,40 +198,6 @@ const Checkbox = props => {
   }));
 };
 
-const useStyles$2 = makeStyles$1(theme => ({
-  root: {
-    padding: 5,
-    margin: 5,
-    width: '100%'
-  },
-  content: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    maxHeight: theme.spacing(5),
-    justifyContent: 'center'
-  }
-}));
-
-const LoginOption = ({
-  className: _className = '',
-  onClick,
-  content,
-  ...rest
-}) => {
-  const classes = useStyles$2();
-  return React__default.createElement(Button, Object.assign({
-    className: `${classes.root} ${_className}`,
-    block: true,
-    rounded: true,
-    variant: "outlined",
-    color: "primary",
-    onClick: onClick
-  }, rest), React__default.createElement("div", {
-    className: classes.content
-  }, content));
-};
-
 var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
 
 var footerTongue = require("./footerTongue~bbJNSCWG.svg");
@@ -265,6 +231,175 @@ var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
 var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
 
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
+
+var EProvider;
+
+(function (EProvider) {
+  EProvider["METAMASK"] = "Metamask";
+  EProvider["NIFTY"] = "Nifty";
+  EProvider["LEDGER"] = "Ledger";
+  EProvider["TREZOR"] = "Trezor";
+  EProvider["TRUST"] = "Trust";
+  EProvider["LOCAL"] = "Localhost";
+  EProvider["GO_WALLET"] = "GoWallet";
+  EProvider["ALPHA_WALLET"] = "AlphaWallet";
+  EProvider["STATUS"] = "status";
+  EProvider["CIPHER"] = "cipher";
+  EProvider["COINBASE"] = "coinbase";
+  EProvider["MIST"] = "mist";
+  EProvider["PARITY"] = "parity";
+  EProvider["INFURA"] = "infura";
+})(EProvider || (EProvider = {}));
+
+const getProviderInfo = eProvider => {
+  switch (eProvider) {
+    case EProvider.METAMASK:
+      return {
+        name: 'MetaMask',
+        eProvider,
+        iconImg: metaMaskIconImg
+      };
+
+    case EProvider.NIFTY:
+      return {
+        name: 'Nifty',
+        eProvider,
+        iconImg: niftyIconImg
+      };
+
+    case EProvider.LEDGER:
+      return {
+        name: 'Ledger',
+        eProvider
+      };
+
+    case EProvider.TREZOR:
+      return {
+        name: 'Trezor',
+        eProvider
+      };
+
+    case EProvider.TRUST:
+      return {
+        name: 'Trust',
+        eProvider
+      };
+
+    case EProvider.GO_WALLET:
+      return {
+        name: 'Go Wallet',
+        eProvider
+      };
+
+    case EProvider.ALPHA_WALLET:
+      return {
+        name: 'Alpha Wallet',
+        eProvider
+      };
+
+    case EProvider.STATUS:
+      return {
+        name: 'Status',
+        eProvider
+      };
+
+    case EProvider.COINBASE:
+      return {
+        name: 'Coinbase',
+        eProvider
+      };
+
+    case EProvider.MIST:
+      return {
+        name: 'Mist',
+        eProvider
+      };
+
+    case EProvider.PARITY:
+      return {
+        name: 'Parity',
+        eProvider
+      };
+
+    case EProvider.INFURA:
+      return {
+        name: 'Infura',
+        eProvider
+      };
+
+    case EProvider.LOCAL:
+      return {
+        name: 'Localhost',
+        eProvider
+      };
+
+    default:
+      {
+        throw new Error(`EProvider not implemented or unknown. Chosen provider ${eProvider}`);
+      }
+  }
+};
+
+const useStyles$2 = makeStyles$1(theme => ({
+  root: {
+    padding: 5,
+    margin: 5,
+    width: '100%'
+  },
+  content: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    maxHeight: theme.spacing(5),
+    justifyContent: 'center'
+  },
+  imageWrapper: {
+    maxHeight: theme.spacing(4),
+    marginRight: theme.spacing(2)
+  }
+}));
+
+const LoginOption = ({
+  className: _className = '',
+  onClick,
+  providerInfo,
+  ...rest
+}) => {
+  const classes = useStyles$2();
+  const providerContent = React__default.createElement("div", {
+    className: classes.content
+  }, (providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.iconImg) && React__default.createElement("img", {
+    className: classes.imageWrapper,
+    src: providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.iconImg,
+    alt: `${providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.name} icon`
+  }), providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.name);
+
+  const handleOnClick = () => {
+    if (!!onClick) {
+      return onClick();
+    }
+
+    return window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', '_blank');
+  };
+
+  return React__default.createElement(Button, Object.assign({
+    className: `${classes.root} ${_className}`,
+    block: true,
+    rounded: true,
+    variant: "outlined",
+    color: "primary",
+    onClick: handleOnClick
+  }, rest), !!providerInfo && providerInfo.eProvider === EProvider.NIFTY && React__default.createElement(Tooltip, {
+    arrow: true,
+    title: 'Please, make sure you only have one browser wallet enabled.'
+  }, providerContent), !!providerInfo && providerInfo.eProvider !== EProvider.NIFTY && providerContent, !providerInfo && React__default.createElement("div", {
+    className: classes.content
+  }, React__default.createElement("img", {
+    className: classes.imageWrapper,
+    src: niftyIconImg,
+    alt: 'Nifty wallet icon'
+  }), 'Install Nifty wallet'));
+};
 
 var Logo = React__default.forwardRef((props, ref) => {
   const {
@@ -449,46 +584,31 @@ const Accordion = ({
   }, title)), React__default.createElement(ExpansionPanelDetails, null, children));
 };
 
-const useStyles$9 = makeStyles$1(theme => ({
-  imageWrapper: {
-    maxHeight: theme.spacing(4),
-    marginRight: theme.spacing(2)
-  }
-}));
-
 const AccountModal = ({
   setProvider,
   availableProviders,
   open,
   handleClose,
   onProviderSet
-}) => {
-  const classes = useStyles$9();
-  return React__default.createElement(Modal, {
-    open: open,
-    onClose: handleClose,
-    "aria-labelledby": "account-modal-title",
-    "aria-describedby": "account-modal-description"
-  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => React__default.createElement(LoginOption, {
+}) => React__default.createElement(Modal, {
+  open: open,
+  onClose: handleClose,
+  "aria-labelledby": "account-modal-title",
+  "aria-describedby": "account-modal-description"
+}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => {
+  return React__default.createElement(LoginOption, {
+    providerInfo: providerInfo,
     key: providerInfo.eProvider,
-    content: React__default.createElement(React__default.Fragment, null, providerInfo.iconImg && React__default.createElement("img", {
-      className: classes.imageWrapper,
-      src: providerInfo.iconImg,
-      alt: `${providerInfo.name} icon`
-    }), providerInfo.name),
     onClick: async () => {
       await setProvider(providerInfo.eProvider, onProviderSet);
     }
-  })), !availableProviders && React__default.createElement(LoginOption, {
-    content: React__default.createElement(Typography$1, null, "Install Nifty wallet"),
-    onClick: () => window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', '_blank')
-  })), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
-    variant: "outlined",
-    color: "secondary",
-    block: true,
-    onClick: handleClose
-  }, "Close"))));
-};
+  });
+}), !availableProviders && React__default.createElement(LoginOption, null)), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
+  variant: "outlined",
+  color: "secondary",
+  block: true,
+  onClick: handleClose
+}, "Close"))));
 
 const defaultonCorrectNetworkMessage = 'You are on the right network';
 const deaulftonNetworkMismatchMessage = 'You are on the wrong network';
@@ -517,7 +637,7 @@ const NetworkIndicator = ({
 }) => {
   const networkStatus = getNetworkStatus(currentNetworkId, requiredNetworkId);
   const iconPerNetworkStatus = new Map();
-  iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React__default.createElement(Tooltip, {
+  iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React__default.createElement(Tooltip$1, {
     title: noNetworkMessage || defaultNoNetworkMessage
   }, React__default.createElement(WarningIcon, {
     className: _iconClassName,
@@ -525,13 +645,13 @@ const NetworkIndicator = ({
       color: yellow[800]
     }
   })));
-  iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React__default.createElement(Tooltip, {
+  iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React__default.createElement(Tooltip$1, {
     title: onNetworkMismatchMessage || deaulftonNetworkMismatchMessage
   }, React__default.createElement(ErrorIcon, {
     className: _iconClassName,
     color: "error"
   })));
-  iconPerNetworkStatus.set(NetworkStatus.CORRECT_NETWORK, React__default.createElement(Tooltip, {
+  iconPerNetworkStatus.set(NetworkStatus.CORRECT_NETWORK, React__default.createElement(Tooltip$1, {
     title: onCorrectNetworkMessage || defaultonCorrectNetworkMessage
   }, React__default.createElement(CheckCircleOutlineOutlinedIcon, {
     className: _iconClassName,
@@ -542,7 +662,7 @@ const NetworkIndicator = ({
   return iconPerNetworkStatus.get(networkStatus);
 };
 
-const useStyles$a = makeStyles(theme => ({
+const useStyles$9 = makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -570,7 +690,7 @@ const Account = ({
   onNetworkMismatchMessage,
   noNetworkMessage
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$9();
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setOpen(false);
@@ -603,7 +723,7 @@ const Account = ({
   }));
 };
 
-const useStyles$b = makeStyles(theme => ({
+const useStyles$a = makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -642,7 +762,7 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$b();
+  const classes = useStyles$a();
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -664,7 +784,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$c = makeStyles(() => ({
+const useStyles$b = makeStyles(() => ({
   root: {
     color: colors.gray4,
     width: '100%'
@@ -676,7 +796,7 @@ const LabeledCheckbox = ({
   labelClassName: _labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$b();
   return React__default.createElement(FormControlLabel, {
     className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
@@ -696,7 +816,7 @@ const FilterCheckboxCard = ({
   labelClassName: item.labelClassName
 }, item))));
 
-const useStyles$d = makeStyles(() => ({
+const useStyles$c = makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -721,7 +841,7 @@ const FooterColumn = ({
   links,
   className: _className = ''
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$c();
   return React__default.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React__default.createElement(Typography, {
@@ -759,7 +879,7 @@ const ModalDialogue = ({
   ...props
 }) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 
-const useStyles$e = makeStyles(theme => ({
+const useStyles$d = makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -799,7 +919,7 @@ const UnitsInput = ({
   handleOnChange,
   ...rest
 }) => {
-  const classes = useStyles$e();
+  const classes = useStyles$d();
 
   const handleChange = event => {
     const {
@@ -842,7 +962,7 @@ const UnitsInput = ({
   }, units))));
 };
 
-const useStyles$f = makeStyles(() => ({
+const useStyles$e = makeStyles(() => ({
   root: {
     width: '100%'
   },
@@ -870,7 +990,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$e();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -962,7 +1082,7 @@ const a11yProps = index => ({
   'aria-controls': `full-width-tabpanel-${index}`
 });
 
-const useStyles$g = makeStyles(() => ({
+const useStyles$f = makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1010,7 +1130,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$f();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1042,7 +1162,7 @@ const SwitchTabs = ({
   }))));
 };
 
-const useStyles$h = makeStyles(theme => ({
+const useStyles$g = makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1093,7 +1213,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$h();
+  const classes = useStyles$g();
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, rest), React__default.createElement("div", {
@@ -1131,7 +1251,7 @@ const Footer = ({
   }, copyrightText)))));
 };
 
-const useStyles$i = makeStyles(theme => ({
+const useStyles$h = makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.lightBold
@@ -1170,7 +1290,7 @@ const HeaderDesktop = ({
   items,
   login
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$h();
   const Login = login;
   return React__default.createElement(AppBar, {
     position: "fixed",
@@ -1191,7 +1311,7 @@ const HeaderDesktop = ({
 };
 
 const drawerWidth = 240;
-const useStyles$j = makeStyles(theme => createStyles$1({
+const useStyles$i = makeStyles(theme => createStyles$1({
   loginContainer: {
     display: 'flex',
     marginLeft: 'auto'
@@ -1243,7 +1363,7 @@ const HeaderMobile = ({
   items,
   login
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$i();
   const [open, setOpen] = useState(false);
   const Login = login;
 
@@ -1311,7 +1431,7 @@ const Header = ({
   login: login
 })));
 
-const useStyles$k = makeStyles(theme => ({
+const useStyles$j = makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -1348,7 +1468,7 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$j();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
@@ -1366,7 +1486,7 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$l = makeStyles(theme => ({
+const useStyles$k = makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -1401,7 +1521,7 @@ const FAQPageTemplate = ({
   mainTitle,
   questionsAndAnswers
 }) => {
-  const classes = useStyles$l();
+  const classes = useStyles$k();
   return React__default.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React__default.createElement("div", {
@@ -1418,7 +1538,7 @@ const FAQPageTemplate = ({
   }, qAndA))))));
 };
 
-const useStyles$m = makeStyles(theme => ({
+const useStyles$l = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
@@ -1430,7 +1550,7 @@ const PageTemplate = ({
   className: _className = '',
   ...props
 }) => {
-  const classes = useStyles$m();
+  const classes = useStyles$l();
   return React__default.createElement("div", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, props), children);
@@ -2621,114 +2741,6 @@ var networksData = [
 		infoURL: "http://localhost:8545"
 	}
 ];
-
-var EProvider;
-
-(function (EProvider) {
-  EProvider["METAMASK"] = "Metamask";
-  EProvider["NIFTY"] = "Nifty";
-  EProvider["LEDGER"] = "Ledger";
-  EProvider["TREZOR"] = "Trezor";
-  EProvider["TRUST"] = "Trust";
-  EProvider["LOCAL"] = "Localhost";
-  EProvider["GO_WALLET"] = "GoWallet";
-  EProvider["ALPHA_WALLET"] = "AlphaWallet";
-  EProvider["STATUS"] = "status";
-  EProvider["CIPHER"] = "cipher";
-  EProvider["COINBASE"] = "coinbase";
-  EProvider["MIST"] = "mist";
-  EProvider["PARITY"] = "parity";
-  EProvider["INFURA"] = "infura";
-})(EProvider || (EProvider = {}));
-
-const getProviderInfo = eProvider => {
-  switch (eProvider) {
-    case EProvider.METAMASK:
-      return {
-        name: 'MetaMask',
-        eProvider,
-        iconImg: metaMaskIconImg
-      };
-
-    case EProvider.NIFTY:
-      return {
-        name: 'Nifty',
-        eProvider,
-        iconImg: niftyIconImg
-      };
-
-    case EProvider.LEDGER:
-      return {
-        name: 'Ledger',
-        eProvider
-      };
-
-    case EProvider.TREZOR:
-      return {
-        name: 'Trezor',
-        eProvider
-      };
-
-    case EProvider.TRUST:
-      return {
-        name: 'Trust',
-        eProvider
-      };
-
-    case EProvider.GO_WALLET:
-      return {
-        name: 'Go Wallet',
-        eProvider
-      };
-
-    case EProvider.ALPHA_WALLET:
-      return {
-        name: 'Alpha Wallet',
-        eProvider
-      };
-
-    case EProvider.STATUS:
-      return {
-        name: 'Status',
-        eProvider
-      };
-
-    case EProvider.COINBASE:
-      return {
-        name: 'Coinbase',
-        eProvider
-      };
-
-    case EProvider.MIST:
-      return {
-        name: 'Mist',
-        eProvider
-      };
-
-    case EProvider.PARITY:
-      return {
-        name: 'Parity',
-        eProvider
-      };
-
-    case EProvider.INFURA:
-      return {
-        name: 'Infura',
-        eProvider
-      };
-
-    case EProvider.LOCAL:
-      return {
-        name: 'Localhost',
-        eProvider
-      };
-
-    default:
-      {
-        throw new Error(`EProvider not implemented or unknown. Chosen provider ${eProvider}`);
-      }
-  }
-};
 
 function getWeb3(provider = EProvider.METAMASK) {
   return new Promise((resolve, reject) => {
