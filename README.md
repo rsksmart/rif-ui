@@ -87,17 +87,19 @@ As an example
 </Web3Provider.Provider >
 ```
 
-## Example folder
+## Development - Example folder
 
-If you want to try this library without creating a new project you can clone this repo and follow the next steps:
+A sandbox project is provided in order to test the library or try new features locally without having to release a new version.
+The sandbox project lives at the `example` folder. In order to run it, follow the next steps:
 
 1. At `rif-ui`:
 
 ```
+npm i
 npm start
 ```
 
-2. In another terminal:
+2. Wait until it compiles to the `dist` folder. Then, in another terminal:
 
 ```
 cd example/ && npm start
@@ -122,4 +124,5 @@ npm run test:unit
 MIT © [rsksmart](https://github.com/rsksmart)
 
 ## Acknowledgments
+ - This library was created with [create-react-library](https://github.com/transitive-bullshit/create-react-library). A great project to start you own library.
  - Thanks to [EVM Networks](https://github.com/ethereum-lists/chains) for providing the data source of network objects as a JSON, which inspired us to create the `NetworkInfo` interface
