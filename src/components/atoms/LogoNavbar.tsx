@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { logoFullWhite } from '../../assets/images'
 
 interface LogoProps extends React.Props<HTMLImageElement> {
@@ -7,19 +7,12 @@ interface LogoProps extends React.Props<HTMLImageElement> {
   style?: React.CSSProperties
 }
 
-export default React.forwardRef((
-  props: LogoProps,
-  ref?: React.Ref<HTMLImageElement> | null,
-) => {
-  const { alt = 'RIF OS', height = '44px', ...other } = props
-
-  return (
-    <img
-      src={logoFullWhite}
-      alt={alt}
-      height={height}
-      ref={ref}
-      {...other}
-    />
-  )
-})
+const LogoNavbar: FC<LogoProps> = ({ alt = 'navbar logo', height = '44px', ...rest }) => (
+  <img
+    src={logoFullWhite}
+    alt={alt}
+    height={height}
+    {...rest}
+  />
+)
+export default LogoNavbar

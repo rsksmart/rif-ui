@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 interface LogoProps extends React.Props<HTMLImageElement> {
     alt?: string;
-    style?: React.CSSProperties;
 }
-declare const _default: React.ForwardRefExoticComponent<Pick<LogoProps, "alt" | "style" | "children" | "key"> & React.RefAttributes<HTMLImageElement>>;
-export default _default;
+declare const Logo: FC<LogoProps>;
+export default Logo;

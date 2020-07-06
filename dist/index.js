@@ -23,14 +23,18 @@ var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
 var Web3 = _interopDefault(require('web3'));
 
-const shortenAddress = address => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`;
+var shortenAddress = function shortenAddress(address) {
+  return address.substr(0, 6) + "..." + address.substr(address.length - 4);
+};
 
-const removeEmptySpaces = str => str.replace(/\s/g, '');
+var removeEmptySpaces = function removeEmptySpaces(str) {
+  return str.replace(/\s/g, '');
+};
 
-const maxSupportedNumber = 99999999999999;
-const minSupportedNumber = 0.000001;
+var maxSupportedNumber = 99999999999999;
+var minSupportedNumber = 0.000001;
 
-const validatedNumber = num => {
+var validatedNumber = function validatedNumber(num) {
   if (num > 0) {
     if (num > maxSupportedNumber) return maxSupportedNumber;
     if (num < minSupportedNumber) return minSupportedNumber;
@@ -378,7 +382,7 @@ const LoginOption = ({
   }), providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.name);
 
   const handleOnClick = () => {
-    if (!!onClick) {
+    if (onClick) {
       return onClick();
     }
 
@@ -394,41 +398,33 @@ const LoginOption = ({
     onClick: handleOnClick
   }, rest), !!providerInfo && providerInfo.eProvider === EProvider.NIFTY && React__default.createElement(core.Tooltip, {
     arrow: true,
-    title: 'Please, make sure you only have one browser wallet enabled.'
+    title: "Please, make sure you only have one browser wallet enabled."
   }, providerContent), !!providerInfo && providerInfo.eProvider !== EProvider.NIFTY && providerContent, !providerInfo && React__default.createElement("div", {
     className: classes.content
   }, React__default.createElement("img", {
     className: classes.imageWrapper,
     src: niftyIconImg,
-    alt: 'Nifty wallet icon'
-  }), 'Install Nifty wallet'));
+    alt: "Nifty wallet icon"
+  }), "Install Nifty wallet"));
 };
 
-var Logo = React__default.forwardRef((props, ref) => {
-  const {
-    alt = 'RIF OS',
-    ...other
-  } = props;
-  return React__default.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    ref: ref
-  }, other));
-});
+const Logo = ({
+  alt = 'RIF OS logo',
+  ...rest
+}) => React__default.createElement("img", Object.assign({
+  src: logoFullWhite,
+  alt: alt
+}, rest));
 
-var LogoNavbar = React__default.forwardRef((props, ref) => {
-  const {
-    alt = 'RIF OS',
-    height = '44px',
-    ...other
-  } = props;
-  return React__default.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    height: height,
-    ref: ref
-  }, other));
-});
+const LogoNavbar = ({
+  alt = 'navbar logo',
+  height = '44px',
+  ...rest
+}) => React__default.createElement("img", Object.assign({
+  src: logoFullWhite,
+  alt: alt,
+  height: height
+}, rest));
 
 const useStyles$3 = styles.makeStyles(() => ({
   normal: {
@@ -598,19 +594,17 @@ const AccountModal = ({
   onClose: handleClose,
   "aria-labelledby": "account-modal-title",
   "aria-describedby": "account-modal-description"
-}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => {
-  return React__default.createElement(LoginOption, {
-    providerInfo: providerInfo,
-    key: providerInfo.eProvider,
-    onClick: function () {
-      try {
-        return Promise.resolve(setProvider(providerInfo.eProvider, onProviderSet)).then(function () {});
-      } catch (e) {
-        return Promise.reject(e);
-      }
+}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => React__default.createElement(LoginOption, {
+  providerInfo: providerInfo,
+  key: providerInfo.eProvider,
+  onClick: function () {
+    try {
+      return Promise.resolve(setProvider(providerInfo.eProvider, onProviderSet)).then(function () {});
+    } catch (e) {
+      return Promise.reject(e);
     }
-  });
-}), !availableProviders && React__default.createElement(LoginOption, null)), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
+  }
+})), !availableProviders && React__default.createElement(LoginOption, null)), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
   variant: "outlined",
   color: "secondary",
   block: true,

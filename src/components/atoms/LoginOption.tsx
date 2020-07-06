@@ -58,7 +58,7 @@ const LoginOption: FC<LoginOptionProps> = ({
   )
 
   const handleOnClick = () => {
-    if (!!onClick) {
+    if (onClick) {
       return onClick()
     }
     return window.open('https://www.poa.network/for-users/nifty-wallet/getting-started', '_blank')
@@ -75,23 +75,25 @@ const LoginOption: FC<LoginOptionProps> = ({
       {...rest}
     >
       {/* only with Nifty we display the Tooltip because atm we can't check if MetaMask is also enabled */}
-      {!!providerInfo && providerInfo.eProvider === EProvider.NIFTY &&
-        <Tooltip arrow title='Please, make sure you only have one browser wallet enabled.'>
+      {!!providerInfo && providerInfo.eProvider === EProvider.NIFTY
+        && (
+        <Tooltip arrow title="Please, make sure you only have one browser wallet enabled.">
           {providerContent}
         </Tooltip>
-      }
-      {!!providerInfo && providerInfo.eProvider !== EProvider.NIFTY &&
-        providerContent
-      }
-      {!providerInfo &&
+        )}
+      {!!providerInfo && providerInfo.eProvider !== EProvider.NIFTY
+        && providerContent}
+      {!providerInfo
+        && (
         <div className={classes.content}>
           <img
             className={classes.imageWrapper}
             src={niftyIconImg}
-            alt='Nifty wallet icon'
-          />{'Install Nifty wallet'}
+            alt="Nifty wallet icon"
+          />
+          Install Nifty wallet
         </div>
-      }
+        )}
     </Button>
   )
 }
