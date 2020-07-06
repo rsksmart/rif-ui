@@ -375,7 +375,7 @@ const LoginOption = ({
   }), providerInfo === null || providerInfo === void 0 ? void 0 : providerInfo.name);
 
   const handleOnClick = () => {
-    if (!!onClick) {
+    if (onClick) {
       return onClick();
     }
 
@@ -391,41 +391,33 @@ const LoginOption = ({
     onClick: handleOnClick
   }, rest), !!providerInfo && providerInfo.eProvider === EProvider.NIFTY && React__default.createElement(Tooltip, {
     arrow: true,
-    title: 'Please, make sure you only have one browser wallet enabled.'
+    title: "Please, make sure you only have one browser wallet enabled."
   }, providerContent), !!providerInfo && providerInfo.eProvider !== EProvider.NIFTY && providerContent, !providerInfo && React__default.createElement("div", {
     className: classes.content
   }, React__default.createElement("img", {
     className: classes.imageWrapper,
     src: niftyIconImg,
-    alt: 'Nifty wallet icon'
-  }), 'Install Nifty wallet'));
+    alt: "Nifty wallet icon"
+  }), "Install Nifty wallet"));
 };
 
-var Logo = React__default.forwardRef((props, ref) => {
-  const {
-    alt = 'RIF OS',
-    ...other
-  } = props;
-  return React__default.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    ref: ref
-  }, other));
-});
+const Logo = ({
+  alt: _alt = 'RIF OS logo',
+  ...rest
+}) => React__default.createElement("img", Object.assign({
+  src: logoFullWhite,
+  alt: _alt
+}, rest));
 
-var LogoNavbar = React__default.forwardRef((props, ref) => {
-  const {
-    alt = 'RIF OS',
-    height = '44px',
-    ...other
-  } = props;
-  return React__default.createElement("img", Object.assign({
-    src: logoFullWhite,
-    alt: alt,
-    height: height,
-    ref: ref
-  }, other));
-});
+const LogoNavbar = ({
+  alt: _alt = 'navbar logo',
+  height: _height = '44px',
+  ...rest
+}) => React__default.createElement("img", Object.assign({
+  src: logoFullWhite,
+  alt: _alt,
+  height: _height
+}, rest));
 
 const useStyles$3 = makeStyles(() => ({
   normal: {
@@ -595,15 +587,13 @@ const AccountModal = ({
   onClose: handleClose,
   "aria-labelledby": "account-modal-title",
   "aria-describedby": "account-modal-description"
-}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => {
-  return React__default.createElement(LoginOption, {
-    providerInfo: providerInfo,
-    key: providerInfo.eProvider,
-    onClick: async () => {
-      await setProvider(providerInfo.eProvider, onProviderSet);
-    }
-  });
-}), !availableProviders && React__default.createElement(LoginOption, null)), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
+}, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => React__default.createElement(LoginOption, {
+  providerInfo: providerInfo,
+  key: providerInfo.eProvider,
+  onClick: async () => {
+    await setProvider(providerInfo.eProvider, onProviderSet);
+  }
+})), !availableProviders && React__default.createElement(LoginOption, null)), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
   variant: "outlined",
   color: "secondary",
   block: true,

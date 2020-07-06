@@ -1,16 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { logoFullWhite } from '../../assets/images'
 
 interface LogoProps extends React.Props<HTMLImageElement> {
   alt?: string
-  style?: React.CSSProperties
 }
 
-export default React.forwardRef((
-  props: LogoProps,
-  ref?: React.Ref<HTMLImageElement> | null,
-) => {
-  const { alt = 'RIF OS', ...other } = props
+const Logo: FC<LogoProps> = ({ alt = 'RIF OS logo', ...rest }) => <img src={logoFullWhite} alt={alt} {...rest} />
 
-  return <img src={logoFullWhite} alt={alt} ref={ref} {...other} />
-})
+export default Logo

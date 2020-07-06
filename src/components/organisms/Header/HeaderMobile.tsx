@@ -15,7 +15,6 @@ import { LogoNavbar } from '../../atoms'
 import { HeaderProps, HeaderItemProps } from './HeaderProps'
 import { removeEmptySpaces } from '../../../utils'
 
-
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

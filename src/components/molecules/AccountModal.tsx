@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import Web3 from 'web3'
-import { Typography, Theme, makeStyles, Tooltip } from '@material-ui/core'
 import {
   Button, LoginOption, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle,
 } from '../atoms'
@@ -24,51 +23,49 @@ const AccountModal: FC<AccountModalProps> = ({
   handleClose,
   onProviderSet,
 }) => (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="account-modal-title"
-      aria-describedby="account-modal-description"
-    >
-      <React.Fragment>
-        <ModalHeader>
-          <ModalTitle>Connect a wallet to get started</ModalTitle>
-        </ModalHeader>
-        <ModalBody>
-          {
+  <Modal
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="account-modal-title"
+    aria-describedby="account-modal-description"
+  >
+    <React.Fragment>
+      <ModalHeader>
+        <ModalTitle>Connect a wallet to get started</ModalTitle>
+      </ModalHeader>
+      <ModalBody>
+        {
             availableProviders && availableProviders.length && availableProviders.map(
-              (providerInfo) => {
-                return (
-                  <LoginOption
-                    providerInfo={providerInfo}
-                    key={providerInfo.eProvider}
-                    onClick={async (): Promise<void> => {
-                      await setProvider(providerInfo.eProvider, onProviderSet)
-                    }}
-                  />
-                )
-              }
+              (providerInfo) => (
+                <LoginOption
+                  providerInfo={providerInfo}
+                  key={providerInfo.eProvider}
+                  onClick={async (): Promise<void> => {
+                    await setProvider(providerInfo.eProvider, onProviderSet)
+                  }}
+                />
+              ),
             )
           }
-          {!availableProviders
+        {!availableProviders
             && (
               // empty LoginOption means suggest to install Nifty wallet
               <LoginOption />
             )}
-        </ModalBody>
+      </ModalBody>
 
-        <ModalFooter>
-          <Button
-            variant="outlined"
-            color="secondary"
-            block
-            onClick={handleClose}
-          >
-            Close
-          </Button>
-        </ModalFooter>
-      </React.Fragment>
-    </Modal>
-  )
+      <ModalFooter>
+        <Button
+          variant="outlined"
+          color="secondary"
+          block
+          onClick={handleClose}
+        >
+          Close
+        </Button>
+      </ModalFooter>
+    </React.Fragment>
+  </Modal>
+)
 
 export default AccountModal
