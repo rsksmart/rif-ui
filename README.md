@@ -90,7 +90,7 @@ As an example
 ## Development - Example folder
 
 A sandbox project is provided in order to test the library or try new features locally without having to release a new version.
-The sandbox project lives at the `example` folder. In order to run it, follow the next steps:
+It lives at the `example` folder. In order to run it, follow the next steps:
 
 1. At `rif-ui`:
 

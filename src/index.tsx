@@ -1,5 +1,3 @@
-import { shortenAddress } from './utils'
-
 // CSS files
 import './assets/css/fonts/rubik.css'
 
@@ -18,5 +16,4 @@ export * from './services/index'
 // Theme
 export * from './theme/index'
 
-// Utils
-export { shortenAddress }
+export * from './utils'
