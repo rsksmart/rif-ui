@@ -1,4 +1,11 @@
-const shortenAddress = (address: string): string => `${address.substr(0, 6)}...${address.substr(address.length - 4)}`
+const shortenString = (
+  str: string,
+  largerThan: number = 16,
+  charsShownCount: number = 6
+): string =>
+  str.length > largerThan
+    ? `${str.substr(0, charsShownCount)}...${str.substr(str.length - 4)}`
+    : str
 
 const removeEmptySpaces = (str: string): string => str.replace(/\s/g, '')
 
@@ -21,9 +28,9 @@ const validatedNumber = (num: number): number => {
 }
 
 export {
-  shortenAddress,
+  shortenString,
   removeEmptySpaces,
   maxSupportedNumber,
   minSupportedNumber,
-  validatedNumber,
+  validatedNumber
 }

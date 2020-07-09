@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import Web3 from 'web3'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
-import { shortenAddress } from '../../utils'
+import { shortenString } from '../../utils'
 import { Button, Typography } from '../atoms'
 import { colors, fonts } from '../../theme'
 import AccountModal from './AccountModal'
@@ -74,7 +74,7 @@ const Account: FC<AccountProps> = ({
           {!web3 && 'Connect wallet'}
           {web3 && networkName}
           {web3 && !account && 'Wrong Network'}
-          {web3 && account && shortenAddress(account)}
+          {web3 && account && shortenString(account)}
         </Typography>
       </Button>
 
