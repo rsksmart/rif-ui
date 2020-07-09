@@ -14,6 +14,7 @@ var CheckCircleOutlineOutlinedIcon = _interopDefault(require('@material-ui/icons
 var ErrorIcon = _interopDefault(require('@material-ui/icons/Error'));
 var WarningIcon = _interopDefault(require('@material-ui/icons/Warning'));
 var colors$1 = require('@material-ui/core/colors');
+var FileCopyIcon = _interopDefault(require('@material-ui/icons/FileCopy'));
 var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
 var reactRouterDom = require('react-router-dom');
@@ -718,6 +719,25 @@ const Account = ({
     setProvider: setProvider,
     availableProviders: availableProviders
   }));
+};
+
+const CopyTextTooltip = ({
+  displayElement,
+  fullText
+}) => {
+  const [isCopied, setIsCopied] = React.useState(false);
+  return React__default.createElement(Tooltip, {
+    interactive: true,
+    title: isCopied ? 'Copied!' : React__default.createElement(React__default.Fragment, null, fullText, " ", React__default.createElement(FileCopyIcon, null)),
+    onClick: () => {
+      navigator.clipboard.writeText(fullText).then(() => {
+        setIsCopied(true);
+      });
+    },
+    onClose: () => {
+      setIsCopied(false);
+    }
+  }, displayElement);
 };
 
 const useStyles$a = styles.makeStyles(theme => ({
@@ -3020,6 +3040,7 @@ exports.Account = Account;
 exports.AccountModal = AccountModal;
 exports.Button = Button;
 exports.Checkbox = Checkbox;
+exports.CopyTextTooltip = CopyTextTooltip;
 exports.FAQPageTemplate = FAQPageTemplate;
 exports.FAQSection = FAQSection;
 exports.FilterCheckboxCard = FilterCheckboxCard;

@@ -11,6 +11,7 @@ import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlin
 import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
 import { yellow, green } from '@material-ui/core/colors';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { NavLink } from 'react-router-dom';
@@ -711,6 +712,25 @@ const Account = ({
     setProvider: setProvider,
     availableProviders: availableProviders
   }));
+};
+
+const CopyTextTooltip = ({
+  displayElement,
+  fullText
+}) => {
+  const [isCopied, setIsCopied] = useState(false);
+  return React__default.createElement(Tooltip$1, {
+    interactive: true,
+    title: isCopied ? 'Copied!' : React__default.createElement(React__default.Fragment, null, fullText, " ", React__default.createElement(FileCopyIcon, null)),
+    onClick: () => {
+      navigator.clipboard.writeText(fullText).then(() => {
+        setIsCopied(true);
+      });
+    },
+    onClose: () => {
+      setIsCopied(false);
+    }
+  }, displayElement);
 };
 
 const useStyles$a = makeStyles(theme => ({
@@ -2956,5 +2976,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, Button, Checkbox, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, SwitchTabs, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
+export { Accordion, Account, AccountModal, Button, Checkbox, CopyTextTooltip, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, SwitchTabs, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
 //# sourceMappingURL=index.modern.js.map

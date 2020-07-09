@@ -1,6 +1,7 @@
 import Accordion from './Accordion'
 import Account from './Account'
 import AccountModal from './AccountModal'
+import CopyTextTooltip from './CopyTextTooltip'
 import FAQSection from './FAQSection'
 import FilterCheckboxCard from './FilterCheckboxCard'
 import FooterColumn from './FooterColumn'
@@ -14,6 +15,7 @@ export {
   Accordion,
   Account,
   AccountModal,
+  CopyTextTooltip,
   FAQSection,
   FilterCheckboxCard,
   FooterColumn,
@@ -21,5 +23,5 @@ export {
   ModalDialogue,
   RangeSliderWithInputs,
   SwitchTabs,
-  UnitsInput,
+  UnitsInput
 }
