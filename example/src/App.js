@@ -10,7 +10,9 @@ import {
   Header,
   PageTemplate,
   theme,
-  Web3Provider
+  Web3Provider,
+  CopyTextTooltip,
+  shortenString
 } from '@rsksmart/rif-ui';
 import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
@@ -43,7 +45,7 @@ const App = () => {
           </>
         )}
       </Web3Provider.Consumer>
-      )
+    )
   };
 
   const footerProps = {
@@ -148,9 +150,11 @@ const App = () => {
     console.log('****************************************************************')
   }
 
+  const titleExample = 'theeeee title is sooooo longggg'
+
   return (
     <ThemeProvider theme={theme}>
-      <Web3Provider.Provider 
+      <Web3Provider.Provider
         requiredNetworkId={requiredNetworkId}
         actions={{
           onConnectedAccountChange: onConnectedAccountChange,
@@ -159,6 +163,7 @@ const App = () => {
         <BrowserRouter>
           <Header {...headerProps} />
           <PageTemplate>
+            <CopyTextTooltip fullText={titleExample} displayElement={<p>{shortenString(titleExample)}</p>} />
             <Routes />
           </PageTemplate>
           <Footer {...footerProps} />
