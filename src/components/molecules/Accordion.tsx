@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react'
-import ExpansionPanel, { ExpansionPanelProps } from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import { Accordion as MUIAccordion, AccordionProps as MUIAccordionProps } from '@material-ui/core'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { Typography } from '../atoms'
 import { colors } from '../../theme'
 
-interface AccordionProps extends ExpansionPanelProps {
+interface AccordionProps extends MUIAccordionProps {
   id: string
   title?: string
 }
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: theme.typography.fontWeightBold,
     width: '100%',
   },
-  expansionPanelSummary: {
+  accordionSummary: {
     borderBottom: `1px solid ${colors.gray2}`,
   },
 }))
@@ -38,23 +38,23 @@ const Accordion: FC<AccordionProps> = ({
   const onChange = (): void => setIsExpanded(!isExpanded)
 
   return (
-    <ExpansionPanel
+    <MUIAccordion
       className={classes.root}
       expanded={isExpanded}
       onChange={onChange}
     >
-      <ExpansionPanelSummary
-        className={classes.expansionPanelSummary}
+      <AccordionSummary
+        className={classes.accordionSummary}
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`panel-${id}-content`}
         id={id}
       >
         <Typography className={classes.heading}>{title}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         {children}
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </MUIAccordion>
   )
 }
 
