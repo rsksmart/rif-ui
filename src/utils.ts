@@ -1,11 +1,10 @@
 const shortenString = (
   str: string,
-  largerThan: number = 16,
-  charsShownCount: number = 6
-): string =>
-  str.length > largerThan
-    ? `${str.substr(0, charsShownCount)}...${str.substr(str.length - 4)}`
-    : str
+  largerThan = 16,
+  charsShownCount = 6,
+): string => (str.length > largerThan
+  ? `${str.substr(0, charsShownCount)}...${str.substr(str.length - 4)}`
+  : str)
 
 const removeEmptySpaces = (str: string): string => str.replace(/\s/g, '')
 
@@ -32,5 +31,5 @@ export {
   removeEmptySpaces,
   maxSupportedNumber,
   minSupportedNumber,
-  validatedNumber
+  validatedNumber,
 }

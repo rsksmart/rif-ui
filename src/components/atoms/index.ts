@@ -7,4 +7,6 @@ import Typography from './Typography'
 
 export * from './modal'
 
-export { Button, Checkbox, LoginOption, Logo, LogoNavbar, Typography }
+export {
+  Button, Checkbox, LoginOption, Logo, LogoNavbar, Typography,
+}
