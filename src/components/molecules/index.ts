@@ -23,5 +23,5 @@ export {
   ModalDialogue,
   RangeSliderWithInputs,
   SwitchTabs,
-  UnitsInput
+  UnitsInput,
 }
