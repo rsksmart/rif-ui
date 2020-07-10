@@ -11,8 +11,6 @@ import {
   PageTemplate,
   theme,
   Web3Provider,
-  CopyTextTooltip,
-  shortenString
 } from '@rsksmart/rif-ui';
 import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
@@ -150,8 +148,6 @@ const App = () => {
     console.log('****************************************************************')
   }
 
-  const titleExample = 'theeeee title is sooooo longggg'
-
   return (
     <ThemeProvider theme={theme}>
       <Web3Provider.Provider
@@ -163,7 +159,6 @@ const App = () => {
         <BrowserRouter>
           <Header {...headerProps} />
           <PageTemplate>
-            <CopyTextTooltip fullText={titleExample} displayElement={<p>{shortenString(titleExample)}</p>} />
             <Routes />
           </PageTemplate>
           <Footer {...footerProps} />
