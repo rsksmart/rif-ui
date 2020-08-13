@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { Theme, makeStyles } from '@material-ui/core/styles'
-import { colors } from '../../theme'
 import Tab from '@material-ui/core/Tab'
 import { NavLink } from 'react-router-dom'
+import { colors } from '../../theme'
 
 export interface StyledNavTabProps {
   label: string
