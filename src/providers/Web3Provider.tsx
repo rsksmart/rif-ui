@@ -63,9 +63,9 @@ const getAccountFromEthAccounts = (accounts: string[] | string): string | undefi
 }
 
 /**
- * The provider will not read the account when a requiredNetworkId was provided and
- * it does not match the networkId of current networkInfo, same applies to chainId.
- * Nothing happens if the requiredNetworkId was not specified
+ * The provider will not read the account when a requiredNetworkId was provided
+ *  and it does not match the networkId of current networkInfo, same applies to
+ *  chainId. Nothing happens if the requiredNetworkId was not specified
  * @param requiredNetworkId given on the props of the provider
  * @param requiredChainId given on the props of the provider
  * @param networkInfo obtained from the wallet
@@ -113,7 +113,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     const web3 = await getWeb3(provider)
     const accounts = await web3.eth.getAccounts()
     const networkInfo = await getNetworkInfoFromWeb3(web3)
-    // only validate the requiredNetworkId and requiredChainId when they are provided
+    // only validate requiredNetworkId and requiredChainId when are provided
     const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
 
     const account = shouldSetAccount
@@ -171,8 +171,11 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
       const { networkInfo } = this.state
 
       if (!networkInfo) return // wallet is not connected
-      // we only care about this change if it is on the right network or we can not validate the required network
-      const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo)
+      // we only care about this change if it is on the right network
+      // or if we can not validate the required network
+      const shouldSetAccount = shouldReadAccount(
+        this.requiredNetworkId, this.requiredChainId, networkInfo,
+      )
 
       if (shouldSetAccount) {
         const account = getAccountFromEthAccounts(accounts)
@@ -181,7 +184,8 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
           this.setState({
             account,
           },
-          () => this.onConnectedAccountChange && this.onConnectedAccountChange())
+          () => this.onConnectedAccountChange
+              && this.onConnectedAccountChange())
         }
       }
     })
