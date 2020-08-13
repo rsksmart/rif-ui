@@ -123,7 +123,6 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
     this.setState(
       {
         web3,
-        // cambiar provider a currentProvider y que sea de tipo providerInfo
         provider,
         account,
         networkInfo,
