@@ -8,6 +8,7 @@ import FooterColumn from './FooterColumn'
 import LabeledCheckbox from './LabeledCheckbox'
 import ModalDialogue from './ModalDialogue'
 import RangeSliderWithInputs from './RangeSliderWithInputs'
+import ShortenTextTooltip from './ShortenTextTooltip'
 import StyledTabs from './StyledTabs'
 import SwitchTabs from './SwitchTabs'
 import TooltipIconButton from './TooltipIconButton'
@@ -24,6 +25,7 @@ export {
   LabeledCheckbox,
   ModalDialogue,
   RangeSliderWithInputs,
+  ShortenTextTooltip,
   StyledTabs,
   SwitchTabs,
   TooltipIconButton,

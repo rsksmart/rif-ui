@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import { TooltipProps } from '@material-ui/core/Tooltip';
-export interface CopyTextTooltipProps extends TooltipProps {
+export interface CopyTextTooltipProps {
     displayElement: React.ReactElement;
     fullText: string;
 }
