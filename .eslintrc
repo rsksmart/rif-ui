@@ -105,6 +105,7 @@
     "no-script-url": "error",
     "no-shadow": "error",
     "no-warning-comments": "warn",
+    "import/prefer-default-export": "off",
     "quote-props": [
       "error",
       "as-needed"
