@@ -10,6 +10,7 @@ import ModalDialogue from './ModalDialogue'
 import RangeSliderWithInputs from './RangeSliderWithInputs'
 import StyledTabs from './StyledTabs'
 import SwitchTabs from './SwitchTabs'
+import TooltipIconButton from './TooltipIconButton'
 import UnitsInput from './UnitsInput'
 
 export {
@@ -25,5 +26,6 @@ export {
   RangeSliderWithInputs,
   StyledTabs,
   SwitchTabs,
+  TooltipIconButton,
   UnitsInput,
 }

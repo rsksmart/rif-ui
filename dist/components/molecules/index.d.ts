@@ -10,5 +10,6 @@ import ModalDialogue from './ModalDialogue';
 import RangeSliderWithInputs from './RangeSliderWithInputs';
 import StyledTabs from './StyledTabs';
 import SwitchTabs from './SwitchTabs';
+import TooltipIconButton from './TooltipIconButton';
 import UnitsInput from './UnitsInput';
-export { Accordion, Account, AccountModal, CopyTextTooltip, FAQSection, FilterCheckboxCard, FooterColumn, LabeledCheckbox, ModalDialogue, RangeSliderWithInputs, StyledTabs, SwitchTabs, UnitsInput, };
+export { Accordion, Account, AccountModal, CopyTextTooltip, FAQSection, FilterCheckboxCard, FooterColumn, LabeledCheckbox, ModalDialogue, RangeSliderWithInputs, StyledTabs, SwitchTabs, TooltipIconButton, UnitsInput, };

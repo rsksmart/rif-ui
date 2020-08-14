@@ -20,6 +20,7 @@ var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
 var Slider = _interopDefault(require('@material-ui/core/Slider'));
 var Tabs = _interopDefault(require('@material-ui/core/Tabs'));
+var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
 var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
 var MenuIcon = _interopDefault(require('@material-ui/icons/Menu'));
 var ChevronLeftIcon = _interopDefault(require('@material-ui/icons/ChevronLeft'));
@@ -1291,6 +1292,16 @@ const SwitchTabs = ({
     label: label2
   }))));
 };
+
+const TooltipIconButton = ({
+  tooltipTitle,
+  iconButtonProps,
+  icon
+}) => React__default.createElement(Tooltip, {
+  title: tooltipTitle
+}, React__default.createElement("span", null, React__default.createElement(IconButton, Object.assign({
+  color: "primary"
+}, iconButtonProps), icon)));
 
 const useStyles$k = styles.makeStyles(theme => ({
   copyright: {
@@ -3176,6 +3187,7 @@ exports.RangeSliderWithInputs = RangeSliderWithInputs;
 exports.StyledNavTab = StyledNavTab;
 exports.StyledTabs = StyledTabs;
 exports.SwitchTabs = SwitchTabs;
+exports.TooltipIconButton = TooltipIconButton;
 exports.Typography = Typography;
 exports.UnitsInput = UnitsInput;
 exports.Web3Provider = Web3Provider$1;
