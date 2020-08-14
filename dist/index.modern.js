@@ -1,5 +1,5 @@
 import React__default, { useState, createContext, Component } from 'react';
-import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Tooltip, Typography as Typography$1, Modal as Modal$1, Accordion as Accordion$1, AccordionSummary as AccordionSummary$1, AccordionDetails as AccordionDetails$1, FormControlLabel, Grid, Input, Tabs as Tabs$1, Tab as Tab$1, AppBar, Toolbar, IconButton, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Tooltip, Typography as Typography$1, Modal as Modal$1, Accordion as Accordion$1, AccordionSummary as AccordionSummary$1, AccordionDetails as AccordionDetails$1, FormControlLabel, Grid, Input, Tabs as Tabs$1, Tab as Tab$1, AppBar, Toolbar, IconButton as IconButton$1, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import Tab from '@material-ui/core/Tab';
@@ -17,6 +17,7 @@ import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Slider from '@material-ui/core/Slider';
 import Tabs from '@material-ui/core/Tabs';
+import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -1273,6 +1274,16 @@ const SwitchTabs = ({
   }))));
 };
 
+const TooltipIconButton = ({
+  tooltipTitle,
+  iconButtonProps,
+  icon
+}) => React__default.createElement(Tooltip$1, {
+  title: tooltipTitle
+}, React__default.createElement("span", null, React__default.createElement(IconButton, Object.assign({
+  color: "primary"
+}, iconButtonProps), icon)));
+
 const useStyles$k = makeStyles(theme => ({
   copyright: {
     display: 'flex',
@@ -1492,7 +1503,7 @@ const HeaderMobile = ({
   }, React__default.createElement(AppBar, {
     position: "fixed",
     className: `${classes.mobileAppBar} ${open ? classes.mobileAppBarShift : ''}`.trim()
-  }, React__default.createElement(Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(IconButton, {
+  }, React__default.createElement(Toolbar, null, !open && React__default.createElement(React__default.Fragment, null, React__default.createElement(IconButton$1, {
     color: "inherit",
     "aria-label": "open drawer",
     onClick: toggleDrawer(true)
@@ -1510,7 +1521,7 @@ const HeaderMobile = ({
     onClick: toggleDrawer(false)
   }, React__default.createElement("div", {
     className: classes.drawerHeader
-  }, React__default.createElement(IconButton, {
+  }, React__default.createElement(IconButton$1, {
     onClick: toggleDrawer(false)
   }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(Divider, null), React__default.createElement(List, null, !!items.length && items.map(headerItem => React__default.createElement(ListItem, {
     button: true,
@@ -3077,5 +3088,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, Button, Checkbox, CopyTextTooltip, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, StyledNavTab, StyledTabs, SwitchTabs, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, WithSpinner, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoBlueIcon, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
+export { Accordion, Account, AccountModal, Button, Checkbox, CopyTextTooltip, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, StyledNavTab, StyledTabs, SwitchTabs, TooltipIconButton, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, WithSpinner, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoBlueIcon, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
 //# sourceMappingURL=index.modern.js.map
