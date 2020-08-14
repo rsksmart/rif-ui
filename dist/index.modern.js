@@ -16,6 +16,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Slider from '@material-ui/core/Slider';
+import Typography$2 from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
@@ -1167,6 +1168,17 @@ const RangeSliderWithInputs = ({
     value: endValue
   }))));
 };
+
+const ShortenTextTooltip = ({
+  value,
+  maxLength: _maxLength = 20,
+  charsShownCount
+}) => React__default.createElement(React__default.Fragment, null, value.length > _maxLength && React__default.createElement(CopyTextTooltip, {
+  displayElement: React__default.createElement(Typography$2, {
+    variant: "body2"
+  }, shortenString(value, _maxLength, charsShownCount || _maxLength - 5)),
+  fullText: value
+}), value.length <= _maxLength && value);
 
 const useStyles$i = makeStyles({
   indicator: {
@@ -3088,5 +3100,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, Button, Checkbox, CopyTextTooltip, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, StyledNavTab, StyledTabs, SwitchTabs, TooltipIconButton, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, WithSpinner, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoBlueIcon, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
+export { Accordion, Account, AccountModal, Button, Checkbox, CopyTextTooltip, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, PageTemplate, RangeSliderWithInputs, ShortenTextTooltip, StyledNavTab, StyledTabs, SwitchTabs, TooltipIconButton, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, WithSpinner, colors, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoBlueIcon, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
 //# sourceMappingURL=index.modern.js.map

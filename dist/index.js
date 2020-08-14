@@ -19,6 +19,7 @@ var FileCopyIcon = _interopDefault(require('@material-ui/icons/FileCopy'));
 var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
 var Slider = _interopDefault(require('@material-ui/core/Slider'));
+var Typography$1 = _interopDefault(require('@material-ui/core/Typography'));
 var Tabs = _interopDefault(require('@material-ui/core/Tabs'));
 var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
 var Hidden = _interopDefault(require('@material-ui/core/Hidden'));
@@ -634,26 +635,14 @@ const Accordion = ({
   }, title)), React__default.createElement(AccordionDetails, null, children));
 };
 
-var shortenString = function shortenString(str, largerThan, charsShownCount) {
-  if (largerThan === void 0) {
-    largerThan = 16;
-  }
+const shortenString = (str, largerThan = 16, charsShownCount = 6) => str.length > largerThan ? `${str.substr(0, charsShownCount)}...${str.substr(str.length - 4)}` : str;
 
-  if (charsShownCount === void 0) {
-    charsShownCount = 6;
-  }
+const removeEmptySpaces = str => str.replace(/\s/g, '');
 
-  return str.length > largerThan ? str.substr(0, charsShownCount) + "..." + str.substr(str.length - 4) : str;
-};
+const maxSupportedNumber = 99999999999999;
+const minSupportedNumber = 0.000001;
 
-var removeEmptySpaces = function removeEmptySpaces(str) {
-  return str.replace(/\s/g, '');
-};
-
-var maxSupportedNumber = 99999999999999;
-var minSupportedNumber = 0.000001;
-
-var validatedNumber = function validatedNumber(num) {
+const validatedNumber = num => {
   if (num > 0) {
     if (num > maxSupportedNumber) return maxSupportedNumber;
     if (num < minSupportedNumber) return minSupportedNumber;
@@ -1186,6 +1175,17 @@ const RangeSliderWithInputs = ({
     value: endValue
   }))));
 };
+
+const ShortenTextTooltip = ({
+  value,
+  maxLength = 20,
+  charsShownCount
+}) => React__default.createElement(React__default.Fragment, null, value.length > maxLength && React__default.createElement(CopyTextTooltip, {
+  displayElement: React__default.createElement(Typography$1, {
+    variant: "body2"
+  }, shortenString(value, maxLength, charsShownCount || maxLength - 5)),
+  fullText: value
+}), value.length <= maxLength && value);
 
 const useStyles$i = styles.makeStyles({
   indicator: {
@@ -3184,6 +3184,7 @@ exports.ModalHeader = ModalHeader;
 exports.ModalTitle = ModalTitle;
 exports.PageTemplate = PageTemplate;
 exports.RangeSliderWithInputs = RangeSliderWithInputs;
+exports.ShortenTextTooltip = ShortenTextTooltip;
 exports.StyledNavTab = StyledNavTab;
 exports.StyledTabs = StyledTabs;
 exports.SwitchTabs = SwitchTabs;
