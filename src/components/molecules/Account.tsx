@@ -55,6 +55,19 @@ const Account: FC<AccountProps> = ({
   const handleClose = (): void => setOpen(false)
   const handleOpen = (): void => setOpen(true)
 
+  const accountText = (): string => {
+    if (!web3) return 'Connect wallet'
+
+    if (currentNetworkId !== requiredNetworkId) {
+      return 'Wrong Network'
+    }
+
+    if (account) {
+      return shortenString(account)
+    }
+    return 'Unlock your wallet'
+  }
+
   return (
     <React.Fragment>
       <Button onClick={handleOpen} className={classes.button} variant="contained" color="primary" rounded>
@@ -71,10 +84,7 @@ const Account: FC<AccountProps> = ({
           )
         }
         <Typography className={classes.accountText}>
-          {!web3 && 'Connect wallet'}
-          {web3 && networkName}
-          {web3 && !account && 'Wrong Network'}
-          {web3 && account && shortenString(account)}
+          {accountText()}
         </Typography>
       </Button>
 

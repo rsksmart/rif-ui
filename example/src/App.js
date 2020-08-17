@@ -15,7 +15,7 @@ import {
 import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
 
-const requiredNetworkId = 8545
+const requiredNetworkId = 31
 
 const App = () => {
 
