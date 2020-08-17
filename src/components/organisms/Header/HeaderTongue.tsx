@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   titleContent: {
     marginBottom: theme.spacing(1),
-    fontSize: theme.spacing(5)
+    fontSize: theme.spacing(5),
   },
   tongueImg: {
     width: '100%',
