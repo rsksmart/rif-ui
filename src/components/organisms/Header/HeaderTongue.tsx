@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: colors.primary,
     display: 'flex',
     justifyContent: 'center',
-    padding: theme.spacing(2, 0),
     width: '100%',
   },
   textContent: {
@@ -35,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   titleContent: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+    fontSize: theme.spacing(5)
   },
   tongueImg: {
     width: '100%',
