@@ -1,5 +1,4 @@
 import Accordion from './Accordion'
-import Account from './Account'
 import AccountModal from './AccountModal'
 import CopyTextTooltip from './CopyTextTooltip'
 import FAQSection from './FAQSection'
@@ -13,10 +12,10 @@ import StyledTabs from './StyledTabs'
 import SwitchTabs from './SwitchTabs'
 import TooltipIconButton from './TooltipIconButton'
 import UnitsInput from './UnitsInput'
+import WrongNetworkModal from './WrongNetworkModal'
 
 export {
   Accordion,
-  Account,
   AccountModal,
   CopyTextTooltip,
   FAQSection,
@@ -30,4 +29,5 @@ export {
   SwitchTabs,
   TooltipIconButton,
   UnitsInput,
+  WrongNetworkModal,
 }

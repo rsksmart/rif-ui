@@ -3,10 +3,9 @@ import Web3 from 'web3'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
 import { shortenString } from '../../utils'
-import { Button, Typography } from '../atoms'
+import { Button, NetworkIndicator, Typography } from '../atoms'
 import { colors, fonts } from '../../theme'
-import AccountModal from './AccountModal'
-import NetworkIndicator from '../atoms/NetworkIndicator'
+import { AccountModal } from '../molecules'
 
 export interface AccountProps {
   web3: Web3 | null
