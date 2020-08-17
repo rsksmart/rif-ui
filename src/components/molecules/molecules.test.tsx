@@ -1,5 +1,5 @@
 import {
-  Accordion, Account, AccountModal, FAQSection, FilterCheckboxCard,
+  Accordion, AccountModal, FAQSection, FilterCheckboxCard,
   FooterColumn, LabeledCheckbox, ModalDialogue, RangeSliderWithInputs,
   SwitchTabs, UnitsInput,
 } from '.'
@@ -7,12 +7,6 @@ import {
 describe('Accordion component sanity', () => {
   it('is truthy', () => {
     expect(Accordion).toBeTruthy()
-  })
-})
-
-describe('Account component sanity', () => {
-  it('is truthy', () => {
-    expect(Account).toBeTruthy()
   })
 })
 

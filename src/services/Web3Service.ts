@@ -5,6 +5,7 @@ import ProviderInfo, {
   EProvider,
   getProviderInfo,
 } from '../models/ProviderInfo'
+import ConnectionStatus from '../models/Enums'
 
 declare global {
   interface Window {
@@ -124,4 +125,23 @@ export const getAvailableProviders = (): ProviderInfo[] | undefined => {
   if (currentProvider.host && currentProvider.host.indexOf('localhost') !== -1) result.push(getProviderInfo(EProvider.LOCAL))
 
   return result
+}
+
+// TODO: consider moving this to the web3provider state
+export const getConnectionStatus = (
+  web3: Web3,
+  requiredNetworkId: number,
+  currentNetworkId: number,
+  account?: string,
+): ConnectionStatus => {
+  if (!web3) return ConnectionStatus.LoggedOut
+
+  if (currentNetworkId !== requiredNetworkId) {
+    return ConnectionStatus.WrongNetwork
+  }
+
+  if (account) {
+    return ConnectionStatus.LoggedIn
+  }
+  return ConnectionStatus.WalletLocked
 }
