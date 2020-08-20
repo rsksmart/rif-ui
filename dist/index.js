@@ -184,7 +184,7 @@ const Checkbox = props => {
   }));
 };
 
-var doneThumbsUp = require("./doneThumbsUp~MEdZiDXb.svg");
+var doneThumbsUp = require("./doneThumbsUp~bbkTwQsx.svg");
 
 var footerTongue = require("./footerTongue~bbJNSCWG.svg");
 
@@ -771,6 +771,20 @@ const Account = ({
 
   const handleOpen = () => setOpen(true);
 
+  const accountText = () => {
+    if (!web3) return 'Connect wallet';
+
+    if (currentNetworkId !== requiredNetworkId) {
+      return 'Wrong Network';
+    }
+
+    if (account) {
+      return shortenString(account);
+    }
+
+    return 'Unlock your wallet';
+  };
+
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Button, {
     onClick: handleOpen,
     className: classes.button,
@@ -786,7 +800,7 @@ const Account = ({
     noNetworkMessage: noNetworkMessage
   }), React__default.createElement(Typography, {
     className: classes.accountText
-  }, !web3 && 'Connect wallet', web3 && networkName, web3 && !account && 'Wrong Network', web3 && account && shortenString(account))), React__default.createElement(AccountModal, {
+  }, accountText())), React__default.createElement(AccountModal, {
     open: open,
     handleClose: handleClose,
     networkName: networkName,
@@ -1578,7 +1592,6 @@ const useStyles$n = styles.makeStyles(theme => ({
     backgroundColor: colors.primary,
     display: 'flex',
     justifyContent: 'center',
-    padding: theme.spacing(2, 0),
     width: '100%'
   },
   textContent: {
@@ -1597,7 +1610,8 @@ const useStyles$n = styles.makeStyles(theme => ({
     }
   },
   titleContent: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(1),
+    fontSize: theme.spacing(5)
   },
   tongueImg: {
     width: '100%'
