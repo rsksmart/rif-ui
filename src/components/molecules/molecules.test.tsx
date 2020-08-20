@@ -2,6 +2,7 @@ import {
   Accordion, AccountModal, FAQSection, FilterCheckboxCard,
   FooterColumn, LabeledCheckbox, ModalDialogue, RangeSliderWithInputs,
   SwitchTabs, UnitsInput,
+  WrongNetworkModal,
 } from '.'
 
 describe('Accordion component sanity', () => {
@@ -61,5 +62,11 @@ describe('SwitchTabs component sanity', () => {
 describe('UnitsInput component sanity', () => {
   it('is truthy', () => {
     expect(UnitsInput).toBeTruthy()
+  })
+})
+
+describe('WrongNetworkModal component sanity', () => {
+  it('is truthy', () => {
+    expect(WrongNetworkModal).toBeTruthy()
   })
 })
