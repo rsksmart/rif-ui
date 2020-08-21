@@ -129,9 +129,9 @@ export const getAvailableProviders = (): ProviderInfo[] | undefined => {
 
 // TODO: consider moving this to the web3provider state
 export const getConnectionStatus = (
-  web3: Web3,
-  requiredNetworkId: number,
-  currentNetworkId: number,
+  web3?: Web3,
+  requiredNetworkId?: number,
+  currentNetworkId?: number,
   account?: string,
 ): ConnectionStatus => {
   if (!web3) return ConnectionStatus.LoggedOut

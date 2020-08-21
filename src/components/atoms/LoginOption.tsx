@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 /**
- * If not providerInfo is received, we assume there's no provider available and so suggest to install Nifty waller
+ * If not providerInfo is received, we assume there's no provider available and so suggest to install Nifty wallet
  * Same happens when no onClick is provided. We open the Nifty page on a new tab
  */
 const LoginOption: FC<LoginOptionProps> = ({

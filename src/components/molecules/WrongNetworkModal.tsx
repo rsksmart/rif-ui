@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
@@ -11,6 +11,7 @@ export interface WrongNetworkModalProps {
   open: boolean
   currentNetworkName?: string
   requiredNetworkName: string
+  onClose: () => void
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -25,16 +26,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const WrongNetworkModal: FC<WrongNetworkModalProps> = ({ open, currentNetworkName = 'Private network', requiredNetworkName }) => {
-  const [isOpen, setIsOpen] = useState(open)
-  const handleOnClose = () => setIsOpen(false)
-
+const WrongNetworkModal: FC<WrongNetworkModalProps> = ({
+  open, currentNetworkName = 'Private network', requiredNetworkName, onClose,
+}) => {
   const classes = useStyles()
   return (
     <ModalDialogue
       title={`Switch to the ${requiredNetworkName} network`}
-      open={isOpen}
-      onClose={handleOnClose}
+      open={open}
+      onClose={onClose}
     >
       <React.Fragment>
         <Typography gutterBottom align="center" color="secondary" component="div">

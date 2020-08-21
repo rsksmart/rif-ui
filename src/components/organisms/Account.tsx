@@ -1,19 +1,22 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import Web3 from 'web3'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
 import { shortenString } from '../../utils'
 import { Button, NetworkIndicator, Typography } from '../atoms'
 import { colors, fonts } from '../../theme'
-import { AccountModal } from '../molecules'
+import { AccountModal, WrongNetworkModal } from '../molecules'
+import ConnectionStatus from '../../models/Enums'
+import { getConnectionStatus } from '../../services/Web3Service'
+import NetworkInfo from '../../models/NetworkInfo'
 
 export interface AccountProps {
-  web3: Web3 | null
-  networkName: string | null
-  account: string | null
+  requiredNetworkName: string
   setProvider: (provider: EProvider) => Promise<void>
+  web3?: Web3
+  networkInfo?: NetworkInfo
+  account?: string
   availableProviders?: ProviderInfo[]
-  currentNetworkId?: number
   requiredNetworkId?: number
   onCorrectNetworkMessage?: string
   onNetworkMismatchMessage?: string
@@ -36,45 +39,61 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const Account: FC<AccountProps> = ({
-  web3,
-  networkName,
-  account,
-  setProvider,
-  availableProviders,
-  currentNetworkId,
-  requiredNetworkId,
-  onCorrectNetworkMessage,
-  onNetworkMismatchMessage,
-  noNetworkMessage,
-}) => {
+const Account: FC<AccountProps> = (props) => {
+  const {
+    web3,
+    networkInfo,
+    account,
+    setProvider,
+    availableProviders,
+    requiredNetworkId,
+    onCorrectNetworkMessage,
+    onNetworkMismatchMessage,
+    noNetworkMessage,
+    requiredNetworkName,
+  } = props
   const classes = useStyles()
 
-  const [open, setOpen] = useState(false)
-  const handleClose = (): void => setOpen(false)
-  const handleOpen = (): void => setOpen(true)
+  const [accountModalOpen, setAccountModalOpen] = useState(false)
+  const handleAccountModalClose = (): void => setAccountModalOpen(false)
+  const handleAccountModalOpen = (): void => setAccountModalOpen(true)
+  const [wrongNetworkModalOpen, setWrongNetworkModalOpen] = useState(false)
+  const openWrongNetworkModal = (): void => setWrongNetworkModalOpen(true)
+  const closeWrongNetworkModal = (): void => setWrongNetworkModalOpen(false)
+  const connectionStatus: ConnectionStatus = getConnectionStatus(web3, requiredNetworkId, networkInfo?.networkId, account)
+
+  useEffect(() => {
+    if (connectionStatus === ConnectionStatus.WrongNetwork) {
+      openWrongNetworkModal()
+    } else if (connectionStatus === ConnectionStatus.LoggedIn) closeWrongNetworkModal()
+  }, [connectionStatus])
 
   const accountText = (): string => {
-    if (!web3) return 'Connect wallet'
+    if (connectionStatus === ConnectionStatus.LoggedOut) return 'Connect wallet'
 
-    if (currentNetworkId !== requiredNetworkId) {
-      return 'Wrong Network'
-    }
+    if (connectionStatus === ConnectionStatus.WrongNetwork) return 'Wrong Network'
 
     if (account) {
+      // means connectionStatus  === ConnectionStatus.LoggedIn
       return shortenString(account)
     }
     return 'Unlock your wallet'
   }
 
+  const onAccountClicked = (): void => {
+    if (connectionStatus === ConnectionStatus.WrongNetwork) return openWrongNetworkModal()
+
+    if (connectionStatus === ConnectionStatus.LoggedOut) return handleAccountModalOpen()
+  }
+
   return (
     <React.Fragment>
-      <Button onClick={handleOpen} className={classes.button} variant="contained" color="primary" rounded>
+      <Button onClick={onAccountClicked} className={classes.button} variant="contained" color="primary" rounded>
         {
           !!requiredNetworkId && (
             <NetworkIndicator
               iconClassName={classes.networkIndicator}
-              currentNetworkId={currentNetworkId}
+              currentNetworkId={networkInfo?.networkId}
               requiredNetworkId={requiredNetworkId}
               onCorrectNetworkMessage={onCorrectNetworkMessage}
               onNetworkMismatchMessage={onNetworkMismatchMessage}
@@ -86,15 +105,19 @@ const Account: FC<AccountProps> = ({
           {accountText()}
         </Typography>
       </Button>
-
       <AccountModal
-        open={open}
-        handleClose={handleClose}
-        networkName={networkName}
+        open={accountModalOpen}
+        onClose={handleAccountModalClose}
         web3={web3}
-        onProviderSet={handleClose}
+        onProviderSet={handleAccountModalClose}
         setProvider={setProvider}
         availableProviders={availableProviders}
+      />
+      <WrongNetworkModal
+        open={wrongNetworkModalOpen}
+        onClose={closeWrongNetworkModal}
+        requiredNetworkName={requiredNetworkName}
+        currentNetworkName={networkInfo?.name}
       />
     </React.Fragment>
   )

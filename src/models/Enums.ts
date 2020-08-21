@@ -1,9 +1,8 @@
 export enum ConnectionStatus {
-  ProviderUnset,
-  LoggedIn,
-  LoggedOut,
-  WalletLocked,
-  WrongNetwork
+  LoggedIn = 0,
+  LoggedOut = 1,
+  WalletLocked = 2,
+  WrongNetwork = 3
 }
 
 export default ConnectionStatus
