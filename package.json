@@ -72,6 +72,7 @@
     "npm": ">=6.0.0"
   },
   "types": "types/index.d.ts",
+  "typings": "dist/index.d.ts",
   "browserslist": {
     "production": [
       ">0.2%",
