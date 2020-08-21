@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react'
 import Web3 from 'web3'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import Popover from '@material-ui/core/Popover'
 import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
 import { shortenString } from '../../utils'
 import { Button, NetworkIndicator, Typography } from '../atoms'
@@ -37,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   networkIndicator: {
     marginRight: theme.spacing(1),
   },
+  rightNetwork: {
+    padding: theme.spacing(2),
+  },
 }))
 
 const Account: FC<AccountProps> = (props) => {
@@ -57,15 +61,28 @@ const Account: FC<AccountProps> = (props) => {
   const [accountModalOpen, setAccountModalOpen] = useState(false)
   const handleAccountModalClose = (): void => setAccountModalOpen(false)
   const handleAccountModalOpen = (): void => setAccountModalOpen(true)
-  const [wrongNetworkModalOpen, setWrongNetworkModalOpen] = useState(false)
-  const openWrongNetworkModal = (): void => setWrongNetworkModalOpen(true)
-  const closeWrongNetworkModal = (): void => setWrongNetworkModalOpen(false)
+  const [wrongNetModalOpen, setWrongNetModalOpen] = useState(false)
+  const openWrongNetModal = (): void => setWrongNetModalOpen(true)
+  const closeWrongNetModal = (): void => setWrongNetModalOpen(false)
   const connectionStatus: ConnectionStatus = getConnectionStatus(web3, requiredNetworkId, networkInfo?.networkId, account)
+
+  // TODO: extract popover functionallity into new component
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
+
+  const popoverOpen = Boolean(anchorEl)
+  const id = popoverOpen ? 'right-net-popover' : undefined
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null)
+  }
 
   useEffect(() => {
     if (connectionStatus === ConnectionStatus.WrongNetwork) {
-      openWrongNetworkModal()
-    } else if (connectionStatus === ConnectionStatus.LoggedIn) closeWrongNetworkModal()
+      openWrongNetModal()
+    } else {
+      closeWrongNetModal()
+      handlePopoverClose()
+    }
   }, [connectionStatus])
 
   const accountText = (): string => {
@@ -80,10 +97,13 @@ const Account: FC<AccountProps> = (props) => {
     return 'Unlock your wallet'
   }
 
-  const onAccountClicked = (): void => {
-    if (connectionStatus === ConnectionStatus.WrongNetwork) return openWrongNetworkModal()
+  const onAccountClicked = (event: React.MouseEvent<HTMLButtonElement>): void | null => {
+    if (connectionStatus === ConnectionStatus.WrongNetwork) return openWrongNetModal()
 
     if (connectionStatus === ConnectionStatus.LoggedOut) return handleAccountModalOpen()
+
+    if (connectionStatus === ConnectionStatus.LoggedIn) return setAnchorEl(event.currentTarget)
+    return null
   }
 
   return (
@@ -105,6 +125,27 @@ const Account: FC<AccountProps> = (props) => {
           {accountText()}
         </Typography>
       </Button>
+      {/* TODO: extract molecule */}
+      <Popover
+        id={id}
+        open={popoverOpen}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <Typography className={classes.rightNetwork}>
+          You are successfully connected to
+          {networkInfo?.name}
+          .
+        </Typography>
+      </Popover>
       <AccountModal
         open={accountModalOpen}
         onClose={handleAccountModalClose}
@@ -114,8 +155,8 @@ const Account: FC<AccountProps> = (props) => {
         availableProviders={availableProviders}
       />
       <WrongNetworkModal
-        open={wrongNetworkModalOpen}
-        onClose={closeWrongNetworkModal}
+        open={wrongNetModalOpen}
+        onClose={closeWrongNetModal}
         requiredNetworkName={requiredNetworkName}
         currentNetworkName={networkInfo?.name}
       />

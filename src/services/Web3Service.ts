@@ -127,7 +127,6 @@ export const getAvailableProviders = (): ProviderInfo[] | undefined => {
   return result
 }
 
-// TODO: consider moving this to the web3provider state
 export const getConnectionStatus = (
   web3?: Web3,
   requiredNetworkId?: number,

@@ -58,7 +58,7 @@ const WrongNetworkModal: FC<WrongNetworkModalProps> = ({
           <Grid item sm={9}>
             <Typography gutterBottom color="secondary">Waiting for the right network...</Typography>
             <Typography color="primary" component="div">
-              <Box fontWeight="fontWeightMedium">Switch networks on your provider</Box>
+              <Box fontWeight="fontWeightMedium">Switch networks on your wallet</Box>
             </Typography>
           </Grid>
         </Grid>
