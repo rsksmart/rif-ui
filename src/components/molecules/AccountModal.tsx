@@ -6,12 +6,11 @@ import {
 import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
 
 export interface AccountModalProps {
-  web3: Web3 | null
-  networkName: string | null
+  web3?: Web3
   setProvider: (provider: EProvider, onProviderSet?:
     (account: string) => void) => Promise<void>
   availableProviders?: ProviderInfo[]
-  handleClose?: () => void
+  onClose?: () => void
   onProviderSet?: (account) => void
   open: boolean
 }
@@ -20,12 +19,12 @@ const AccountModal: FC<AccountModalProps> = ({
   setProvider,
   availableProviders,
   open,
-  handleClose,
+  onClose,
   onProviderSet,
 }) => (
   <Modal
     open={open}
-    onClose={handleClose}
+    onClose={onClose}
     aria-labelledby="account-modal-title"
     aria-describedby="account-modal-description"
   >
@@ -49,17 +48,17 @@ const AccountModal: FC<AccountModalProps> = ({
           }
         {!availableProviders
             && (
+              // TODO: Create LoginOptionTemplate to extract this
               // empty LoginOption means suggest to install Nifty wallet
               <LoginOption />
             )}
       </ModalBody>
-
       <ModalFooter>
         <Button
           variant="outlined"
           color="secondary"
           block
-          onClick={handleClose}
+          onClick={onClose}
         >
           Close
         </Button>

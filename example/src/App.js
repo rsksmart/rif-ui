@@ -16,6 +16,7 @@ import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
 
 const requiredNetworkId = 31
+const requiredNetworkName = 'RSK Testnet'
 
 const App = () => {
 
@@ -36,8 +37,9 @@ const App = () => {
               web3={web3}
               account={account}
               setProvider={setProvider}
-              currentNetworkId={networkInfo?.networkId}
+              networkInfo={networkInfo}
               requiredNetworkId={requiredNetworkId}
+              requiredNetworkName={requiredNetworkName}
               availableProviders={availableProviders}
             />
           </>
