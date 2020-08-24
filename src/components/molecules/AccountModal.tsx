@@ -4,11 +4,13 @@ import {
   Button, LoginOption, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle,
 } from '../atoms'
 import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
+import NetworkInfo from '../../models/NetworkInfo'
 
 export interface AccountModalProps {
   web3?: Web3
-  setProvider: (provider: EProvider, onProviderSet?:
-    (account: string) => void) => Promise<void>
+  networkInfo?: NetworkInfo
+  setProvider?: (provider: EProvider, onProviderSet?:
+    (account?: string) => void) => Promise<void>
   availableProviders?: ProviderInfo[]
   onClose?: () => void
   onProviderSet?: (account) => void
@@ -40,7 +42,7 @@ const AccountModal: FC<AccountModalProps> = ({
                   providerInfo={providerInfo}
                   key={providerInfo.eProvider}
                   onClick={async (): Promise<void> => {
-                    await setProvider(providerInfo.eProvider, onProviderSet)
+                    if (setProvider) await setProvider(providerInfo.eProvider, onProviderSet)
                   }}
                 />
               ),

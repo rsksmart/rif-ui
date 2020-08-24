@@ -141,9 +141,7 @@ const Account: FC<AccountProps> = (props) => {
         }}
       >
         <Typography className={classes.rightNetwork}>
-          You are successfully connected to
-          {networkInfo?.name}
-          .
+          {`You are successfully connected to ${networkInfo?.name}.`}
         </Typography>
       </Popover>
       <AccountModal

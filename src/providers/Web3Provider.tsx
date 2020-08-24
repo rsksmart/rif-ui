@@ -17,7 +17,7 @@ export interface Web3ProviderProps {
     requiredNetworkId?: number
   }
   actions: {
-    setProvider: (
+    setProvider?: (
       provider: EProvider,
       onStateChanged?: (account?: string) => void
     ) => Promise<void>
@@ -29,7 +29,7 @@ export interface Web3ProviderProps {
   availableProviders?: ProviderInfo[]
 }
 
-const defaultState: Web3ProviderState = {
+export const defaultWeb3State: Web3ProviderState = {
   provider: undefined,
   web3: undefined,
   account: undefined,
@@ -37,7 +37,7 @@ const defaultState: Web3ProviderState = {
 }
 
 export const Web3Store = createContext<Web3ProviderProps>({
-  state: defaultState,
+  state: defaultWeb3State,
   actions: {
     setProvider: (): Promise<void> => Promise.resolve(),
     onConnectedNetworkChange: (): any => 0,
@@ -86,7 +86,7 @@ const shouldReadAccount = (
   return false
 }
 
-class Web3Provider extends Component<{}, Web3ProviderState> {
+class Web3Provider extends Component<Web3ProviderProps, Web3ProviderState> {
   private readonly requiredNetworkId?: number
 
   private readonly requiredChainId?: number
@@ -95,7 +95,7 @@ class Web3Provider extends Component<{}, Web3ProviderState> {
 
   constructor(props: Web3ProviderProps) {
     super(props)
-    this.state = defaultState
+    this.state = defaultWeb3State
     this.requiredNetworkId = props.requiredNetworkId
     this.requiredChainId = props.requiredChainId
     this.onConnectedNetworkChange = props.actions.onConnectedNetworkChange
