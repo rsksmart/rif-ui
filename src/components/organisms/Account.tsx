@@ -13,7 +13,7 @@ import NetworkInfo from '../../models/NetworkInfo'
 
 export interface AccountProps {
   requiredNetworkName: string
-  setProvider: (provider: EProvider) => Promise<void>
+  setProvider?: (provider: EProvider) => Promise<void>
   web3?: Web3
   networkInfo?: NetworkInfo
   account?: string
