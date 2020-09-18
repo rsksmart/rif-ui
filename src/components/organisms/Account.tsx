@@ -22,6 +22,7 @@ export interface AccountProps {
   onCorrectNetworkMessage?: string
   onNetworkMismatchMessage?: string
   noNetworkMessage?: string
+  modalInitiallyOpened?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,10 +56,11 @@ const Account: FC<AccountProps> = (props) => {
     onNetworkMismatchMessage,
     noNetworkMessage,
     requiredNetworkName,
+    modalInitiallyOpened = false,
   } = props
   const classes = useStyles()
 
-  const [accountModalOpen, setAccountModalOpen] = useState(false)
+  const [accountModalOpen, setAccountModalOpen] = useState(modalInitiallyOpened)
   const handleAccountModalClose = (): void => setAccountModalOpen(false)
   const handleAccountModalOpen = (): void => setAccountModalOpen(true)
   const [wrongNetModalOpen, setWrongNetModalOpen] = useState(false)
