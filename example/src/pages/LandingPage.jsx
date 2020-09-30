@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, HeaderTongue, nameServiceImg, storageImg } from '@rsksmart/rif-ui';
+import { HeaderTongue, nameServiceImg, storageImg } from '@rsksmart/rif-ui';
+import Typography from '@material-ui/core/Typography'
 import { Grid, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({

@@ -1,5 +1,5 @@
 import {
-  Button, Checkbox, LoginOption, Logo, LogoNavbar, Typography,
+  Button, Checkbox, LoginOption, Logo, LogoNavbar,
 } from '.'
 
 describe('Button component sanity', () => {
@@ -29,11 +29,5 @@ describe('Logo component sanity', () => {
 describe('LogoNavbar component sanity', () => {
   it('is truthy', () => {
     expect(LogoNavbar).toBeTruthy()
-  })
-})
-
-describe('Typography component sanity', () => {
-  it('is truthy', () => {
-    expect(Typography).toBeTruthy()
   })
 })

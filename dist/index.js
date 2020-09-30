@@ -111,10 +111,7 @@ const theme = styles.createMuiTheme({
     fontWeightLight: fonts.weight.light,
     fontWeightRegular: fonts.weight.regular,
     fontWeightMedium: fonts.weight.medium,
-    fontWeightBold: fonts.weight.bold,
-    body1: {
-      fontWeight: fonts.weight.light
-    }
+    fontWeightBold: fonts.weight.bold
   },
   props: {},
   overrides: {
@@ -831,14 +828,26 @@ const FilterCheckboxCard = ({
   labelClassName: item.labelClassName
 }, item))));
 
-const shortenString = (str, largerThan = 16, charsShownCount = 6) => str.length > largerThan ? `${str.substr(0, charsShownCount)}...${str.substr(str.length - 4)}` : str;
+var shortenString = function shortenString(str, largerThan, charsShownCount) {
+  if (largerThan === void 0) {
+    largerThan = 16;
+  }
 
-const removeEmptySpaces = str => str.replace(/\s/g, '');
+  if (charsShownCount === void 0) {
+    charsShownCount = 6;
+  }
 
-const maxSupportedNumber = 99999999999999;
-const minSupportedNumber = 0.000001;
+  return str.length > largerThan ? str.substr(0, charsShownCount) + "..." + str.substr(str.length - 4) : str;
+};
 
-const validatedNumber = num => {
+var removeEmptySpaces = function removeEmptySpaces(str) {
+  return str.replace(/\s/g, '');
+};
+
+var maxSupportedNumber = 99999999999999;
+var minSupportedNumber = 0.000001;
+
+var validatedNumber = function validatedNumber(num) {
   if (num > 0) {
     if (num > maxSupportedNumber) return maxSupportedNumber;
     if (num < minSupportedNumber) return minSupportedNumber;

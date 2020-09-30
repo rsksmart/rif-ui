@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { NavLinkProps, NavLink } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '../atoms'
+import Typography from '@material-ui/core/Typography'
 import { colors, fonts } from '../../theme'
 import { removeEmptySpaces } from '../../utils'
 

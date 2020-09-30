@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Typography } from '../../atoms'
-import { colors } from '../../../theme'
+import Typography from '@material-ui/core/Typography'
+import { colors, fonts } from '../../../theme'
 import { headerTongueImg } from '../../../assets/images'
 
 export interface HeaderTongueProps {
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   titleContent: {
     marginBottom: theme.spacing(1),
     fontSize: theme.spacing(5),
+    fontWeight: fonts.weight.regular
   },
   tongueImg: {
     width: '100%',
@@ -54,7 +55,6 @@ const HeaderTongue: FC<HeaderTongueProps> = (
           <Typography
             className={classes.titleContent}
             variant="h3"
-            weight="lightBold"
           >
             {titleLine1}
             <br />
