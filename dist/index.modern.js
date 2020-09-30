@@ -1,5 +1,5 @@
 import React__default, { useState, useEffect, createContext, Component } from 'react';
-import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Tooltip, Typography as Typography$1, Modal as Modal$1, Accordion as Accordion$1, AccordionSummary as AccordionSummary$1, AccordionDetails as AccordionDetails$1, FormControlLabel, Grid, Input, Tabs as Tabs$1, Tab as Tab$1, AppBar, Toolbar, IconButton as IconButton$1, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Button as Button$1, makeStyles as makeStyles$1, createStyles, Checkbox as Checkbox$1, Tooltip, Modal as Modal$1, Accordion as Accordion$1, FormControlLabel, Tabs as Tabs$1, Tab as Tab$1, Grid as Grid$1, AppBar, Toolbar, IconButton as IconButton$1, Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { makeStyles, createMuiTheme, createStyles as createStyles$1 } from '@material-ui/core/styles';
 import { CheckBoxSharp, CheckBoxOutlineBlankSharp } from '@material-ui/icons';
 import Tab from '@material-ui/core/Tab';
@@ -9,18 +9,20 @@ import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlin
 import ErrorIcon from '@material-ui/icons/Error';
 import WarningIcon from '@material-ui/icons/Warning';
 import { yellow, green } from '@material-ui/core/colors';
+import Typography from '@material-ui/core/Typography';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import Accordion$2 from '@material-ui/core/Accordion';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Slider from '@material-ui/core/Slider';
-import Typography$2 from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
-import Grid$1 from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Popover from '@material-ui/core/Popover';
 import Web3 from 'web3';
@@ -80,10 +82,10 @@ const fonts = {
     subtitleBig: 22
   },
   weight: {
-    normal: 300,
-    lightBold: 500,
-    bold: 700,
-    superBold: 900
+    light: 300,
+    regular: 400,
+    medium: 500,
+    bold: 700
   }
 };
 const globalConstants = {
@@ -103,13 +105,19 @@ const theme = createMuiTheme({
     button: {
       textTransform: 'none'
     },
-    fontWeightRegular: fonts.weight.normal
+    fontWeightLight: fonts.weight.light,
+    fontWeightRegular: fonts.weight.regular,
+    fontWeightMedium: fonts.weight.medium,
+    fontWeightBold: fonts.weight.bold,
+    body1: {
+      fontWeight: fonts.weight.light
+    }
   },
   props: {},
   overrides: {
     MuiButton: {
       root: {
-        fontWeight: fonts.weight.normal
+        fontWeight: fonts.weight.light
       }
     },
     MuiFormControlLabel: {
@@ -486,34 +494,7 @@ const NetworkIndicator = ({
   return iconPerNetworkStatus.get(networkStatus);
 };
 
-const useStyles$4 = makeStyles(() => ({
-  normal: {
-    fontWeight: fonts.weight.normal
-  },
-  lightBold: {
-    fontWeight: fonts.weight.lightBold
-  },
-  bold: {
-    fontWeight: fonts.weight.bold
-  },
-  superBold: {
-    fontWeight: fonts.weight.superBold
-  }
-}));
-
-const Typography = ({
-  weight: _weight = 'normal',
-  className: _className = '',
-  children,
-  ...rest
-}) => {
-  const classes = useStyles$4();
-  return React__default.createElement(Typography$1, Object.assign({
-    className: `${classes[_weight]} ${_className}`.trim()
-  }, rest), children);
-};
-
-const useStyles$5 = makeStyles(theme => ({
+const useStyles$4 = makeStyles(theme => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: `2px solid ${colors.primary}`,
@@ -531,13 +512,13 @@ const Modal = ({
   children,
   ...rest
 }) => {
-  const classes = useStyles$5();
+  const classes = useStyles$4();
   return React__default.createElement(Modal$1, Object.assign({}, rest), React__default.createElement("div", {
     className: classes.paper
   }, children));
 };
 
-const useStyles$6 = makeStyles(() => ({
+const useStyles$5 = makeStyles(() => ({
   root: {
     borderBottom: `1px solid ${colors.gray2}`,
     color: colors.primary,
@@ -551,7 +532,7 @@ const ModalHeader = ({
   children,
   className: _className = ''
 }) => {
-  const classes = useStyles$6();
+  const classes = useStyles$5();
   return React__default.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, children);
@@ -564,7 +545,7 @@ const ModalTitle = ({
   variant: "h5"
 }, rest), children);
 
-const useStyles$7 = makeStyles(theme => ({
+const useStyles$6 = makeStyles(theme => ({
   root: {
     borderTop: `1px solid ${colors.gray2}`,
     display: 'flex',
@@ -578,13 +559,13 @@ const ModalFooter = ({
   children,
   className: _className = ''
 }) => {
-  const classes = useStyles$7();
+  const classes = useStyles$6();
   return React__default.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
-const useStyles$8 = makeStyles(theme => ({
+const useStyles$7 = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 0),
     width: '100%'
@@ -595,13 +576,13 @@ const ModalBody = ({
   children,
   className: _className = ''
 }) => {
-  const classes = useStyles$8();
+  const classes = useStyles$7();
   return React__default.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
-const useStyles$9 = makeStyles(() => ({
+const useStyles$8 = makeStyles(() => ({
   root: {
     position: 'relative'
   },
@@ -631,7 +612,7 @@ const WithSpinner = WrappedComponent => {
     isLoading,
     ...props
   }) => {
-    const classes = useStyles$9();
+    const classes = useStyles$8();
     return React__default.createElement("div", {
       className: classes.root
     }, isLoading && React__default.createElement("div", {
@@ -646,7 +627,7 @@ const WithSpinner = WrappedComponent => {
   return Spinner;
 };
 
-const useStyles$a = makeStyles(theme => createStyles$1({
+const useStyles$9 = makeStyles(theme => createStyles$1({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -655,7 +636,7 @@ const useStyles$a = makeStyles(theme => createStyles$1({
   heading: {
     color: colors.gray4,
     fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: theme.typography.fontWeightRegular,
     width: '100%'
   },
   accordionSummary: {
@@ -669,7 +650,7 @@ const Accordion = ({
   id,
   title
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$9();
   const [isExpanded, setIsExpanded] = useState(!!expanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -712,7 +693,7 @@ const AccountModal = ({
   onClick: onClose
 }, "Close"))));
 
-const useStyles$b = makeStyles$1(() => ({
+const useStyles$a = makeStyles(() => ({
   tooltipTitle: {
     display: 'flex',
     alignItems: 'center'
@@ -724,15 +705,15 @@ const CopyTextTooltip = ({
   fullText
 }) => {
   const [isCopied, setIsCopied] = useState(false);
-  const classes = useStyles$b();
+  const classes = useStyles$a();
   const tooltipContent = React__default.createElement("div", {
     className: classes.tooltipTitle
-  }, React__default.createElement(FileCopyIcon, null), React__default.createElement(Typography$1, {
+  }, React__default.createElement(FileCopyIcon, null), React__default.createElement(Typography, {
     variant: "body2"
   }, fullText));
   return React__default.createElement(Tooltip$1, {
     interactive: true,
-    title: isCopied ? React__default.createElement(Typography$1, {
+    title: isCopied ? React__default.createElement(Typography, {
       variant: "body2"
     }, "Copied!") : tooltipContent,
     onClick: () => {
@@ -746,7 +727,7 @@ const CopyTextTooltip = ({
   }, displayElement);
 };
 
-const useStyles$c = makeStyles(theme => ({
+const useStyles$b = makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -763,7 +744,7 @@ const useStyles$c = makeStyles(theme => ({
     color: colors.primary
   },
   headingCollapsed: {
-    fontWeight: fonts.weight.lightBold
+    fontWeight: fonts.weight.regular
   },
   panelDetails: {
     display: 'flex',
@@ -785,20 +766,20 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$b();
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
 
-  return React__default.createElement(Accordion$1, {
+  return React__default.createElement(Accordion$2, {
     className: `${classes.root} ${_className}`.trim(),
     expanded: isExpanded,
     onChange: onChange
-  }, React__default.createElement(AccordionSummary$1, {
+  }, React__default.createElement(AccordionSummary, {
     expandIcon: isExpanded ? React__default.createElement(RemoveIcon, null) : React__default.createElement(AddIcon, null)
   }, React__default.createElement(Typography, {
     className: `${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()
-  }, question)), React__default.createElement(AccordionDetails$1, {
+  }, question)), React__default.createElement(AccordionDetails, {
     className: classes.panelDetails
   }, React__default.createElement("div", {
     className: classes.answerContainer
@@ -807,7 +788,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$d = makeStyles(() => ({
+const useStyles$c = makeStyles(() => ({
   root: {
     color: colors.gray4,
     width: '100%'
@@ -819,7 +800,7 @@ const LabeledCheckbox = ({
   labelClassName: _labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$c();
   return React__default.createElement(FormControlLabel, {
     className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
@@ -860,7 +841,7 @@ const validatedNumber = num => {
   return num;
 };
 
-const useStyles$e = makeStyles(() => ({
+const useStyles$d = makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -868,10 +849,10 @@ const useStyles$e = makeStyles(() => ({
   },
   footerLink: {
     color: colors.gray4,
-    fontWeight: fonts.weight.normal,
+    fontWeight: fonts.weight.light,
     textDecoration: 'none',
     '&:hover': {
-      fontWeight: fonts.weight.lightBold
+      fontWeight: fonts.weight.regular
     }
   },
   footerTitle: {
@@ -885,7 +866,7 @@ const FooterColumn = ({
   links,
   className: _className = ''
 }) => {
-  const classes = useStyles$e();
+  const classes = useStyles$d();
   return React__default.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React__default.createElement(Typography, {
@@ -923,7 +904,7 @@ const ModalDialogue = ({
   ...props
 }) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 
-const useStyles$f = makeStyles(theme => ({
+const useStyles$e = makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -963,7 +944,7 @@ const UnitsInput = ({
   handleOnChange,
   ...rest
 }) => {
-  const classes = useStyles$f();
+  const classes = useStyles$e();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
     className: classes.root,
     container: true,
@@ -997,7 +978,7 @@ const UnitsInput = ({
   }, units))));
 };
 
-const useStyles$g = makeStyles(() => ({
+const useStyles$f = makeStyles(() => ({
   root: {
     width: '100%'
   },
@@ -1011,7 +992,8 @@ const useStyles$g = makeStyles(() => ({
     alignSelf: 'center',
     display: 'flex',
     justifyContent: 'center',
-    width: '100%'
+    width: '100%',
+    fontWeight: fonts.weight.regular
   }
 }));
 
@@ -1025,7 +1007,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$f();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -1102,8 +1084,7 @@ const RangeSliderWithInputs = ({
   }, getCommonInputValues(), {
     value: startValue
   })), React__default.createElement(Typography, {
-    className: classes.toContainer,
-    weight: "bold"
+    className: classes.toContainer
   }, "to"), React__default.createElement(UnitsInput, Object.assign({
     handleOnBlur: handleEndValueBlur,
     handleOnChange: handleEndInputChange
@@ -1117,13 +1098,13 @@ const ShortenTextTooltip = ({
   maxLength: _maxLength = 20,
   charsShownCount
 }) => React__default.createElement(React__default.Fragment, null, value.length > _maxLength && React__default.createElement(CopyTextTooltip, {
-  displayElement: React__default.createElement(Typography$2, {
+  displayElement: React__default.createElement(Typography, {
     variant: "body2"
   }, shortenString(value, _maxLength, charsShownCount || _maxLength - 5)),
   fullText: value
 }), value.length <= _maxLength && value);
 
-const useStyles$h = makeStyles({
+const useStyles$g = makeStyles({
   indicator: {
     display: 'flex',
     justifyContent: 'center',
@@ -1138,7 +1119,7 @@ const StyledTabs = props => {
   const {
     children
   } = props;
-  const classes = useStyles$h();
+  const classes = useStyles$g();
   return React__default.createElement(Tabs, Object.assign({
     classes: classes
   }, props), children);
@@ -1149,7 +1130,7 @@ const a11yProps = index => ({
   'aria-controls': `full-width-tabpanel-${index}`
 });
 
-const useStyles$i = makeStyles(() => ({
+const useStyles$h = makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1168,7 +1149,7 @@ const useStyles$i = makeStyles(() => ({
     },
     borderRadius: 50,
     color: colors.gray3,
-    fontWeight: fonts.weight.normal,
+    fontWeight: fonts.weight.light,
     maxWidth: '50%',
     minHeight: '100%',
     minWidth: '50%',
@@ -1197,7 +1178,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$h();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1239,7 +1220,7 @@ const TooltipIconButton = ({
   color: "primary"
 }, iconButtonProps), icon)));
 
-const useStyles$j = makeStyles(theme => ({
+const useStyles$i = makeStyles(theme => ({
   boxContainer: {
     border: `1px solid ${colors.primary}`,
     padding: theme.spacing(5),
@@ -1257,12 +1238,12 @@ const WrongNetworkModal = ({
   requiredNetworkName,
   onClose
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$i();
   return React__default.createElement(ModalDialogue, {
     title: `Switch to the ${requiredNetworkName} network`,
     open: open,
     onClose: onClose
-  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(Typography$2, {
+  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(Typography, {
     gutterBottom: true,
     align: "center",
     color: "secondary",
@@ -1270,21 +1251,21 @@ const WrongNetworkModal = ({
   }, "This dApp only works on the", ' ', requiredNetworkName, ". You are currently on", ' ', React__default.createElement(Box, {
     display: "inline",
     fontWeight: "fontWeightMedium"
-  }, _currentNetworkName), "."), React__default.createElement(Grid$1, {
+  }, _currentNetworkName), "."), React__default.createElement(Grid, {
     container: true,
     className: classes.boxContainer,
     alignItems: "center"
-  }, React__default.createElement(Grid$1, {
+  }, React__default.createElement(Grid, {
     item: true,
     sm: 3,
     className: classes.loaderContainer
-  }, React__default.createElement(CircularProgress, null)), React__default.createElement(Grid$1, {
+  }, React__default.createElement(CircularProgress, null)), React__default.createElement(Grid, {
     item: true,
     sm: 9
-  }, React__default.createElement(Typography$2, {
+  }, React__default.createElement(Typography, {
     gutterBottom: true,
     color: "secondary"
-  }, "Waiting for the right network..."), React__default.createElement(Typography$2, {
+  }, "Waiting for the right network..."), React__default.createElement(Typography, {
     color: "primary",
     component: "div"
   }, React__default.createElement(Box, {
@@ -1292,7 +1273,7 @@ const WrongNetworkModal = ({
   }, "Switch networks on your wallet"))))));
 };
 
-const useStyles$k = makeStyles(theme => ({
+const useStyles$j = makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1343,7 +1324,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$j();
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, rest), React__default.createElement("div", {
@@ -1352,10 +1333,10 @@ const Footer = ({
     className: classes.footerContainer
   }, React__default.createElement("div", {
     className: classes.footerContent
-  }, React__default.createElement(Grid, {
+  }, React__default.createElement(Grid$1, {
     container: true,
     direction: "row"
-  }, React__default.createElement(Grid, {
+  }, React__default.createElement(Grid$1, {
     className: classes.logoColumn,
     item: true,
     xs: 12,
@@ -1365,7 +1346,7 @@ const Footer = ({
     src: logoBlackAndBlue,
     height: "75px",
     alt: "logo"
-  })), linksColumns.map(linkColumn => React__default.createElement(Grid, {
+  })), linksColumns.map(linkColumn => React__default.createElement(Grid$1, {
     key: `fc-${removeEmptySpaces(linkColumn.title)}`,
     item: true,
     xs: 12,
@@ -2667,7 +2648,7 @@ const getConnectionStatus = (web3, requiredNetworkId, currentNetworkId, account)
   return ConnectionStatus$1.WalletLocked;
 };
 
-const useStyles$l = makeStyles(theme => ({
+const useStyles$k = makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -2700,7 +2681,7 @@ const Account = props => {
     requiredNetworkName,
     modalInitiallyOpened = false
   } = props;
-  const classes = useStyles$l();
+  const classes = useStyles$k();
   const [accountModalOpen, setAccountModalOpen] = useState(modalInitiallyOpened);
 
   const handleAccountModalClose = () => setAccountModalOpen(false);
@@ -2794,10 +2775,10 @@ const Account = props => {
   }));
 };
 
-const useStyles$m = makeStyles(theme => ({
+const useStyles$l = makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
-    fontWeight: fonts.weight.lightBold
+    fontWeight: fonts.weight.regular
   },
   itemsContainer: {
     display: 'flex'
@@ -2833,7 +2814,7 @@ const HeaderDesktop = ({
   items,
   login
 }) => {
-  const classes = useStyles$m();
+  const classes = useStyles$l();
   const Login = login;
   return React__default.createElement(AppBar, {
     position: "fixed",
@@ -2854,7 +2835,7 @@ const HeaderDesktop = ({
 };
 
 const drawerWidth = 240;
-const useStyles$n = makeStyles(theme => createStyles$1({
+const useStyles$m = makeStyles(theme => createStyles$1({
   loginContainer: {
     display: 'flex',
     marginLeft: 'auto'
@@ -2906,7 +2887,7 @@ const HeaderMobile = ({
   items,
   login
 }) => {
-  const classes = useStyles$n();
+  const classes = useStyles$m();
   const [open, setOpen] = useState(false);
   const Login = login;
 
@@ -2974,7 +2955,7 @@ const Header = ({
   login: login
 })));
 
-const useStyles$o = makeStyles(theme => ({
+const useStyles$n = makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -2999,7 +2980,8 @@ const useStyles$o = makeStyles(theme => ({
   },
   titleContent: {
     marginBottom: theme.spacing(1),
-    fontSize: theme.spacing(5)
+    fontSize: theme.spacing(5),
+    fontWeight: fonts.weight.regular
   },
   tongueImg: {
     width: '100%'
@@ -3011,15 +2993,14 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$o();
+  const classes = useStyles$n();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
     className: classes.textContent
   }, React__default.createElement(Typography, {
     className: classes.titleContent,
-    variant: "h3",
-    weight: "lightBold"
+    variant: "h3"
   }, titleLine1, React__default.createElement("br", null), ' ', titleLine2), React__default.createElement(Typography, {
     variant: "subtitle1"
   }, description))), React__default.createElement("img", {
@@ -3029,7 +3010,7 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$p = makeStyles(theme => ({
+const useStyles$o = makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -3064,7 +3045,7 @@ const FAQPageTemplate = ({
   mainTitle,
   questionsAndAnswers
 }) => {
-  const classes = useStyles$p();
+  const classes = useStyles$o();
   return React__default.createElement("div", {
     className: `${classes.root} ${_className}`.trim()
   }, React__default.createElement("div", {
@@ -3081,7 +3062,7 @@ const FAQPageTemplate = ({
   }, qAndA))))));
 };
 
-const useStyles$q = makeStyles(theme => ({
+const useStyles$p = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
@@ -3093,7 +3074,7 @@ const PageTemplate = ({
   className: _className = '',
   ...props
 }) => {
-  const classes = useStyles$q();
+  const classes = useStyles$p();
   return React__default.createElement("div", Object.assign({
     className: `${classes.root} ${_className}`.trim()
   }, props), children);
@@ -3247,5 +3228,5 @@ var Web3Provider$1 = {
   Provider: Web3Provider
 };
 
-export { Accordion, Account, AccountModal, Button, Checkbox, CopyTextTooltip, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, NetworkIndicator, PageTemplate, RangeSliderWithInputs, ShortenTextTooltip, StyledNavTab, StyledTabs, SwitchTabs, TooltipIconButton, Typography, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, WithSpinner, WrongNetworkModal, colors, defaultWeb3State, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoBlueIcon, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
+export { Accordion, Account, AccountModal, Button, Checkbox, CopyTextTooltip, FAQPageTemplate, FAQSection, FilterCheckboxCard, Footer, FooterColumn, Header, HeaderTongue, LabeledCheckbox, LoginOption, Logo, LogoNavbar, Modal, ModalBody, ModalDialogue, ModalFooter, ModalHeader, ModalTitle, NetworkIndicator, PageTemplate, RangeSliderWithInputs, ShortenTextTooltip, StyledNavTab, StyledTabs, SwitchTabs, TooltipIconButton, UnitsInput, Web3Provider$1 as Web3Provider, Web3Store, WithSpinner, WrongNetworkModal, colors, defaultWeb3State, doneThumbsUp as doneThumbsUpImg, fonts, footerTongue as footerTongueImg, globalConstants, headerTongueImg, logoBlackAndBlue, logoBlueIcon, logoFullWhite, maxSupportedNumber, metaMaskIconImg, minSupportedNumber, nameService as nameServiceImg, niftyIconImg, removeEmptySpaces, rifCom as rifComImg, rifDir as rifDirImg, rifGat as rifGatImg, rifMar as rifMarImg, rifPay as rifPayImg, rifSto as rifStoImg, rskLogo, shortenString, storage as storageImg, theme, tickWide as tickWideImg, validatedNumber };
 //# sourceMappingURL=index.modern.js.map

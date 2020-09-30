@@ -12,7 +12,7 @@ export const colors = {
   gray5: '#4D4C4C',
   gray6: '#15171B',
   transparent: '#FFFFFF00',
-  white: '#FFFFFF',
+  white: '#FFFFFF'
 }
 
 export const fonts = {
@@ -23,78 +23,80 @@ export const fonts = {
     normal: 14,
     medium: 16,
     subtitleSmall: 18,
-    subtitleBig: 22,
+    subtitleBig: 22
   },
   weight: {
-    normal: 300,
-    lightBold: 500,
-    bold: 700,
-    superBold: 900,
-  },
+    light: 300,
+    regular: 400,
+    medium: 500,
+    bold: 700
+  }
 }
 
 export const globalConstants = {
-  headerHeight: 8,
+  headerHeight: 8
 }
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: colors.primary,
+      main: colors.primary
     },
     secondary: {
-      main: colors.gray4,
-    },
+      main: colors.gray4
+    }
   },
   typography: {
     fontFamily: fonts.family,
     button: {
-      textTransform: 'none',
+      textTransform: 'none'
     },
-    fontWeightRegular: fonts.weight.normal,
+    fontWeightLight: fonts.weight.light,
+    fontWeightRegular: fonts.weight.regular,
+    fontWeightMedium: fonts.weight.medium,
+    fontWeightBold: fonts.weight.bold
   },
-  props: {
-  },
+  props: {},
   overrides: {
     MuiButton: {
       root: {
-        fontWeight: fonts.weight.normal,
-      },
+        fontWeight: fonts.weight.light
+      }
     },
     MuiFormControlLabel: {
       root: {
-        color: colors.gray3,
-      },
+        color: colors.gray3
+      }
     },
     MuiSlider: {
       rail: {
         color: colors.gray3,
         height: 4,
-        opacity: 1,
+        opacity: 1
       },
       root: {
         width: '100%',
         color: colors.primary,
-        height: 4,
+        height: 4
       },
       track: {
-        height: 4,
+        height: 4
       },
       thumb: {
         marginLeft: -4,
         height: 14,
-        width: 14,
-      },
+        width: 14
+      }
     },
     MuiTextField: {
       root: {
         color: colors.gray3,
         '&:hover': {
-          color: colors.gray2,
-        },
-      },
-    },
-  },
+          color: colors.gray2
+        }
+      }
+    }
+  }
 })
 
 export default theme

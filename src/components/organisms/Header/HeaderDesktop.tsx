@@ -10,7 +10,7 @@ import { removeEmptySpaces } from '../../../utils'
 const useStyles = makeStyles((theme: Theme) => ({
   activeNavlink: {
     color: `${colors.white} !important`,
-    fontWeight: fonts.weight.lightBold,
+    fontWeight: fonts.weight.regular,
   },
   itemsContainer: {
     display: 'flex',

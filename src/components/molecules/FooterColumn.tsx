@@ -24,10 +24,10 @@ const useStyles = makeStyles(() => ({
   },
   footerLink: {
     color: colors.gray4,
-    fontWeight: fonts.weight.normal,
+    fontWeight: fonts.weight.light,
     textDecoration: 'none',
     '&:hover': {
-      fontWeight: fonts.weight.lightBold,
+      fontWeight: fonts.weight.regular,
     },
   },
   footerTitle: {

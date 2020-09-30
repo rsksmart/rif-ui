@@ -12,18 +12,20 @@ var CheckCircleOutlineOutlinedIcon = _interopDefault(require('@material-ui/icons
 var ErrorIcon = _interopDefault(require('@material-ui/icons/Error'));
 var WarningIcon = _interopDefault(require('@material-ui/icons/Warning'));
 var colors$1 = require('@material-ui/core/colors');
+var Typography = _interopDefault(require('@material-ui/core/Typography'));
 var AccordionDetails = _interopDefault(require('@material-ui/core/AccordionDetails'));
 var AccordionSummary = _interopDefault(require('@material-ui/core/AccordionSummary'));
 var ExpandMoreIcon = _interopDefault(require('@material-ui/icons/ExpandMore'));
 var FileCopyIcon = _interopDefault(require('@material-ui/icons/FileCopy'));
+var Accordion$1 = _interopDefault(require('@material-ui/core/Accordion'));
 var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
 var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
 var Slider = _interopDefault(require('@material-ui/core/Slider'));
-var Typography$1 = _interopDefault(require('@material-ui/core/Typography'));
+var Input = _interopDefault(require('@material-ui/core/Input'));
+var Grid = _interopDefault(require('@material-ui/core/Grid'));
 var Tabs = _interopDefault(require('@material-ui/core/Tabs'));
 var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
 var Box = _interopDefault(require('@material-ui/core/Box'));
-var Grid = _interopDefault(require('@material-ui/core/Grid'));
 var CircularProgress = _interopDefault(require('@material-ui/core/CircularProgress'));
 var Popover = _interopDefault(require('@material-ui/core/Popover'));
 var Web3 = _interopDefault(require('web3'));
@@ -83,10 +85,10 @@ const fonts = {
     subtitleBig: 22
   },
   weight: {
-    normal: 300,
-    lightBold: 500,
-    bold: 700,
-    superBold: 900
+    light: 300,
+    regular: 400,
+    medium: 500,
+    bold: 700
   }
 };
 const globalConstants = {
@@ -106,13 +108,19 @@ const theme = styles.createMuiTheme({
     button: {
       textTransform: 'none'
     },
-    fontWeightRegular: fonts.weight.normal
+    fontWeightLight: fonts.weight.light,
+    fontWeightRegular: fonts.weight.regular,
+    fontWeightMedium: fonts.weight.medium,
+    fontWeightBold: fonts.weight.bold,
+    body1: {
+      fontWeight: fonts.weight.light
+    }
   },
   props: {},
   overrides: {
     MuiButton: {
       root: {
-        fontWeight: fonts.weight.normal
+        fontWeight: fonts.weight.light
       }
     },
     MuiFormControlLabel: {
@@ -489,34 +497,7 @@ const NetworkIndicator = ({
   return iconPerNetworkStatus.get(networkStatus);
 };
 
-const useStyles$4 = styles.makeStyles(() => ({
-  normal: {
-    fontWeight: fonts.weight.normal
-  },
-  lightBold: {
-    fontWeight: fonts.weight.lightBold
-  },
-  bold: {
-    fontWeight: fonts.weight.bold
-  },
-  superBold: {
-    fontWeight: fonts.weight.superBold
-  }
-}));
-
-const Typography = ({
-  weight = 'normal',
-  className = '',
-  children,
-  ...rest
-}) => {
-  const classes = useStyles$4();
-  return React__default.createElement(core.Typography, Object.assign({
-    className: `${classes[weight]} ${className}`.trim()
-  }, rest), children);
-};
-
-const useStyles$5 = styles.makeStyles(theme => ({
+const useStyles$4 = styles.makeStyles(theme => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: `2px solid ${colors.primary}`,
@@ -534,13 +515,13 @@ const Modal = ({
   children,
   ...rest
 }) => {
-  const classes = useStyles$5();
+  const classes = useStyles$4();
   return React__default.createElement(core.Modal, Object.assign({}, rest), React__default.createElement("div", {
     className: classes.paper
   }, children));
 };
 
-const useStyles$6 = styles.makeStyles(() => ({
+const useStyles$5 = styles.makeStyles(() => ({
   root: {
     borderBottom: `1px solid ${colors.gray2}`,
     color: colors.primary,
@@ -554,7 +535,7 @@ const ModalHeader = ({
   children,
   className = ''
 }) => {
-  const classes = useStyles$6();
+  const classes = useStyles$5();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, children);
@@ -567,7 +548,7 @@ const ModalTitle = ({
   variant: "h5"
 }, rest), children);
 
-const useStyles$7 = styles.makeStyles(theme => ({
+const useStyles$6 = styles.makeStyles(theme => ({
   root: {
     borderTop: `1px solid ${colors.gray2}`,
     display: 'flex',
@@ -581,13 +562,13 @@ const ModalFooter = ({
   children,
   className = ''
 }) => {
-  const classes = useStyles$7();
+  const classes = useStyles$6();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
 
-const useStyles$8 = styles.makeStyles(theme => ({
+const useStyles$7 = styles.makeStyles(theme => ({
   root: {
     padding: theme.spacing(3, 0),
     width: '100%'
@@ -598,13 +579,13 @@ const ModalBody = ({
   children,
   className = ''
 }) => {
-  const classes = useStyles$8();
+  const classes = useStyles$7();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, children);
 };
 
-const useStyles$9 = styles.makeStyles(() => ({
+const useStyles$8 = styles.makeStyles(() => ({
   root: {
     position: 'relative'
   },
@@ -634,7 +615,7 @@ const WithSpinner = WrappedComponent => {
     isLoading,
     ...props
   }) => {
-    const classes = useStyles$9();
+    const classes = useStyles$8();
     return React__default.createElement("div", {
       className: classes.root
     }, isLoading && React__default.createElement("div", {
@@ -649,7 +630,7 @@ const WithSpinner = WrappedComponent => {
   return Spinner;
 };
 
-const useStyles$a = styles.makeStyles(theme => styles.createStyles({
+const useStyles$9 = styles.makeStyles(theme => styles.createStyles({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -658,7 +639,7 @@ const useStyles$a = styles.makeStyles(theme => styles.createStyles({
   heading: {
     color: colors.gray4,
     fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: theme.typography.fontWeightRegular,
     width: '100%'
   },
   accordionSummary: {
@@ -672,7 +653,7 @@ const Accordion = ({
   id,
   title
 }) => {
-  const classes = useStyles$a();
+  const classes = useStyles$9();
   const [isExpanded, setIsExpanded] = React.useState(!!expanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
@@ -723,7 +704,7 @@ const AccountModal = ({
   onClick: onClose
 }, "Close"))));
 
-const useStyles$b = core.makeStyles(() => ({
+const useStyles$a = styles.makeStyles(() => ({
   tooltipTitle: {
     display: 'flex',
     alignItems: 'center'
@@ -735,15 +716,15 @@ const CopyTextTooltip = ({
   fullText
 }) => {
   const [isCopied, setIsCopied] = React.useState(false);
-  const classes = useStyles$b();
+  const classes = useStyles$a();
   const tooltipContent = React__default.createElement("div", {
     className: classes.tooltipTitle
-  }, React__default.createElement(FileCopyIcon, null), React__default.createElement(core.Typography, {
+  }, React__default.createElement(FileCopyIcon, null), React__default.createElement(Typography, {
     variant: "body2"
   }, fullText));
   return React__default.createElement(Tooltip, {
     interactive: true,
-    title: isCopied ? React__default.createElement(core.Typography, {
+    title: isCopied ? React__default.createElement(Typography, {
       variant: "body2"
     }, "Copied!") : tooltipContent,
     onClick: () => {
@@ -757,7 +738,7 @@ const CopyTextTooltip = ({
   }, displayElement);
 };
 
-const useStyles$c = styles.makeStyles(theme => ({
+const useStyles$b = styles.makeStyles(theme => ({
   root: {
     boxShadow: 'none',
     color: colors.gray4,
@@ -774,7 +755,7 @@ const useStyles$c = styles.makeStyles(theme => ({
     color: colors.primary
   },
   headingCollapsed: {
-    fontWeight: fonts.weight.lightBold
+    fontWeight: fonts.weight.regular
   },
   panelDetails: {
     display: 'flex',
@@ -796,20 +777,20 @@ const FAQSection = ({
   question,
   answer
 }) => {
-  const classes = useStyles$c();
+  const classes = useStyles$b();
   const [isExpanded, setIsExpanded] = React.useState(!!initiallyExpanded);
 
   const onChange = () => setIsExpanded(!isExpanded);
 
-  return React__default.createElement(core.Accordion, {
+  return React__default.createElement(Accordion$1, {
     className: `${classes.root} ${className}`.trim(),
     expanded: isExpanded,
     onChange: onChange
-  }, React__default.createElement(core.AccordionSummary, {
+  }, React__default.createElement(AccordionSummary, {
     expandIcon: isExpanded ? React__default.createElement(RemoveIcon, null) : React__default.createElement(AddIcon, null)
   }, React__default.createElement(Typography, {
     className: `${classes.heading} ${isExpanded ? classes.headingExpanded : classes.headingCollapsed}`.trim()
-  }, question)), React__default.createElement(core.AccordionDetails, {
+  }, question)), React__default.createElement(AccordionDetails, {
     className: classes.panelDetails
   }, React__default.createElement("div", {
     className: classes.answerContainer
@@ -818,7 +799,7 @@ const FAQSection = ({
   }, answer))));
 };
 
-const useStyles$d = styles.makeStyles(() => ({
+const useStyles$c = styles.makeStyles(() => ({
   root: {
     color: colors.gray4,
     width: '100%'
@@ -830,7 +811,7 @@ const LabeledCheckbox = ({
   labelClassName = '',
   ...rest
 }) => {
-  const classes = useStyles$d();
+  const classes = useStyles$c();
   return React__default.createElement(core.FormControlLabel, {
     className: `${classes.root} ${labelClassName.trim()}`,
     label: labelText,
@@ -850,26 +831,14 @@ const FilterCheckboxCard = ({
   labelClassName: item.labelClassName
 }, item))));
 
-var shortenString = function shortenString(str, largerThan, charsShownCount) {
-  if (largerThan === void 0) {
-    largerThan = 16;
-  }
+const shortenString = (str, largerThan = 16, charsShownCount = 6) => str.length > largerThan ? `${str.substr(0, charsShownCount)}...${str.substr(str.length - 4)}` : str;
 
-  if (charsShownCount === void 0) {
-    charsShownCount = 6;
-  }
+const removeEmptySpaces = str => str.replace(/\s/g, '');
 
-  return str.length > largerThan ? str.substr(0, charsShownCount) + "..." + str.substr(str.length - 4) : str;
-};
+const maxSupportedNumber = 99999999999999;
+const minSupportedNumber = 0.000001;
 
-var removeEmptySpaces = function removeEmptySpaces(str) {
-  return str.replace(/\s/g, '');
-};
-
-var maxSupportedNumber = 99999999999999;
-var minSupportedNumber = 0.000001;
-
-var validatedNumber = function validatedNumber(num) {
+const validatedNumber = num => {
   if (num > 0) {
     if (num > maxSupportedNumber) return maxSupportedNumber;
     if (num < minSupportedNumber) return minSupportedNumber;
@@ -883,7 +852,7 @@ var validatedNumber = function validatedNumber(num) {
   return num;
 };
 
-const useStyles$e = styles.makeStyles(() => ({
+const useStyles$d = styles.makeStyles(() => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -891,10 +860,10 @@ const useStyles$e = styles.makeStyles(() => ({
   },
   footerLink: {
     color: colors.gray4,
-    fontWeight: fonts.weight.normal,
+    fontWeight: fonts.weight.light,
     textDecoration: 'none',
     '&:hover': {
-      fontWeight: fonts.weight.lightBold
+      fontWeight: fonts.weight.regular
     }
   },
   footerTitle: {
@@ -908,7 +877,7 @@ const FooterColumn = ({
   links,
   className = ''
 }) => {
-  const classes = useStyles$e();
+  const classes = useStyles$d();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement(Typography, {
@@ -946,7 +915,7 @@ const ModalDialogue = ({
   ...props
 }) => React__default.createElement(Modal, Object.assign({}, props), React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, title)), React__default.createElement(ModalBody, null, children), React__default.createElement(ModalFooter, null, footer)));
 
-const useStyles$f = styles.makeStyles(theme => ({
+const useStyles$e = styles.makeStyles(theme => ({
   root: {
     color: colors.gray4,
     display: 'flex'
@@ -986,16 +955,16 @@ const UnitsInput = ({
   handleOnChange,
   ...rest
 }) => {
-  const classes = useStyles$f();
-  return React__default.createElement(React__default.Fragment, null, React__default.createElement(core.Grid, {
+  const classes = useStyles$e();
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(Grid, {
     className: classes.root,
     container: true,
     spacing: 1
-  }, React__default.createElement(core.Grid, {
+  }, React__default.createElement(Grid, {
     className: classes.inputContainer,
     item: true,
     xs: 8
-  }, React__default.createElement(core.Input, Object.assign({
+  }, React__default.createElement(Input, Object.assign({
     className: classes.input,
     classes: {
       input: classes.input
@@ -1011,7 +980,7 @@ const UnitsInput = ({
       max: maxValue,
       'aria-labelledby': 'input-slider'
     }
-  }, rest))), React__default.createElement(core.Grid, {
+  }, rest))), React__default.createElement(Grid, {
     item: true,
     xs: 4,
     className: classes.unitsContainer
@@ -1020,7 +989,7 @@ const UnitsInput = ({
   }, units))));
 };
 
-const useStyles$g = styles.makeStyles(() => ({
+const useStyles$f = styles.makeStyles(() => ({
   root: {
     width: '100%'
   },
@@ -1034,7 +1003,8 @@ const useStyles$g = styles.makeStyles(() => ({
     alignSelf: 'center',
     display: 'flex',
     justifyContent: 'center',
-    width: '100%'
+    width: '100%',
+    fontWeight: fonts.weight.regular
   }
 }));
 
@@ -1048,7 +1018,7 @@ const RangeSliderWithInputs = ({
   className,
   ...rest
 }) => {
-  const classes = useStyles$g();
+  const classes = useStyles$f();
   const maxValue = rest.max || endValue;
   const minValue = rest.min || startValue;
   const step = rest.step || 1;
@@ -1125,8 +1095,7 @@ const RangeSliderWithInputs = ({
   }, getCommonInputValues(), {
     value: startValue
   })), React__default.createElement(Typography, {
-    className: classes.toContainer,
-    weight: "bold"
+    className: classes.toContainer
   }, "to"), React__default.createElement(UnitsInput, Object.assign({
     handleOnBlur: handleEndValueBlur,
     handleOnChange: handleEndInputChange
@@ -1140,13 +1109,13 @@ const ShortenTextTooltip = ({
   maxLength = 20,
   charsShownCount
 }) => React__default.createElement(React__default.Fragment, null, value.length > maxLength && React__default.createElement(CopyTextTooltip, {
-  displayElement: React__default.createElement(Typography$1, {
+  displayElement: React__default.createElement(Typography, {
     variant: "body2"
   }, shortenString(value, maxLength, charsShownCount || maxLength - 5)),
   fullText: value
 }), value.length <= maxLength && value);
 
-const useStyles$h = styles.makeStyles({
+const useStyles$g = styles.makeStyles({
   indicator: {
     display: 'flex',
     justifyContent: 'center',
@@ -1161,7 +1130,7 @@ const StyledTabs = props => {
   const {
     children
   } = props;
-  const classes = useStyles$h();
+  const classes = useStyles$g();
   return React__default.createElement(Tabs, Object.assign({
     classes: classes
   }, props), children);
@@ -1172,7 +1141,7 @@ const a11yProps = index => ({
   'aria-controls': `full-width-tabpanel-${index}`
 });
 
-const useStyles$i = styles.makeStyles(() => ({
+const useStyles$h = styles.makeStyles(() => ({
   root: {
     backgroundColor: colors.white,
     minHeight: 20,
@@ -1191,7 +1160,7 @@ const useStyles$i = styles.makeStyles(() => ({
     },
     borderRadius: 50,
     color: colors.gray3,
-    fontWeight: fonts.weight.normal,
+    fontWeight: fonts.weight.light,
     maxWidth: '50%',
     minHeight: '100%',
     minWidth: '50%',
@@ -1220,7 +1189,7 @@ const SwitchTabs = ({
   value: controlledValue,
   onChange
 }) => {
-  const classes = useStyles$i();
+  const classes = useStyles$h();
 
   const handleChange = (event, newValue) => {
     onChange(event, newValue);
@@ -1262,7 +1231,7 @@ const TooltipIconButton = ({
   color: "primary"
 }, iconButtonProps), icon)));
 
-const useStyles$j = styles.makeStyles(theme => ({
+const useStyles$i = styles.makeStyles(theme => ({
   boxContainer: {
     border: `1px solid ${colors.primary}`,
     padding: theme.spacing(5),
@@ -1280,12 +1249,12 @@ const WrongNetworkModal = ({
   requiredNetworkName,
   onClose
 }) => {
-  const classes = useStyles$j();
+  const classes = useStyles$i();
   return React__default.createElement(ModalDialogue, {
     title: `Switch to the ${requiredNetworkName} network`,
     open: open,
     onClose: onClose
-  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(Typography$1, {
+  }, React__default.createElement(React__default.Fragment, null, React__default.createElement(Typography, {
     gutterBottom: true,
     align: "center",
     color: "secondary",
@@ -1304,10 +1273,10 @@ const WrongNetworkModal = ({
   }, React__default.createElement(CircularProgress, null)), React__default.createElement(Grid, {
     item: true,
     sm: 9
-  }, React__default.createElement(Typography$1, {
+  }, React__default.createElement(Typography, {
     gutterBottom: true,
     color: "secondary"
-  }, "Waiting for the right network..."), React__default.createElement(Typography$1, {
+  }, "Waiting for the right network..."), React__default.createElement(Typography, {
     color: "primary",
     component: "div"
   }, React__default.createElement(Box, {
@@ -1315,7 +1284,7 @@ const WrongNetworkModal = ({
   }, "Switch networks on your wallet"))))));
 };
 
-const useStyles$k = styles.makeStyles(theme => ({
+const useStyles$j = styles.makeStyles(theme => ({
   copyright: {
     display: 'flex',
     justifyContent: 'center'
@@ -1366,7 +1335,7 @@ const Footer = ({
   linksColumns,
   ...rest
 }) => {
-  const classes = useStyles$k();
+  const classes = useStyles$j();
   return React__default.createElement("footer", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, rest), React__default.createElement("div", {
@@ -2725,7 +2694,7 @@ const getConnectionStatus = (web3, requiredNetworkId, currentNetworkId, account)
   return ConnectionStatus$1.WalletLocked;
 };
 
-const useStyles$l = styles.makeStyles(theme => ({
+const useStyles$k = styles.makeStyles(theme => ({
   accountText: {
     fontSize: fonts.size.tiny,
     textAlign: 'center'
@@ -2758,7 +2727,7 @@ const Account = props => {
     requiredNetworkName,
     modalInitiallyOpened = false
   } = props;
-  const classes = useStyles$l();
+  const classes = useStyles$k();
   const [accountModalOpen, setAccountModalOpen] = React.useState(modalInitiallyOpened);
 
   const handleAccountModalClose = () => setAccountModalOpen(false);
@@ -2852,10 +2821,10 @@ const Account = props => {
   }));
 };
 
-const useStyles$m = styles.makeStyles(theme => ({
+const useStyles$l = styles.makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
-    fontWeight: fonts.weight.lightBold
+    fontWeight: fonts.weight.regular
   },
   itemsContainer: {
     display: 'flex'
@@ -2891,7 +2860,7 @@ const HeaderDesktop = ({
   items,
   login
 }) => {
-  const classes = useStyles$m();
+  const classes = useStyles$l();
   const Login = login;
   return React__default.createElement(core.AppBar, {
     position: "fixed",
@@ -2912,7 +2881,7 @@ const HeaderDesktop = ({
 };
 
 const drawerWidth = 240;
-const useStyles$n = styles.makeStyles(theme => styles.createStyles({
+const useStyles$m = styles.makeStyles(theme => styles.createStyles({
   loginContainer: {
     display: 'flex',
     marginLeft: 'auto'
@@ -2964,7 +2933,7 @@ const HeaderMobile = ({
   items,
   login
 }) => {
-  const classes = useStyles$n();
+  const classes = useStyles$m();
   const [open, setOpen] = React.useState(false);
   const Login = login;
 
@@ -3032,7 +3001,7 @@ const Header = ({
   login: login
 })));
 
-const useStyles$o = styles.makeStyles(theme => ({
+const useStyles$n = styles.makeStyles(theme => ({
   textContainer: {
     alignItems: 'center',
     backgroundColor: colors.primary,
@@ -3057,7 +3026,8 @@ const useStyles$o = styles.makeStyles(theme => ({
   },
   titleContent: {
     marginBottom: theme.spacing(1),
-    fontSize: theme.spacing(5)
+    fontSize: theme.spacing(5),
+    fontWeight: fonts.weight.regular
   },
   tongueImg: {
     width: '100%'
@@ -3069,15 +3039,14 @@ const HeaderTongue = ({
   titleLine1,
   titleLine2
 }) => {
-  const classes = useStyles$o();
+  const classes = useStyles$n();
   return React__default.createElement(React__default.Fragment, null, React__default.createElement("div", {
     className: classes.textContainer
   }, React__default.createElement("div", {
     className: classes.textContent
   }, React__default.createElement(Typography, {
     className: classes.titleContent,
-    variant: "h3",
-    weight: "lightBold"
+    variant: "h3"
   }, titleLine1, React__default.createElement("br", null), ' ', titleLine2), React__default.createElement(Typography, {
     variant: "subtitle1"
   }, description))), React__default.createElement("img", {
@@ -3087,7 +3056,7 @@ const HeaderTongue = ({
   }));
 };
 
-const useStyles$p = styles.makeStyles(theme => ({
+const useStyles$o = styles.makeStyles(theme => ({
   root: {
     alignItems: 'center',
     display: 'flex',
@@ -3122,7 +3091,7 @@ const FAQPageTemplate = ({
   mainTitle,
   questionsAndAnswers
 }) => {
-  const classes = useStyles$p();
+  const classes = useStyles$o();
   return React__default.createElement("div", {
     className: `${classes.root} ${className}`.trim()
   }, React__default.createElement("div", {
@@ -3139,7 +3108,7 @@ const FAQPageTemplate = ({
   }, qAndA))))));
 };
 
-const useStyles$q = styles.makeStyles(theme => ({
+const useStyles$p = styles.makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(globalConstants.headerHeight),
     width: '100%'
@@ -3151,7 +3120,7 @@ const PageTemplate = ({
   className = '',
   ...props
 }) => {
-  const classes = useStyles$q();
+  const classes = useStyles$p();
   return React__default.createElement("div", Object.assign({
     className: `${classes.root} ${className}`.trim()
   }, props), children);
@@ -3353,7 +3322,6 @@ exports.StyledNavTab = StyledNavTab;
 exports.StyledTabs = StyledTabs;
 exports.SwitchTabs = SwitchTabs;
 exports.TooltipIconButton = TooltipIconButton;
-exports.Typography = Typography;
 exports.UnitsInput = UnitsInput;
 exports.Web3Provider = Web3Provider$1;
 exports.Web3Store = Web3Store;

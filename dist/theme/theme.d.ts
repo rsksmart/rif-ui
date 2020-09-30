@@ -23,10 +23,10 @@ export declare const fonts: {
         subtitleBig: number;
     };
     weight: {
-        normal: number;
-        lightBold: number;
+        light: number;
+        regular: number;
+        medium: number;
         bold: number;
-        superBold: number;
     };
 };
 export declare const globalConstants: {

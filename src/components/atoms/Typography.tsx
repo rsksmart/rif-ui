@@ -12,16 +12,16 @@ export interface TypographyProps extends MUITypographyProps {
 
 const useStyles = makeStyles(() => ({
   normal: {
-    fontWeight: fonts.weight.normal,
+    fontWeight: fonts.weight.light,
   },
   lightBold: {
-    fontWeight: fonts.weight.lightBold,
+    fontWeight: fonts.weight.regular,
   },
   bold: {
-    fontWeight: fonts.weight.bold,
+    fontWeight: fonts.weight.medium,
   },
   superBold: {
-    fontWeight: fonts.weight.superBold,
+    fontWeight: fonts.weight.bold,
   },
 }))
 
