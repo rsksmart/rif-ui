@@ -2,8 +2,9 @@ import Slider, { SliderProps } from '@material-ui/core/Slider'
 import { makeStyles } from '@material-ui/core/styles'
 import React, { FC } from 'react'
 import UnitsInput from './UnitsInput'
-import { Typography } from '../atoms'
+import Typography from '@material-ui/core/Typography'
 import { validatedNumber } from '../../utils'
+import { fonts } from '../../theme'
 
 export interface RangeSliderWithInputsProps extends SliderProps {
   values: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
+    fontWeight: fonts.weight.regular
   },
 }))
 
@@ -101,7 +103,7 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({
           {...getCommonInputValues()}
           value={startValue}
         />
-        <Typography className={classes.toContainer} weight="bold">
+        <Typography className={classes.toContainer}>
           to
         </Typography>
         <UnitsInput

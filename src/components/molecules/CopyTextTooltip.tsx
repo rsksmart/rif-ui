@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react'
 import Tooltip from '@material-ui/core/Tooltip'
-import { Typography, makeStyles } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
+import Typography from '@material-ui/core/Typography'
 
 export interface CopyTextTooltipProps {
   displayElement: React.ReactElement

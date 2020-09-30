@@ -1,9 +1,8 @@
 import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Grid, Input, InputProps } from '@material-ui/core'
-import {
-  Typography,
-} from '../atoms'
+import Input, { InputProps } from '@material-ui/core/Input'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 import { colors, fonts } from '../../theme'
 
 export interface UnitsInputProps extends InputProps {

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Typography from '../Typography'
+import Typography from '@material-ui/core/Typography'
 
 export interface ModalTitleProps {
   className?: string

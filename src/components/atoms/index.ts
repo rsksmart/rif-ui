@@ -5,7 +5,6 @@ import Logo from './Logo'
 import LogoNavbar from './LogoNavbar'
 import StyledNavTab from './StyledNavTab'
 import NetworkIndicator from './NetworkIndicator'
-import Typography from './Typography'
 
 export * from './modal'
 
@@ -17,5 +16,4 @@ export {
   LogoNavbar,
   StyledNavTab,
   NetworkIndicator,
-  Typography,
 }

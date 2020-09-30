@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react'
 import { Accordion as MUIAccordion, AccordionProps as MUIAccordionProps } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { Typography } from '../atoms'
 import { colors } from '../../theme'
 
 interface AccordionProps extends MUIAccordionProps {
