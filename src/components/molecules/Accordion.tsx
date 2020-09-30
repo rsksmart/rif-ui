@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   heading: {
     color: colors.gray4,
     fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightBold,
+    fontWeight: theme.typography.fontWeightRegular,
     width: '100%',
   },
   accordionSummary: {

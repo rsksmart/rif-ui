@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: colors.primary,
   },
   headingCollapsed: {
-    fontWeight: fonts.weight.lightBold,
+    fontWeight: fonts.weight.regular,
   },
   panelDetails: {
     display: 'flex',

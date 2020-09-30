@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
     },
     borderRadius: 50,
     color: colors.gray3,
-    fontWeight: fonts.weight.normal,
+    fontWeight: fonts.weight.light,
     maxWidth: '50%',
     minHeight: '100%',
     minWidth: '50%',
