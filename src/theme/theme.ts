@@ -54,7 +54,10 @@ const theme = createMuiTheme({
     fontWeightLight: fonts.weight.light,
     fontWeightRegular: fonts.weight.regular,
     fontWeightMedium: fonts.weight.medium,
-    fontWeightBold: fonts.weight.bold
+    fontWeightBold: fonts.weight.bold,
+    body1: {
+      fontWeight: fonts.weight.light
+    }
   },
   props: {},
   overrides: {
