@@ -4,7 +4,7 @@ import LabeledCheckbox, { LabeledCheckboxProps } from './LabeledCheckbox'
 export interface FilterCheckboxCardProps {
   className?: string
   items: LabeledCheckboxProps[]
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 const FilterCheckboxCard: FC<FilterCheckboxCardProps> = ({ className = '', onClick, items }) => (
