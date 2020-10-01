@@ -1,8 +1,8 @@
 import Slider, { SliderProps } from '@material-ui/core/Slider'
 import { makeStyles } from '@material-ui/core/styles'
 import React, { FC } from 'react'
-import UnitsInput from './UnitsInput'
 import Typography from '@material-ui/core/Typography'
+import UnitsInput from './UnitsInput'
 import { validatedNumber } from '../../utils'
 import { fonts } from '../../theme'
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
-    fontWeight: fonts.weight.regular
+    fontWeight: fonts.weight.regular,
   },
 }))
 

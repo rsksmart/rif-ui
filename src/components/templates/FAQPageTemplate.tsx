@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
 import FAQSection, { FAQSectionProps } from '../molecules/FAQSection'
 import { colors } from '../../theme'
-import Typography from '@material-ui/core/Typography'
 import { removeEmptySpaces } from '../../utils'
 
 export interface FAQPageTemplateProps {
