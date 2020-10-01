@@ -2775,7 +2775,7 @@ const Account = props => {
 const useStyles$l = makeStyles(theme => ({
   activeNavlink: {
     color: `${colors.white} !important`,
-    fontWeight: fonts.weight.regular
+    fontWeight: fonts.weight.medium
   },
   itemsContainer: {
     display: 'flex'
