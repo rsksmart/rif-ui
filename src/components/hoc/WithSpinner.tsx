@@ -1,9 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { logoBlueIcon } from '../../assets/images'
-import './WithSpinner.css'
 
 const useStyles = makeStyles(() => ({
+  '@keyframes spin': {
+    '0%': { transform: 'rotate(0deg)' },
+    '100%': { transform: 'rotate(360deg)' },
+  },
   root: {
     position: 'relative',
   },
@@ -23,8 +26,7 @@ const useStyles = makeStyles(() => ({
     width: '50px',
     height: '50px',
     border: 'none',
-    animation: 'spin 2s ease-in-out infinite',
-    WebkitAnimation: 'spin 2s ease-in-out infinite',
+    animation: '$spin 2s ease-in-out infinite',
   },
 }))
 
