@@ -18,10 +18,6 @@ import { removeEmptySpaces } from '../../../utils'
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto',
-  },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
@@ -130,9 +126,7 @@ const HeaderMobile: FC<HeaderProps> = ({
           }
               </Grid>
               <Grid item xs={1}>
-                {/* <div className={classes.loginContainer}> */}
                 <Login />
-                {/* </div> */}
               </Grid>
             </Grid>
           )}

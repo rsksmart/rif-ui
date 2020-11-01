@@ -15,13 +15,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.medium,
   },
-  itemsContainer: {
-    display: 'flex',
-  },
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto',
-  },
   navLink: {
     alignItems: 'center',
     color: colors.white,
@@ -62,7 +55,6 @@ const HeaderDesktop: FC<HeaderProps> = ({
               <LogoNavbar />
             </NavLink>
           </Grid>
-          {/* <div className={classes.itemsContainer}> */}
           <Grid
             item
             xs={6}
@@ -103,16 +95,13 @@ const HeaderDesktop: FC<HeaderProps> = ({
             ))
           }
           </Grid>
-          {/* </div> */}
           <Grid
             item
             container
             xs={1}
             alignContent="center"
           >
-            {/* <div className={classes.loginContainer}> */}
             <Login />
-            {/* </div> */}
           </Grid>
         </Grid>
       </Toolbar>
