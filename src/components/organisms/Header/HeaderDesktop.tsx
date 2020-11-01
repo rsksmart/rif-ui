@@ -88,8 +88,8 @@ const HeaderDesktop: FC<HeaderProps> = ({
           >
             {
             !!itemsEnd?.length
-            && itemsEnd.map(({ icon, onClick }: ActionHeaderItemProps) => (
-              <ListItemIcon key={icon.key} {...{ onClick }}>
+            && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
+              <ListItemIcon key={icon.key} {...rest}>
                 {icon}
               </ListItemIcon>
             ))

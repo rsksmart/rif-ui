@@ -1,5 +1,5 @@
 import { NavLinkProps } from 'react-router-dom'
-import { DOMAttributes, ReactElement } from 'react'
+import { HTMLAttributes, ReactElement } from 'react'
 
 export interface HeaderProps {
   hreflogo: string
@@ -17,4 +17,4 @@ export type NavHeaderItemProps = {
 
 export type ActionHeaderItemProps = {
     icon: ReactElement
-  } & Pick<DOMAttributes<HTMLElement>, 'onClick'>
+  } & Partial<HTMLAttributes<HTMLElement>>

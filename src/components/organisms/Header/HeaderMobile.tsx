@@ -118,8 +118,8 @@ const HeaderMobile: FC<HeaderProps> = ({
               >
                 {
             !!itemsEnd?.length
-            && itemsEnd.map(({ icon, onClick }: ActionHeaderItemProps) => (
-              <ListItemIcon {...{ onClick }}>
+            && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
+              <ListItemIcon key={icon.key} {...rest}>
                 {icon}
               </ListItemIcon>
             ))
