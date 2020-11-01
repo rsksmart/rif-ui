@@ -4,15 +4,15 @@ import {
   Divider,
   Drawer, Toolbar,
   IconButton, List, ListItem,
-  ListItemText, ListItemIcon,
+  ListItemText, ListItemIcon, Grid,
 } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
+import { ActionHeaderItemProps, HeaderProps, NavItemProps } from './HeaderProps'
 import { colors, globalConstants } from '../../../theme'
 import { LogoNavbar } from '../../atoms'
-import { HeaderProps, HeaderItemProps } from './HeaderProps'
 import { removeEmptySpaces } from '../../../utils'
 
 const drawerWidth = 240
@@ -66,11 +66,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }))
 
-const HeaderMobile: FC<HeaderProps> = ({ hreflogo, items, login }) => {
+const HeaderMobile: FC<HeaderProps> = ({
+  hreflogo, itemsStart, itemsEnd, login: Login,
+}) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
-
-  const Login = login
 
   const toggleDrawer = (isOpen: boolean) => (
     event: React.KeyboardEvent | React.MouseEvent,
@@ -98,21 +98,43 @@ const HeaderMobile: FC<HeaderProps> = ({ hreflogo, items, login }) => {
       >
         <Toolbar>
           {!open && (
-            <React.Fragment>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer(true)}
+            <Grid container>
+              <Grid item xs={1}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={toggleDrawer(true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs={6}>
+                <NavLink to={hreflogo}>
+                  <LogoNavbar />
+                </NavLink>
+              </Grid>
+              <Grid
+                item
+                xs={4}
+                container
+                justify="flex-end"
+                alignContent="center"
               >
-                <MenuIcon />
-              </IconButton>
-              <NavLink to={hreflogo}>
-                <LogoNavbar />
-              </NavLink>
-              <div className={classes.loginContainer}>
+                {
+            !!itemsEnd?.length
+            && itemsEnd.map(({ icon, onClick }: ActionHeaderItemProps) => (
+              <ListItemIcon {...{ onClick }}>
+                {icon}
+              </ListItemIcon>
+            ))
+          }
+              </Grid>
+              <Grid item xs={1}>
+                {/* <div className={classes.loginContainer}> */}
                 <Login />
-              </div>
-            </React.Fragment>
+                {/* </div> */}
+              </Grid>
+            </Grid>
           )}
         </Toolbar>
       </AppBar>
@@ -133,8 +155,8 @@ const HeaderMobile: FC<HeaderProps> = ({ hreflogo, items, login }) => {
         <Divider />
         <List>
           {
-            !!items.length
-            && items.map((headerItem: HeaderItemProps) => (
+            !!itemsStart.length
+            && itemsStart.map((headerItem: NavItemProps) => (
               <ListItem
                 button
                 key={`him-${removeEmptySpaces(headerItem.title)}`}

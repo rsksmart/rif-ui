@@ -49,7 +49,7 @@ const HeaderTongue: FC<HeaderTongueProps> = (
   const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <>
       <div className={classes.textContainer}>
         <div className={classes.textContent}>
           <Typography
@@ -69,7 +69,7 @@ const HeaderTongue: FC<HeaderTongueProps> = (
         src={headerTongueImg}
         alt="headerTongueImg"
       />
-    </React.Fragment>
+    </>
   )
 }
 

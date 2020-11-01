@@ -1,11 +1,13 @@
 import React, { FC } from 'react'
-import { AppBar, Toolbar } from '@material-ui/core'
+import {
+  AppBar, Grid, ListItemIcon, Toolbar,
+} from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { NavLink } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
+import { ActionHeaderItemProps, HeaderProps, NavItemProps } from './HeaderProps'
 import { LogoNavbar } from '../../atoms'
 import { colors, fonts, globalConstants } from '../../../theme'
-import { HeaderProps, HeaderItemProps } from './HeaderProps'
 import { removeEmptySpaces } from '../../../utils'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -43,20 +45,33 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const HeaderDesktop: FC<HeaderProps> = ({ hreflogo, items, login }) => {
+const HeaderDesktop: FC<HeaderProps> = ({
+  hreflogo, itemsStart, itemsEnd, login,
+}) => {
   const classes = useStyles()
   const Login = login
 
   return (
     <AppBar position="fixed" className={classes.root}>
       <Toolbar>
-        <NavLink to={hreflogo}>
-          <LogoNavbar />
-        </NavLink>
-        <div className={classes.itemsContainer}>
-          {
-            !!items.length
-            && items.map((navItem: HeaderItemProps) => (
+        <Grid
+          container
+        >
+          <Grid item xs={1}>
+            <NavLink to={hreflogo}>
+              <LogoNavbar />
+            </NavLink>
+          </Grid>
+          {/* <div className={classes.itemsContainer}> */}
+          <Grid
+            item
+            xs={6}
+            container
+            justify="flex-start"
+          >
+            {
+            !!itemsStart.length
+            && itemsStart.map((navItem: NavItemProps) => (
               <Typography
                 className={classes.navLinkContainer}
                 key={`hi-${removeEmptySpaces(navItem.title)}`}
@@ -71,10 +86,35 @@ const HeaderDesktop: FC<HeaderProps> = ({ hreflogo, items, login }) => {
               </Typography>
             ))
           }
-        </div>
-        <div className={classes.loginContainer}>
-          <Login />
-        </div>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            container
+            justify="flex-end"
+            alignContent="center"
+          >
+            {
+            !!itemsEnd?.length
+            && itemsEnd.map(({ icon, onClick }: ActionHeaderItemProps) => (
+              <ListItemIcon key={icon.key} {...{ onClick }}>
+                {icon}
+              </ListItemIcon>
+            ))
+          }
+          </Grid>
+          {/* </div> */}
+          <Grid
+            item
+            container
+            xs={1}
+            alignContent="center"
+          >
+            {/* <div className={classes.loginContainer}> */}
+            <Login />
+            {/* </div> */}
+          </Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   )
