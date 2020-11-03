@@ -20,6 +20,12 @@
 
 ---
 
+## Lead Maintainer
+
+[Alvaro Fariña](https://github.com/farinalvaro)
+
+See what "Lead Maintainer" means [here](https://github.com/rsksmart/lead-maintainer).
+
 ## Installation
 
 ```bash
