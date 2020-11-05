@@ -88,11 +88,22 @@ export const getNetworkInfoFromWeb3 = async (
   return networkInfo
 }
 
+const getWeb3Provider = (): any => {
+  // New Metamask
+  if (window.ethereum) return window.ethereum
+
+  // Older versions of Metamask or other
+  if (window.web3) return window.web3.currentProvider
+  return undefined
+}
+
+/* eslint-disable complexity */
 export const getAvailableProviders = (): ProviderInfo[] | undefined => {
   const result: ProviderInfo[] = []
 
-  if (!window.web3) return undefined
-  const currentProvider = window.web3.currentProvider as any
+  const currentProvider = getWeb3Provider()
+
+  if (!currentProvider) return undefined
 
   if (currentProvider.isMetaMask) {
     // Nifty is also MetaMask
