@@ -2895,6 +2895,7 @@ const HeaderDesktop = ({
   }, React__default.createElement(LogoNavbar, null))), React__default.createElement(core.Grid, {
     item: true,
     xs: 6,
+    xl: 8,
     container: true,
     justify: "flex-start"
   }, !!(itemsStart === null || itemsStart === void 0 ? void 0 : itemsStart.length) && itemsStart.map(navItem => React__default.createElement(Typography, {
@@ -2906,6 +2907,7 @@ const HeaderDesktop = ({
   }, navItem), navItem.title)))), React__default.createElement(core.Grid, {
     item: true,
     xs: 3,
+    xl: 2,
     container: true,
     justify: "flex-end",
     alignContent: "center"
@@ -2918,6 +2920,7 @@ const HeaderDesktop = ({
     item: true,
     container: true,
     xs: 2,
+    xl: 1,
     justify: "flex-end",
     alignContent: "center"
   }, React__default.createElement("div", null, React__default.createElement(Login, null))))));
@@ -3006,6 +3009,8 @@ const HeaderMobile = ({
     to: hreflogo
   }, React__default.createElement(LogoNavbar, null))), React__default.createElement(core.Grid, {
     item: true,
+    md: 6,
+    sm: 5,
     xs: 4,
     container: true,
     justify: "flex-end",
@@ -3017,6 +3022,8 @@ const HeaderMobile = ({
     key: icon.key
   }, rest), icon))), React__default.createElement(core.Grid, {
     item: true,
+    md: 2,
+    sm: 3,
     xs: 4,
     container: true,
     justify: "flex-end",

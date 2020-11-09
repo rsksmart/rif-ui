@@ -58,6 +58,7 @@ const HeaderDesktop: FC<HeaderProps> = ({
           <Grid
             item
             xs={6}
+            xl={8}
             container
             justify="flex-start"
           >
@@ -82,6 +83,7 @@ const HeaderDesktop: FC<HeaderProps> = ({
           <Grid
             item
             xs={3}
+            xl={2}
             container
             justify="flex-end"
             alignContent="center"
@@ -99,6 +101,7 @@ const HeaderDesktop: FC<HeaderProps> = ({
             item
             container
             xs={2}
+            xl={1}
             justify="flex-end"
             alignContent="center"
           >

@@ -111,6 +111,8 @@ const HeaderMobile: FC<HeaderProps> = ({
               </Grid>
               <Grid
                 item
+                md={6}
+                sm={5}
                 xs={4}
                 container
                 justify="flex-end"
@@ -125,7 +127,7 @@ const HeaderMobile: FC<HeaderProps> = ({
                   ))
                 }
               </Grid>
-              <Grid item xs={4} container justify="flex-end" alignContent="center">
+              <Grid item md={2} sm={3} xs={4} container justify="flex-end" alignContent="center">
                 <div>
                   <Login />
                 </div>
