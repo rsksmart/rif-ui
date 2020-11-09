@@ -1,24 +1,19 @@
 import React, { FC } from 'react'
-import { AppBar, Toolbar } from '@material-ui/core'
+import {
+  AppBar, Grid, ListItemIcon, Toolbar,
+} from '@material-ui/core'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import { NavLink } from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
+import { ActionHeaderItemProps, HeaderProps, NavItemProps } from './HeaderProps'
 import { LogoNavbar } from '../../atoms'
 import { colors, fonts, globalConstants } from '../../../theme'
-import { HeaderProps, HeaderItemProps } from './HeaderProps'
 import { removeEmptySpaces } from '../../../utils'
 
 const useStyles = makeStyles((theme: Theme) => ({
   activeNavlink: {
     color: `${colors.white} !important`,
     fontWeight: fonts.weight.medium,
-  },
-  itemsContainer: {
-    display: 'flex',
-  },
-  loginContainer: {
-    display: 'flex',
-    marginLeft: 'auto',
   },
   navLink: {
     alignItems: 'center',
@@ -43,38 +38,78 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const HeaderDesktop: FC<HeaderProps> = ({ hreflogo, items, login }) => {
+const HeaderDesktop: FC<HeaderProps> = ({
+  hreflogo, itemsStart, itemsEnd, login,
+}) => {
   const classes = useStyles()
   const Login = login
 
   return (
     <AppBar position="fixed" className={classes.root}>
       <Toolbar>
-        <NavLink to={hreflogo}>
-          <LogoNavbar />
-        </NavLink>
-        <div className={classes.itemsContainer}>
-          {
-            !!items.length
-            && items.map((navItem: HeaderItemProps) => (
-              <Typography
-                className={classes.navLinkContainer}
-                key={`hi-${removeEmptySpaces(navItem.title)}`}
-              >
-                <NavLink
-                  className={classes.navLink}
-                  activeClassName={classes.activeNavlink}
-                  {...navItem}
+        <Grid
+          container
+        >
+          <Grid item xs={1}>
+            <NavLink to={hreflogo}>
+              <LogoNavbar />
+            </NavLink>
+          </Grid>
+          <Grid
+            item
+            xs={6}
+            xl={8}
+            container
+            justify="flex-start"
+          >
+            {
+              !!itemsStart?.length
+              && itemsStart.map((navItem: NavItemProps) => (
+                <Typography
+                  className={classes.navLinkContainer}
+                  key={`hi-${removeEmptySpaces(navItem.title)}`}
                 >
-                  {navItem.title}
-                </NavLink>
-              </Typography>
-            ))
-          }
-        </div>
-        <div className={classes.loginContainer}>
-          <Login />
-        </div>
+                  <NavLink
+                    className={classes.navLink}
+                    activeClassName={classes.activeNavlink}
+                    {...navItem}
+                  >
+                    {navItem.title}
+                  </NavLink>
+                </Typography>
+              ))
+            }
+          </Grid>
+          <Grid
+            item
+            xs={3}
+            xl={2}
+            container
+            justify="flex-end"
+            alignContent="center"
+          >
+            {
+              !!itemsEnd?.length
+              && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
+                <ListItemIcon key={icon.key} {...rest}>
+                  {icon}
+                </ListItemIcon>
+              ))
+            }
+          </Grid>
+          <Grid
+            item
+            container
+            xs={2}
+            xl={1}
+            justify="flex-end"
+            alignContent="center"
+          >
+            <div>
+              <Login />
+            </div>
+          </Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   )

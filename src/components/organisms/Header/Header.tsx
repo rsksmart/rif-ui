@@ -4,13 +4,13 @@ import { HeaderProps } from './HeaderProps'
 import HeaderDesktop from './HeaderDesktop'
 import HeaderMobile from './HeaderMobile'
 
-const Header: FC<HeaderProps> = ({ hreflogo, items, login }) => (
+const Header: FC<HeaderProps> = (props) => (
   <React.Fragment>
     <Hidden smDown>
-      <HeaderDesktop hreflogo={hreflogo} items={items} login={login} />
+      <HeaderDesktop {...props} />
     </Hidden>
     <Hidden mdUp>
-      <HeaderMobile hreflogo={hreflogo} items={items} login={login} />
+      <HeaderMobile {...props} />
     </Hidden>
   </React.Fragment>
 )

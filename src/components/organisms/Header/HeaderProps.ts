@@ -1,13 +1,20 @@
 import { NavLinkProps } from 'react-router-dom'
-import { ReactElement } from 'react'
+import { HTMLAttributes, ReactElement } from 'react'
 
 export interface HeaderProps {
   hreflogo: string
-  items: HeaderItemProps[]
+  itemsStart: NavItemProps[]
+  itemsEnd?: ActionHeaderItemProps[]
   login: React.ElementType
 }
 
-export interface HeaderItemProps extends NavLinkProps {
+export type NavItemProps = NavLinkProps & NavHeaderItemProps
+
+export type NavHeaderItemProps = {
   icon?: ReactElement
   title: string
 }
+
+export type ActionHeaderItemProps = {
+  icon: ReactElement
+} & Partial<HTMLAttributes<HTMLElement>>

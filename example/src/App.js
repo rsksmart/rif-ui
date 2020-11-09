@@ -3,9 +3,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import { ThemeProvider } from '@material-ui/core/styles';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone'
 
 import {
   Account,
+  colors,
   Footer,
   Header,
   PageTemplate,
@@ -22,12 +24,17 @@ const App = () => {
 
   const headerProps = {
     hreflogo: '/',
-    items: [
+    itemsStart: [
       {
         title: 'FAQ',
         to: '/faq',
         icon: <LiveHelpIcon />
       },
+    ],
+    itemsEnd: [
+      {
+        icon: <NotificationsNoneIcon htmlColor={colors.white} />
+      }
     ],
     login: () => (
       <Web3Provider.Consumer>
