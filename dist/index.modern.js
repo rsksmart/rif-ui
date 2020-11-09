@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Button = ({
-  className = '',
+  className: _className = '',
   block,
   shadow,
   rounded,
@@ -54,7 +54,7 @@ const Button = ({
   return React__default.createElement(Button$1, Object.assign({
     className: `${rounded ? classes.rounded : ''}
         ${shadow ? '' : classes.noShadow}
-        ${block ? classes.block : ''} ${className}`.trim()
+        ${block ? classes.block : ''} ${_className}`.trim()
   }, rest), children);
 };
 
@@ -221,11 +221,11 @@ var rifSto = require("./rifSto~fMRetflo.png");
 
 var storage = require("./storage~fCGkZtHN.svg");
 
-var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
+var logoBlackAndBlue = require("./logoBlackAndBlue~YbWCBYrQ.svg");
 
 var logoBlueIcon = require("./logoBlueIcon~qRLrrgXR.svg");
 
-var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
+var logoFullWhite = require("./logoFullWhite~geFkQihC.svg");
 
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
@@ -357,7 +357,7 @@ const useStyles$2 = makeStyles$1(theme => ({
 }));
 
 const LoginOption = ({
-  className = '',
+  className: _className = '',
   onClick,
   providerInfo,
   ...rest
@@ -380,7 +380,7 @@ const LoginOption = ({
   };
 
   return React__default.createElement(Button, Object.assign({
-    className: `${classes.root} ${className}`,
+    className: `${classes.root} ${_className}`,
     block: true,
     rounded: true,
     variant: "outlined",
@@ -399,21 +399,21 @@ const LoginOption = ({
 };
 
 const Logo = ({
-  alt = 'RIF OS logo',
+  alt: _alt = 'RIF OS logo',
   ...rest
 }) => React__default.createElement("img", Object.assign({
   src: logoFullWhite,
-  alt: alt
+  alt: _alt
 }, rest));
 
 const LogoNavbar = ({
-  alt = 'navbar logo',
-  height = '44px',
+  alt: _alt = 'navbar logo',
+  height: _height = '44px',
   ...rest
 }) => React__default.createElement("img", Object.assign({
   src: logoFullWhite,
-  alt: alt,
-  height: height
+  alt: _alt,
+  height: _height
 }, rest));
 
 const useStyles$3 = makeStyles(theme => ({
@@ -460,7 +460,7 @@ const getNetworkStatus = (currentNetworkId, requiredNetworkId) => {
 };
 
 const NetworkIndicator = ({
-  iconClassName = '',
+  iconClassName: _iconClassName = '',
   currentNetworkId,
   requiredNetworkId,
   onCorrectNetworkMessage,
@@ -472,7 +472,7 @@ const NetworkIndicator = ({
   iconPerNetworkStatus.set(NetworkStatus.NO_NETWORK, React__default.createElement(Tooltip$1, {
     title: noNetworkMessage || defaultNoNetworkMessage
   }, React__default.createElement(WarningIcon, {
-    className: iconClassName,
+    className: _iconClassName,
     style: {
       color: yellow[800]
     }
@@ -480,13 +480,13 @@ const NetworkIndicator = ({
   iconPerNetworkStatus.set(NetworkStatus.NETWORK_MISSMATCH, React__default.createElement(Tooltip$1, {
     title: onNetworkMismatchMessage || deaulftonNetworkMismatchMessage
   }, React__default.createElement(ErrorIcon, {
-    className: iconClassName,
+    className: _iconClassName,
     color: "error"
   })));
   iconPerNetworkStatus.set(NetworkStatus.CORRECT_NETWORK, React__default.createElement(Tooltip$1, {
     title: onCorrectNetworkMessage || defaultonCorrectNetworkMessage
   }, React__default.createElement(CheckCircleOutlineOutlinedIcon, {
-    className: iconClassName,
+    className: _iconClassName,
     style: {
       color: green[300]
     }
@@ -530,11 +530,11 @@ const useStyles$5 = makeStyles(() => ({
 
 const ModalHeader = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$5();
   return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -557,11 +557,11 @@ const useStyles$6 = makeStyles(theme => ({
 
 const ModalFooter = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$6();
   return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -574,11 +574,11 @@ const useStyles$7 = makeStyles(theme => ({
 
 const ModalBody = ({
   children,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$7();
   return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, children);
 };
 
@@ -690,16 +690,8 @@ const AccountModal = ({
 }, React__default.createElement(React__default.Fragment, null, React__default.createElement(ModalHeader, null, React__default.createElement(ModalTitle, null, "Connect a wallet to get started")), React__default.createElement(ModalBody, null, availableProviders && availableProviders.length && availableProviders.map(providerInfo => React__default.createElement(LoginOption, {
   providerInfo: providerInfo,
   key: providerInfo.eProvider,
-  onClick: function () {
-    try {
-      const _temp = function () {
-        if (setProvider) return Promise.resolve(setProvider(providerInfo.eProvider, onProviderSet)).then(function () {});
-      }();
-
-      return Promise.resolve(_temp && _temp.then ? _temp.then(function () {}) : void 0);
-    } catch (e) {
-      return Promise.reject(e);
-    }
+  onClick: async () => {
+    if (setProvider) await setProvider(providerInfo.eProvider, onProviderSet);
   }
 })), !availableProviders && React__default.createElement(LoginOption, null)), React__default.createElement(ModalFooter, null, React__default.createElement(Button, {
   variant: "outlined",
@@ -776,7 +768,7 @@ const useStyles$b = makeStyles(theme => ({
 }));
 
 const FAQSection = ({
-  className = '',
+  className: _className = '',
   initiallyExpanded,
   question,
   answer
@@ -787,7 +779,7 @@ const FAQSection = ({
   const onChange = () => setIsExpanded(!isExpanded);
 
   return React__default.createElement(Accordion$2, {
-    className: `${classes.root} ${className}`.trim(),
+    className: `${classes.root} ${_className}`.trim(),
     expanded: isExpanded,
     onChange: onChange
   }, React__default.createElement(AccordionSummary, {
@@ -812,49 +804,37 @@ const useStyles$c = makeStyles(() => ({
 
 const LabeledCheckbox = ({
   labelText,
-  labelClassName = '',
+  labelClassName: _labelClassName = '',
   ...rest
 }) => {
   const classes = useStyles$c();
   return React__default.createElement(FormControlLabel, {
-    className: `${classes.root} ${labelClassName.trim()}`,
+    className: `${classes.root} ${_labelClassName.trim()}`,
     label: labelText,
     control: React__default.createElement(Checkbox, Object.assign({}, rest))
   });
 };
 
 const FilterCheckboxCard = ({
-  className = '',
+  className: _className = '',
   onClick,
   items
 }) => React__default.createElement("div", {
-  className: className
+  className: _className
 }, items.map((item, i) => React__default.createElement(LabeledCheckbox, Object.assign({
   onClick: onClick,
-  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${className}`.trim(),
+  key: `labeledCheckbox-${item.id}` || `labeledCheckbox-${i}-${_className}`.trim(),
   labelClassName: item.labelClassName
 }, item))));
 
-var shortenString = function shortenString(str, largerThan, charsShownCount) {
-  if (largerThan === void 0) {
-    largerThan = 16;
-  }
+const shortenString = (str, largerThan = 16, charsShownCount = 6) => str.length > largerThan ? `${str.substr(0, charsShownCount)}...${str.substr(str.length - 4)}` : str;
 
-  if (charsShownCount === void 0) {
-    charsShownCount = 6;
-  }
+const removeEmptySpaces = str => str.replace(/\s/g, '');
 
-  return str.length > largerThan ? str.substr(0, charsShownCount) + "..." + str.substr(str.length - 4) : str;
-};
+const maxSupportedNumber = 99999999999999;
+const minSupportedNumber = 0.000001;
 
-var removeEmptySpaces = function removeEmptySpaces(str) {
-  return str.replace(/\s/g, '');
-};
-
-var maxSupportedNumber = 99999999999999;
-var minSupportedNumber = 0.000001;
-
-var validatedNumber = function validatedNumber(num) {
+const validatedNumber = num => {
   if (num > 0) {
     if (num > maxSupportedNumber) return maxSupportedNumber;
     if (num < minSupportedNumber) return minSupportedNumber;
@@ -891,11 +871,11 @@ const useStyles$d = makeStyles(() => ({
 const FooterColumn = ({
   title,
   links,
-  className = ''
+  className: _className = ''
 }) => {
   const classes = useStyles$d();
   return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, React__default.createElement(Typography, {
     className: classes.footerTitle,
     variant: "subtitle1",
@@ -966,7 +946,7 @@ const UnitsInput = ({
   minValue,
   units,
   value,
-  step = 1,
+  step: _step = 1,
   handleOnBlur,
   handleOnChange,
   ...rest
@@ -991,7 +971,7 @@ const UnitsInput = ({
     type: "number",
     fullWidth: true,
     inputProps: {
-      step,
+      step: _step,
       min: minValue,
       max: maxValue,
       'aria-labelledby': 'input-slider'
@@ -1122,14 +1102,14 @@ const RangeSliderWithInputs = ({
 
 const ShortenTextTooltip = ({
   value,
-  maxLength = 20,
+  maxLength: _maxLength = 20,
   charsShownCount
-}) => React__default.createElement(React__default.Fragment, null, value.length > maxLength && React__default.createElement(CopyTextTooltip, {
+}) => React__default.createElement(React__default.Fragment, null, value.length > _maxLength && React__default.createElement(CopyTextTooltip, {
   displayElement: React__default.createElement(Typography, {
     variant: "body2"
-  }, shortenString(value, maxLength, charsShownCount || maxLength - 5)),
+  }, shortenString(value, _maxLength, charsShownCount || _maxLength - 5)),
   fullText: value
-}), value.length <= maxLength && value);
+}), value.length <= _maxLength && value);
 
 const useStyles$g = makeStyles({
   indicator: {
@@ -1261,7 +1241,7 @@ const useStyles$i = makeStyles(theme => ({
 
 const WrongNetworkModal = ({
   open,
-  currentNetworkName = 'Private network',
+  currentNetworkName: _currentNetworkName = 'Private network',
   requiredNetworkName,
   onClose
 }) => {
@@ -1278,7 +1258,7 @@ const WrongNetworkModal = ({
   }, "This dApp only works on the", ' ', requiredNetworkName, ". You are currently on", ' ', React__default.createElement(Box, {
     display: "inline",
     fontWeight: "fontWeightMedium"
-  }, currentNetworkName), "."), React__default.createElement(Grid, {
+  }, _currentNetworkName), "."), React__default.createElement(Grid, {
     container: true,
     className: classes.boxContainer,
     alignItems: "center"
@@ -1346,14 +1326,14 @@ const useStyles$j = makeStyles(theme => ({
 }));
 
 const Footer = ({
-  className = '',
+  className: _className = '',
   copyrightText,
   linksColumns,
   ...rest
 }) => {
   const classes = useStyles$j();
   return React__default.createElement("footer", Object.assign({
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, rest), React__default.createElement("div", {
     className: classes.tongue
   }), React__default.createElement("div", {
@@ -1399,25 +1379,6 @@ var ConnectionStatus;
 })(ConnectionStatus || (ConnectionStatus = {}));
 
 var ConnectionStatus$1 = ConnectionStatus;
-
-// A type of promise-like that resolves synchronously and supports only one observer
-
-const _iteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.iterator || (Symbol.iterator = Symbol("Symbol.iterator"))) : "@@iterator";
-
-const _asyncIteratorSymbol = /*#__PURE__*/ typeof Symbol !== "undefined" ? (Symbol.asyncIterator || (Symbol.asyncIterator = Symbol("Symbol.asyncIterator"))) : "@@asyncIterator";
-
-// Asynchronously call a function and send errors to recovery continuation
-function _catch(body, recover) {
-	try {
-		var result = body();
-	} catch(e) {
-		return recover(e);
-	}
-	if (result && result.then) {
-		return result.then(void 0, recover);
-	}
-	return result;
-}
 
 var networksData = [
 	{
@@ -2637,48 +2598,39 @@ function getWeb3(provider = EProvider.METAMASK) {
   });
 }
 const getNetworkInfo = (networkId, chainId) => networksData.find(n => chainId ? n.networkId === networkId && n.chainId === chainId : n.networkId === networkId);
-const getNetworkInfoFromWeb3 = function (web3) {
+const getNetworkInfoFromWeb3 = async web3 => {
+  let networkId;
+  let chainId;
+
   try {
-    function _temp3() {
-      let networkInfo;
+    networkId = await web3.eth.net.getId();
 
-      if (networkId) {
-        try {
-          networkInfo = getNetworkInfo(networkId, chainId);
-        } catch (error) {}
-      }
-
-      return networkInfo;
+    if (networkId) {
+      chainId = await web3.eth.getChainId();
     }
+  } catch (error) {}
 
-    let networkId;
-    let chainId;
+  let networkInfo;
 
-    const _temp2 = _catch(function () {
-      return Promise.resolve(web3.eth.net.getId()).then(function (_web3$eth$net$getId) {
-        networkId = _web3$eth$net$getId;
-
-        const _temp = function () {
-          if (networkId) {
-            return Promise.resolve(web3.eth.getChainId()).then(function (_web3$eth$getChainId) {
-              chainId = _web3$eth$getChainId;
-            });
-          }
-        }();
-
-        if (_temp && _temp.then) return _temp.then(function () {});
-      });
-    }, function () {});
-
-    return Promise.resolve(_temp2 && _temp2.then ? _temp2.then(_temp3) : _temp3(_temp2));
-  } catch (e) {
-    return Promise.reject(e);
+  if (networkId) {
+    try {
+      networkInfo = getNetworkInfo(networkId, chainId);
+    } catch (error) {}
   }
+
+  return networkInfo;
 };
+
+const getWeb3Provider = () => {
+  if (window.ethereum) return window.ethereum;
+  if (window.web3) return window.web3.currentProvider;
+  return undefined;
+};
+
 const getAvailableProviders = () => {
   const result = [];
-  if (!window.web3) return undefined;
-  const currentProvider = window.web3.currentProvider;
+  const currentProvider = getWeb3Provider();
+  if (!currentProvider) return undefined;
 
   if (currentProvider.isMetaMask) {
     result.push(currentProvider.isNiftyWallet ? getProviderInfo(EProvider.NIFTY) : getProviderInfo(EProvider.METAMASK));
@@ -2887,7 +2839,7 @@ const HeaderDesktop = ({
     xs: 6,
     container: true,
     justify: "flex-start"
-  }, !!itemsStart.length && itemsStart.map(navItem => React__default.createElement(Typography, {
+  }, !!(itemsStart === null || itemsStart === void 0 ? void 0 : itemsStart.length) && itemsStart.map(navItem => React__default.createElement(Typography, {
     className: classes.navLinkContainer,
     key: `hi-${removeEmptySpaces(navItem.title)}`
   }, React__default.createElement(NavLink, Object.assign({
@@ -2895,7 +2847,7 @@ const HeaderDesktop = ({
     activeClassName: classes.activeNavlink
   }, navItem), navItem.title)))), React__default.createElement(Grid$1, {
     item: true,
-    xs: 4,
+    xs: 3,
     container: true,
     justify: "flex-end",
     alignContent: "center"
@@ -2907,9 +2859,10 @@ const HeaderDesktop = ({
   }, rest), icon))), React__default.createElement(Grid$1, {
     item: true,
     container: true,
-    xs: 1,
+    xs: 2,
+    justify: "flex-end",
     alignContent: "center"
-  }, React__default.createElement(Login, null)))));
+  }, React__default.createElement("div", null, React__default.createElement(Login, null))))));
 };
 
 const drawerWidth = 240;
@@ -2990,7 +2943,7 @@ const HeaderMobile = ({
     onClick: toggleDrawer(true)
   }, React__default.createElement(MenuIcon, null))), React__default.createElement(Grid$1, {
     item: true,
-    xs: 6
+    xs: 3
   }, React__default.createElement(NavLink, {
     to: hreflogo
   }, React__default.createElement(LogoNavbar, null))), React__default.createElement(Grid$1, {
@@ -3006,8 +2959,11 @@ const HeaderMobile = ({
     key: icon.key
   }, rest), icon))), React__default.createElement(Grid$1, {
     item: true,
-    xs: 1
-  }, React__default.createElement(Login, null))))), React__default.createElement(Drawer, {
+    xs: 4,
+    container: true,
+    justify: "flex-end",
+    alignContent: "center"
+  }, React__default.createElement("div", null, React__default.createElement(Login, null)))))), React__default.createElement(Drawer, {
     anchor: "left",
     open: open,
     onClose: toggleDrawer(false),
@@ -3019,7 +2975,7 @@ const HeaderMobile = ({
     className: classes.drawerHeader
   }, React__default.createElement(IconButton$1, {
     onClick: toggleDrawer(false)
-  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(Divider, null), React__default.createElement(List, null, !!itemsStart.length && itemsStart.map(headerItem => React__default.createElement(ListItem, {
+  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(Divider, null), React__default.createElement(List, null, !!(itemsStart === null || itemsStart === void 0 ? void 0 : itemsStart.length) && itemsStart.map(headerItem => React__default.createElement(ListItem, {
     button: true,
     key: `him-${removeEmptySpaces(headerItem.title)}`
   }, React__default.createElement(NavLink, {
@@ -3123,13 +3079,13 @@ const useStyles$o = makeStyles(theme => ({
 }));
 
 const FAQPageTemplate = ({
-  className = '',
+  className: _className = '',
   mainTitle,
   questionsAndAnswers
 }) => {
   const classes = useStyles$o();
   return React__default.createElement("div", {
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, React__default.createElement("div", {
     className: classes.container
   }, React__default.createElement(Typography, {
@@ -3153,12 +3109,12 @@ const useStyles$p = makeStyles(theme => ({
 
 const PageTemplate = ({
   children,
-  className = '',
+  className: _className = '',
   ...props
 }) => {
   const classes = useStyles$p();
   return React__default.createElement("div", Object.assign({
-    className: `${classes.root} ${className}`.trim()
+    className: `${classes.root} ${_className}`.trim()
   }, props), children);
 };
 
@@ -3208,32 +3164,22 @@ class Web3Provider extends Component {
     this.initialize();
   }
 
-  setProvider(provider, onStateChanged) {
-    try {
-      const _this = this;
-
-      return Promise.resolve(getWeb3(provider)).then(function (web3) {
-        return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-          return Promise.resolve(getNetworkInfoFromWeb3(web3)).then(function (networkInfo) {
-            const shouldSetAccount = shouldReadAccount(_this.requiredNetworkId, _this.requiredChainId, networkInfo);
-            const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
-
-            _this.setState({
-              web3,
-              provider,
-              account,
-              networkInfo
-            }, () => onStateChanged && onStateChanged(account));
-          });
-        });
-      });
-    } catch (e) {
-      return Promise.reject(e);
-    }
+  async setProvider(provider, onStateChanged) {
+    const web3 = await getWeb3(provider);
+    const accounts = await web3.eth.getAccounts();
+    const networkInfo = await getNetworkInfoFromWeb3(web3);
+    const shouldSetAccount = shouldReadAccount(this.requiredNetworkId, this.requiredChainId, networkInfo);
+    const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
+    this.setState({
+      web3,
+      provider,
+      account,
+      networkInfo
+    }, () => onStateChanged && onStateChanged(account));
   }
 
   initialize() {
-    const _this2 = this;
+    var _this = this;
 
     if (!window.ethereum) {
       return;
@@ -3241,31 +3187,24 @@ class Web3Provider extends Component {
 
     this.availableProviders = getAvailableProviders();
     window.ethereum.autoRefreshOnNetworkChange = false;
-    window.ethereum.on('networkChanged', function (_netId) {
-      try {
-        const {
-          networkInfo
-        } = _this2.state;
-        if (!networkInfo) return Promise.resolve();
-        const {
-          provider
-        } = _this2.state;
-        return Promise.resolve(getWeb3(provider)).then(function (web3) {
-          return Promise.resolve(web3.eth.getAccounts()).then(function (accounts) {
-            return Promise.resolve(getNetworkInfoFromWeb3(web3)).then(function (newNetworkInfo) {
-              const shouldSetAccount = shouldReadAccount(_this2.requiredNetworkId, _this2.requiredChainId, newNetworkInfo);
-              const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
+    window.ethereum.on('networkChanged', async function (_netId) {
+      const {
+        networkInfo
+      } = _this.state;
+      if (!networkInfo) return;
+      const {
+        provider
+      } = _this.state;
+      const web3 = await getWeb3(provider);
+      const accounts = await web3.eth.getAccounts();
+      const newNetworkInfo = await getNetworkInfoFromWeb3(web3);
+      const shouldSetAccount = shouldReadAccount(_this.requiredNetworkId, _this.requiredChainId, newNetworkInfo);
+      const account = shouldSetAccount ? getAccountFromEthAccounts(accounts) : undefined;
 
-              _this2.setState({
-                networkInfo: newNetworkInfo,
-                account
-              }, () => _this2.onConnectedNetworkChange && _this2.onConnectedNetworkChange());
-            });
-          });
-        });
-      } catch (e) {
-        return Promise.reject(e);
-      }
+      _this.setState({
+        networkInfo: newNetworkInfo,
+        account
+      }, () => _this.onConnectedNetworkChange && _this.onConnectedNetworkChange());
     });
     window.ethereum.on('accountsChanged', accounts => {
       const {

@@ -62,46 +62,49 @@ const HeaderDesktop: FC<HeaderProps> = ({
             justify="flex-start"
           >
             {
-            !!itemsStart.length
-            && itemsStart.map((navItem: NavItemProps) => (
-              <Typography
-                className={classes.navLinkContainer}
-                key={`hi-${removeEmptySpaces(navItem.title)}`}
-              >
-                <NavLink
-                  className={classes.navLink}
-                  activeClassName={classes.activeNavlink}
-                  {...navItem}
+              !!itemsStart?.length
+              && itemsStart.map((navItem: NavItemProps) => (
+                <Typography
+                  className={classes.navLinkContainer}
+                  key={`hi-${removeEmptySpaces(navItem.title)}`}
                 >
-                  {navItem.title}
-                </NavLink>
-              </Typography>
-            ))
-          }
+                  <NavLink
+                    className={classes.navLink}
+                    activeClassName={classes.activeNavlink}
+                    {...navItem}
+                  >
+                    {navItem.title}
+                  </NavLink>
+                </Typography>
+              ))
+            }
           </Grid>
           <Grid
             item
-            xs={4}
+            xs={3}
             container
             justify="flex-end"
             alignContent="center"
           >
             {
-            !!itemsEnd?.length
-            && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
-              <ListItemIcon key={icon.key} {...rest}>
-                {icon}
-              </ListItemIcon>
-            ))
-          }
+              !!itemsEnd?.length
+              && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
+                <ListItemIcon key={icon.key} {...rest}>
+                  {icon}
+                </ListItemIcon>
+              ))
+            }
           </Grid>
           <Grid
             item
             container
-            xs={1}
+            xs={2}
+            justify="flex-end"
             alignContent="center"
           >
-            <Login />
+            <div>
+              <Login />
+            </div>
           </Grid>
         </Grid>
       </Toolbar>

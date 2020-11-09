@@ -104,7 +104,7 @@ const HeaderMobile: FC<HeaderProps> = ({
                   <MenuIcon />
                 </IconButton>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={3}>
                 <NavLink to={hreflogo}>
                   <LogoNavbar />
                 </NavLink>
@@ -117,16 +117,18 @@ const HeaderMobile: FC<HeaderProps> = ({
                 alignContent="center"
               >
                 {
-            !!itemsEnd?.length
-            && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
-              <ListItemIcon key={icon.key} {...rest}>
-                {icon}
-              </ListItemIcon>
-            ))
-          }
+                  !!itemsEnd?.length
+                  && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
+                    <ListItemIcon key={icon.key} {...rest}>
+                      {icon}
+                    </ListItemIcon>
+                  ))
+                }
               </Grid>
-              <Grid item xs={1}>
-                <Login />
+              <Grid item xs={4} container justify="flex-end" alignContent="center">
+                <div>
+                  <Login />
+                </div>
               </Grid>
             </Grid>
           )}
@@ -149,7 +151,7 @@ const HeaderMobile: FC<HeaderProps> = ({
         <Divider />
         <List>
           {
-            !!itemsStart.length
+            !!itemsStart?.length
             && itemsStart.map((headerItem: NavItemProps) => (
               <ListItem
                 button

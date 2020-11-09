@@ -1,6 +1,3 @@
 import React, { FC } from 'react';
-interface LogoProps extends React.Props<HTMLImageElement> {
-    alt?: string;
-}
-declare const Logo: FC<LogoProps>;
+declare const Logo: FC<React.ImgHTMLAttributes<HTMLImageElement>>;
 export default Logo;

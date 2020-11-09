@@ -224,11 +224,11 @@ var rifSto = require("./rifSto~fMRetflo.png");
 
 var storage = require("./storage~fCGkZtHN.svg");
 
-var logoBlackAndBlue = require("./logoBlackAndBlue~bjZFbjOq.svg");
+var logoBlackAndBlue = require("./logoBlackAndBlue~YbWCBYrQ.svg");
 
 var logoBlueIcon = require("./logoBlueIcon~qRLrrgXR.svg");
 
-var logoFullWhite = require("./logoFullWhite~lLumzPXG.svg");
+var logoFullWhite = require("./logoFullWhite~geFkQihC.svg");
 
 var rskLogo = require("./rskLogo~bdMEZSPk.svg");
 
@@ -2678,10 +2678,17 @@ const getNetworkInfoFromWeb3 = function (web3) {
     return Promise.reject(e);
   }
 };
+
+const getWeb3Provider = () => {
+  if (window.ethereum) return window.ethereum;
+  if (window.web3) return window.web3.currentProvider;
+  return undefined;
+};
+
 const getAvailableProviders = () => {
   const result = [];
-  if (!window.web3) return undefined;
-  const currentProvider = window.web3.currentProvider;
+  const currentProvider = getWeb3Provider();
+  if (!currentProvider) return undefined;
 
   if (currentProvider.isMetaMask) {
     result.push(currentProvider.isNiftyWallet ? getProviderInfo(EProvider.NIFTY) : getProviderInfo(EProvider.METAMASK));
@@ -2890,7 +2897,7 @@ const HeaderDesktop = ({
     xs: 6,
     container: true,
     justify: "flex-start"
-  }, !!itemsStart.length && itemsStart.map(navItem => React__default.createElement(Typography, {
+  }, !!(itemsStart === null || itemsStart === void 0 ? void 0 : itemsStart.length) && itemsStart.map(navItem => React__default.createElement(Typography, {
     className: classes.navLinkContainer,
     key: `hi-${removeEmptySpaces(navItem.title)}`
   }, React__default.createElement(reactRouterDom.NavLink, Object.assign({
@@ -2898,7 +2905,7 @@ const HeaderDesktop = ({
     activeClassName: classes.activeNavlink
   }, navItem), navItem.title)))), React__default.createElement(core.Grid, {
     item: true,
-    xs: 4,
+    xs: 3,
     container: true,
     justify: "flex-end",
     alignContent: "center"
@@ -2910,9 +2917,10 @@ const HeaderDesktop = ({
   }, rest), icon))), React__default.createElement(core.Grid, {
     item: true,
     container: true,
-    xs: 1,
+    xs: 2,
+    justify: "flex-end",
     alignContent: "center"
-  }, React__default.createElement(Login, null)))));
+  }, React__default.createElement("div", null, React__default.createElement(Login, null))))));
 };
 
 const drawerWidth = 240;
@@ -2993,7 +3001,7 @@ const HeaderMobile = ({
     onClick: toggleDrawer(true)
   }, React__default.createElement(MenuIcon, null))), React__default.createElement(core.Grid, {
     item: true,
-    xs: 6
+    xs: 3
   }, React__default.createElement(reactRouterDom.NavLink, {
     to: hreflogo
   }, React__default.createElement(LogoNavbar, null))), React__default.createElement(core.Grid, {
@@ -3009,8 +3017,11 @@ const HeaderMobile = ({
     key: icon.key
   }, rest), icon))), React__default.createElement(core.Grid, {
     item: true,
-    xs: 1
-  }, React__default.createElement(Login, null))))), React__default.createElement(core.Drawer, {
+    xs: 4,
+    container: true,
+    justify: "flex-end",
+    alignContent: "center"
+  }, React__default.createElement("div", null, React__default.createElement(Login, null)))))), React__default.createElement(core.Drawer, {
     anchor: "left",
     open: open,
     onClose: toggleDrawer(false),
@@ -3022,7 +3033,7 @@ const HeaderMobile = ({
     className: classes.drawerHeader
   }, React__default.createElement(core.IconButton, {
     onClick: toggleDrawer(false)
-  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(core.Divider, null), React__default.createElement(core.List, null, !!itemsStart.length && itemsStart.map(headerItem => React__default.createElement(core.ListItem, {
+  }, React__default.createElement(ChevronLeftIcon, null))), React__default.createElement(core.Divider, null), React__default.createElement(core.List, null, !!(itemsStart === null || itemsStart === void 0 ? void 0 : itemsStart.length) && itemsStart.map(headerItem => React__default.createElement(core.ListItem, {
     button: true,
     key: `him-${removeEmptySpaces(headerItem.title)}`
   }, React__default.createElement(reactRouterDom.NavLink, {

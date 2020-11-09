@@ -16,5 +16,5 @@ export type NavHeaderItemProps = {
 }
 
 export type ActionHeaderItemProps = {
-    icon: ReactElement
-  } & Partial<HTMLAttributes<HTMLElement>>
+  icon: ReactElement
+} & Partial<HTMLAttributes<HTMLElement>>

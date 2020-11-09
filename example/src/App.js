@@ -22,7 +22,7 @@ const App = () => {
 
   const headerProps = {
     hreflogo: '/',
-    items: [
+    itemsStart: [
       {
         title: 'FAQ',
         to: '/faq',
