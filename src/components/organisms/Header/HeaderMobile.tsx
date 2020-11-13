@@ -60,6 +60,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   mobileNavLinkActive: {
     color: `${colors.primary} !important`,
   },
+  itemsEnd: {
+    alignItems: 'center',
+  },
 }))
 
 const HeaderMobile: FC<HeaderProps> = ({
@@ -111,26 +114,25 @@ const HeaderMobile: FC<HeaderProps> = ({
               </Grid>
               <Grid
                 item
-                md={6}
-                sm={5}
-                xs={4}
+                xs={8}
                 container
                 justify="flex-end"
                 alignContent="center"
               >
                 {
                   !!itemsEnd?.length
-                  && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
-                    <ListItemIcon key={icon.key} {...rest}>
-                      {icon}
-                    </ListItemIcon>
-                  ))
+                  && itemsEnd
+                    .map(({ icon, ...rest }: ActionHeaderItemProps) => (
+                      <ListItemIcon
+                        key={icon.key}
+                        className={classes.itemsEnd}
+                        {...rest}
+                      >
+                        {icon}
+                      </ListItemIcon>
+                    ))
                 }
-              </Grid>
-              <Grid item md={2} sm={3} xs={4} container justify="flex-end" alignContent="center">
-                <div>
-                  <Login />
-                </div>
+                <Login />
               </Grid>
             </Grid>
           )}
