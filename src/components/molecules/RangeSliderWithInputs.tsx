@@ -94,7 +94,7 @@ const RangeSliderWithInputs: FC<RangeSliderWithInputsProps> = ({
       <Slider
         value={[startValue, endValue]}
         {...rest}
-        onChange={handleSliderChange}
+        onChangeCommitted={handleSliderChange}
       />
       <div className={classes.inputsContainer}>
         <UnitsInput
