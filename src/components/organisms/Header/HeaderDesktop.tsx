@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     // this height needs to be equal to the marginTop of PageTemplate
     height: theme.spacing(globalConstants.headerHeight),
   },
+  itemsEnd: {
+    alignItems: 'center',
+  },
 }))
 
 const HeaderDesktop: FC<HeaderProps> = ({
@@ -57,8 +60,7 @@ const HeaderDesktop: FC<HeaderProps> = ({
           </Grid>
           <Grid
             item
-            xs={6}
-            xl={8}
+            xs={7}
             container
             justify="flex-start"
           >
@@ -82,8 +84,7 @@ const HeaderDesktop: FC<HeaderProps> = ({
           </Grid>
           <Grid
             item
-            xs={3}
-            xl={2}
+            xs={4}
             container
             justify="flex-end"
             alignContent="center"
@@ -91,23 +92,16 @@ const HeaderDesktop: FC<HeaderProps> = ({
             {
               !!itemsEnd?.length
               && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
-                <ListItemIcon key={icon.key} {...rest}>
+                <ListItemIcon
+                  key={icon.key}
+                  className={classes.itemsEnd}
+                  {...rest}
+                >
                   {icon}
                 </ListItemIcon>
               ))
             }
-          </Grid>
-          <Grid
-            item
-            container
-            xs={2}
-            xl={1}
-            justify="flex-end"
-            alignContent="center"
-          >
-            <div>
-              <Login />
-            </div>
+            <Login />
           </Grid>
         </Grid>
       </Toolbar>
