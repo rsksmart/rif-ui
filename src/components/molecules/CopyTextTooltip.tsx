@@ -13,10 +13,13 @@ const useStyles = makeStyles(() => ({
   tooltipTitle: {
     display: 'flex',
     alignItems: 'center',
+    overflowWrap: 'anywhere',
   },
 }))
 
-const CopyTextTooltip: FC<CopyTextTooltipProps> = ({ displayElement, fullText }) => {
+const CopyTextTooltip: FC<CopyTextTooltipProps> = (
+  { displayElement, fullText },
+) => {
   const [isCopied, setIsCopied] = useState(false)
 
   const classes = useStyles()
@@ -30,17 +33,21 @@ const CopyTextTooltip: FC<CopyTextTooltipProps> = ({ displayElement, fullText })
     </div>
   )
 
+  const onClickHandle = (): void => {
+    navigator.clipboard.writeText(fullText)
+      .then(() => { setIsCopied(true) })
+  }
+
+  const onCloseHandle = (): void => {
+    setIsCopied(false)
+  }
+
   return (
     <Tooltip
       interactive
       title={isCopied ? <Typography variant="body2">Copied!</Typography> : tooltipContent}
-      onClick={() => {
-        navigator.clipboard.writeText(fullText)
-          .then(() => { setIsCopied(true) })
-      }}
-      onClose={() => {
-        setIsCopied(false)
-      }}
+      onClick={onClickHandle}
+      onClose={onCloseHandle}
     >
       {displayElement}
     </Tooltip>
