@@ -59,7 +59,7 @@ const getAccountFromEthAccounts = (accounts: string[] | string): string | undefi
 
   if (Array.isArray(accounts)) [account] = accounts
   else account = accounts
-  return account
+  return account.toLowerCase()
 }
 
 /**
