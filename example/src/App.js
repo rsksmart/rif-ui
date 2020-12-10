@@ -17,8 +17,8 @@ import {
 import '@rsksmart/rif-ui/dist/index.css';
 import Routes from './Routes';
 
-const requiredNetworkId = 31
-const requiredNetworkName = 'RSK Testnet'
+const requiredNetworkId = 8545
+const requiredNetworkName = 'Localhost 8545'
 
 const App = () => {
 
