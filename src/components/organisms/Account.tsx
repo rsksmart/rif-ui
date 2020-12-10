@@ -3,6 +3,7 @@ import Web3 from 'web3'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
 import Typography from '@material-ui/core/Typography'
+import { toChecksumAddress } from 'web3-utils'
 import ProviderInfo, { EProvider } from '../../models/ProviderInfo'
 import { shortenString } from '../../utils'
 import { Button, NetworkIndicator } from '../atoms'
@@ -93,9 +94,8 @@ const Account: FC<AccountProps> = (props) => {
 
     if (connectionStatus === ConnectionStatus.WrongNetwork) return 'Wrong Network'
 
-    if (account) {
-      // means connectionStatus  === ConnectionStatus.LoggedIn
-      return shortenString(account)
+    if (account) { // means connectionStatus  === ConnectionStatus.LoggedIn
+      return shortenString(toChecksumAddress(account))
     }
     return 'Unlock your wallet'
   }
