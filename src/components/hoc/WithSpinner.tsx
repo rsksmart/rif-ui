@@ -7,6 +7,7 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
   },
   spinnerWrapper: {
+    background: '#FFFFFF55',
     position: 'absolute',
   },
 }))
