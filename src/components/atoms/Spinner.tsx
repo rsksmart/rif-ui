@@ -18,7 +18,6 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    background: '#FFFFFF55',
   },
   spinner: {
     display: 'inline-block',
