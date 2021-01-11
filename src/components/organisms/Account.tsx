@@ -95,7 +95,7 @@ const Account: FC<AccountProps> = (props) => {
     if (connectionStatus === ConnectionStatus.WrongNetwork) return 'Wrong Network'
 
     if (account) { // means connectionStatus  === ConnectionStatus.LoggedIn
-      return shortenString(toChecksumAddress(account))
+      return shortenString(toChecksumAddress(account, requiredNetworkId))
     }
     return 'Unlock your wallet'
   }
