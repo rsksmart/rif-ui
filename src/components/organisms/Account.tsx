@@ -68,15 +68,16 @@ const Account: FC<AccountProps> = (props) => {
   const [wrongNetModalOpen, setWrongNetModalOpen] = useState(false)
   const openWrongNetModal = (): void => setWrongNetModalOpen(true)
   const closeWrongNetModal = (): void => setWrongNetModalOpen(false)
-  const connectionStatus: ConnectionStatus = getConnectionStatus(web3, requiredNetworkId, networkInfo?.networkId, account)
+  const connectionStatus: ConnectionStatus = getConnectionStatus(
+    web3, requiredNetworkId, networkInfo?.networkId, account,
+  )
 
-  // TODO: extract popover functionallity into new component
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
   const popoverOpen = Boolean(anchorEl)
   const id = popoverOpen ? 'right-net-popover' : undefined
 
-  const handlePopoverClose = () => {
+  const handlePopoverClose = (): void => {
     setAnchorEl(null)
   }
 
@@ -111,7 +112,13 @@ const Account: FC<AccountProps> = (props) => {
 
   return (
     <React.Fragment>
-      <Button onClick={onAccountClicked} className={classes.button} variant="contained" color="primary" rounded>
+      <Button
+        onClick={onAccountClicked}
+        className={classes.button}
+        variant="contained"
+        color="primary"
+        rounded
+      >
         {
           !!requiredNetworkId && (
             <NetworkIndicator
@@ -128,7 +135,6 @@ const Account: FC<AccountProps> = (props) => {
           {accountText()}
         </Typography>
       </Button>
-      {/* TODO: extract molecule */}
       <Popover
         id={id}
         open={popoverOpen}
