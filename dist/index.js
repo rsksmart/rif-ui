@@ -2937,7 +2937,6 @@ const HeaderDesktop = ({
     icon,
     ...rest
   }) => React__default.createElement(core.ListItemIcon, Object.assign({
-    key: icon.key,
     className: classes.itemsEnd
   }, rest), icon)), React__default.createElement(Login, null)))));
 };
@@ -3036,7 +3035,6 @@ const HeaderMobile = ({
     icon,
     ...rest
   }) => React__default.createElement(core.ListItemIcon, Object.assign({
-    key: icon.key,
     className: classes.itemsEnd
   }, rest), icon)), React__default.createElement(Login, null))))), React__default.createElement(core.Drawer, {
     anchor: "left",
