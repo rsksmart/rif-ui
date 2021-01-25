@@ -17,4 +17,5 @@ export type NavHeaderItemProps = {
 
 export type ActionHeaderItemProps = {
   icon: ReactElement
+  key?: string
 } & Partial<HTMLAttributes<HTMLElement>>

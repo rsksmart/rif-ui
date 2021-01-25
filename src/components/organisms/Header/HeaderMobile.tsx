@@ -124,7 +124,6 @@ const HeaderMobile: FC<HeaderProps> = ({
                   && itemsEnd
                     .map(({ icon, ...rest }: ActionHeaderItemProps) => (
                       <ListItemIcon
-                        key={icon.key}
                         className={classes.itemsEnd}
                         {...rest}
                       >

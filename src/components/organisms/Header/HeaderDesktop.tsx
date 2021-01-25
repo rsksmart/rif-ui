@@ -93,7 +93,6 @@ const HeaderDesktop: FC<HeaderProps> = ({
               !!itemsEnd?.length
               && itemsEnd.map(({ icon, ...rest }: ActionHeaderItemProps) => (
                 <ListItemIcon
-                  key={icon.key}
                   className={classes.itemsEnd}
                   {...rest}
                 >
