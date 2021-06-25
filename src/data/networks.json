@@ -596,6 +596,22 @@
     "infoURL": "https://rsk.co"
   },
   {
+    "name": "RSK Regtest",
+    "chainId": 33,
+    "shortName": "rrsk",
+    "chain": "RSK",
+    "network": "regtest",
+    "networkId": 33,
+    "nativeCurrency": {
+      "name": "RSK Regtest Ether",
+      "symbol": "RRSK",
+      "decimals": 18
+    },
+    "rpc": [],
+    "faucets": [],
+    "infoURL": ""
+  },
+  {
     "name": "Ethersocial Network",
     "chainId": 31102,
     "shortName": "esn",
